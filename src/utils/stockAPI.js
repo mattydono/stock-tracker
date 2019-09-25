@@ -19,6 +19,7 @@ class StockAPI {
     }
 
     subscribe (ticker, cb, endpoint, delay) {
+        this.ticker = ticker;
         this.flag[ticker] = this.flag[ticker] ? this.flag[ticker] : {};
         this.flag[ticker][endpoint] = true;
         this.fetchData(endpoint, cb);
@@ -28,7 +29,7 @@ class StockAPI {
 
     unsubscribe (ticker, endpoint) {
         this.flag[ticker][endpoint] = false;
-        clearInterval(this.pollin[ticker][endpoint]);
+        clearInterval(this.polling[ticker][endpoint]);
     }
 
     subscribeToCompany(ticker, cb) {
