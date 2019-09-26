@@ -68,9 +68,22 @@ const news = (state = [], action) => {
     }
 }
 
+const peers = (state = [], action) => {
+    switch (action.type) {
+        case actionTypes.UPDATE_PEERS: {
+            const { payload } = action;
+            return payload;
+        }
+        default: {
+            return state;
+        }
+    }
+}
+
 export default combineReducers({
     search,
     companyOverview,
     keyStats,
     news,
+    peers,
 })

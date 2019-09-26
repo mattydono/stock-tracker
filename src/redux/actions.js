@@ -21,3 +21,8 @@ export const updateNews = payload => ({
     type: actionTypes.UPDATE_NEWS,
     payload,
 })
+
+export const updatePeers = payload => ({
+    type: actionTypes.UPDATE_PEERS,
+    payload,
+})
