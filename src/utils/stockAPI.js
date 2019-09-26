@@ -32,19 +32,16 @@ class StockAPI {
         clearInterval(this.polling[ticker][endpoint]);
     }
 
-    subscribeToCompany(ticker, cb) {
-        this.subscribe(ticker, cb, 'company', 20000)
+    subscribeToTicker(ticker, callbacks) {
+        const { company, quote, news } = callbacks;
+        this.subscribe(ticker, quote, 'quote', 5000);
+        this.subscribe(ticker, news, 'news', 30000);
+
+        this.flag[ticker]['company'] = true;
+        this.fetchData('company', company);
     }
 
-    unsubscribeToCompany(ticker) {
-        this.unsubscribe(ticker, 'company');
-    }
-
-    subscribeToQuote (ticker, cb) {
-        this.subscribe(ticker, cb, 'quote', 3000);
-    }
-
-    unsubscribeToQuote (ticker) {
+    unsubscribeToTicker(ticker) {
         this.unsubscribe(ticker, 'quote');
     }
 

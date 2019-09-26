@@ -56,8 +56,21 @@ const keyStats = (state = keyStatsInitialState, action) => {
     }
 }
 
+const news = (state = [], action) => {
+    switch (action.type) {
+        case 'UPDATE_NEWS': {
+            const { payload } = action;
+            return payload;
+        }
+        default: {
+            return state;
+        }
+    }
+}
+
 export default combineReducers({
     search,
     companyOverview,
     keyStats,
+    news,
 })

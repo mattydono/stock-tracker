@@ -16,3 +16,8 @@ export const updateKeyStats = payload => ({
     type: actionTypes.UPDATE_KEY_STATS,
     payload,
 })
+
+export const updateNews = payload => ({
+    type: actionTypes.UPDATE_NEWS,
+    payload,
+})
