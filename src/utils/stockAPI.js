@@ -39,6 +39,16 @@ class StockAPI {
     unsubscribeToCompany(ticker) {
         this.unsubscribe(ticker, 'company');
     }
+
+    subscribeToQuote (ticker, cb) {
+        this.subscribe(ticker, cb, 'quote', 3000);
+    }
+
+    unsubscribeToQuote (ticker) {
+        this.unsubscribe(ticker, 'quote');
+    }
+
+
 }
 
 export default StockAPI;

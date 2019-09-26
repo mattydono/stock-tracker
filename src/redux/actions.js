@@ -11,3 +11,8 @@ export const updateCompanyOverview = payload => ({
     type: actionTypes.UPDATE_COMPANY,
     payload
 });
+
+export const updateKeyStats = payload => ({
+    type: actionTypes.UPDATE_KEY_STATS,
+    payload,
+})
