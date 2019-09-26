@@ -5,10 +5,8 @@ const KeyStats = ({
     peRatio, 
     week52High, 
     week52Low, 
-    avgTotalVolume 
+    avgTotalVolume
 }) => {
-
-    console.log(marketCap, peRatio, week52High, week52Low, avgTotalVolume)
 
     return null
 }
