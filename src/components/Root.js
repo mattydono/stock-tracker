@@ -59,13 +59,13 @@ const Root = ({ ticker, peers, companyOverview, keyStats, callbacks, search, new
 
     return (
         <RootContainer>
-            <Search search={search} />
+            <Search search={search} {...keyStats} {...companyOverview}/>
             <RowContainer>
                 <ChartHolder>CHART HERE</ChartHolder>
                 <News news ={news}/>
             </RowContainer>
             <RowContainer>
-                <KeyStats {...keyStats} search={search}/>
+                <KeyStats {...keyStats}/>
                     <ColumnContainer>
                         <CompanyOverview {...companyOverview} />
                         <Peers peers={peers} />
