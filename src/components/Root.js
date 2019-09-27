@@ -80,13 +80,13 @@ const Root = ({
 
     return (
         <RootContainer>
-            <Search search={search} />
+            <Search search={search} {...keyStats} {...companyOverview}/>
             <RowContainer>
                 <ChartHolder><Chart {...chart} updateChartRange={updateChartRange} /></ChartHolder>
                 <News news ={news}/>
             </RowContainer>
             <RowContainer>
-                <KeyStats {...keyStats} search={search}/>
+                <KeyStats {...keyStats}/>
                     <ColumnContainer>
                         <CompanyOverview {...companyOverview} />
                         <Peers peers={peers} />
