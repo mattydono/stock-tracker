@@ -34,9 +34,7 @@ const Root = ({
     updateChartPrices,
 }) => {
 
-    console.log(stockAPI);
-
-    const { range, prices } = chart;
+    const { range } = chart;
 
     useEffect(() => {
         stockAPI.subscribeToTicker(ticker, callbacks);
@@ -59,7 +57,7 @@ const Root = ({
             <KeyStats {...keyStats} />
             <News news={news} />
             <Peers peers={peers} />
-            <Chart prices={prices} />
+            <Chart {...chart} />
         </div>
     )
 }
