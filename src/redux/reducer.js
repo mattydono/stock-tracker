@@ -19,6 +19,11 @@ const keyStatsInitialState = {
     avgTotalVolume: null,
 }
 
+const chartsIntitialState = {
+    range: '1m',
+    prices: [],
+}
+
 const search = (state = '', action) => {
     switch(action.type) {
         case actionTypes.UPDATE_TICKER: {
@@ -46,7 +51,6 @@ const companyOverview = (state = companyOverviewInitialState, action) => {
 const keyStats = (state = keyStatsInitialState, action) => {
     switch (action.type) {
         case actionTypes.UPDATE_KEY_STATS: {
-            console.log(action);
             const { payload } = action;
             return ({ ...state, ...payload });
         }
@@ -80,10 +84,28 @@ const peers = (state = [], action) => {
     }
 }
 
+const charts = (state = chartsIntitialState, action) => {
+    switch (action.type) {
+        case actionTypes.UPDATE_CHART_RANGE: {
+            const { payload } = action;
+            return ({ ...state, range: payload })
+        }
+        case actionTypes.UPDATE_CHART_DATA: {
+            console.log(action)
+            const { payload } = action;
+            return ({ ...state, prices: payload });
+        }
+        default: {
+            return state;
+        }
+    }
+}
+
 export default combineReducers({
     search,
     companyOverview,
     keyStats,
     news,
     peers,
+    charts,
 })
