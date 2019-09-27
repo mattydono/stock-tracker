@@ -4,16 +4,12 @@ import styled from '@emotion/styled'
 const SearchContainer = styled.div`
     width: 100%;
     height: 10vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
 `
 
 const Input = styled.input`
-    width: 80%;
+    width: 100%;
     background-color: rgba(0,0,0,0);
     color: white;
-    height: 60%;
     font-size: 20px;
     outline: none;
     border: none;
@@ -27,7 +23,7 @@ const RowContainer = styled.div`
     width: 90%;
     height: 40%;
     font-size: 20px;
-    border-bottom: 1px solid white;
+    border-bottom: 1px solid #608fd1;;
     display: flex;
     flex-direction: row;
     justift-content: center;
@@ -79,7 +75,7 @@ const Search = ({ search, change, changePercent, latestPrice, primaryExchange, t
                     <PriceStats>
                         {latestPrice ?  latestPrice : null} 
                         {!change ? null : change > 0 ? <><Span>&#8593;</Span>{Math.abs(change)}</> : <><Span>&#8595;</Span>{Math.abs(change)}</>} 
-                        {!changePercent ? null : <>{Math.abs(changePercent)}<Span>&#37;</Span></>}
+                        {!changePercent ? null : <>{Math.abs(Math.round((changePercent*100)*100)/100)}<Span>&#37;</Span></>}
                     </PriceStats>
                 </RowContainer>
                 <SubSearch>

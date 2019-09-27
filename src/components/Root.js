@@ -5,6 +5,7 @@ import KeyStats from './keystats';
 import News from './news';
 import Peers from './peers';
 import Chart from './charts';
+import Header from './header'
 
 import { 
     updateCompanyOverview, 
@@ -23,28 +24,35 @@ import StockAPI from '../utils/stockAPI';
 
 const RootContainer = styled.div`
     display: flex;
-    flex-direction: column;
-`
-
-const RowContainer = styled.div`
-    display: flex;
-    flex-direction: row
-`
-
-const ColumnContainer = styled.div`
-    display: flex;
-    width: 50%;
-    flex-direction: column;
-`
-
-const ChartHolder = styled.div`
-    width: 50%;
-    height: 60vh;
+    flex-flow: row wrap;
+    font-family: sans-serif;
+    margin: 0 5% 0 5%;
 `
 
 const FooterHolder = styled.div`
     width: 100%;
     height: 10vh;
+    background-color: 
+`
+
+const CHART = styled.div`
+    width: 75%;
+    height: 40vh;
+`
+
+const CompanyContainer = styled.div`
+    width: 25%;
+    display: flex;
+    flex-direction: column;
+    height: 30vh;
+`
+
+export const Title = styled.div`
+    border-bottom: 2px solid #608fd1;
+    width: 95%;
+    padding-bottom: 2px;
+    margin-bottom: 10px;
+    color: #608fd1;
 `
 
 const stockAPI = new StockAPI();
@@ -80,18 +88,15 @@ const Root = ({
 
     return (
         <RootContainer>
+            <Header />
             <Search search={search} {...keyStats} {...companyOverview}/>
-            <RowContainer>
-                <ChartHolder><Chart {...chart} updateChartRange={updateChartRange} /></ChartHolder>
-                <News news ={news}/>
-            </RowContainer>
-            <RowContainer>
-                <KeyStats {...keyStats}/>
-                    <ColumnContainer>
-                        <CompanyOverview {...companyOverview} />
-                        <Peers peers={peers} />
-                    </ColumnContainer>
-            </RowContainer>
+            <CHART><Chart {...chart} updateChartRange={updateChartRange} /></CHART>
+            <News news ={news}/>
+            <KeyStats {...keyStats}/>
+            <CompanyContainer>
+                <CompanyOverview {...companyOverview} />
+                <Peers peers={peers} />
+            </CompanyContainer>
             <FooterHolder>FOOTER</FooterHolder>
         </RootContainer>
     )

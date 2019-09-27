@@ -1,16 +1,17 @@
 import React from 'react';
 import styled from '@emotion/styled'
+import { Title } from '../Root'
 
 const CompanyOverviewContainer = styled.div`
     width: 100%;
-    height: 15vh;
-    overflow: auto
+    height: 75%;
+    overflow: auto;
 `
 
-const CompanyOverview = ({ tags, companyName, symbol, website, description }) => {
+const CompanyOverview = ({ companyName, symbol, website, description }) => {
     return (
         <CompanyOverviewContainer>
-            <div>COMPANY OVERVIEW</div>
+            <Title>COMPANY OVERVIEW</Title>
             <div>{companyName}{symbol}</div>
             <div>{website}</div>
             <div>{description}</div>

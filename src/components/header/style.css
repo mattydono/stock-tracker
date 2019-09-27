@@ -1,0 +1,31 @@
+.active {
+    color: white;
+    height: 50%;
+    width: 50%;
+    outline: none;
+    border-radius: 10%;
+    cursor: pointer;
+    margin-right: 10%;
+    background-color: #0042a0;
+    border: none;
+}
+
+.inactive {
+    color: gray;
+    height: 50%;
+    width: 50%;
+    outline: none;
+    border-radius: 10%;
+    cursor: pointer;
+    margin-right: 10%;
+    border: none;
+    background: none;
+}
+
+.active:hover {
+    background-color: #0042a0
+}
+
+.inactive:hover {
+    background-color: #0042a0
+}

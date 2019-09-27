@@ -1,16 +1,17 @@
 import React from 'react';
 import styled from '@emotion/styled'
+import {Title} from '../Root'
 
 const NewsContainer = styled.div`
-    width: 50%;
-    height: 60vh;
+    width: 25%;
+    height: 40vh;
 `
 
 const News = ({ news }) => {
 
     return (
         <NewsContainer>
-            <div>LATEST NEWS</div>
+            <Title>LATEST NEWS</Title>
             {news.slice(0, 5).map(article => {
                 return (
                     <div key ={article.datetime}>
