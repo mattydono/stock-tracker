@@ -4,13 +4,16 @@ import CompanyOverview from './companyOverview.js';
 import KeyStats from './keystats';
 import News from './news';
 import Peers from './peers';
+import Chart from './charts';
 
 import { 
     updateCompanyOverview, 
     search,
     updateKeyStats,
     updateNews,
-    updatePeers
+    updatePeers,
+    updateChartRange,
+    updateChartData,
 } from '../redux/actions';
 import styled from '@emotion/styled';
 
@@ -46,22 +49,40 @@ const FooterHolder = styled.div`
 
 const stockAPI = new StockAPI();
 
-const Root = ({ ticker, peers, companyOverview, keyStats, callbacks, search, news }) => {
+const Root = ({ 
+    ticker, 
+    peers, 
+    companyOverview, 
+    keyStats, 
+    callbacks, 
+    search, 
+    news,
+    chart,
+    updateChartRange,
+    updateChartPrices,
+}) => {
 
-    console.log(keyStats)
+    const { range } = chart;
 
     useEffect(() => {
         stockAPI.subscribeToTicker(ticker, callbacks);
         return () => {
             stockAPI.unsubscribeToTicker(ticker);
         }
-    }, [ticker]);
+    }, [ticker, callbacks]);
+
+    useEffect(() => {
+        stockAPI.subscribeToChart(ticker, range, updateChartPrices);
+        return () => {
+            stockAPI.unsubscribeToChart(ticker);
+        }
+    }, [range, ticker, updateChartPrices])
 
     return (
         <RootContainer>
             <Search search={search} />
             <RowContainer>
-                <ChartHolder>CHART HERE</ChartHolder>
+                <ChartHolder><Chart {...chart} updateChartRange={updateChartRange} /></ChartHolder>
                 <News news ={news}/>
             </RowContainer>
             <RowContainer>
@@ -82,10 +103,16 @@ const mapStateToProps = state => ({
     keyStats: state.keyStats,
     news: state.news,
     peers: state.peers,
+    chart: {
+        range: state.charts.range,
+        prices: state.charts.prices,
+    }
 })
 
 const mapDispatchToProps = dispatch => ({
     search: query => dispatch(search(query)),
+    updateChartRange: range => dispatch(updateChartRange(range)),
+    updateChartPrices: prices => dispatch(updateChartData(prices)),
     callbacks: {
         company: company => dispatch(updateCompanyOverview(company)),
         quote: quote => dispatch(updateKeyStats(quote)),

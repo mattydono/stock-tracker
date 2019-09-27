@@ -26,3 +26,13 @@ export const updatePeers = payload => ({
     type: actionTypes.UPDATE_PEERS,
     payload,
 })
+
+export const updateChartRange = payload => ({
+    type: actionTypes.UPDATE_CHART_RANGE,
+    payload,
+})
+
+export const updateChartData = payload => ({
+    type: actionTypes.UPDATE_CHART_DATA,
+    payload,
+})

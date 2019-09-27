@@ -3,6 +3,7 @@ class StockAPI {
         this.ticker = null;
         this.flag = {};
         this.polling = {};
+        this.activeChartRange = null;
     }
 
     async fetchData (endpoint, cb, fetchOnce = false) {
@@ -10,7 +11,7 @@ class StockAPI {
             const result = await fetch(`/stock/${this.ticker}/${endpoint}`).then(res => res.json());
             if (this.flag[`${this.ticker}`][endpoint] || fetchOnce) cb(result)
         } catch (e) {
-            if (this.flag) console.log('fetch failure')
+            if (this.flag) console.log(endpoint, 'fetch failure')
         }
     }
 
@@ -40,6 +41,16 @@ class StockAPI {
     unsubscribeToTicker(ticker) {
         this.unsubscribe(ticker, 'quote');
         this.unsubscribe(ticker, 'news');
+    }
+
+    subscribeToChart(ticker, range, cb) {
+        this.activeChartRange = range;
+        this.subscribe(ticker, cb, `chart/${range}`, 10000);
+    }
+
+    unsubscribeToChart(ticker) {
+        this.unsubscribe(ticker, `chart/${this.activeChartRange}`);
+        this.activeChartRange = null;
     }
 
 
