@@ -24,7 +24,7 @@ const chartsIntitialState = {
     prices: [],
 }
 
-const search = (state = '', action) => {
+const search = (state = 'aapl', action) => {
     switch(action.type) {
         case actionTypes.UPDATE_TICKER: {
             const { ticker } = action.payload;

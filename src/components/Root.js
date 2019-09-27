@@ -24,6 +24,7 @@ import StockAPI from '../utils/stockAPI';
 const RootContainer = styled.div`
     display: flex;
     flex-direction: column;
+    margin-left: 50px;
 `
 
 const RowContainer = styled.div`
@@ -82,7 +83,9 @@ const Root = ({
         <RootContainer>
             <Search search={search} />
             <RowContainer>
-                <ChartHolder><Chart {...chart} updateChartRange={updateChartRange} /></ChartHolder>
+                <ChartHolder>
+                    <Chart {...chart} updateChartRange={updateChartRange} />
+                </ChartHolder>
                 <News news ={news}/>
             </RowContainer>
             <RowContainer>
