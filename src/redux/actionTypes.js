@@ -1,4 +1,5 @@
 export const UPDATE_TICKER = 'UPDATE_TICKER';
-export const UPDATE_QUOTE = 'UPDATE_QUOTE';
+export const UPDATE_KEY_STATS = 'UPDATE_KEY_STATS';
 export const UPDATE_COMPANY = 'UPDATE_COMPANY';
 export const UPDATE_NEWS = 'UPDATE_NEWS';
+export const UPDATE_PEERS = 'UPDATE_PEERS';
