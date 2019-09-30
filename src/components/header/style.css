@@ -23,9 +23,10 @@
 }
 
 .active:hover {
-    background-color: #0042a0
+    background-color: #0042a0;
 }
 
 .inactive:hover {
-    background-color: #0042a0
+    background-color: #0042a0;
+    color: white;
 }

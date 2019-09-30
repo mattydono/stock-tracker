@@ -86,6 +86,8 @@ const Root = ({
         }
     }, [range, ticker, updateChartPrices])
 
+    console.log(companyOverview, keyStats)
+
     return (
         <RootContainer>
             <Header />
