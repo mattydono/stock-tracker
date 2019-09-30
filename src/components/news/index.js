@@ -4,20 +4,37 @@ import {Title} from '../Root'
 
 const NewsContainer = styled.div`
     width: 25%;
-    height: 40vh;
+    height: 35vh;
+`
+
+const LatestNews = styled.div`
+    color: #9c8c6f;
+    margin-bottom: 5%;
+    font-size: 0.7rem;
+`
+
+const Article = styled.div`
+    margin-bottom: 5%;
+    font-size: 0.7rem;
 `
 
 const News = ({ news }) => {
 
+    console.log(news)
     return (
         <NewsContainer>
             <Title>LATEST NEWS</Title>
-            {news.slice(0, 5).map(article => {
+            {news.slice(0, 1).map(article => 
+            <LatestNews>
+                <div>{article.headline}</div>
+                <div>{article.datetime} - {article.source}</div>
+            </LatestNews>)}
+            {news.slice(1, 5).map(article => {
                 return (
-                    <div key ={article.datetime}>
+                    <Article key ={article.datetime}>
                         <div>{article.headline}</div>
-                        <div>{article.datetime}</div>
-                    </div>
+                        <div>{article.datetime} - {article.source}</div>
+                    </Article>
                 )
             })}
         </NewsContainer>
