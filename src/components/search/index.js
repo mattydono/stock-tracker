@@ -131,7 +131,7 @@ const Search = ({ search, change, changePercent, latestPrice, primaryExchange, t
                     </SubInput>
                     <DateOpen>
                         {latestTime ? <>Real-Time Price as of {latestTime} EST</>: null} 
-                        {tags.length < 1 ? null : isUSMarketOpen ? <MarketStatus><MarketIcon open>☼</MarketIcon>Market Open</MarketStatus> : <MarketStatus><MarketIcon>☽ &nbsp;</MarketIcon> Market Closed</MarketStatus>}</DateOpen>
+                        {tags.length < 1 ? null : isUSMarketOpen ? <MarketStatus><MarketIcon open>☀</MarketIcon>Market Open</MarketStatus> : <MarketStatus><MarketIcon>☽ &nbsp;</MarketIcon> Market Closed</MarketStatus>}</DateOpen>
                 </SubSearch>
             </SearchContainer>
     )
