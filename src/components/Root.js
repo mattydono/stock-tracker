@@ -90,7 +90,7 @@ const Root = ({
         <RootContainer>
             <Header />
             <Search search={search} {...keyStats} {...companyOverview}/>
-            <CHART><Chart {...chart} updateChartRange={updateChartRange} /></CHART>
+            <Chart {...chart} updateChartRange={updateChartRange} />
             <News news ={news}/>
             <KeyStats {...keyStats}/>
             <CompanyContainer>
