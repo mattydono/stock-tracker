@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import styled from '@emotion/styled'
 import logo from './logo.png'
-import './style.css'
 
 const HeaderContainer = styled.div`
     height: 10vh;
@@ -23,17 +22,32 @@ const Nav = styled.div`
     margin-right: 10%;
 `
 
+const Button = styled.button`
+    color: gray;
+    height: 50%;
+    width: 50%;
+    outline: none;
+    border-radius: 10%;
+    cursor: pointer;
+    margin-right: 10%;
+    border: none;
+    background: none;
+    background-color: ${props => props.active ? '#0042a0' : 'none'};
+    color: ${props => props.active ? 'white' : 'gray'};
+    &:hover {
+        background-color: #0042a0;
+        color: white;
+    }
+`
+
 const Header = () => {
-
-    const [activeTab, setActiveTab] = useState(null)
-
     return (
         <HeaderContainer>
             <Logo src={logo}></Logo>
             <Nav>
-                <button className={activeTab === 1 ? 'active' : 'inactive'} onClick={() => setActiveTab(1)}>QUOTES</button>
-                <button className={activeTab === 2 ? 'active' : 'inactive'} onClick={() => setActiveTab(2)}>MARKETS</button>
-                <button className={activeTab === 3 ? 'active' : 'inactive'} onClick={() => setActiveTab(3)}>WATCHLISTS</button>
+                <Button active>QUOTES</Button>
+                <Button>MARKETS</Button>
+                <Button>WATCHLISTS</Button>
             </Nav>
         </HeaderContainer>
     )
