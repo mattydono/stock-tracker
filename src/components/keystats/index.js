@@ -76,6 +76,10 @@ const KeyStats = ({
                             <TD>P/E Ratio</TD>
                             <td>{peRatio ? peRatio : null}</td>
                         </TR>
+                    </Tbody>
+                </Table>
+                <Table>
+                    <Tbody>
                         <TR>
                             <TD>Open</TD>
                             <td>{open ? open : null}</td>
@@ -97,7 +101,7 @@ const KeyStats = ({
                             <td>{dividendYield ? dividendYield : null}</td>
                         </TR>
                     </Tbody>
-                </Table>  
+                </Table>
             </TableContainer> 
         </KeyStatsContainer>       
     )
