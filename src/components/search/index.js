@@ -143,7 +143,6 @@ const Search = ({ search, change, changePercent, latestPrice, primaryExchange, t
     
 
     const renderStock = (stock) => {
-        // return <div className='stock' value={stock.name} onClick={() => onStockClick(stock)}>{stock.name} ({stock.symbol})</div>
         return <Stock value={stock.name} onClick={() => onStockClick(stock)}>{stock.name} ({stock.symbol})</Stock>
     }
 
