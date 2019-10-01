@@ -1,16 +1,11 @@
 import React from 'react';
 import styled from '@emotion/styled'
 import {Title} from '../Root'
+import moment from 'moment';
 
 const NewsContainer = styled.div`
     width: 25%;
     height: 35vh;
-`
-
-const LatestNews = styled.div`
-    color: #9c8c6f;
-    margin-bottom: 5%;
-    font-size: 0.7rem;
 `
 
 const Article = styled.div`
@@ -18,25 +13,34 @@ const Article = styled.div`
     font-size: 0.7rem;
 `
 
+const Link = styled.a`
+    text-decoration: none;
+    color: white;
+    &:hover {
+        color: yellow;
+    }
+`
+
 const News = ({ news }) => {
     return (
         <NewsContainer>
             <Title>LATEST NEWS</Title>
-            {news.slice(0, 1).map(article => 
-            <LatestNews>
-                <div>{article.headline}</div>
-                <div>{article.datetime} - {article.source}</div>
-            </LatestNews>)}
-            {news.slice(1, 5).map(article => {
-                return (
-                    <Article key ={article.datetime}>
-                        <div>{article.headline}</div>
-                        <div>{article.datetime} - {article.source}</div>
-                    </Article>
-                )
-            })}
+            {
+                news.map(article => {
+                    const { url, headline, datetime, source } = article;
+                    return (
+                        <Article>
+                            <Link href={url}>
+                            <div style={{fontSize: '1.0rem'}} >{headline}</div>
+                            <div style={{opacity: 0.5}} >{moment(datetime).fromNow()} - {source}</div>
+                            </Link>
+                        </Article>
+                    )
+                })
+            }
         </NewsContainer>
-    );
+    )
 }
+
 
 export default News;

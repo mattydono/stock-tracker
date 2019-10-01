@@ -72,11 +72,14 @@ const news = (state = [], action) => {
     }
 }
 
-const peers = (state = [], action) => {
+const peers = (state = [''], action) => {
     switch (action.type) {
         case actionTypes.UPDATE_PEERS: {
             const { payload } = action;
-            return payload;
+            return [
+                ...state,
+                ...payload
+            ]
         }
         default: {
             return state;
