@@ -19,8 +19,6 @@ const Article = styled.div`
 `
 
 const News = ({ news }) => {
-
-    console.log(news)
     return (
         <NewsContainer>
             <Title>LATEST NEWS</Title>

@@ -35,11 +35,6 @@ const FooterHolder = styled.div`
     background-color: 
 `
 
-const CHART = styled.div`
-    width: 75%;
-    height: 40vh;
-`
-
 const CompanyContainer = styled.div`
     width: 25%;
     display: flex;
@@ -85,8 +80,6 @@ const Root = ({
             stockAPI.unsubscribeToChart(ticker);
         }
     }, [range, ticker, updateChartPrices])
-
-    console.log(companyOverview, keyStats)
 
     return (
         <RootContainer>

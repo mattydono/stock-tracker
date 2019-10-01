@@ -91,7 +91,6 @@ const charts = (state = chartsIntitialState, action) => {
             return ({ ...state, range: payload })
         }
         case actionTypes.UPDATE_CHART_DATA: {
-            console.log(action)
             const { payload } = action;
             return ({ ...state, prices: payload });
         }
