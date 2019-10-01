@@ -1,9 +1,0 @@
-.stock {
-    background-color: rgba(0,24,57,0.9);
-    color: #608fd1;
-    cursor: pointer;
-}
-
-.stock:hover {
-    background-color: #0042a0;
-}

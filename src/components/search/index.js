@@ -1,6 +1,5 @@
-import React, { useCallback, useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from '@emotion/styled'
-import './search.css'
 
 const SearchContainer = styled.div`
     width: 100%;
@@ -112,6 +111,15 @@ const StockList = styled.div`
     z-index: 1;
 `
 
+const Stock = styled.div`
+    background-color: rgba(0,24,57,0.9);
+    color: #608fd1;
+    cursor: pointer;
+    &:hover {
+        background-color: #0042a0;
+    } 
+`
+
 const Search = ({ search, change, changePercent, latestPrice, primaryExchange, tags, latestTime, isUSMarketOpen }) => {
 
     const [query, setQuery] = useState('');
@@ -135,7 +143,8 @@ const Search = ({ search, change, changePercent, latestPrice, primaryExchange, t
     
 
     const renderStock = (stock) => {
-        return <div className='stock' value={stock.name} onClick={() => onStockClick(stock)}>{stock.name} ({stock.symbol})</div>
+        // return <div className='stock' value={stock.name} onClick={() => onStockClick(stock)}>{stock.name} ({stock.symbol})</div>
+        return <Stock value={stock.name} onClick={() => onStockClick(stock)}>{stock.name} ({stock.symbol})</Stock>
     }
 
     useEffect(() => {
