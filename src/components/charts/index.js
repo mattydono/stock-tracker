@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from '@emotion/styled';
 
 import { 
@@ -53,14 +53,85 @@ const RangeButton = ({ range, update, current }) => {
     )
 }
 
+/*
+
+if ticker changes: fetch chart data and display - clearInterval(polling) - setChart(initialState)
+if range changes: fetch chart data and display
+if isUSMarketOpen && range === '1d' changes: start/stop subscription 
+
+*/
+
+const initialState = {
+    '1d': null,
+    '5d': null,
+    '1m': null,
+    '1y': null,
+    '5y': null,
+}
+
+const Chart = ({ prices: data, ticker, open, latest, range, updateChartRange, updateChartPrices }) => {
+
+    const [polling, setPolling] = useState(null);
+    const [chart, setChart] = useState(initialState);
+    const [isFetching, setIsFetching] = useState(false);
+    const [flag, setFlag] = useState(true);
+
+    const boolFlag = open && (range === '1d');
+
+    const fetchChart = async () => {
+        setIsFetching(true);
+        const chart = await fetch(`/stock/${ticker}/chart/${range}`).then(res => res.json())
+        if (flag) {
+            setChart(state => {
+                return ({
+                    ...state,
+                    [range]: chart,
+                })
+            })
+            updateChartPrices(chart);
+        }
+        setIsFetching(false);
+    }
+
+    useEffect(() => {
+        const getChart = async () => {
+            setChart(state => ({ ...state, [range]: null }))
+            await fetchChart();
+        }
+        (!(chart[range] && chart[range][0] && chart[range][0].symbol === ticker)) ? getChart() : updateChartPrices(chart[range]);
+    }, [range, ticker])
+
+    useEffect(() => {
+        const getChart = async () => {
+            await fetchChart(ticker, '1d');
+        }
+        if(boolFlag) {
+            setPolling(setInterval(
+                () => {
+                    getChart();
+                },
+                10000
+            ));
+            
+            return () => {
+                clearInterval(polling);
+            }
+        }
+        else clearInterval(polling);
+    }, [boolFlag])
 
 
-
-const Chart = ({ prices: data, range, updateChartRange }) => {
 
     const ranges = ['1d', '5d', '1m', '1y', '5y'];
 
     const buttons = ranges.map(rangeItem => <RangeButton current={rangeItem === range} range={rangeItem} update={updateChartRange} />).reverse();
+
+    const now = {
+        date: 'now',
+        close: latest,
+    }
+
+    const arr = data.concat(now);
 
     return (
       <ChartContainter>
@@ -68,7 +139,7 @@ const Chart = ({ prices: data, range, updateChartRange }) => {
               {buttons}
           </ButtonsContainer>
           <ResponsiveContainer aspect={0.9} minWidth={360} maxHeight={500}>
-                <AreaChart data={data} >
+                <AreaChart data={arr} >
                     <CartesianGrid strokeDasharray="3 3" />
                     <XAxis dataKey="date"/>
                     <YAxis orientation="right" domain={['dataMin', 'auto']}/>

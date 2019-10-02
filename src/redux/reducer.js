@@ -17,6 +17,7 @@ const keyStatsInitialState = {
     week52High: null,
     week52Low: null,
     avgTotalVolume: null,
+    isUSMarketOpen: true,
 }
 
 const chartsIntitialState = {
