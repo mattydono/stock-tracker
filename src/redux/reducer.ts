@@ -6,29 +6,7 @@ import { UpdateTickerAction, UPDATE_TICKER,
         UpdateCompanyAction, UPDATE_COMPANY, 
         UpdateNewsAction, UPDATE_NEWS, 
         UpdatePeersAction, UPDATE_PEERS } from './actionTypes'
-
-interface companyOverview {
-    symbol: string | null,
-    companyName: string | null,
-    website: string | null,
-    description: string | null,
-    tags: string[]
-}
-
-interface keyStats {
-    symbol: string | null,
-    companyName: string | null,
-    marketCap: number | null,
-    peRatio: number | null,
-    week52High: number | null,
-    week52Low: number | null,
-    avgTotalVolume: number | null,
-}
-
-interface charts {
-    range: string,
-    prices: []
-}
+import { companyOverview, keyStats, charts } from '../models'
 
 const companyOverviewInitialState: companyOverview = {
     symbol: null,
@@ -58,10 +36,11 @@ const search = (
     action: UpdateTickerAction
     ) => {
     switch(action.type) {
-        case UPDATE_TICKER: 
+        case UPDATE_TICKER: {
             const updateTickerAction = action as UpdateTickerAction
-            const { ticker } = updateTickerAction.payload;
-            return ticker;
+            const { payload } = updateTickerAction;
+            return payload;
+        }
         default: {
             return state;
         }
@@ -73,10 +52,11 @@ const companyOverview = (
     action: UpdateCompanyAction
     ) => {
     switch (action.type) {
-        case UPDATE_COMPANY: 
+        case UPDATE_COMPANY: {
             const updateCompanyAction = action as UpdateCompanyAction
-            const { payload } = updateCompanyAction.payload;
+            const { payload } = updateCompanyAction;
             return payload;
+        }
         default: {
             return state;
         }
@@ -88,10 +68,11 @@ const keyStats = (
     action: UpdateKeyStatsAction
     ) => {
     switch (action.type) {
-        case UPDATE_KEY_STATS:
+        case UPDATE_KEY_STATS: {
             const updateKeyStatsAction = action as UpdateKeyStatsAction 
-            const { payload } = updateKeyStatsAction.payload;
+            const { payload } = updateKeyStatsAction;
             return ({ ...state, ...payload });
+        }
         default: {
             return state;
         }
@@ -103,10 +84,11 @@ const news = (
     action: UpdateNewsAction
     ) => {
     switch (action.type) {
-        case UPDATE_NEWS: 
+        case UPDATE_NEWS: {
             const updateNewsAction = action as UpdateNewsAction
-            const { payload } = updateNewsAction.payload;
+            const { payload } = updateNewsAction;
             return payload;
+        }
         default: {
             return state;
         }
@@ -118,13 +100,14 @@ const peers = (
     action: UpdatePeersAction
     ) => {
     switch (action.type) {
-        case UPDATE_PEERS:
+        case UPDATE_PEERS: {
             const updatePeersAction = action as UpdatePeersAction
-            const { payload } = updatePeersAction.payload;
+            const { payload } = updatePeersAction;
             return [
                 ...state,
                 ...payload
             ]
+        }
         default: {
             return state;
         }
@@ -136,14 +119,16 @@ const charts = (
     action: UpdateChartDataAction | UpdateChartRangeAction
     ) => {
     switch (action.type) {
-        case UPDATE_CHART_RANGE:
+        case UPDATE_CHART_RANGE: {
             const updateChartRangeAction = action as UpdateChartRangeAction
-            const { rangePayload } = updateChartRangeAction.payload;
-            return ({ ...state, range: rangePayload })
-        case UPDATE_CHART_DATA:
+            const { payload } = updateChartRangeAction;
+            return ({ ...state, range: payload })
+        }
+        case UPDATE_CHART_DATA: {
             const updateChartDataAction = action as UpdateChartDataAction
-            const { dataPayload } = updateChartDataAction.payload;
-            return ({ ...state, prices: dataPayload });
+            const { payload } = updateChartDataAction;
+            return ({ ...state, prices: payload });
+        }
         default: {
             return state;
         }

@@ -1,16 +1,17 @@
 import { createAction } from 'redux-actions'
+import { companyOverview, keyStats, charts } from '../models'
 
 export const UPDATE_TICKER = 'UPDATE_TICKER';
-export const updateTicker = createAction<{}>(UPDATE_TICKER)
+export const updateTicker = createAction<string>(UPDATE_TICKER)
 export type UpdateTickerAction = ReturnType<typeof updateTicker>
 
-export const UPDATE_KEY_STATS = 'UPDATE_KEY_STATS';
-export const updateKeyStats = createAction<>(UPDATE_KEY_STATS)
-export type UpdateKeyStatsAction = ReturnType<typeof updateKeyStats>
-
 export const UPDATE_COMPANY = 'UPDATE_COMPANY';
-export const updateCompany = createAction<>(UPDATE_COMPANY)
+export const updateCompany = createAction<companyOverview>(UPDATE_COMPANY)
 export type UpdateCompanyAction = ReturnType<typeof updateCompany>
+
+export const UPDATE_KEY_STATS = 'UPDATE_KEY_STATS';
+export const updateKeyStats = createAction<keyStats>(UPDATE_KEY_STATS)
+export type UpdateKeyStatsAction = ReturnType<typeof updateKeyStats>
 
 export const UPDATE_NEWS = 'UPDATE_NEWS';
 export const updateNews = createAction<>(UPDATE_NEWS)
