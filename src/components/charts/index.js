@@ -93,17 +93,16 @@ const Chart = ({ prices: data, ticker, open, latest, range, updateChartRange, up
         setIsFetching(false);
     }
 
-    // useEffect(() => {
-    //     const getChart = async () => {
-    //         setChart(state => ({ ...state, [range]: null }))
-    //         await fetchChart();
-    //     }
-    //     getChart();
-    //     //(!(chart[range] && chart[range][0] && chart[range][0].symbol === ticker)) ? getChart() : updateChartPrices(chart[range]);
-    // }, [range, ticker])
+    useEffect(() => {
+        const getChart = async () => {
+            setChart(state => ({ ...state, [range]: null }))
+            await fetchChart();
+        }
+        (!(chart[range] && chart[range][0] && chart[range][0].symbol === ticker)) ? getChart() : updateChartPrices(chart[range]);
+    }, [range, ticker])
 
     const subscribe = () => {
-        fetchChart();
+        //fetchChart();
         setPolling(setInterval(
             () => {
                 fetchChart();
@@ -117,9 +116,6 @@ const Chart = ({ prices: data, ticker, open, latest, range, updateChartRange, up
     }
 
     useEffect(() => {
-        // const getChart = async () => {
-        //     await fetchChart(ticker, '1d');
-        // }
 
         unsubscribe()
         if(boolFlag) subscribe();
