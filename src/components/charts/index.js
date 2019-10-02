@@ -102,7 +102,6 @@ const Chart = ({ prices: data, ticker, open, latest, range, updateChartRange, up
     }, [range, ticker])
 
     const subscribe = () => {
-        //fetchChart();
         setPolling(setInterval(
             () => {
                 fetchChart();
@@ -115,11 +114,24 @@ const Chart = ({ prices: data, ticker, open, latest, range, updateChartRange, up
         clearInterval(polling);
     }
 
-    useEffect(() => {
+    // useEffect(() => {
 
-        unsubscribe()
-        if(boolFlag) subscribe();
+    //     unsubscribe()
+    //     if(boolFlag) subscribe();
         
+    // }, [ticker, boolFlag])
+
+    useEffect(() => {
+        clearInterval(polling);
+        if(boolFlag) {
+            fetchChart();
+            setPolling(setInterval(
+                () => {
+                    fetchChart();
+                },
+                5000
+            ))
+        }
     }, [ticker, boolFlag])
 
 
