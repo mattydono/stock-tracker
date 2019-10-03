@@ -65,6 +65,8 @@ const Root = ({
     updateChartPrices,
 }) => {
 
+    const { isUSMarketOpen, latestPrice } = keyStats;
+
     useEffect(() => {
         stockAPI.subscribeToTicker(ticker, callbacks);
         return () => {
@@ -75,8 +77,19 @@ const Root = ({
     return (
         <RootContainer>
             <Header />
-            <Search search={search} {...keyStats} {...companyOverview}/>
-            <Chart {...chart} ticker={ticker} open={keyStats.isUSMarketOpen} latest={keyStats.latestPrice} updateChartPrices={updateChartPrices} updateChartRange={updateChartRange} />
+            <Search 
+            search={search} 
+            {...keyStats} 
+            {...companyOverview}
+            />
+            <Chart 
+                {...chart} 
+                ticker={ticker} 
+                open={isUSMarketOpen} 
+                latest={latestPrice} 
+                updateChartPrices={updateChartPrices} 
+                updateChartRange={updateChartRange} 
+            />
             <News news ={news}/>
             <KeyStats {...keyStats}/>
             <CompanyContainer>
