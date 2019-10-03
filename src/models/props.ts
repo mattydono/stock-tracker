@@ -2,6 +2,7 @@ import { _ChartSingleDataPoint } from './charts'
 import { _CompanyOverview } from './companyOverview'
 import { _KeyStats } from './keyStats'
 import { _News } from './news'
+import { Range } from './range'
 
 export interface _StateProps {
     companyOverview: _CompanyOverview,
@@ -10,13 +11,13 @@ export interface _StateProps {
     news: _News,
     peers: string[],
     chart: {
-        range: string,
+        range: Range,
         prices: _ChartSingleDataPoint[]
     }
 }
 export interface _DispatchProps {
     search: (query: string) => void,
-    updateChartRange: (range: string) => void,
+    updateChartRange: (range: Range) => void,
     updateChartPrices: (prices: _ChartSingleDataPoint[]) => void,
     callbacks: {
         company: (company: _CompanyOverview) => void,

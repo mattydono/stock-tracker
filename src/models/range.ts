@@ -1,0 +1,1 @@
+export type Range = '1d' | '5d' | '1m' | '1y' | '5y'

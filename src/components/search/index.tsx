@@ -137,7 +137,7 @@ type SearchProps = {
     search: (query: string) => void,
     change: number | null,
     changePercent: number | null,
-    latestPrice: number | null,
+    latestPrice?: number,
     primaryExchange: string | null,
     tags: string[],
     latestTime: string | null,

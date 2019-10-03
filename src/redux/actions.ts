@@ -1,5 +1,5 @@
 import { createAction } from 'redux-actions'
-import { _CompanyOverview, _KeyStats, _ChartsRange, _ChartSingleDataPoint, _News } from '../models'
+import { _CompanyOverview, _KeyStats, Range, _ChartSingleDataPoint, _News } from '../models'
 
 export const UPDATE_TICKER = 'UPDATE_TICKER';
 export const updateTicker = createAction<string>(UPDATE_TICKER)
@@ -22,7 +22,7 @@ export const updatePeers = createAction<string[]>(UPDATE_PEERS)
 export type UpdatePeersAction = ReturnType<typeof updatePeers>
 
 export const UPDATE_CHART_RANGE = 'UPDATE_CHART_RANGE';
-export const updateChartRange = createAction<_ChartsRange>(UPDATE_CHART_RANGE)
+export const updateChartRange = createAction<Range>(UPDATE_CHART_RANGE)
 export type UpdateChartRangeAction = ReturnType<typeof updateChartRange>
 
 export const UPDATE_CHART_DATA = 'UPDATE_CHART_DATA';

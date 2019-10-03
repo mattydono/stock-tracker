@@ -42,7 +42,7 @@ const keyStatsInitialState: _KeyStats = {
     actualEPS: null,
     change: null,
     changePercent: null,
-    latestPrice: null,
+    latestPrice: undefined,
     primaryExchange: null,
     latestTime: null,
     isUSMarketOpen: null

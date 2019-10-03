@@ -15,7 +15,7 @@ export interface _KeyStats {
     actualEPS: number | null,
     change: number | null,
     changePercent: number | null,
-    latestPrice: number | null,
+    latestPrice: number | undefined,
     primaryExchange: string | null,
     latestTime: string | null,
     isUSMarketOpen: boolean | null,

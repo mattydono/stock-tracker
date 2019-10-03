@@ -1,11 +1,12 @@
-export type _ChartsRange = string
-
+import { Range } from './range'
 export interface _ChartSingleDataPoint {
-    open: number,
-    close: number
+    open?: number,
+    close?: number,
+    symbol?: string,
+    label?: string
 }
 
 export interface _Charts {
-    range: _ChartsRange,
+    range: Range,
     prices: _ChartSingleDataPoint[]
 }
