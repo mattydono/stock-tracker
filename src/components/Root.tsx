@@ -1,4 +1,7 @@
 import React, { useEffect } from 'react';
+import { MapDispatchToProps, MapStateToProps } from 'react-redux'
+import { _StateProps, _DispatchProps } from '../models/props'
+import { _AppState } from '../redux/reducer'
 import Search from './search';
 import CompanyOverview from './companyOverview.js';
 import KeyStats from './keystats';
@@ -7,15 +10,26 @@ import Peers from './peers';
 import Chart from './charts';
 import Header from './header'
 
-import { 
-    updateCompanyOverview, 
-    search,
+// import { 
+//     updateCompanyOverview, 
+//     search,
+//     updateKeyStats,
+//     updateNews,
+//     updatePeers,
+//     updateChartRange,
+//     updateChartData,
+// } from '../redux/actions';
+
+import {
+    updateTicker,
+    updateCompany,
     updateKeyStats,
     updateNews,
     updatePeers,
     updateChartRange,
-    updateChartData,
-} from '../redux/actions';
+    updateChartData
+} from '../redux/actions'
+
 import styled from '@emotion/styled';
 
 import { connect } from 'react-redux';
@@ -52,7 +66,7 @@ export const Title = styled.div`
 
 const stockAPI = new StockAPI();
 
-const Root = ({ 
+const Root: React.FC<_StateProps & _DispatchProps> = ({ 
     ticker, 
     peers, 
     companyOverview, 
@@ -97,7 +111,7 @@ const Root = ({
     )
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps: MapStateToProps<_StateProps, {}, _AppState> = state => ({
     companyOverview: state.companyOverview,
     ticker: state.search,
     keyStats: state.keyStats,
@@ -109,12 +123,12 @@ const mapStateToProps = state => ({
     }
 })
 
-const mapDispatchToProps = dispatch => ({
-    search: query => dispatch(search(query)),
+const mapDispatchToProps: MapDispatchToProps<_DispatchProps, {}> = dispatch => ({
+    search: query => dispatch(updateTicker(query)),
     updateChartRange: range => dispatch(updateChartRange(range)),
     updateChartPrices: prices => dispatch(updateChartData(prices)),
     callbacks: {
-        company: company => dispatch(updateCompanyOverview(company)),
+        company: company => dispatch(updateCompany(company)),
         quote: quote => dispatch(updateKeyStats(quote)),
         news: news => dispatch(updateNews(news)),
         peers: peers => dispatch(updatePeers(peers)),

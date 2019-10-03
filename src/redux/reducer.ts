@@ -1,14 +1,23 @@
-import { combineReducers } from 'redux';
+import { combineReducers, Reducer } from 'redux';
 import { UpdateTickerAction, UPDATE_TICKER, 
         UpdateKeyStatsAction, UPDATE_KEY_STATS, 
         UpdateChartDataAction, UPDATE_CHART_DATA, 
         UpdateChartRangeAction, UPDATE_CHART_RANGE, 
         UpdateCompanyAction, UPDATE_COMPANY, 
         UpdateNewsAction, UPDATE_NEWS, 
-        UpdatePeersAction, UPDATE_PEERS } from './actionTypes'
-import { companyOverview, keyStats, charts } from '../models'
+        UpdatePeersAction, UPDATE_PEERS } from './actions'
+import { _CompanyOverview, _KeyStats, _Charts, _News } from '../models'
 
-const companyOverviewInitialState: companyOverview = {
+export interface _AppState {
+    search: string,
+    companyOverview: _CompanyOverview,
+    keyStats: _KeyStats,
+    charts: _Charts,
+    news: _News,
+    peers: string[]
+}
+
+const companyOverviewInitialState: _CompanyOverview = {
     symbol: null,
     companyName: null,
     website: null,
@@ -16,7 +25,7 @@ const companyOverviewInitialState: companyOverview = {
     tags: []
 }
 
-const keyStatsInitialState: keyStats = {
+const keyStatsInitialState: _KeyStats = {
     symbol: null,
     companyName: null,
     marketCap: null,
@@ -24,17 +33,32 @@ const keyStatsInitialState: keyStats = {
     week52High: null,
     week52Low: null,
     avgTotalVolume: null,
+    previousClose: null,
+    low: null,
+    high: null,
+    volume: null,
+    open: null,
+    dividendYield: null,
+    actualEPS: null,
+    change: null,
+    changePercent: null,
+    latestPrice: null,
+    primaryExchange: null,
+    latestTime: null,
+    isUSMarketOpen: null
 }
 
-const chartsIntitialState = {
+const chartsIntitialState: _Charts = {
     range: '1m',
     prices: [],
 }
 
-const search = (
+const newsInitialState: _News = []
+
+const search: Reducer<string, UpdateTickerAction> = (
     state = 'aapl', 
-    action: UpdateTickerAction
-    ) => {
+    action
+) => {
     switch(action.type) {
         case UPDATE_TICKER: {
             const updateTickerAction = action as UpdateTickerAction
@@ -80,7 +104,7 @@ const keyStats = (
 }
 
 const news = (
-    state = [],
+    state = newsInitialState,
     action: UpdateNewsAction
     ) => {
     switch (action.type) {

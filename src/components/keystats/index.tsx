@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from '@emotion/styled'
 import { Title } from '../Root'
+import { _KeyStats } from '../../models'
 
 const KeyStatsContainer = styled.div`
    width: 75%;
@@ -34,8 +35,7 @@ const Table = styled.table`
 const Tbody = styled.tbody`
     width: 100%;
 `
-
-const KeyStats = ({
+const KeyStats: React.FC<_KeyStats> = ({
     marketCap, 
     peRatio, 
     week52High, 

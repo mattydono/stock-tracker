@@ -6,7 +6,11 @@ const PeersContainer = styled.div`
     width: 100%;
 `
 
-const Peers = ({ peers }) => {
+type PeersProps = {
+    peers: string[]
+}
+
+const Peers: React.FC<PeersProps> = ({ peers }) => {
     return (
         <PeersContainer>
             <Title>TOP PEERS</Title>

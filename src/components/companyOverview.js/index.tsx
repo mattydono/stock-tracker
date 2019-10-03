@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from '@emotion/styled'
 import { Title } from '../Root'
+import { _CompanyOverview } from '../../models'
 
 const CompanyOverviewContainer = styled.div`
     width: 100%;
@@ -21,8 +22,7 @@ const Website = styled.div`
     margin-bottom: 2%;
 `
 
-
-const CompanyOverview = ({ companyName, symbol, website, description }) => {
+const CompanyOverview: React.FC<_CompanyOverview> = ({ companyName, symbol, website, description }) => {
     return (
         <CompanyOverviewContainer>
             <Title>COMPANY OVERVIEW</Title>

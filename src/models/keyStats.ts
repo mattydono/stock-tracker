@@ -1,4 +1,4 @@
-export interface keyStats {
+export interface _KeyStats {
     symbol: string | null,
     companyName: string | null,
     marketCap: number | null,
@@ -6,4 +6,17 @@ export interface keyStats {
     week52High: number | null,
     week52Low: number | null,
     avgTotalVolume: number | null,
+    previousClose: number | null,
+    low: number | null,
+    high: number | null,
+    volume: number | null,
+    open: number | null,
+    dividendYield: number | null,
+    actualEPS: number | null,
+    change: number | null,
+    changePercent: number | null,
+    latestPrice: number | null,
+    primaryExchange: string | null,
+    latestTime: string | null,
+    isUSMarketOpen: boolean | null,
 }

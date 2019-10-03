@@ -10,6 +10,7 @@ import {
     AreaChart,
     Area,
 } from 'recharts';
+import { _ChartsRange, _ChartSingleDataPoint } from '../../models';
 
 
 const ChartContainter = styled.div`
@@ -37,8 +38,19 @@ const Input = styled.input`
     display: none;
 `
 
+type RangeButtonProps = {
+    range: _ChartsRange;
+    update: (range: string) => void;
+    current: boolean;
+}
 
-const RangeButton = ({ range, update, current }) => {
+type ChartProps = {
+    prices: _ChartSingleDataPoint[],
+    range: _ChartsRange,
+    updateChartRange: (range: string) => void
+}
+
+const RangeButton: React.FC<RangeButtonProps> = ({ range, update, current }) => {
     const opacity = current ? 1.0 : 0.5;
     return (
         <Label>
@@ -53,10 +65,7 @@ const RangeButton = ({ range, update, current }) => {
     )
 }
 
-
-
-
-const Chart = ({ prices: data, range, updateChartRange }) => {
+const Chart: React.FC<ChartProps> = ({ prices: data, range, updateChartRange }) => {
 
     const ranges = ['1d', '5d', '1m', '1y', '5y'];
 
