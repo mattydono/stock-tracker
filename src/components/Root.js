@@ -72,14 +72,6 @@ const Root = ({
         }
     }, [ticker, callbacks]);
 
-
-    // useEffect(() => {
-    //     stockAPI.subscribeToChart(ticker, range, updateChartPrices);
-    //     return () => {
-    //         stockAPI.unsubscribeToChart(ticker);
-    //     }
-    // }, [range, ticker, updateChartPrices])
-
     return (
         <RootContainer>
             <Header />

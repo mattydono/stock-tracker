@@ -9,6 +9,7 @@ import {
     ResponsiveContainer,
     AreaChart,
     Area,
+    ReferenceLine,
 } from 'recharts';
 
 
@@ -53,14 +54,6 @@ const RangeButton = ({ range, update, current }) => {
     )
 }
 
-/*
-
-if ticker changes: fetch chart data and display - clearInterval(polling) - setChart(initialState)
-if range changes: fetch chart data and display
-if isUSMarketOpen && range === '1d' changes: start/stop subscription 
-
-*/
-
 const initialState = {
     '1d': null,
     '5d': null,
@@ -69,19 +62,19 @@ const initialState = {
     '5y': null,
 }
 
-const Chart = ({ prices: data, ticker, open, latest, range, updateChartRange, updateChartPrices }) => {
+const Chart = ({ prices, ticker, open, latest, range, updateChartRange, updateChartPrices }) => {
 
     const [polling, setPolling] = useState(null);
     const [chart, setChart] = useState(initialState);
     const [isFetching, setIsFetching] = useState(false);
-    const [flag, setFlag] = useState(true);
+    const [isError, setIsError] = useState(false)
 
     const boolFlag = open && (range === '1d');
 
     const fetchChart = async () => {
         setIsFetching(true);
-        const chart = await fetch(`/stock/${ticker}/chart/${range}`).then(res => res.json())
-        if (flag) {
+        try {
+            const chart = await fetch(`/stock/${ticker}/chart/${range}`).then(res => res.json())
             setChart(state => {
                 return ({
                     ...state,
@@ -89,37 +82,15 @@ const Chart = ({ prices: data, ticker, open, latest, range, updateChartRange, up
                 })
             })
             updateChartPrices(chart);
+        } catch (error) {
+            setIsError(true);
         }
         setIsFetching(false);
     }
 
     useEffect(() => {
-        const getChart = async () => {
-            setChart(state => ({ ...state, [range]: null }))
-            await fetchChart();
-        }
-        (!(chart[range] && chart[range][0] && chart[range][0].symbol === ticker)) ? getChart() : updateChartPrices(chart[range]);
+        (chart[range] && chart[range][0] && chart[range][0].symbol === ticker) ? updateChartPrices(chart[range]) : fetchChart();
     }, [range, ticker])
-
-    const subscribe = () => {
-        setPolling(setInterval(
-            () => {
-                fetchChart();
-            },
-            10000
-        ));
-    }
-
-    const unsubscribe = () => {
-        clearInterval(polling);
-    }
-
-    // useEffect(() => {
-
-    //     unsubscribe()
-    //     if(boolFlag) subscribe();
-        
-    // }, [ticker, boolFlag])
 
     useEffect(() => {
         clearInterval(polling);
@@ -129,36 +100,36 @@ const Chart = ({ prices: data, ticker, open, latest, range, updateChartRange, up
                 () => {
                     fetchChart();
                 },
-                5000
+                10000
             ))
         }
     }, [ticker, boolFlag])
 
 
-
-    const ranges = ['1d', '5d', '1m', '1y', '5y'];
-
-    const buttons = ranges.map(rangeItem => <RangeButton current={rangeItem === range} range={rangeItem} update={updateChartRange} />).reverse();
+    const ranges = ['5y', '1y', '1m', '5d', '1d'];
+    const buttons = ranges.map(rangeItem => <RangeButton current={rangeItem === range} range={rangeItem} update={updateChartRange} />)
 
     const now = {
-        date: 'now',
+        label: 'latest',
         close: latest,
     }
 
-    const arr = data.concat(now);
+    const data = open ? prices.concat(now) : prices;
 
+    //TODO: Add loading spinner. Add error message if error (conditional rendering based on isFetching & isError)
     return (
       <ChartContainter>
           <ButtonsContainer>
               {buttons}
           </ButtonsContainer>
           <ResponsiveContainer aspect={0.9} minWidth={360} maxHeight={500}>
-                <AreaChart data={arr} >
+                <AreaChart data={data} >
                     <CartesianGrid strokeDasharray="3 3" />
-                    <XAxis dataKey="date"/>
-                    <YAxis orientation="right" domain={['dataMin', 'auto']}/>
-                    <Tooltip />
-                    <Area type="monotone" dataKey="close" stroke="#8884d8" fill="#8884d8" fillOpacity={0.3} />
+                    <XAxis dataKey="label"/>
+                    <YAxis orientation="right" domain={['dataMin', 'auto']} tickLine={false}/>
+                    <ReferenceLine y={now.close} stroke={'orange'} strokeDasharray="3 3" />
+                    <Tooltip cursor={{ stroke: 'red', strokeWidth: 2 }} />
+                    <Area connectNulls type="monotone" dataKey="close" name="price" unit=" USD" stroke="#8884d8" fill="#8884d8" fillOpacity={0.3} />
                 </AreaChart>
             </ResponsiveContainer>
       </ChartContainter>
