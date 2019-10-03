@@ -32,7 +32,11 @@ const RowContainer = styled.div`
     position: relative;
 `
 
-const Span = styled.span`
+type SpanProps = {
+    positive?: boolean
+}
+
+const Span = styled('span')<SpanProps>`
     font-size: 20px;
     color: ${props => props.positive ? 'green' : 'red'}
 `
@@ -93,7 +97,11 @@ const MarketStatus = styled.div`
    margin-left: 3%;
 `
 
-const MarketIcon = styled.div`
+type MarketIconProps = {
+    open?: boolean
+}
+
+const MarketIcon = styled('div')<MarketIconProps>`
     color: ${props => props.open ? 'yellow' : 'gray'};
     font-size: 15px;
     position: absolute;
@@ -120,19 +128,35 @@ const Stock = styled.div`
     } 
 `
 
-const Search = ({ search, change, changePercent, latestPrice, primaryExchange, tags, latestTime, isUSMarketOpen }) => {
+type _Stock = {
+    name: string,
+    symbol: string
+}
+
+type SearchProps = {
+    search: (query: string) => void,
+    change: number | null,
+    changePercent: number | null,
+    latestPrice?: number,
+    primaryExchange: string | null,
+    tags: string[],
+    latestTime: string | null,
+    isUSMarketOpen: boolean | null,    
+}
+
+const Search: React.FC<SearchProps> = ({ search, change, changePercent, latestPrice, primaryExchange, tags, latestTime, isUSMarketOpen }) => {
 
     const [query, setQuery] = useState('');
     const [stockList, setStockList] = useState([])
 
-    const onKeyPress = event => {
+    const onKeyPress = (event: React.KeyboardEvent) => {
         if(event.key === 'Enter') {
             search(query)
             event.preventDefault()
         }
     }
 
-    const onStockClick = stock => {
+    const onStockClick = (stock: _Stock) => {
         const stockSymbol = stock.symbol.toLowerCase()
         const stockName = stock.name.toLowerCase()
         setQuery(`${stockName} (${stockSymbol})`)
@@ -140,10 +164,9 @@ const Search = ({ search, change, changePercent, latestPrice, primaryExchange, t
         setStockList([])
         console.log(stockSymbol)
     }
-    
 
-    const renderStock = (stock) => {
-        return <Stock value={stock.name} onClick={() => onStockClick(stock)}>{stock.name} ({stock.symbol})</Stock>
+    const renderStock = (stock: _Stock) => {
+        return <Stock onClick={() => onStockClick(stock)}>{stock.name} ({stock.symbol})</Stock>
     }
 
     useEffect(() => {

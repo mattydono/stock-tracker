@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import styled from '@emotion/styled'
 import logo from './logo.png'
 
@@ -22,7 +22,11 @@ const Nav = styled.div`
     margin-right: 10%;
 `
 
-const Button = styled.button`
+type ButtonProps = {
+    active?: boolean
+}
+
+const Button = styled('button')<ButtonProps>`
     color: gray;
     height: 50%;
     width: 50%;

@@ -2,6 +2,7 @@ import React from 'react';
 import styled from '@emotion/styled'
 import {Title} from '../Root'
 import moment from 'moment';
+import { _News } from '../../models'
 
 const NewsContainer = styled.div`
     width: 25%;
@@ -21,7 +22,11 @@ const Link = styled.a`
     }
 `
 
-const News = ({ news }) => {
+type NewsProps = {
+    news: _News
+}
+
+const News: React.FC<NewsProps> = ({ news }) => {
     return (
         <NewsContainer>
             <Title>LATEST NEWS</Title>

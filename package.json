@@ -5,13 +5,22 @@
   "dependencies": {
     "@emotion/core": "^10.0.17",
     "@emotion/styled": "^10.0.17",
+    "@types/jest": "^24.0.18",
+    "@types/node": "^12.7.8",
+    "@types/react": "^16.9.4",
+    "@types/react-dom": "^16.9.1",
+    "@types/react-redux": "^7.1.4",
+    "@types/recharts": "^1.1.21",
+    "@types/redux-actions": "^2.6.1",
     "moment": "^2.24.0",
     "react": "^16.9.0",
     "react-dom": "^16.9.0",
     "react-redux": "^7.1.1",
     "react-scripts": "3.1.2",
     "recharts": "^1.7.1",
-    "redux": "^4.0.4"
+    "redux": "^4.0.4",
+    "redux-actions": "^2.6.5",
+    "typescript": "^3.6.3"
   },
   "scripts": {
     "start": "react-scripts start",

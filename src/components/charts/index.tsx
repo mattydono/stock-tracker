@@ -11,6 +11,7 @@ import {
     Area,
     ReferenceLine,
 } from 'recharts';
+import { _ChartSingleDataPoint, Range } from '../../models';
 
 
 const ChartContainter = styled.div`
@@ -38,8 +39,23 @@ const Input = styled.input`
     display: none;
 `
 
+type RangeButtonProps = {
+    range: Range;
+    update: (range: Range) => void;
+    current: boolean;
+}
 
-const RangeButton = ({ range, update, current }) => {
+type ChartProps = {
+    prices: _ChartSingleDataPoint[],
+    range: Range,
+    updateChartRange: (range: Range) => void,
+    updateChartPrices: (chartRange: _ChartSingleDataPoint[]) => void,
+    open: boolean | null,
+    ticker: string,
+    latest?: number
+}
+
+const RangeButton: React.FC<RangeButtonProps> = ({ range, update, current }) => {
     const opacity = current ? 1.0 : 0.5;
     return (
         <Label>
@@ -54,7 +70,9 @@ const RangeButton = ({ range, update, current }) => {
     )
 }
 
-const initialState = {
+type ChartState = { [key in Range]: _ChartSingleDataPoint[] | null}
+
+const initialState: ChartState = {
     '1d': null,
     '5d': null,
     '1m': null,
@@ -62,12 +80,11 @@ const initialState = {
     '5y': null,
 }
 
-const Chart = ({ prices, ticker, open, latest, range, updateChartRange, updateChartPrices }) => {
+const Chart: React.FC<ChartProps> = ({ prices, ticker, open, latest, range, updateChartRange, updateChartPrices }) => {
 
-    const [polling, setPolling] = useState(null);
-    const [chart, setChart] = useState(initialState);
-    const [isFetching, setIsFetching] = useState(false);
-    const [isError, setIsError] = useState(false)
+    const [chart, setChart] = useState<ChartState>(initialState);
+    const [isFetching, setIsFetching] = useState<boolean>(false);
+    const [isError, setIsError] = useState<boolean>(false)
 
     const boolFlag = open && (range === '1d');
 
@@ -89,27 +106,31 @@ const Chart = ({ prices, ticker, open, latest, range, updateChartRange, updateCh
     }
 
     useEffect(() => {
-        (chart[range] && chart[range][0] && chart[range][0].symbol === ticker) ? updateChartPrices(chart[range]) : fetchChart();
+        const chartData = chart[range];
+        if (chartData && chartData[0] && chartData[0].symbol === ticker) {
+            updateChartPrices(chartData);
+        } else {
+            fetchChart();
+        }
     }, [range, ticker])
 
     useEffect(() => {
-        clearInterval(polling);
         if(boolFlag) {
             fetchChart();
-            setPolling(setInterval(
+            const polling = window.setInterval(
                 () => {
                     fetchChart();
                 },
                 60000
-            ))
+            )
+            return () => clearInterval(polling)
         }
     }, [ticker, boolFlag])
 
-
-    const ranges = ['5y', '1y', '1m', '5d', '1d'];
+    const ranges: Range[] = ['5y', '1y', '1m', '5d', '1d'];
     const buttons = ranges.map(rangeItem => <RangeButton current={rangeItem === range} range={rangeItem} update={updateChartRange} />)
 
-    const now = {
+    const now: _ChartSingleDataPoint = {
         label: 'latest',
         close: latest,
     }
