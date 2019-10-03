@@ -100,7 +100,7 @@ const Chart = ({ prices, ticker, open, latest, range, updateChartRange, updateCh
                 () => {
                     fetchChart();
                 },
-                10000
+                60000
             ))
         }
     }, [ticker, boolFlag])
