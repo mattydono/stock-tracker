@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from '@emotion/styled';
 
 import { 
@@ -9,6 +9,7 @@ import {
     ResponsiveContainer,
     AreaChart,
     Area,
+    ReferenceLine,
 } from 'recharts';
 
 
@@ -53,15 +54,69 @@ const RangeButton = ({ range, update, current }) => {
     )
 }
 
+const initialState = {
+    '1d': null,
+    '5d': null,
+    '1m': null,
+    '1y': null,
+    '5y': null,
+}
+
+const Chart = ({ prices, ticker, open, latest, range, updateChartRange, updateChartPrices }) => {
+
+    const [polling, setPolling] = useState(null);
+    const [chart, setChart] = useState(initialState);
+    const [isFetching, setIsFetching] = useState(false);
+    const [isError, setIsError] = useState(false)
+
+    const boolFlag = open && (range === '1d');
+
+    const fetchChart = async () => {
+        setIsFetching(true);
+        try {
+            const chart = await fetch(`/stock/${ticker}/chart/${range}`).then(res => res.json())
+            setChart(state => {
+                return ({
+                    ...state,
+                    [range]: chart,
+                })
+            })
+            updateChartPrices(chart);
+        } catch (error) {
+            setIsError(true);
+        }
+        setIsFetching(false);
+    }
+
+    useEffect(() => {
+        (chart[range] && chart[range][0] && chart[range][0].symbol === ticker) ? updateChartPrices(chart[range]) : fetchChart();
+    }, [range, ticker])
+
+    useEffect(() => {
+        clearInterval(polling);
+        if(boolFlag) {
+            fetchChart();
+            setPolling(setInterval(
+                () => {
+                    fetchChart();
+                },
+                60000
+            ))
+        }
+    }, [ticker, boolFlag])
 
 
+    const ranges = ['5y', '1y', '1m', '5d', '1d'];
+    const buttons = ranges.map(rangeItem => <RangeButton current={rangeItem === range} range={rangeItem} update={updateChartRange} />)
 
-const Chart = ({ prices: data, range, updateChartRange }) => {
+    const now = {
+        label: 'latest',
+        close: latest,
+    }
 
-    const ranges = ['1d', '5d', '1m', '1y', '5y'];
+    const data = open ? prices.concat(now) : prices;
 
-    const buttons = ranges.map(rangeItem => <RangeButton current={rangeItem === range} range={rangeItem} update={updateChartRange} />).reverse();
-
+    //TODO: Add loading spinner. Add error message if error (conditional rendering based on isFetching & isError)
     return (
       <ChartContainter>
           <ButtonsContainer>
@@ -70,10 +125,11 @@ const Chart = ({ prices: data, range, updateChartRange }) => {
           <ResponsiveContainer aspect={0.9} minWidth={360} maxHeight={500}>
                 <AreaChart data={data} >
                     <CartesianGrid strokeDasharray="3 3" />
-                    <XAxis dataKey="date"/>
-                    <YAxis orientation="right" domain={['dataMin', 'auto']}/>
-                    <Tooltip />
-                    <Area type="monotone" dataKey="close" stroke="#8884d8" fill="#8884d8" fillOpacity={0.3} />
+                    <XAxis dataKey="label"/>
+                    <YAxis orientation="right" domain={['dataMin', 'auto']} tickLine={false}/>
+                    <ReferenceLine y={now.close} stroke={'orange'} strokeDasharray="3 3" />
+                    <Tooltip cursor={{ stroke: 'red', strokeWidth: 2 }} />
+                    <Area connectNulls type="monotone" dataKey="close" name="price" unit=" USD" stroke="#8884d8" fill="#8884d8" fillOpacity={0.3} />
                 </AreaChart>
             </ResponsiveContainer>
       </ChartContainter>
