@@ -10,16 +10,6 @@ import Peers from './peers';
 import Chart from './charts';
 import Header from './header'
 
-// import { 
-//     updateCompanyOverview, 
-//     search,
-//     updateKeyStats,
-//     updateNews,
-//     updatePeers,
-//     updateChartRange,
-//     updateChartData,
-// } from '../redux/actions';
-
 import {
     updateTicker,
     updateCompany,
@@ -38,14 +28,16 @@ import StockAPI from '../utils/stockAPI';
 
 const RootContainer = styled.div`
     display: flex;
+    flex: 1;
     flex-flow: row wrap;
     font-family: sans-serif;
     margin: 0 5% 0 5%;
+    position: relative;
 `
 
 const FooterHolder = styled.div`
     width: 100%;
-    height: 10vh;
+    height: 5vh;
     background-color: 
 `
 

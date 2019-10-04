@@ -6,7 +6,7 @@ import { _News } from '../../models'
 
 const NewsContainer = styled.div`
     width: 25%;
-    height: 35vh;
+    height: 45vh;
 `
 
 const Article = styled.div`
@@ -36,8 +36,8 @@ const News: React.FC<NewsProps> = ({ news }) => {
                     return (
                         <Article>
                             <Link href={url}>
-                            <div style={{fontSize: '1.0rem'}} >{headline}</div>
-                            <div style={{opacity: 0.5}} >{moment(datetime).fromNow()} - {source}</div>
+                                <div style={{fontSize: '0.8rem'}} >{headline}</div>
+                                <div style={{opacity: 0.5}} >{moment(datetime).fromNow()} - {source}</div>
                             </Link>
                         </Article>
                     )

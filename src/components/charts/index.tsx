@@ -16,14 +16,15 @@ import { _ChartSingleDataPoint, Range } from '../../models';
 
 const ChartContainter = styled.div`
     width: 75%;
-    height: 40vh;
+    height: 45vh;
+    overflow: hidden;
 `
 
 const ButtonsContainer = styled.div`
     display: flex;
     flex-direction: row-reverse;
-    margin-bottom: 20px;
     margin-right: 60px;
+    height: 10%;
 `
 
 const Label = styled.label`
@@ -143,7 +144,7 @@ const Chart: React.FC<ChartProps> = ({ prices, ticker, open, latest, range, upda
           <ButtonsContainer>
               {buttons}
           </ButtonsContainer>
-          <ResponsiveContainer aspect={0.9} minWidth={360} maxHeight={500}>
+        <ResponsiveContainer aspect={0.9} minWidth={360} maxHeight={300}>
                 <AreaChart data={data} >
                     <CartesianGrid strokeDasharray="3 3" />
                     <XAxis dataKey="label"/>
