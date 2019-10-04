@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import styled from '@emotion/styled'
 
 const SearchContainer = styled.div`
@@ -37,8 +37,16 @@ type SpanProps = {
 }
 
 const Span = styled('span')<SpanProps>`
+    display: flex;
     font-size: 20px;
     color: ${props => props.positive ? 'green' : 'red'}
+`
+
+const PriceIcon = styled.div`
+    height: 100%;
+    font-size: 10px;
+    align-self: flex-start;
+    margin-top: 3px;
 `
 
 const SubInput = styled.div`
@@ -128,6 +136,10 @@ const Stock = styled.div`
     } 
 `
 
+const Time = styled.span`
+    color: #608fd1
+`
+
 type _Stock = {
     name: string,
     symbol: string
@@ -144,14 +156,24 @@ type SearchProps = {
     isUSMarketOpen: boolean | null,    
 }
 
+type StockListItem = {
+    symbol: string,
+    name: string
+}
+
 const Search: React.FC<SearchProps> = ({ search, change, changePercent, latestPrice, primaryExchange, tags, latestTime, isUSMarketOpen }) => {
 
-    const [query, setQuery] = useState('');
-    const [stockList, setStockList] = useState([])
+    const [query, setQuery] = useState<string>('Apple Inc. (AAPL)');
+    const [stockList, setStockList] = useState<StockListItem[]>([])
+    const [isOpen, toggleIsOpen] = useState<boolean>(false)
+    const dropSelect = useRef<HTMLDivElement>(null)
+    const inputSelect = useRef<HTMLInputElement>(null)
 
     const onKeyPress = (event: React.KeyboardEvent) => {
         if(event.key === 'Enter') {
             search(query)
+            setQuery(`${stockList[0].name} (${stockList[0].symbol})`)
+            toggleIsOpen(false)
             event.preventDefault()
         }
     }
@@ -160,10 +182,29 @@ const Search: React.FC<SearchProps> = ({ search, change, changePercent, latestPr
         const stockSymbol = stock.symbol.toLowerCase()
         const stockName = stock.name.toLowerCase()
         setQuery(`${stockName} (${stockSymbol})`)
+        inputSelect.current!.blur()
         search(stockSymbol)
         setStockList([])
-        console.log(stockSymbol)
+        toggleIsOpen(false)
     }
+
+    const handleBlur = () => {
+        requestAnimationFrame(() => {
+                if(!inputSelect.current!.contains(document.activeElement) && !dropSelect.current!.contains(document.activeElement)) {
+                    toggleIsOpen(false)
+                } else {
+                    inputSelect.current!.focus()
+                }
+        })
+    }
+
+    const inputClickHandler = () => {
+        setQuery('')
+    }
+
+    useEffect(() => {
+        toggleIsOpen(stockList.length !== 0)
+    }, [stockList.length])
 
     const renderStock = (stock: _Stock) => {
         return <Stock onClick={() => onStockClick(stock)}>{stock.name} ({stock.symbol})</Stock>
@@ -182,7 +223,6 @@ const Search: React.FC<SearchProps> = ({ search, change, changePercent, latestPr
             const data = await response.json()
             if (!isCleared) {
                 setStockList(data)
-                console.log('setData')
             }
         }, 300);
         return () => { clearTimeout(timeoutId); isCleared = true }
@@ -192,14 +232,14 @@ const Search: React.FC<SearchProps> = ({ search, change, changePercent, latestPr
         <SearchContainer>
             <RowContainer>
                 <IconAlign><Icon>⚲</Icon></IconAlign>
-                <Input placeholder='Stock Search Here' value={query} onChange={event => { setQuery(event.target.value) }} onKeyPress={onKeyPress} />
+                <Input ref={inputSelect} placeholder='Stock Search Here' value={query} onClick={inputClickHandler} onChange={event => { setQuery(event.target.value); toggleIsOpen(query.length > 0) }} onKeyPress={onKeyPress} onBlur={handleBlur} />
                 <PriceStats>
-                    {latestPrice ? latestPrice : null}
-                    {!change ? null : change > 0 ? <Span positive> &#8593;{Math.abs(change)} | </Span> : <Span> &#8595;{Math.abs(change)} | </Span>}
-                    {!changePercent ? null : changePercent > 0 ? <Span positive>{Math.abs(Math.round((changePercent * 100) * 100) / 100)}&#37;</Span> : <Span>{Math.abs(Math.round((changePercent * 100) * 100) / 100)}&#37;</Span>}
+                    {latestPrice ? <><PriceIcon>$</PriceIcon>{latestPrice}</> : null}
+                    {!change ? null : change > 0 ? <Span positive><PriceIcon>&#8593;</PriceIcon>{Math.abs(change)} | </Span> : <Span><PriceIcon>&#8595;</PriceIcon>{Math.abs(change)} | </Span>}
+                    {!changePercent ? null : changePercent > 0 ? <Span positive>{Math.abs(Math.round((changePercent * 100) * 100) / 100)}<PriceIcon>&#37;</PriceIcon></Span> : <Span>{Math.abs(Math.round((changePercent * 100) * 100) / 100)}<PriceIcon>&#37;</PriceIcon></Span>}
                 </PriceStats>
-                <StockList>
-                    {stockList.length > 0 ? stockList.map( stock => renderStock(stock)) : null}
+                <StockList ref={dropSelect} tabIndex={-1}>
+                    {isOpen ? stockList.map( stock => renderStock(stock)) : null}
                 </StockList>
             </RowContainer>
             <SubSearch>
@@ -209,7 +249,7 @@ const Search: React.FC<SearchProps> = ({ search, change, changePercent, latestPr
                     <Sub>{tags[1]}</Sub>
                 </SubInput>
                 <DateOpen>
-                    {latestTime ? <>Real-Time Price as of {latestTime} EST</> : null}
+                    {latestTime ? <Time>Real-Time Price as of {latestTime} EST</Time> : null}
                     {tags.length < 1 ? null : isUSMarketOpen ? <MarketStatus><MarketIcon open>☀</MarketIcon>Market Open</MarketStatus> : <MarketStatus><MarketIcon>☽ &nbsp;</MarketIcon> Market Closed</MarketStatus>}</DateOpen>
             </SubSearch>
         </SearchContainer>

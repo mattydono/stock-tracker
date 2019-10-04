@@ -7,7 +7,6 @@ const CompanyOverviewContainer = styled.div`
     width: 100%;
     height: 70%;
     overflow: auto;
-    font-size: 0.7rem;
     margin-bottom: 2%;
 `
 
@@ -22,13 +21,17 @@ const Website = styled.div`
     margin-bottom: 2%;
 `
 
+const Description = styled.div`
+    font-size: 0.7rem;
+`
+
 const CompanyOverview: React.FC<_CompanyOverview> = ({ companyName, symbol, website, description }) => {
     return (
         <CompanyOverviewContainer>
             <Title>COMPANY OVERVIEW</Title>
             <Name>{companyName}{symbol}</Name>
             <Website><i>{website}</i></Website>
-            <div>{description}</div>
+            <Description>{description}</Description>
         </CompanyOverviewContainer>
     );
 }

@@ -6,6 +6,7 @@ import { _KeyStats } from '../../models'
 const KeyStatsContainer = styled.div`
    width: 75%;
    height: 30vh;
+   margin-bottom: 5px;
 `
 
 const TableContainer = styled.div`
