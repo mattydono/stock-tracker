@@ -76,61 +76,62 @@ const RangeButton: React.FC<RangeButtonProps> = ({ range, update, current }) => 
 
 type ChartState = { [key in Range]: {
     data: _ChartSingleDataPoint[] | [],
-    timeStamp: Date | null,
+    expirationTime: Date | null,
 } | null }
 
 const initialState: ChartState = {
     '1d': {
         data: [],
-        timeStamp: null,
+        expirationTime: null,
     },
     '5d': {
         data: [],
-        timeStamp: null,
+        expirationTime: null,
     },
     '1m': {
         data: [],
-        timeStamp: null,
+        expirationTime: null,
     },
     '1y': {
         data: [],
-        timeStamp: null,
+        expirationTime: null,
     },
     '5y': {
         data: [],
-        timeStamp: null,
+        expirationTime: null,
     },
 }
 
-// const initialState: ChartState = {
-//     '1d': null,
-//     '5d': null,
-//     '1m': null,
-//     '1y': null,
-//     '5y': null,
-// }
 
 const Chart: React.FC<ChartProps> = ({ prices, ticker, open, latest, range, updateChartRange, updateChartPrices }) => {
 
     const [chart, setChart] = useState<ChartState>(initialState);
     const [isFetching, setIsFetching] = useState<boolean>(false);
     const [isError, setIsError] = useState<boolean>(false);
+    const [flag, setFlag] = useState<boolean>(true);
 
     const boolFlag = open && (range === '1d');
-    const offset = (17 * 60 * 60 * 1000)
 
-    const fetchChart = async (isPoll:boolean = false) => {
+    const getExpirationDate = () => {
+        let date = new Date();
+        const shouldAddDay = date.getUTCHours() >= 14 && date.getUTCMinutes() >= 30;
+        date.setUTCDate(date.getUTCDate() + Number(shouldAddDay));
+        date.setUTCHours(14, 30, 0, 0)
+        return date;
+    }
+
+    const fetchChart = async () => {
         setIsFetching(true);
         try {
             const chart = await fetch(`/stock/${ticker}/chart/${range}`).then(res => res.json());
+            
             setChart(state => {
                 return ({
                     ...state,
-                    [range]: { data: chart, timeStamp: Date.now() + offset }
+                    [range]: { data: chart, expirationTime: getExpirationDate() }
                 })
             })
-            if(isPoll) updateChartPrices(chart);
-            return chart
+            if(flag) updateChartPrices(chart);
         } catch (error) {
             setIsError(true);
         }
@@ -138,32 +139,25 @@ const Chart: React.FC<ChartProps> = ({ prices, ticker, open, latest, range, upda
     }
 
 
-
     useEffect(() => {
-        let flag = true;
-
-        const getChart = async () => {
-            const chart = await fetchChart();
-            if (flag) updateChartPrices(chart);
-        }
-
+        setFlag(true);
         const chartData = chart[range];
-        if (chartData && chartData.data[0] && chartData.data[0].symbol === ticker && Number(chartData.timeStamp) > Date.now()) {
+        if (chartData && chartData.data[0] && chartData.data[0].symbol === ticker && chartData.expirationTime && chartData.expirationTime.getTime() > Date.now()) {
             updateChartPrices(chartData.data);
         } else {
-            if(!isFetching) getChart()
+            fetchChart();
         }
         return () => {
-            flag = false;
+            setFlag(false);
         }
     }, [range, ticker, open])
 
     useEffect(() => {
         if(boolFlag) {
-            //fetchChart();
+            fetchChart();
             const polling = window.setInterval(
                 () => {
-                    fetchChart(true);
+                    fetchChart();
                 },
                 10000
             )
@@ -199,6 +193,7 @@ const Chart: React.FC<ChartProps> = ({ prices, ticker, open, latest, range, upda
                     <Area connectNulls type="monotone" dataKey="close" name="price" unit=" USD" stroke="#8884d8" fill="#8884d8" fillOpacity={0.3} />
                 </AreaChart>
             </ResponsiveContainer>
+            <h4>{isFetching ? 'fetching...' : null}</h4>
       </ChartContainter>
     );
 }
