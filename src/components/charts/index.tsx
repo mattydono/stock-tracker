@@ -12,6 +12,7 @@ import {
     ReferenceLine,
 } from 'recharts';
 import { _ChartSingleDataPoint, Range } from '../../models';
+import { isTSEnumMember } from '@babel/types';
 
 
 const ChartContainter = styled.div`
@@ -71,58 +72,100 @@ const RangeButton: React.FC<RangeButtonProps> = ({ range, update, current }) => 
     )
 }
 
-type ChartState = { [key in Range]: _ChartSingleDataPoint[] | null}
+//type ChartState = { [key in Range]: _ChartSingleDataPoint[] | null}
+
+type ChartState = { [key in Range]: {
+    data: _ChartSingleDataPoint[] | [],
+    timeStamp: Date | null,
+} | null }
 
 const initialState: ChartState = {
-    '1d': null,
-    '5d': null,
-    '1m': null,
-    '1y': null,
-    '5y': null,
+    '1d': {
+        data: [],
+        timeStamp: null,
+    },
+    '5d': {
+        data: [],
+        timeStamp: null,
+    },
+    '1m': {
+        data: [],
+        timeStamp: null,
+    },
+    '1y': {
+        data: [],
+        timeStamp: null,
+    },
+    '5y': {
+        data: [],
+        timeStamp: null,
+    },
 }
+
+// const initialState: ChartState = {
+//     '1d': null,
+//     '5d': null,
+//     '1m': null,
+//     '1y': null,
+//     '5y': null,
+// }
 
 const Chart: React.FC<ChartProps> = ({ prices, ticker, open, latest, range, updateChartRange, updateChartPrices }) => {
 
     const [chart, setChart] = useState<ChartState>(initialState);
     const [isFetching, setIsFetching] = useState<boolean>(false);
-    const [isError, setIsError] = useState<boolean>(false)
+    const [isError, setIsError] = useState<boolean>(false);
 
     const boolFlag = open && (range === '1d');
+    const offset = (17 * 60 * 60 * 1000)
 
-    const fetchChart = async () => {
+    const fetchChart = async (isPoll:boolean = false) => {
         setIsFetching(true);
         try {
-            const chart = await fetch(`/stock/${ticker}/chart/${range}`).then(res => res.json())
+            const chart = await fetch(`/stock/${ticker}/chart/${range}`).then(res => res.json());
             setChart(state => {
                 return ({
                     ...state,
-                    [range]: chart,
+                    [range]: { data: chart, timeStamp: Date.now() + offset }
                 })
             })
-            updateChartPrices(chart);
+            if(isPoll) updateChartPrices(chart);
+            return chart
         } catch (error) {
             setIsError(true);
         }
         setIsFetching(false);
     }
 
+
+
     useEffect(() => {
-        const chartData = chart[range];
-        if (chartData && chartData[0] && chartData[0].symbol === ticker) {
-            updateChartPrices(chartData);
-        } else {
-            fetchChart();
+        let flag = true;
+
+        const getChart = async () => {
+            const chart = await fetchChart();
+            if (flag) updateChartPrices(chart);
         }
-    }, [range, ticker])
+
+        const chartData = chart[range];
+        if (chartData && chartData.data[0] && chartData.data[0].symbol === ticker && Number(chartData.timeStamp) > Date.now()) {
+            updateChartPrices(chartData.data);
+        } else {
+            if(!isFetching) getChart()
+        }
+        return () => {
+            flag = false;
+        }
+    }, [range, ticker, open])
 
     useEffect(() => {
         if(boolFlag) {
-            fetchChart();
+            //fetchChart();
             const polling = window.setInterval(
                 () => {
-                    fetchChart();
+                    fetchChart(true);
                 },
-                60000
+                10000
             )
             return () => clearInterval(polling)
         }
@@ -136,7 +179,9 @@ const Chart: React.FC<ChartProps> = ({ prices, ticker, open, latest, range, upda
         close: latest,
     }
 
-    const data = open ? prices.concat(now) : prices;
+    const testing = false;
+
+    const data = open || testing ? prices.concat(now) : prices;
 
     //TODO: Add loading spinner. Add error message if error (conditional rendering based on isFetching & isError)
     return (
