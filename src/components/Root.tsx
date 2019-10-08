@@ -21,31 +21,36 @@ import {
 } from '../redux/actions'
 
 import styled from '@emotion/styled';
+import { css, Global } from '@emotion/core';
 
 import { connect } from 'react-redux';
 
 import StockAPI from '../utils/stockAPI';
 
 const RootContainer = styled.div`
-    display: flex;
-    flex: 1;
-    flex-flow: row wrap;
+    display: grid;
+    // grid-template-columns: 5% 22.5% 22.5% 22.5% 22.5% 5%;
+    grid-template-rows: auto;
+    grid-template-areas: '. Header Header Header Header .' '. Search Search Search Search .' '. Chart Chart Chart News .' '. Stats Stats Stats Company .' '. Footer Footer Footer Footer .';
     font-family: sans-serif;
-    margin: 0 5% 0 5%;
-    position: relative;
+    color: white;
+    height: 100%;
+    width: 100%;
+    @media (max-width: 800px) {
+        // grid-template-columns: 5% 21.25% 21.25% 21.25% 21.25% 5% 5%;
+        grid-template-areas: '. Header Header Header Header .' '. Search Search Search Search .' '. Chart Chart Chart Chart .' '. Stats Stats Stats Stats .' '. News News News News .' '. Company Company Company Company .' '. Footer Footer Footer Footer .';
+    }
 `
 
 const FooterHolder = styled.div`
-    width: 100%;
-    height: 5vh;
-    background-color: 
+    grid-area: Footer;
+    color: green;
 `
 
 const CompanyContainer = styled.div`
-    width: 25%;
+    grid-area: Company;
     display: flex;
     flex-direction: column;
-    height: 30vh;
 `
 
 export const Title = styled.div`
@@ -82,6 +87,12 @@ const Root: React.FC<_StateProps & _DispatchProps> = ({
 
     return (
         <RootContainer>
+            <Global styles={css`body {
+                margin: 0;
+                background: no-repeat;
+                background-image: linear-gradient(to bottom right, #001f4b, #01142f);};
+                `
+            } />
             <Header />
             <Search 
             search={search} 

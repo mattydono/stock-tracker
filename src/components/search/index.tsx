@@ -2,34 +2,58 @@ import React, { useState, useEffect, useRef } from 'react';
 import styled from '@emotion/styled'
 
 const SearchContainer = styled.div`
-    width: 100%;
-    height: 10vh;
+    grid-area: Search;
 `
 
-const Input = styled.input`
-    width: 82%;
-    background-color: rgba(0,0,0,0);
-    color: white;
-    font-size: 20px;
-    outline: none;
-    border: none;
-`
-
-const PriceStats = styled.div`
-    width: 15%;
-    display: flex;
-    justify-content: space-evenly;
-`
+// ********************************************************************************************
 
 const RowContainer = styled.div`
-    width: 100%;
-    height: 40%;
+    position: relative;
     font-size: 20px;
     border-bottom: 1px solid #608fd1;;
     display: flex;
-    flex-direction: row;
-    justift-content: center;
+    @media(max-width: 800px) {flex-direction: column-reverse; justify-content: center;}
+`
+
+const Icon = styled.div`
+    font-size: 30px;
+    transform: rotate(-45deg);
+    width: 30px;
+    height: 30px;
+    color: #608fd1;
+    position: absolute;
+`
+
+const IconAlign = styled.div`
+    flex: 0 0 30px;
+    align-items: center;
     position: relative;
+    top: -12%;
+    left: 0;
+    @media(max-width: 800px) {top: -6px;} 
+`
+
+const Input = styled.input`
+    background-color: rgba(0,0,0,0);
+    color: white;
+    font-size: 30px;
+    outline: none;
+    border: none;
+    flex: 1 0 0;
+    @media(max-width: 800px) {font-size: 30px; margin-bottom: 10px};
+`
+
+const PriceStats = styled.div`
+    font-size: 30px;
+    display: flex;
+    flex: 0 0 350px;
+    height: 40px;
+    @media(max-width: 800px) {flex: 0 0 100%; justify-content: center; margin-bottom: 20px;}
+`
+
+const PriceGroup = styled.div`
+    display: flex;
+    flex: 1 0 0;
 `
 
 type SpanProps = {
@@ -38,71 +62,71 @@ type SpanProps = {
 
 const Span = styled('span')<SpanProps>`
     display: flex;
-    font-size: 20px;
-    color: ${props => props.positive ? 'green' : 'red'}
+    font-size: 30px;
+    color: ${props => props.positive ? 'green' : 'red'};
+    margin-left: 10px;
+    margin-right: 10px;
 `
 
 const PriceIcon = styled.div`
     height: 100%;
-    font-size: 10px;
+    font-size: 15px;
     align-self: flex-start;
     margin-top: 3px;
+`
+
+const PriceSpan = styled.div`
+    display: flex;
+    flex: 0 0 1;
+    margin-right: 5px;
+`
+
+const DollarIcon = styled.div`
+    height: 100%;
+    font-size: 15px;
+    margin-top: 3%;
+    margin-right: 2px;
+`
+
+// ********************************************************************************************
+
+const SubSearch = styled.div`
+    display: flex;
+    margin-top: 15px;
+    @media(max-width: 800px) {flex-direction: column-reverse; align-items: center; margin-bottom: 30px};
 `
 
 const SubInput = styled.div`
     display: flex;
     flex-direction: row;
-    width: 50%;
-`
-
-const DateOpen = styled.div`
-    width: 50%;
-    font-size: 15px;
-    display: flex;
-    justify-content: flex-end;
-`
-
-const SubSearch = styled.div`
-    display: flex;
-    flex-direction: row;
-    width: 100%;
-    margin-top: 1%;
-    justify-content: space-between;
+    flex: 1 0 0;
+    @media(max-width: 800px) {justify-content: space-evenly; margin: 0}
 `
 
 const Sub = styled.div`
     background-color: #41608a;
     border-radius: 5%;
     margin-left: 2%;
-    padding: 0.5%;
+    padding: 1%;
 `
 
-const IconAlign = styled.div`
-    width: 3%;
-    height: 100px;
-    position: relative;
-    margin-right: 1px;
-`
-
-const Icon = styled.div`
+const DateOpen = styled.div`
+    font-size: 15px;
     display: flex;
-    font-size: 30px;
-    transform: rotate(-45deg);
-    width: 30px;
-    height: 30px;
-    color: #608fd1;
-    position: absolute;
-    top: -10%;
-    left: 0;
+    flex: 1 0 0;
+    justify-content: flex-end;
+    @media(max-width: 800px) {justify-content: center; margin-bottom: 20px};
+`
+
+const Time = styled.span`
+    color: #608fd1
 `
 
 const MarketStatus = styled.div`
    font-size: 15px;
    display: flex;
-   flex-direction: row;
-   align-text: right;
+   margin-left: 30px;
    position: relative;
-   margin-left: 3%;
 `
 
 type MarketIconProps = {
@@ -113,15 +137,17 @@ const MarketIcon = styled('div')<MarketIconProps>`
     color: ${props => props.open ? 'yellow' : 'gray'};
     font-size: 15px;
     position: absolute;
-    top: -10%;
-    left: -15%;
+    top: -2px;
+    left: -20px;
 `
 
+// ********************************************************************************************
+
 const StockList = styled.div`
+    position: absolute;
     height: 100%;
     width: 95%;
     margin: 0 2.5% 0 2.5%;
-    position: absolute;
     bottom: -100%;
     left: 0;
     z-index: 1;
@@ -134,10 +160,6 @@ const Stock = styled.div`
     &:hover {
         background-color: #0042a0;
     } 
-`
-
-const Time = styled.span`
-    color: #608fd1
 `
 
 type _Stock = {
@@ -231,11 +253,13 @@ const Search: React.FC<SearchProps> = ({ search, change, changePercent, latestPr
     return (
         <SearchContainer>
             <RowContainer>
-                <IconAlign><Icon>⚲</Icon></IconAlign>
-                <Input ref={inputSelect} placeholder='Stock Search Here' value={query} onClick={inputClickHandler} onChange={event => { setQuery(event.target.value); toggleIsOpen(query.length > 0) }} onKeyPress={onKeyPress} onBlur={handleBlur} />
+                <PriceGroup>
+                    <IconAlign><Icon>⚲</Icon></IconAlign>
+                    <Input ref={inputSelect} placeholder='Stock Search Here' value={query} onClick={inputClickHandler} onChange={event => { setQuery(event.target.value); toggleIsOpen(query.length > 0) }} onKeyPress={onKeyPress} onBlur={handleBlur} />
+                </PriceGroup>
                 <PriceStats>
-                    {latestPrice ? <><PriceIcon>$</PriceIcon>{latestPrice}</> : null}
-                    {!change ? null : change > 0 ? <Span positive><PriceIcon>&#8593;</PriceIcon>{Math.abs(change)} | </Span> : <Span><PriceIcon>&#8595;</PriceIcon>{Math.abs(change)} | </Span>}
+                    {latestPrice ? <PriceSpan><DollarIcon>$</DollarIcon>{latestPrice}</PriceSpan> : null}
+                    {!change ? null : change > 0 ? <Span positive><PriceIcon>&#8593;</PriceIcon>{Math.abs(change)}</Span> : <Span><PriceIcon>&#8595;</PriceIcon>{Math.abs(change)}</Span>} {!change ? null : change > 0 ? <Span positive>|</Span> : <Span>|</Span> }
                     {!changePercent ? null : changePercent > 0 ? <Span positive>{Math.abs(Math.round((changePercent * 100) * 100) / 100)}<PriceIcon>&#37;</PriceIcon></Span> : <Span>{Math.abs(Math.round((changePercent * 100) * 100) / 100)}<PriceIcon>&#37;</PriceIcon></Span>}
                 </PriceStats>
                 <StockList ref={dropSelect} tabIndex={-1}>
@@ -250,7 +274,7 @@ const Search: React.FC<SearchProps> = ({ search, change, changePercent, latestPr
                 </SubInput>
                 <DateOpen>
                     {latestTime ? <Time>Real-Time Price as of {latestTime} EST</Time> : null}
-                    {tags.length < 1 ? null : isUSMarketOpen ? <MarketStatus><MarketIcon open>☀</MarketIcon>Market Open</MarketStatus> : <MarketStatus><MarketIcon>☽ &nbsp;</MarketIcon> Market Closed</MarketStatus>}</DateOpen>
+                    {tags.length < 1 ? null : isUSMarketOpen ? <MarketStatus><MarketIcon open>☀</MarketIcon>Market Open</MarketStatus> : <MarketStatus><MarketIcon>☽</MarketIcon> Market Closed</MarketStatus>}</DateOpen>
             </SubSearch>
         </SearchContainer>
     )

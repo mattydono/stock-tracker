@@ -4,9 +4,8 @@ import { Title } from '../Root'
 import { _KeyStats } from '../../models'
 
 const KeyStatsContainer = styled.div`
-   width: 75%;
-   height: 30vh;
-   margin-bottom: 5px;
+   grid-area: Stats;
+   @media(max-width: 800px) {margin-bottom: 40px;}
 `
 
 const TableContainer = styled.div`

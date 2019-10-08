@@ -3,7 +3,8 @@ import styled from '@emotion/styled'
 import { Title } from '../Root'
 
 const PeersContainer = styled.div`
-    width: 100%;
+    // flex: 0 0 30px;
+    @media(max-width: 800px) {margin-bottom: 40px;};
 `
 
 type PeersProps = {

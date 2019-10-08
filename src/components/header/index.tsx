@@ -3,23 +3,28 @@ import styled from '@emotion/styled'
 import logo from './logo.png'
 
 const HeaderContainer = styled.div`
-    height: 10vh;
-    width: 100%;
+    grid-area: Header;
     display: flex;
     justify-content: space-between;
-`
-
-const Logo = styled.img`
-    width: 12%;
-    height: 100%;
-    color: white;
+    align-items: center;
 `
 
 const Nav = styled.div`
     display: flex;
-    flex-direction: row;
-    margin-top: 1%;
-    margin-right: 10%;
+    justify-content: space-evenly;
+    flex: 0 0 600px;
+    min-width: 15%;
+    @media(max-width: 800px) {flex: 1 0 0}
+`
+
+const Logo = styled.img`
+    width: 10%;
+    height: 65%;
+    min-width: 180px;
+    max-width: 250px;
+    min-height: 90px;
+    max-height: 120px;
+    color: white;
 `
 
 type ButtonProps = {
@@ -28,12 +33,12 @@ type ButtonProps = {
 
 const Button = styled('button')<ButtonProps>`
     color: gray;
-    height: 50%;
-    width: 50%;
+    height: 20%;
+    flex: 0 0 20%;
+    min-height: 50px;
     outline: none;
     border-radius: 10%;
     cursor: pointer;
-    margin-right: 10%;
     border: none;
     background: none;
     background-color: ${props => props.active ? '#0042a0' : 'none'};

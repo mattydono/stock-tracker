@@ -15,9 +15,8 @@ import { _ChartSingleDataPoint, Range } from '../../models';
 
 
 const ChartContainter = styled.div`
-    width: 75%;
-    height: 45vh;
-    overflow: hidden;
+    grid-area: Chart;
+    @media(max-width: 800px) {margin-bottom: 30px;};
 `
 
 const ButtonsContainer = styled.div`
@@ -25,6 +24,7 @@ const ButtonsContainer = styled.div`
     flex-direction: row-reverse;
     margin-right: 60px;
     height: 10%;
+    @media(max-width: 800px) {justify-content: center;}
 `
 
 const Label = styled.label`

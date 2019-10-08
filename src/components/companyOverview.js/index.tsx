@@ -6,8 +6,9 @@ import { _CompanyOverview } from '../../models'
 const CompanyOverviewContainer = styled.div`
     width: 100%;
     height: 70%;
-    overflow: auto;
     margin-bottom: 2%;
+    overflow: auto;
+    @media(max-width: 800px) {margin-bottom: 40px;};
 `
 
 const Name = styled.div`

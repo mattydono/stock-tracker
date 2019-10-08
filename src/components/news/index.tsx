@@ -5,8 +5,8 @@ import moment from 'moment';
 import { _News } from '../../models'
 
 const NewsContainer = styled.div`
-    width: 25%;
-    height: 45vh;
+    grid-area: News;
+    @media(max-width: 800px) {margin-bottom: 40px;};
 `
 
 const Article = styled.div`
