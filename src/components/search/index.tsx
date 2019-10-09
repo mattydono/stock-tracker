@@ -89,8 +89,6 @@ const Search: React.FC<SearchProps> = ({ search, change, changePercent, latestPr
         return () => { clearTimeout(timeoutId); isCleared = true }
     }, [query]);
 
-    console.log(change, latestPrice)
-
     return (
         <div className='SearchContainer'>
             <div className='RowContainer'>

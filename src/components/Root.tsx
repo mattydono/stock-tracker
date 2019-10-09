@@ -9,6 +9,7 @@ import News from './news';
 import Peers from './peers';
 import Chart from './charts';
 import Header from './header'
+import useTicker from '../redux/hooks';
 
 import './root.css'
 
@@ -23,10 +24,6 @@ import {
 } from '../redux/actions'
 
 import { connect } from 'react-redux';
-
-import StockAPI from '../utils/stockAPI';
-
-const stockAPI = new StockAPI();
 
 const Root: React.FC<_StateProps & _DispatchProps> = ({ 
     ticker, 
@@ -43,12 +40,11 @@ const Root: React.FC<_StateProps & _DispatchProps> = ({
 
     const { isUSMarketOpen, latestPrice } = keyStats;
 
+    const [updateTicker, errors, fetching]:any = useTicker(ticker, callbacks);
+
     useEffect(() => {
-        stockAPI.subscribeToTicker(ticker, callbacks);
-        return () => {
-            stockAPI.unsubscribeToTicker(ticker);
-        }
-    }, [ticker, callbacks]);
+        updateTicker(ticker);
+    }, [ticker])
 
     return (
         <div className='RootContainer'>

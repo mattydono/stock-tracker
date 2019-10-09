@@ -36,57 +36,91 @@ const RangeButton: React.FC<RangeButtonProps> = ({ range, update, current }) => 
             <input className='Input' 
                 type="radio" 
                 name="chart" 
-                onClick={() => update(range)}
                 defaultChecked={current}
             />
-            <span style={{opacity}}>{range}</span>
+            <span onClick={() => update(range)} style={{opacity}}>{range}</span>
         </div>
     )
 }
 
-type ChartState = { [key in Range]: _ChartSingleDataPoint[] | null}
+
+type ChartState = { [key in Range]: {
+    data: _ChartSingleDataPoint[] | [],
+    expirationTime: Date | null,
+} | null }
 
 const initialState: ChartState = {
-    '1d': null,
-    '5d': null,
-    '1m': null,
-    '1y': null,
-    '5y': null,
+    '1d': {
+        data: [],
+        expirationTime: null,
+    },
+    '5d': {
+        data: [],
+        expirationTime: null,
+    },
+    '1m': {
+        data: [],
+        expirationTime: null,
+    },
+    '1y': {
+        data: [],
+        expirationTime: null,
+    },
+    '5y': {
+        data: [],
+        expirationTime: null,
+    },
 }
+
 
 const Chart: React.FC<ChartProps> = ({ prices, ticker, open, latest, range, updateChartRange, updateChartPrices }) => {
 
     const [chart, setChart] = useState<ChartState>(initialState);
     const [isFetching, setIsFetching] = useState<boolean>(false);
-    const [isError, setIsError] = useState<boolean>(false)
+    const [isError, setIsError] = useState<boolean>(false);
+    const [flag, setFlag] = useState<boolean>(true);
 
     const boolFlag = open && (range === '1d');
+
+    const getExpirationDate = () => {
+        let date = new Date();
+        const shouldAddDay = date.getUTCHours() >= 14 && date.getUTCMinutes() >= 30;
+        date.setUTCDate(date.getUTCDate() + Number(shouldAddDay));
+        date.setUTCHours(14, 30, 0, 0)
+        return date;
+    }
 
     const fetchChart = async () => {
         setIsFetching(true);
         try {
-            const chart = await fetch(`/stock/${ticker}/chart/${range}`).then(res => res.json())
+            const chart = await fetch(`/stock/${ticker}/chart/${range}`).then(res => res.json());
+            
             setChart(state => {
                 return ({
                     ...state,
-                    [range]: chart,
+                    [range]: { data: chart, expirationTime: getExpirationDate() }
                 })
             })
-            updateChartPrices(chart);
+            if(flag) updateChartPrices(chart);
         } catch (error) {
             setIsError(true);
         }
         setIsFetching(false);
     }
 
+
     useEffect(() => {
+        setFlag(true);
         const chartData = chart[range];
-        if (chartData && chartData[0] && chartData[0].symbol === ticker) {
-            updateChartPrices(chartData);
+        if (chartData && chartData.data[0] && chartData.data[0].symbol === ticker && chartData.expirationTime && chartData.expirationTime.getTime() > Date.now()) {
+            updateChartPrices(chartData.data);
         } else {
             fetchChart();
         }
-    }, [range, ticker])
+        return () => {
+            setFlag(false);
+        }
+    }, [range, ticker, open])
 
     useEffect(() => {
         if(boolFlag) {
@@ -95,7 +129,7 @@ const Chart: React.FC<ChartProps> = ({ prices, ticker, open, latest, range, upda
                 () => {
                     fetchChart();
                 },
-                60000
+                10000
             )
             return () => clearInterval(polling)
         }
@@ -109,7 +143,9 @@ const Chart: React.FC<ChartProps> = ({ prices, ticker, open, latest, range, upda
         close: latest,
     }
 
-    const data = open ? prices.concat(now) : prices;
+    const testing = false;
+
+    const data = open || testing ? prices.concat(now) : prices;
 
     //TODO: Add loading spinner. Add error message if error (conditional rendering based on isFetching & isError)
     return (
