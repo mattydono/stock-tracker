@@ -234,9 +234,9 @@ const Search: React.FC<SearchProps> = ({ search, change, changePercent, latestPr
                 <IconAlign><Icon>⚲</Icon></IconAlign>
                 <Input ref={inputSelect} placeholder='Stock Search Here' value={query} onClick={inputClickHandler} onChange={event => { setQuery(event.target.value); toggleIsOpen(query.length > 0) }} onKeyPress={onKeyPress} onBlur={handleBlur} />
                 <PriceStats>
-                    {latestPrice ? <><PriceIcon>$</PriceIcon>{latestPrice}</> : null}
-                    {!change ? null : change > 0 ? <Span positive><PriceIcon>&#8593;</PriceIcon>{Math.abs(change)} | </Span> : <Span><PriceIcon>&#8595;</PriceIcon>{Math.abs(change)} | </Span>}
-                    {!changePercent ? null : changePercent > 0 ? <Span positive>{Math.abs(Math.round((changePercent * 100) * 100) / 100)}<PriceIcon>&#37;</PriceIcon></Span> : <Span>{Math.abs(Math.round((changePercent * 100) * 100) / 100)}<PriceIcon>&#37;</PriceIcon></Span>}
+                    {latestPrice ? <><PriceIcon>$</PriceIcon>{latestPrice}</> : 'N/A'}
+                    {!change ? 'N/A' : change > 0 ? <Span positive><PriceIcon>&#8593;</PriceIcon>{Math.abs(change)} | </Span> : <Span><PriceIcon>&#8595;</PriceIcon>{Math.abs(change)} | </Span>}
+                    {!changePercent ? 'N/A' : changePercent > 0 ? <Span positive>{Math.abs(Math.round((changePercent * 100) * 100) / 100)}<PriceIcon>&#37;</PriceIcon></Span> : <Span>{Math.abs(Math.round((changePercent * 100) * 100) / 100)}<PriceIcon>&#37;</PriceIcon></Span>}
                 </PriceStats>
                 <StockList ref={dropSelect} tabIndex={-1}>
                     {isOpen ? stockList.map( stock => renderStock(stock)) : null}
@@ -249,7 +249,7 @@ const Search: React.FC<SearchProps> = ({ search, change, changePercent, latestPr
                     <Sub>{tags[1]}</Sub>
                 </SubInput>
                 <DateOpen>
-                    {latestTime ? <Time>Real-Time Price as of {latestTime} EST</Time> : null}
+                    {latestTime ? <Time>Real-Time Price as of {latestTime} EST</Time> : 'Latest Time N/A'}
                     {tags.length < 1 ? null : isUSMarketOpen ? <MarketStatus><MarketIcon open>☀</MarketIcon>Market Open</MarketStatus> : <MarketStatus><MarketIcon>☽ &nbsp;</MarketIcon> Market Closed</MarketStatus>}</DateOpen>
             </SubSearch>
         </SearchContainer>

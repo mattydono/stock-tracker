@@ -59,23 +59,23 @@ const KeyStats: React.FC<_KeyStats> = ({
                     <Tbody>
                         <TR>
                             <TD>Previous Close</TD>
-                            <td>{previousClose ? previousClose : null}</td>
+                            <td>{previousClose ? previousClose : 'N/A'}</td>
                         </TR>
                         <TR>
                             <TD>Day Range</TD>
-                            <td>{low ? low : null} - {high ? high : null}</td>
+                            <td>{low ? low : 'N/A'} - {high ? high : 'N/A'}</td>
                         </TR>
                         <TR>
                             <TD>Volume</TD>
-                            <td>{volume ? volume : null}</td>
+                            <td>{volume ? volume : 'N/A'}</td>
                         </TR>
                         <TR>
                             <TD>Market Cap</TD>
-                            <td>{marketCap ? marketCap : null}</td>
+                            <td>{marketCap ? marketCap : 'N/A'}</td>
                         </TR>
                         <TR>
                             <TD>P/E Ratio</TD>
-                            <td>{peRatio ? peRatio : null}</td>
+                            <td>{peRatio ? peRatio : 'N/A'}</td>
                         </TR>
                     </Tbody>
                 </Table>
@@ -83,23 +83,23 @@ const KeyStats: React.FC<_KeyStats> = ({
                     <Tbody>
                         <TR>
                             <TD>Open</TD>
-                            <td>{open ? open : null}</td>
+                            <td>{open ? open : 'N/A'}</td>
                         </TR>
                         <TR>
                             <TD>52 Week Range</TD>
-                            <td>{week52Low ? week52Low : null} - {week52High ? week52High : null}</td>
+                            <td>{week52Low ? week52Low : 'N/A'} - {week52High ? week52High : 'N/A'}</td>
                         </TR>
                         <TR>
                             <TD>Total Avg Volume</TD>
-                            <td>{avgTotalVolume ? avgTotalVolume : null}</td>
+                            <td>{avgTotalVolume ? avgTotalVolume : 'N/A'}</td>
                         </TR>
                         <TR>
                             <TD>Earnings Per Share</TD>
-                            <td>{actualEPS ? actualEPS : null}</td>
+                            <td>{actualEPS ? actualEPS : 'N/A'}</td>
                         </TR>
                         <TR>
                             <TD>Dividend & Yield</TD>
-                            <td>{dividendYield ? dividendYield : null}</td>
+                            <td>{dividendYield ? dividendYield : 'N/A'}</td>
                         </TR>
                     </Tbody>
                 </Table>
