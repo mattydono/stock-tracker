@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import styled from '@emotion/styled';
+import './index.css'
 
 import { 
     XAxis, 
@@ -12,34 +12,6 @@ import {
     ReferenceLine,
 } from 'recharts';
 import { _ChartSingleDataPoint, Range } from '../../models';
-import { isTSEnumMember } from '@babel/types';
-
-
-const ChartContainter = styled.div`
-    width: 75%;
-    height: 45vh;
-    overflow: hidden;
-`
-
-const ButtonsContainer = styled.div`
-    display: flex;
-    flex-direction: row-reverse;
-    margin-right: 60px;
-    height: 10%;
-`
-
-const Label = styled.label`
-    margin: 0rem 0rem 1rem 0.5rem;
-    display: inline-block;
-    color: inherit;
-    text-decoration: none;
-    font-weight: 100;
-    text-transform: uppercase;
-    cursor: pointer;
-`
-const Input = styled.input`
-    display: none;
-`
 
 type RangeButtonProps = {
     range: Range;
@@ -60,19 +32,17 @@ type ChartProps = {
 const RangeButton: React.FC<RangeButtonProps> = ({ range, update, current }) => {
     const opacity = current ? 1.0 : 0.5;
     return (
-        <Label>
-            <Input 
+        <div className='Label'>
+            <input className='Input' 
                 type="radio" 
                 name="chart" 
-                onClick={() => update(range)}
                 defaultChecked={current}
             />
-            <span style={{opacity}}>{range}</span>
-        </Label>
+            <span onClick={() => update(range)} style={{opacity}}>{range}</span>
+        </div>
     )
 }
 
-//type ChartState = { [key in Range]: _ChartSingleDataPoint[] | null}
 
 type ChartState = { [key in Range]: {
     data: _ChartSingleDataPoint[] | [],
@@ -179,22 +149,21 @@ const Chart: React.FC<ChartProps> = ({ prices, ticker, open, latest, range, upda
 
     //TODO: Add loading spinner. Add error message if error (conditional rendering based on isFetching & isError)
     return (
-      <ChartContainter>
-          <ButtonsContainer>
+      <div className='ChartContainer'>
+          <div className='ButtonsContainer'>
               {buttons}
-          </ButtonsContainer>
-        <ResponsiveContainer aspect={0.9} minWidth={360} maxHeight={300}>
-                <AreaChart data={data} >
-                    <CartesianGrid strokeDasharray="3 3" />
-                    <XAxis dataKey="label"/>
-                    <YAxis orientation="right" domain={['dataMin', 'auto']} tickLine={false}/>
-                    <ReferenceLine y={now.close} stroke={'orange'} strokeDasharray="3 3" />
-                    <Tooltip cursor={{ stroke: 'red', strokeWidth: 2 }} />
-                    <Area connectNulls type="monotone" dataKey="close" name="price" unit=" USD" stroke="#8884d8" fill="#8884d8" fillOpacity={0.3} />
-                </AreaChart>
-            </ResponsiveContainer>
-            <h4>{isFetching ? 'fetching...' : null}</h4>
-      </ChartContainter>
+          </div>
+        <ResponsiveContainer aspect={0.9} width='99%' height='100%' maxHeight={500}>
+            <AreaChart data={data} >
+                <CartesianGrid strokeDasharray="3 3" />
+                <XAxis dataKey="label"/>
+                <YAxis orientation="right" domain={['dataMin', 'auto']} tickLine={false}/>
+                <ReferenceLine y={now.close} stroke={'orange'} strokeDasharray="3 3" />
+                <Tooltip cursor={{ stroke: 'red', strokeWidth: 2 }} />
+                <Area connectNulls type="monotone" dataKey="close" name="price" unit=" USD" stroke="#8884d8" fill="#8884d8" fillOpacity={0.3} />
+            </AreaChart>
+        </ResponsiveContainer>
+      </div>
     );
 }
 

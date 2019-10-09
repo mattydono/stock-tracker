@@ -1,144 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import styled from '@emotion/styled'
-
-const SearchContainer = styled.div`
-    width: 100%;
-    height: 10vh;
-`
-
-const Input = styled.input`
-    width: 82%;
-    background-color: rgba(0,0,0,0);
-    color: white;
-    font-size: 20px;
-    outline: none;
-    border: none;
-`
-
-const PriceStats = styled.div`
-    width: 15%;
-    display: flex;
-    justify-content: space-evenly;
-`
-
-const RowContainer = styled.div`
-    width: 100%;
-    height: 40%;
-    font-size: 20px;
-    border-bottom: 1px solid #608fd1;;
-    display: flex;
-    flex-direction: row;
-    justift-content: center;
-    position: relative;
-`
-
-type SpanProps = {
-    positive?: boolean
-}
-
-const Span = styled('span')<SpanProps>`
-    display: flex;
-    font-size: 20px;
-    color: ${props => props.positive ? 'green' : 'red'}
-`
-
-const PriceIcon = styled.div`
-    height: 100%;
-    font-size: 10px;
-    align-self: flex-start;
-    margin-top: 3px;
-`
-
-const SubInput = styled.div`
-    display: flex;
-    flex-direction: row;
-    width: 50%;
-`
-
-const DateOpen = styled.div`
-    width: 50%;
-    font-size: 15px;
-    display: flex;
-    justify-content: flex-end;
-`
-
-const SubSearch = styled.div`
-    display: flex;
-    flex-direction: row;
-    width: 100%;
-    margin-top: 1%;
-    justify-content: space-between;
-`
-
-const Sub = styled.div`
-    background-color: #41608a;
-    border-radius: 5%;
-    margin-left: 2%;
-    padding: 0.5%;
-`
-
-const IconAlign = styled.div`
-    width: 3%;
-    height: 100px;
-    position: relative;
-    margin-right: 1px;
-`
-
-const Icon = styled.div`
-    display: flex;
-    font-size: 30px;
-    transform: rotate(-45deg);
-    width: 30px;
-    height: 30px;
-    color: #608fd1;
-    position: absolute;
-    top: -10%;
-    left: 0;
-`
-
-const MarketStatus = styled.div`
-   font-size: 15px;
-   display: flex;
-   flex-direction: row;
-   align-text: right;
-   position: relative;
-   margin-left: 3%;
-`
-
-type MarketIconProps = {
-    open?: boolean
-}
-
-const MarketIcon = styled('div')<MarketIconProps>`
-    color: ${props => props.open ? 'yellow' : 'gray'};
-    font-size: 15px;
-    position: absolute;
-    top: -10%;
-    left: -15%;
-`
-
-const StockList = styled.div`
-    height: 100%;
-    width: 95%;
-    margin: 0 2.5% 0 2.5%;
-    position: absolute;
-    bottom: -100%;
-    left: 0;
-    z-index: 1;
-`
-
-const Stock = styled.div`
-    background-color: rgba(0,24,57,0.9);
-    color: #608fd1;
-    cursor: pointer;
-    &:hover {
-        background-color: #0042a0;
-    } 
-`
-
-const Time = styled.span`
-    color: #608fd1
-`
+import './index.css'
 
 type _Stock = {
     name: string,
@@ -207,7 +68,7 @@ const Search: React.FC<SearchProps> = ({ search, change, changePercent, latestPr
     }, [stockList.length])
 
     const renderStock = (stock: _Stock) => {
-        return <Stock onClick={() => onStockClick(stock)}>{stock.name} ({stock.symbol})</Stock>
+        return <div className='Stock' onClick={() => onStockClick(stock)}>{stock.name} ({stock.symbol})</div>
     }
 
     useEffect(() => {
@@ -229,30 +90,33 @@ const Search: React.FC<SearchProps> = ({ search, change, changePercent, latestPr
     }, [query]);
 
     return (
-        <SearchContainer>
-            <RowContainer>
-                <IconAlign><Icon>⚲</Icon></IconAlign>
-                <Input ref={inputSelect} placeholder='Stock Search Here' value={query} onClick={inputClickHandler} onChange={event => { setQuery(event.target.value); toggleIsOpen(query.length > 0) }} onKeyPress={onKeyPress} onBlur={handleBlur} />
-                <PriceStats>
-                    {latestPrice ? <><PriceIcon>$</PriceIcon>{latestPrice}</> : 'N/A'}
-                    {!change ? 'N/A' : change > 0 ? <Span positive><PriceIcon>&#8593;</PriceIcon>{Math.abs(change)} | </Span> : <Span><PriceIcon>&#8595;</PriceIcon>{Math.abs(change)} | </Span>}
-                    {!changePercent ? 'N/A' : changePercent > 0 ? <Span positive>{Math.abs(Math.round((changePercent * 100) * 100) / 100)}<PriceIcon>&#37;</PriceIcon></Span> : <Span>{Math.abs(Math.round((changePercent * 100) * 100) / 100)}<PriceIcon>&#37;</PriceIcon></Span>}
-                </PriceStats>
-                <StockList ref={dropSelect} tabIndex={-1}>
+        <div className='SearchContainer'>
+            <div className='RowContainer'>
+                <div className='PriceGroup'>
+                    <span className='IconAlign'><span className='Icon'>⚲</span></span>
+                    <input className='InputButton' ref={inputSelect} placeholder='Stock Search Here' value={query} onClick={inputClickHandler} onChange={event => { setQuery(event.target.value); toggleIsOpen(query.length > 0) }} onKeyPress={onKeyPress} onBlur={handleBlur} />
+                </div>
+                <div className='PriceStats'>
+                    {latestPrice ? <span className='PriceSpan'><span className='DollarIcon'>$</span>{latestPrice}</span> : null}
+                    {!change ? null : change > 0 ? <span className='Span positive'><span className='PriceIcon'>&#8593;</span>{Math.abs(change)}</span> : <span className='Span'><span className='PriceIcon'>&#8595;</span>{Math.abs(change)}</span>} {!change ? null : change > 0 ? <span className='Span positive'>|</span> : <span className='Span'>|</span> }
+                    {!changePercent ? null : changePercent > 0 ? <span className='Span positive'>{Math.abs(Math.round((changePercent * 100) * 100) / 100)}<span className='PriceIcon'>&#37;</span></span> : <span className='Span'>{Math.abs(Math.round((changePercent * 100) * 100) / 100)}<span className='PriceIcon'>&#37;</span></span>}
+                </div>
+                <div className='StockList' ref={dropSelect} tabIndex={-1}>
                     {isOpen ? stockList.map( stock => renderStock(stock)) : null}
-                </StockList>
-            </RowContainer>
-            <SubSearch>
-                <SubInput>
-                    <Sub>{primaryExchange}</Sub>
-                    <Sub>{tags[0]}</Sub>
-                    <Sub>{tags[1]}</Sub>
-                </SubInput>
-                <DateOpen>
-                    {latestTime ? <Time>Real-Time Price as of {latestTime} EST</Time> : 'Latest Time N/A'}
-                    {tags.length < 1 ? null : isUSMarketOpen ? <MarketStatus><MarketIcon open>☀</MarketIcon>Market Open</MarketStatus> : <MarketStatus><MarketIcon>☽ &nbsp;</MarketIcon> Market Closed</MarketStatus>}</DateOpen>
-            </SubSearch>
-        </SearchContainer>
+                </div>
+            </div>
+            <div className='SubSearch'>
+                <div className='SubInput'>
+                    <span className='Sub'>{primaryExchange}</span>
+                    <span className='Sub'>{tags[0]}</span>
+                    <span className='Sub'>{tags[1]}</span>
+                </div>
+                <div className='DateOpen'>
+                    {latestTime ? <span className='Time'>Real-Time Price as of {latestTime} EST</span> : null}
+                    {tags.length < 1 ? null : isUSMarketOpen ? <span className='MarketStatus'><span className='MarketIcon open'>☀</span>Market Open</span> : <span className='MarketStatus'><span className='MarketIcon'>☽</span> Market Closed</span>}
+                </div>
+            </div>
+        </div>
     )
 
 }

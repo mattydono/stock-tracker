@@ -1,26 +1,7 @@
 import React from 'react';
-import styled from '@emotion/styled'
-import {Title} from '../Root'
 import moment from 'moment';
 import { _News } from '../../models'
-
-const NewsContainer = styled.div`
-    width: 25%;
-    height: 45vh;
-`
-
-const Article = styled.div`
-    margin-bottom: 5%;
-    font-size: 0.7rem;
-`
-
-const Link = styled.a`
-    text-decoration: none;
-    color: white;
-    &:hover {
-        color: yellow;
-    }
-`
+import './index.css'
 
 type NewsProps = {
     news: _News
@@ -28,22 +9,22 @@ type NewsProps = {
 
 const News: React.FC<NewsProps> = ({ news }) => {
     return (
-        <NewsContainer>
-            <Title>LATEST NEWS</Title>
+        <div className='NewsContainer'>
+            <span className='Title'>LATEST NEWS</span>
             {
                 news.map(article => {
                     const { url, headline, datetime, source } = article;
                     return (
-                        <Article>
-                            <Link href={url}>
-                                <div style={{fontSize: '0.8rem'}} >{headline}</div>
-                                <div style={{opacity: 0.5}} >{moment(datetime).fromNow()} - {source}</div>
-                            </Link>
-                        </Article>
+                        <div className='Article'>
+                            <a className='Link' href={url}>
+                                <div style={{fontSize: '1.2rem'}} >{headline}</div>
+                            </a>
+                            <div style={{opacity: 0.5}} >{moment(datetime).fromNow()} - {source}</div>
+                        </div>
                     )
                 })
             }
-        </NewsContainer>
+        </div>
     )
 }
 

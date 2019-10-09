@@ -1,0 +1,58 @@
+.HeaderContainer {
+    flex: 1 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.Nav {
+    display: flex;
+    justify-content: space-evenly;
+    flex: 0 0 300px;
+    min-width: 15%;
+}
+
+.Logo {
+    width: 10%;
+    height: 65%;
+    min-width: 180px;
+    max-width: 250px;
+    min-height: 90px;
+    max-height: 120px;
+    color: white;
+}
+
+.Button {
+    color: gray;
+    height: 20%;
+    flex: 0 0 20%;
+    min-height: 50px;
+    outline: none;
+    border-radius: 10%;
+    cursor: pointer;
+    border: none;
+    background: none;
+    background-color: none;
+}
+
+.active {
+    color: white;
+    background-color: #0042a0;
+}
+
+.Button:hover {
+    background-color: #0042a0;
+    color: white;
+}
+
+@media(max-width: 800px) {
+    .HeaderContainer{
+        flex-direction: column;
+    }
+
+    .Nav {
+        justify-content: space-between;
+        width: 300px;
+        max-height: 100px;
+    }
+}
