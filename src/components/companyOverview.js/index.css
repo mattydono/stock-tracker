@@ -1,0 +1,53 @@
+.Title {
+    border-bottom: 2px solid #608fd1;
+    width: 95%;
+    padding-bottom: 2px;
+    margin-bottom: 10px;
+    color: #608fd1;
+}
+
+.CompanyOverviewContainer {
+    max-height: 400px;
+    height: 75%;
+    margin-bottom: 20px;
+}
+
+.content {
+    height: 250px;
+    display: flex;
+    flex-direction: column
+}
+
+.Name {
+    margin-top: 2%;
+    font-size: 2rem;
+}
+
+.Website {
+    margin-top: 2%;
+    margin-bottom: 2%;
+}
+
+a:link {
+    color: white;
+    text-decoration: none;
+}
+
+a:hover {
+    color: yellow;
+}
+
+a:visited {
+    color: #608fd1;
+}
+
+.Description {
+    font-size: 1.2rem;
+    overflow: auto;
+}
+
+@media(max-width: 800px) {
+    .CompanyOverviewContainer {
+        margin-bottom: 30px;
+    }
+}

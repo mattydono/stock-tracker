@@ -8,6 +8,8 @@ import rootReducer from './redux/reducer';
 
 import Root from './components/Root';
 
+import './index.css'
+
 const store = createStore(
     rootReducer
 );

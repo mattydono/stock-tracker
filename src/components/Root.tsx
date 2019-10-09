@@ -10,6 +10,8 @@ import Peers from './peers';
 import Chart from './charts';
 import Header from './header'
 
+import './root.css'
+
 import {
     updateTicker,
     updateCompany,
@@ -20,46 +22,9 @@ import {
     updateChartData
 } from '../redux/actions'
 
-import styled from '@emotion/styled';
-import { css, Global } from '@emotion/core';
-
 import { connect } from 'react-redux';
 
 import StockAPI from '../utils/stockAPI';
-
-const RootContainer = styled.div`
-    display: grid;
-    // grid-template-columns: 5% 22.5% 22.5% 22.5% 22.5% 5%;
-    grid-template-rows: auto;
-    grid-template-areas: '. Header Header Header Header .' '. Search Search Search Search .' '. Chart Chart Chart News .' '. Stats Stats Stats Company .' '. Footer Footer Footer Footer .';
-    font-family: sans-serif;
-    color: white;
-    height: 100%;
-    width: 100%;
-    @media (max-width: 800px) {
-        // grid-template-columns: 5% 21.25% 21.25% 21.25% 21.25% 5% 5%;
-        grid-template-areas: '. Header Header Header Header .' '. Search Search Search Search .' '. Chart Chart Chart Chart .' '. Stats Stats Stats Stats .' '. News News News News .' '. Company Company Company Company .' '. Footer Footer Footer Footer .';
-    }
-`
-
-const FooterHolder = styled.div`
-    grid-area: Footer;
-    color: green;
-`
-
-const CompanyContainer = styled.div`
-    grid-area: Company;
-    display: flex;
-    flex-direction: column;
-`
-
-export const Title = styled.div`
-    border-bottom: 2px solid #608fd1;
-    width: 95%;
-    padding-bottom: 2px;
-    margin-bottom: 10px;
-    color: #608fd1;
-`
 
 const stockAPI = new StockAPI();
 
@@ -86,35 +51,35 @@ const Root: React.FC<_StateProps & _DispatchProps> = ({
     }, [ticker, callbacks]);
 
     return (
-        <RootContainer>
-            <Global styles={css`body {
-                margin: 0;
-                background: no-repeat;
-                background-image: linear-gradient(to bottom right, #001f4b, #01142f);};
-                `
-            } />
-            <Header />
-            <Search 
-            search={search} 
-            {...keyStats} 
-            {...companyOverview}
-            />
-            <Chart 
-                {...chart} 
-                ticker={ticker} 
-                open={isUSMarketOpen} 
-                latest={latestPrice} 
-                updateChartPrices={updateChartPrices} 
-                updateChartRange={updateChartRange} 
-            />
-            <News news ={news}/>
-            <KeyStats {...keyStats}/>
-            <CompanyContainer>
-                <CompanyOverview {...companyOverview} />
-                <Peers peers={peers} />
-            </CompanyContainer>
-            <FooterHolder>FOOTER</FooterHolder>
-        </RootContainer>
+        <div className='RootContainer'>
+            <div className='AppContainer'>
+                <Header />
+                <Search 
+                search={search} 
+                {...keyStats} 
+                {...companyOverview}
+                />
+                <div className='ChartNews'>
+                    <Chart 
+                        {...chart} 
+                        ticker={ticker} 
+                        open={isUSMarketOpen} 
+                        latest={latestPrice} 
+                        updateChartPrices={updateChartPrices} 
+                        updateChartRange={updateChartRange} 
+                    />
+                    <News news ={news}/>
+                </div>
+                <div className='StatsCompany'>
+                    <KeyStats {...keyStats}/>
+                    <div className='CompanyContainer'>
+                        <CompanyOverview {...companyOverview} />
+                        <Peers peers={peers} />
+                    </div>
+                </div>
+            </div>
+            <div className='FooterHolder'>FOOTER</div>
+        </div>
     )
 }
 

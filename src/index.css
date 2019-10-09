@@ -1,0 +1,13 @@
+html, body {
+    margin: 0;
+    padding: 0;
+}
+
+
+#root {
+    height: 100vh;
+    min-height: 100vh;
+    overflow-y: auto;
+    background: no-repeat;
+    background-image: linear-gradient(to bottom right, #001f4b, #01142f);
+}
