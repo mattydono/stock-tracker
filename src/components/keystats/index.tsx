@@ -1,41 +1,7 @@
 import React from 'react';
-import styled from '@emotion/styled'
-import { Title } from '../Root'
 import { _KeyStats } from '../../models'
+import './index.css'
 
-const KeyStatsContainer = styled.div`
-   width: 75%;
-   height: 30vh;
-   margin-bottom: 5px;
-`
-
-const TableContainer = styled.div`
-    width: 100%;
-    column-count: 2;
-    font-size: 0.8rem;
-`
-
-const TD = styled.td`
-    color: #41608a;
-`
-
-const TR = styled.tr`
-    display: flex;
-    justify-content: space-between;
-    width: 100%;
-    height: 2rem;
-    border-bottom: 1px solid #0a2e63;
-    margin-bottom: 1%;
-`
-
-const Table = styled.table`
-    border-collapse: collapse;
-    width: 90%;
-`
-
-const Tbody = styled.tbody`
-    width: 100%;
-`
 const KeyStats: React.FC<_KeyStats> = ({
     marketCap, 
     peRatio, 
@@ -52,59 +18,59 @@ const KeyStats: React.FC<_KeyStats> = ({
     }) => {
 
     return (
-        <KeyStatsContainer>
-            <Title>KEY STATS</Title>
-            <TableContainer>
-                <Table>
-                    <Tbody>
-                        <TR>
-                            <TD>Previous Close</TD>
-                            <td>{previousClose ? previousClose : 'N/A'}</td>
-                        </TR>
-                        <TR>
-                            <TD>Day Range</TD>
-                            <td>{low ? low : 'N/A'} - {high ? high : 'N/A'}</td>
-                        </TR>
-                        <TR>
-                            <TD>Volume</TD>
-                            <td>{volume ? volume : 'N/A'}</td>
-                        </TR>
-                        <TR>
-                            <TD>Market Cap</TD>
-                            <td>{marketCap ? marketCap : 'N/A'}</td>
-                        </TR>
-                        <TR>
-                            <TD>P/E Ratio</TD>
-                            <td>{peRatio ? peRatio : 'N/A'}</td>
-                        </TR>
-                    </Tbody>
-                </Table>
-                <Table>
-                    <Tbody>
-                        <TR>
-                            <TD>Open</TD>
-                            <td>{open ? open : 'N/A'}</td>
-                        </TR>
-                        <TR>
-                            <TD>52 Week Range</TD>
-                            <td>{week52Low ? week52Low : 'N/A'} - {week52High ? week52High : 'N/A'}</td>
-                        </TR>
-                        <TR>
-                            <TD>Total Avg Volume</TD>
-                            <td>{avgTotalVolume ? avgTotalVolume : 'N/A'}</td>
-                        </TR>
-                        <TR>
-                            <TD>Earnings Per Share</TD>
-                            <td>{actualEPS ? actualEPS : 'N/A'}</td>
-                        </TR>
-                        <TR>
-                            <TD>Dividend & Yield</TD>
-                            <td>{dividendYield ? dividendYield : 'N/A'}</td>
-                        </TR>
-                    </Tbody>
-                </Table>
-            </TableContainer> 
-        </KeyStatsContainer>       
+        <div className='KeyStatsContainer'>
+            <span className='Title'>KEY STATS</span>
+            <div className='TableContainer'>
+                <table className='Table'>
+                    <tbody className='Tbody'>
+                        <tr className='TR'>
+                            <td className='TD'>Previous Close</td>
+                            <td>{previousClose ? previousClose : null}</td>
+                        </tr>
+                        <tr className='TR'>
+                            <td className='TD'>Day Range</td>
+                            <td>{low ? low : null} - {high ? high : null}</td>
+                        </tr>
+                        <tr className='TR'>
+                            <td className='TD'>Volume</td>
+                            <td>{volume ? volume : null}</td>
+                        </tr>
+                        <tr className='TR'>
+                            <td className='TD'>Market Cap</td>
+                            <td>{marketCap ? marketCap : null}</td>
+                        </tr>
+                        <tr className='TR'>
+                            <td className='TD'>P/E Ratio</td>
+                            <td>{peRatio ? peRatio : null}</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <table className='Table'>
+                    <tbody className='Tbody'>
+                        <tr className='TR'>
+                            <td className='TD'>Open</td>
+                            <td>{open ? open : null}</td>
+                        </tr>
+                        <tr className='TR'>
+                            <td className='TD'>52 Week Range</td>
+                            <td>{week52Low ? week52Low : null} - {week52High ? week52High : null}</td>
+                        </tr>
+                        <tr className='TR'>
+                            <td className='TD'>Total Avg Volume</td>
+                            <td>{avgTotalVolume ? avgTotalVolume : null}</td>
+                        </tr>
+                        <tr className='TR'>
+                            <td className='TD'>Earnings Per Share</td>
+                            <td>{actualEPS ? actualEPS : null}</td>
+                        </tr>
+                        <tr className='TR'>
+                            <td className='TD'>Dividend & Yield</td>
+                            <td>{dividendYield ? dividendYield : null}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div> 
+        </div>       
     )
 }
 

@@ -10,6 +10,8 @@ import Peers from './peers';
 import Chart from './charts';
 import Header from './header'
 
+import './root.css'
+
 import {
     updateTicker,
     updateCompany,
@@ -20,41 +22,9 @@ import {
     updateChartData
 } from '../redux/actions'
 
-import styled from '@emotion/styled';
-
 import { connect } from 'react-redux';
 
 import StockAPI from '../utils/stockAPI';
-
-const RootContainer = styled.div`
-    display: flex;
-    flex: 1;
-    flex-flow: row wrap;
-    font-family: sans-serif;
-    margin: 0 5% 0 5%;
-    position: relative;
-`
-
-const FooterHolder = styled.div`
-    width: 100%;
-    height: 5vh;
-    background-color: 
-`
-
-const CompanyContainer = styled.div`
-    width: 25%;
-    display: flex;
-    flex-direction: column;
-    height: 30vh;
-`
-
-export const Title = styled.div`
-    border-bottom: 2px solid #608fd1;
-    width: 95%;
-    padding-bottom: 2px;
-    margin-bottom: 10px;
-    color: #608fd1;
-`
 
 const stockAPI = new StockAPI();
 
@@ -81,29 +51,35 @@ const Root: React.FC<_StateProps & _DispatchProps> = ({
     }, [ticker, callbacks]);
 
     return (
-        <RootContainer>
-            <Header />
-            <Search 
-            search={search} 
-            {...keyStats} 
-            {...companyOverview}
-            />
-            <Chart 
-                {...chart} 
-                ticker={ticker} 
-                open={isUSMarketOpen} 
-                latest={latestPrice} 
-                updateChartPrices={updateChartPrices} 
-                updateChartRange={updateChartRange} 
-            />
-            <News news ={news}/>
-            <KeyStats {...keyStats}/>
-            <CompanyContainer>
-                <CompanyOverview {...companyOverview} />
-                <Peers peers={peers} />
-            </CompanyContainer>
-            <FooterHolder>FOOTER</FooterHolder>
-        </RootContainer>
+        <div className='RootContainer'>
+            <div className='AppContainer'>
+                <Header />
+                <Search 
+                search={search} 
+                {...keyStats} 
+                {...companyOverview}
+                />
+                <div className='ChartNews'>
+                    <Chart 
+                        {...chart} 
+                        ticker={ticker} 
+                        open={isUSMarketOpen} 
+                        latest={latestPrice} 
+                        updateChartPrices={updateChartPrices} 
+                        updateChartRange={updateChartRange} 
+                    />
+                    <News news ={news}/>
+                </div>
+                <div className='StatsCompany'>
+                    <KeyStats {...keyStats}/>
+                    <div className='CompanyContainer'>
+                        <CompanyOverview {...companyOverview} />
+                        <Peers peers={peers} />
+                    </div>
+                </div>
+            </div>
+            <div className='FooterHolder'>FOOTER</div>
+        </div>
     )
 }
 
