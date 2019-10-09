@@ -9,6 +9,7 @@ import News from './news';
 import Peers from './peers';
 import Chart from './charts';
 import Header from './header'
+import useTicker from '../redux/hooks';
 
 import {
     updateTicker,
@@ -23,8 +24,6 @@ import {
 import styled from '@emotion/styled';
 
 import { connect } from 'react-redux';
-
-import StockAPI from '../utils/stockAPI';
 
 const RootContainer = styled.div`
     display: flex;
@@ -56,8 +55,6 @@ export const Title = styled.div`
     color: #608fd1;
 `
 
-const stockAPI = new StockAPI();
-
 const Root: React.FC<_StateProps & _DispatchProps> = ({ 
     ticker, 
     peers, 
@@ -73,12 +70,11 @@ const Root: React.FC<_StateProps & _DispatchProps> = ({
 
     const { isUSMarketOpen, latestPrice } = keyStats;
 
+    const [updateTicker, errors, fetching]:any = useTicker(ticker, callbacks);
+
     useEffect(() => {
-        stockAPI.subscribeToTicker(ticker, callbacks);
-        return () => {
-            stockAPI.unsubscribeToTicker(ticker);
-        }
-    }, [ticker, callbacks]);
+        updateTicker(ticker);
+    }, [ticker])
 
     return (
         <RootContainer>
@@ -96,8 +92,8 @@ const Root: React.FC<_StateProps & _DispatchProps> = ({
                 updateChartPrices={updateChartPrices} 
                 updateChartRange={updateChartRange} 
             />
-            <News news ={news}/>
-            <KeyStats {...keyStats}/>
+            <News news={news}/>
+            <KeyStats {...keyStats} />
             <CompanyContainer>
                 <CompanyOverview {...companyOverview} />
                 <Peers peers={peers} />
