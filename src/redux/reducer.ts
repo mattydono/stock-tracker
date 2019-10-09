@@ -5,8 +5,9 @@ import { UpdateTickerAction, UPDATE_TICKER,
         UpdateChartRangeAction, UPDATE_CHART_RANGE, 
         UpdateCompanyAction, UPDATE_COMPANY, 
         UpdateNewsAction, UPDATE_NEWS, 
-        UpdatePeersAction, UPDATE_PEERS } from './actions'
-import { _CompanyOverview, _KeyStats, _Charts, _News } from '../models'
+        UpdatePeersAction, UPDATE_PEERS,
+        UpdateFavoritesDataAction, UPDATE_FAVORITES_DATA, updateFavoritesData } from './actions'
+import { _CompanyOverview, _KeyStats, _Charts, _News, _Favorites } from '../models'
 
 export interface _AppState {
     search: string,
@@ -14,7 +15,8 @@ export interface _AppState {
     keyStats: _KeyStats,
     charts: _Charts,
     news: _News,
-    peers: string[]
+    peers: string[],
+    favorites: _Favorites,
 }
 
 const companyOverviewInitialState: _CompanyOverview = {
@@ -54,6 +56,11 @@ const chartsIntitialState: _Charts = {
 }
 
 const newsInitialState: _News = []
+
+const favoritesInitialState: _Favorites = {
+    tickers: [''],
+    prices: [],
+}
 
 const search: Reducer<string, UpdateTickerAction> = (
     state = 'aapl', 
@@ -159,6 +166,23 @@ const charts = (
     }
 }
 
+const favorites = (
+    state = favoritesInitialState,
+    action: UpdateFavoritesDataAction
+    ) => {
+    const { type } = action;
+    switch (type) {
+        case UPDATE_FAVORITES_DATA: {
+            const updateFavoritesDataAction = action as UpdateFavoritesDataAction;
+            const { payload } = updateFavoritesDataAction;
+            return ({ ...state, prices: payload })
+        }
+        default: {
+            return state;
+        }
+    }
+}
+
 export default combineReducers({
     search,
     companyOverview,
@@ -166,4 +190,5 @@ export default combineReducers({
     news,
     peers,
     charts,
+    favorites,
 })

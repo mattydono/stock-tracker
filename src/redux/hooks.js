@@ -6,6 +6,7 @@ const errorInitialState = {
     news: false,
     company: false,
     peers: false,
+    favorites: false,
 }
 
 const isFetchingInitialState = {
@@ -13,28 +14,44 @@ const isFetchingInitialState = {
     news: false,
     company: false,
     peers: false,
+    favorites: false,
 }
 
-const useTicker = (myticker, { quote, news, company, peers }) => {
+const useTicker = (myticker, { quote, news, company, peers, favorites }) => {
 
     const [errors, setErrors] = useState(errorInitialState);
     const [isFetching, setIsFetching] = useState(isFetchingInitialState);
-    const [ticker, setTicker] = useState(myticker)
+    const [ticker, setTicker] = useState(myticker);
+    const [favoritesArray, setFavoritesArray] = useState(['msft', 'amzn', 'fb']);
 
     useEffect(() => {
         const fetchCompany = () => fetchData(createURL(ticker, 'company'), company, () => setErrors(state => ({ ...state, company: true })), (bool) => setIsFetching(state => ({ ...state, company: bool })));
         const fetchNews = () => fetchData(createURL(ticker, 'news'), news, () => setErrors(state => ({ ...state, news: true })), (bool) => setIsFetching(state => ({ ...state, news: bool })));
         const fetchQuote = () => fetchData(createURL(ticker, 'quote'), quote, () => setErrors(state => ({ ...state, quote: true })), (bool) => setIsFetching(state => ({ ...state, quote: bool })));
         const fetchPeers = () => fetchData(createURL(ticker, 'peers'), peers, () => setErrors(state => ({ ...state, peers: true })), (bool) => setIsFetching(state => ({ ...state, peers: bool })));
-        const polling = (fetchCompany() && fetchNews() && fetchQuote() && fetchPeers() && false) || window.setInterval(fetchQuote, 5000);
-        const poll = window.setInterval(fetchNews, 30000)
+        const pollingQuote = (fetchCompany() && fetchNews() && fetchQuote() && fetchPeers() && false) || window.setInterval(fetchQuote, 5000);
+        const pollingNews = window.setInterval(fetchNews, 30000);
         return () => {
-            clearInterval(polling);
-            clearInterval(poll);
+            clearInterval(pollingQuote);
+            clearInterval(pollingNews);
         }
     }, [ticker])
 
-    return [setTicker, errors, isFetching];
+    useEffect(() => {
+        const fetchFavorites = () => fetchData(
+            createURL(favoritesArray, 'favorites'), 
+            favorites, 
+            () => setErrors(state => ({ ...state, favorites: true })), 
+            (bool) => setIsFetching(state => ({ ...state, favorites: bool }))
+        );
+        fetchFavorites();
+        const favoritesPolling = window.setInterval(fetchFavorites, 7000);
+        return () => {
+            clearInterval(favoritesPolling);
+        }
+    }, [favoritesArray]);
+
+    return [setTicker, setFavoritesArray, errors, isFetching];
 }
 
 export default useTicker;
