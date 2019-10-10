@@ -7,8 +7,9 @@ export const fetchData = async (url, callback, error, fetching) => {
         fetching(true)
         const result = await fetch(url).then(res => res.json());
         callback(result);
+        error(false);
     } catch (e) {
-        error();
+        error(e);
     } finally {
         fetching(false);
     }

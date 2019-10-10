@@ -25,10 +25,10 @@ const useTicker = (myticker, { quote, news, company, peers, favorites }) => {
     const [favoritesArray, setFavoritesArray] = useState(['msft', 'amzn', 'fb']);
 
     useEffect(() => {
-        const fetchCompany = () => fetchData(createURL(ticker, 'company'), company, () => setErrors(state => ({ ...state, company: true })), (bool) => setIsFetching(state => ({ ...state, company: bool })));
-        const fetchNews = () => fetchData(createURL(ticker, 'news'), news, () => setErrors(state => ({ ...state, news: true })), (bool) => setIsFetching(state => ({ ...state, news: bool })));
-        const fetchQuote = () => fetchData(createURL(ticker, 'quote'), quote, () => setErrors(state => ({ ...state, quote: true })), (bool) => setIsFetching(state => ({ ...state, quote: bool })));
-        const fetchPeers = () => fetchData(createURL(ticker, 'peers'), peers, () => setErrors(state => ({ ...state, peers: true })), (bool) => setIsFetching(state => ({ ...state, peers: bool })));
+        const fetchCompany = () => fetchData(createURL(ticker, 'company'), company, (e) => setErrors(state => ({ ...state, company: e })), (bool) => setIsFetching(state => ({ ...state, company: bool })));
+        const fetchNews = () => fetchData(createURL(ticker, 'news'), news, (e) => setErrors(state => ({ ...state, news: e })), (bool) => setIsFetching(state => ({ ...state, news: bool })));
+        const fetchQuote = () => fetchData(createURL(ticker, 'quote'), quote, (e) => setErrors(state => ({ ...state, quote: e })), (bool) => setIsFetching(state => ({ ...state, quote: bool })));
+        const fetchPeers = () => fetchData(createURL(ticker, 'peers'), peers, (e) => setErrors(state => ({ ...state, peers: e })), (bool) => setIsFetching(state => ({ ...state, peers: bool })));
         const pollingQuote = (fetchCompany() && fetchNews() && fetchQuote() && fetchPeers() && false) || window.setInterval(fetchQuote, 5000);
         const pollingNews = window.setInterval(fetchNews, 30000);
         return () => {
@@ -41,7 +41,7 @@ const useTicker = (myticker, { quote, news, company, peers, favorites }) => {
         const fetchFavorites = () => fetchData(
             createURL(favoritesArray, 'favorites'), 
             favorites, 
-            () => setErrors(state => ({ ...state, favorites: true })), 
+            (e) => setErrors(state => ({ ...state, favorites: e })), 
             (bool) => setIsFetching(state => ({ ...state, favorites: bool }))
         );
         fetchFavorites();
