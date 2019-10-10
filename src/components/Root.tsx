@@ -12,8 +12,6 @@ import Header from './header';
 import Footer from './footer';
 import useTicker from '../redux/hooks';
 
-import loading from '../gif/loading.gif'
-
 import './root.css'
 
 import {
