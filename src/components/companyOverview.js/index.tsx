@@ -3,7 +3,9 @@ import { _CompanyOverview } from '../../models'
 import './index.css'
 import loading from '../../gif/loading.gif'
 
-const CompanyOverview: React.FC<_CompanyOverview> = ({ isFetchingCompany, companyName, symbol, website, description }) => {
+const CompanyOverview: React.FC<_CompanyOverview> = ({ errorCompany, isFetchingCompany, companyName, symbol, website, description }) => {
+
+    console.log(errorCompany)
 
     return (
         <div className={companyName && symbol && website && description ? 'CompanyOverviewContainer' : 'CompanyLoadingContainer'}>

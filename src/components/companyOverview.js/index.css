@@ -79,6 +79,29 @@ a:visited {
     height: 50px;
 }
 
+.CompanyErrorContainer {
+    background-color: rgba(89, 89, 105, 0.2);
+    display: flex;
+    height: 100%;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    border-radius: 5%;
+    margin-bottom: 10px;
+}
+
+.CompanyError {
+    font-size: 15rem;
+    color: rgba(89, 89, 105, 0.2);
+}
+
+.CompanyErrorMessage {
+    color: #c72820;
+    font-weight: 700;
+    font-size: 2rem;
+}
+
 @media(max-width: 800px) {
     .CompanyOverviewContainer {
         margin-bottom: 30px;

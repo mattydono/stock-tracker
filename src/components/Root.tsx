@@ -46,6 +46,9 @@ const Root: React.FC<_StateProps & _DispatchProps> = ({
     const [updateTicker, updateFavorites, errors, fetching]:any = useTicker(ticker, callbacks);
 
     const { news: isFetchingNews = false, quote: isFetchingQuote = false, company: isFetchingCompany = false, peers: isFetchingPeers = false } = fetching;
+    const { news: errorNews = false, quote: errorQuote = false, company: errorCompany = false, peers: errorPeers = false } = errors;
+
+    console.log('HERE',errors.news)
 
     useEffect(() => {
         updateTicker(ticker);
@@ -67,15 +70,16 @@ const Root: React.FC<_StateProps & _DispatchProps> = ({
                         open={isUSMarketOpen} 
                         latest={latestPrice} 
                         updateChartPrices={updateChartPrices} 
-                        updateChartRange={updateChartRange} 
+                        updateChartRange={updateChartRange}
+                        errorQuote={errorQuote} 
                     />
-                    <News isFetchingNews={isFetchingNews} news={news}/>
+                    <News errorNews={errorNews} isFetchingNews={isFetchingNews} news={news}/>
                 </div>
                 <div className='StatsCompany'>
-                    <KeyStats isFetchingQuote={isFetchingQuote} {...keyStats}/>
+                    <KeyStats errorQuote={errorQuote} isFetchingQuote={isFetchingQuote} {...keyStats}/>
                     <div className='CompanyContainer'>
-                        <CompanyOverview isFetchingCompany={isFetchingCompany} {...companyOverview} />
-                        <Peers isFetchingPeers={isFetchingPeers} peers={peers} />
+                        <CompanyOverview errorCompany={errorCompany} isFetchingCompany={isFetchingCompany} {...companyOverview} />
+                        <Peers errorPeers={errorPeers} isFetchingPeers={isFetchingPeers} peers={peers} />
                     </div>
                 </div>
             </div>

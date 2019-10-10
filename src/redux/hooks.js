@@ -3,7 +3,7 @@ import { createURL, fetchData } from './helpers';
 
 const errorInitialState = {
     quote: false,
-    news: false,
+    news: undefined,
     company: false,
     peers: false,
     favorites: false,
