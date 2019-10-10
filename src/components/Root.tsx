@@ -47,6 +47,8 @@ const Root: React.FC<_StateProps & _DispatchProps> = ({
 
     const { news: isFetchingNews = false, quote: isFetchingQuote = false, company: isFetchingCompany = false, peers: isFetchingPeers = false } = fetching;
 
+    const { news: isNewsError = false } = errors;
+
     useEffect(() => {
         updateTicker(ticker);
     }, [ticker])
