@@ -8,7 +8,8 @@ import KeyStats from './keystats';
 import News from './news';
 import Peers from './peers';
 import Chart from './charts';
-import Header from './header'
+import Header from './header';
+import Footer from './footer';
 import useTicker from '../redux/hooks';
 
 import './root.css'
@@ -20,7 +21,8 @@ import {
     updateNews,
     updatePeers,
     updateChartRange,
-    updateChartData
+    updateChartData,
+    updateFavoritesData,
 } from '../redux/actions'
 
 import { connect } from 'react-redux';
@@ -34,13 +36,14 @@ const Root: React.FC<_StateProps & _DispatchProps> = ({
     search, 
     news,
     chart,
+    favorites,
     updateChartRange,
     updateChartPrices,
 }) => {
 
     const { isUSMarketOpen, latestPrice } = keyStats;
 
-    const [updateTicker, errors, fetching]:any = useTicker(ticker, callbacks);
+    const [updateTicker, updateFavorites, errors, fetching]:any = useTicker(ticker, callbacks);
 
     useEffect(() => {
         updateTicker(ticker);
@@ -74,7 +77,9 @@ const Root: React.FC<_StateProps & _DispatchProps> = ({
                     </div>
                 </div>
             </div>
-            <div className='FooterHolder'>FOOTER</div>
+            <div className='FooterHolder'>
+                <Footer favorites={favorites} />
+            </div>
         </div>
     )
 }
@@ -85,6 +90,7 @@ const mapStateToProps: MapStateToProps<_StateProps, {}, _AppState> = state => ({
     keyStats: state.keyStats,
     news: state.news,
     peers: state.peers,
+    favorites: state.favorites,
     chart: {
         range: state.charts.range,
         prices: state.charts.prices,
@@ -100,6 +106,7 @@ const mapDispatchToProps: MapDispatchToProps<_DispatchProps, {}> = dispatch => (
         quote: quote => dispatch(updateKeyStats(quote)),
         news: news => dispatch(updateNews(news)),
         peers: peers => dispatch(updatePeers(peers)),
+        favorites: prices => dispatch(updateFavoritesData(prices))
     }
 })
 
