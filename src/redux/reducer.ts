@@ -24,7 +24,8 @@ const companyOverviewInitialState: _CompanyOverview = {
     companyName: null,
     website: null,
     description: null,
-    tags: []
+    tags: [],
+    isFetchingCompany: false,
 }
 
 const keyStatsInitialState: _KeyStats = {
@@ -47,7 +48,8 @@ const keyStatsInitialState: _KeyStats = {
     latestPrice: undefined,
     primaryExchange: null,
     latestTime: null,
-    isUSMarketOpen: null
+    isUSMarketOpen: null,
+    isFetchingQuote: false,
 }
 
 const chartsIntitialState: _Charts = {
@@ -134,10 +136,7 @@ const peers = (
         case UPDATE_PEERS: {
             const updatePeersAction = action as UpdatePeersAction
             const { payload } = updatePeersAction;
-            return [
-                ...state,
-                ...payload
-            ]
+            return payload
         }
         default: {
             return state;

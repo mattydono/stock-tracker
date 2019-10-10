@@ -2,6 +2,13 @@
     flex: 0 1 75%;
 }
 
+.ChartLoadingContainer {
+    flex: 0 1 75%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 .ButtonsContainer {
     display: flex;
     flex-direction: row-reverse;
@@ -21,6 +28,12 @@
 
 .Input {
     display: none;
+}
+
+.ChartLoading {
+    background-color: rgba(89, 89, 105, 0.2);
+    padding: 10% 40% 10% 40%;
+    border-radius: 5%;
 }
 
 @media(max-width: 800px) {

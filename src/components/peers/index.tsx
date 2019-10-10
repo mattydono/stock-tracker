@@ -1,14 +1,23 @@
 import React from 'react';
+import './index.css'
+import loading from '../../gif/loading.gif'
 
 type PeersProps = {
-    peers: string[]
+    peers: string[],
+    isFetchingPeers: boolean,
 }
 
-const Peers: React.FC<PeersProps> = ({ peers }) => {
+const Peers: React.FC<PeersProps> = ({ isFetchingPeers, peers }) => {
     return (
-        <div className='PeersContainer'>
+        <div className={isFetchingPeers ? 'PeersLoadingContainer' : 'PeersContainer'}>
             <span className='Title'>TOP PEERS</span>
-            <div>{peers.map( peer => peer + ' ')}</div>
+            {   
+                isFetchingPeers ? 
+                <img className='LoadingPeers' src={loading} /> : 
+                <div className='contentContainer'>
+                    <div>{peers.map( peer => peer + ' ')}</div>
+                </div>
+            }
         </div>
     );
 }
