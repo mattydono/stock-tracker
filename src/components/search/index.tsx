@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import TickerCard from './tickerCard';
 import './index.css'
 
 type _Stock = {
@@ -96,11 +97,12 @@ const Search: React.FC<SearchProps> = ({ search, change, changePercent, latestPr
                     <span className='IconAlign'><span className='Icon'>⚲</span></span>
                     <input className='InputButton' ref={inputSelect} placeholder='Stock Search Here' value={query} onClick={inputClickHandler} onChange={event => { setQuery(event.target.value); toggleIsOpen(query.length > 0) }} onKeyPress={onKeyPress} onBlur={handleBlur} />
                 </div>
-                <div className='PriceStats'>
+                <TickerCard latestPrice={latestPrice} change={change} changePercent={changePercent} />
+                {/* <div className='PriceStats'>
                     {latestPrice ? <span className='PriceSpan'><span className='DollarIcon'>$</span>{latestPrice}</span> : null}
                     {!change ? null : change > 0 ? <span className='Span positive'><span className='PriceIcon'>&#8593;</span>{Math.abs(change)}</span> : <span className='Span'><span className='PriceIcon'>&#8595;</span>{Math.abs(change)}</span>} {!change ? null : change > 0 ? <span className='Span positive'>|</span> : <span className='Span'>|</span> }
                     {!changePercent ? null : changePercent > 0 ? <span className='Span positive'>{Math.abs(Math.round((changePercent * 100) * 100) / 100)}<span className='PriceIcon'>&#37;</span></span> : <span className='Span'>{Math.abs(Math.round((changePercent * 100) * 100) / 100)}<span className='PriceIcon'>&#37;</span></span>}
-                </div>
+                </div> */}
                 <div className='StockList' ref={dropSelect} tabIndex={-1}>
                     {isOpen ? stockList.map( stock => renderStock(stock)) : null}
                 </div>

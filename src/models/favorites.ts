@@ -1,8 +1,8 @@
 export interface _PriceSingleDataPoint {
     ticker?: string,
     latestPrice?: number,
-    change?: number,
-    changePercent?: number,
+    change: number | null,
+    changePercent: number | null,
 }
 
 export interface _Favorites {

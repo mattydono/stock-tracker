@@ -79,9 +79,7 @@ const Root: React.FC<_StateProps & _DispatchProps> = ({
                     </div>
                 </div>
             </div>
-            <div className='FooterHolder'>
-                <Footer favorites={favorites} />
-            </div>
+            <Footer favorites={favorites} />
         </div>
     )
 }
