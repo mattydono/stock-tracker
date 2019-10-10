@@ -129,10 +129,7 @@ const peers = (
         case UPDATE_PEERS: {
             const updatePeersAction = action as UpdatePeersAction
             const { payload } = updatePeersAction;
-            return [
-                ...state,
-                ...payload
-            ]
+            return payload
         }
         default: {
             return state;

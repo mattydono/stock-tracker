@@ -9,9 +9,15 @@ type PeersProps = {
 
 const Peers: React.FC<PeersProps> = ({ isFetchingPeers, peers }) => {
     return (
-        <div className={peers.length <= 1 ? 'PeersLoadingContainer' : 'PeersContainer'}>
+        <div className={isFetchingPeers ? 'PeersLoadingContainer' : 'PeersContainer'}>
             <span className='Title'>TOP PEERS</span>
-            { peers.length < 2 ? <img className='LoadingPeers' src={loading} /> : <div className='contentContainer'><div>{peers.map( peer => peer + ' ')}</div>{isFetchingPeers ? <img className='FetchingPeers' src={loading} /> : null}</div> }
+            {   
+                isFetchingPeers ? 
+                <img className='LoadingPeers' src={loading} /> : 
+                <div className='contentContainer'>
+                    <div>{peers.map( peer => peer + ' ')}</div>
+                </div>
+            }
         </div>
     );
 }
