@@ -26,6 +26,7 @@ const companyOverviewInitialState: _CompanyOverview = {
     description: null,
     tags: [],
     isFetchingCompany: false,
+    errorCompany: false,
 }
 
 const keyStatsInitialState: _KeyStats = {
@@ -50,6 +51,7 @@ const keyStatsInitialState: _KeyStats = {
     latestTime: null,
     isUSMarketOpen: null,
     isFetchingQuote: false,
+    errorQuote: false,
 }
 
 const chartsIntitialState: _Charts = {

@@ -27,7 +27,8 @@ type ChartProps = {
     updateChartPrices: (chartRange: _ChartSingleDataPoint[]) => void,
     open: boolean | null,
     ticker: string,
-    latest?: number
+    latest?: number,
+    errorQuote: boolean,
 }
 
 const RangeButton: React.FC<RangeButtonProps> = ({ range, update, current }) => {
@@ -74,7 +75,7 @@ const initialState: ChartState = {
 }
 
 
-const Chart: React.FC<ChartProps> = ({ prices, ticker, open, latest, range, updateChartRange, updateChartPrices }) => {
+const Chart: React.FC<ChartProps> = ({ errorQuote, prices, ticker, open, latest, range, updateChartRange, updateChartPrices }) => {
 
     const [chart, setChart] = useState<ChartState>(initialState);
     const [isFetching, setIsFetching] = useState<boolean>(false);

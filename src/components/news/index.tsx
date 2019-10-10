@@ -7,13 +7,24 @@ import loading from '../../gif/loading.gif'
 type NewsProps = {
     news: _News,
     isFetchingNews: boolean,
+    errorNews: any,
 }
 
-const News: React.FC<NewsProps> = ({ isFetchingNews, news }) => {
+const News: React.FC<NewsProps> = ({ errorNews, isFetchingNews, news }) => {
+
+    console.log(errorNews)
+
     return (
         <div className={news.length > 0 ? 'NewsContainer' : 'NewsLoadingContainer' }>
             <span className='Title'>LATEST NEWS</span>
-            { news.length < 1 ? <div className='NewsLoadingSymbolContainer'><img className='NewsLoading'src={loading} /></div> :
+            {errorNews ? 
+                <div className='NewsErrorContainer'>
+                    <div className='NewsError'>⊗</div>
+                    <div className='NewsErrorMessage'>Error: 400</div>
+                </div> : 
+                null
+            }
+            { news.length < 1 && !errorNews ? <div className='NewsLoadingSymbolContainer'><img className='NewsLoading'src={loading} /></div> :
                 news.map(article => {
                     const { url, headline, datetime, source } = article;
                     return (

@@ -16,7 +16,8 @@ const KeyStats: React.FC<_KeyStats> = ({
     open,
     dividendYield,
     actualEPS,
-    isFetchingQuote
+    isFetchingQuote,
+    errorQuote,
     }) => {
 
         const nullValues = (() => {

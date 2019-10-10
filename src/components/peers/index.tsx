@@ -5,9 +5,10 @@ import loading from '../../gif/loading.gif'
 type PeersProps = {
     peers: string[],
     isFetchingPeers: boolean,
+    errorPeers: boolean,
 }
 
-const Peers: React.FC<PeersProps> = ({ isFetchingPeers, peers }) => {
+const Peers: React.FC<PeersProps> = ({ errorPeers, isFetchingPeers, peers }) => {
     return (
         <div className={isFetchingPeers ? 'PeersLoadingContainer' : 'PeersContainer'}>
             <span className='Title'>TOP PEERS</span>
