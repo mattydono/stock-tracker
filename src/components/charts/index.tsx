@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import './index.css'
+import loading from '../../gif/loading.gif'
 
 import { 
     XAxis, 
@@ -149,20 +150,24 @@ const Chart: React.FC<ChartProps> = ({ prices, ticker, open, latest, range, upda
 
     //TODO: Add loading spinner. Add error message if error (conditional rendering based on isFetching & isError)
     return (
-      <div className='ChartContainer'>
-          <div className='ButtonsContainer'>
-              {buttons}
-          </div>
-        <ResponsiveContainer aspect={0.9} width='99%' height='100%' maxHeight={500}>
-            <AreaChart data={data} >
-                <CartesianGrid strokeDasharray="3 3" />
-                <XAxis dataKey="label"/>
-                <YAxis orientation="right" domain={['dataMin', 'auto']} tickLine={false}/>
-                <ReferenceLine y={now.close} stroke={'orange'} strokeDasharray="3 3" />
-                <Tooltip cursor={{ stroke: 'red', strokeWidth: 2 }} />
-                <Area connectNulls type="monotone" dataKey="close" name="price" unit=" USD" stroke="#8884d8" fill="#8884d8" fillOpacity={0.3} />
-            </AreaChart>
-        </ResponsiveContainer>
+      <div className={!isFetching ? 'ChartContainer' : 'ChartLoadingContainer'}>
+          {isFetching ? <img className='ChartLoading' src={loading} /> :
+            <>
+                <div className='ButtonsContainer'>
+                    {buttons}
+                </div>
+                <ResponsiveContainer aspect={0.9} width='99%' height='100%' maxHeight={500}>
+                    <AreaChart data={data} >
+                        <CartesianGrid strokeDasharray="3 3" />
+                        <XAxis dataKey="label"/>
+                        <YAxis orientation="right" domain={['dataMin', 'auto']} tickLine={false}/>
+                        <ReferenceLine y={now.close} stroke={'orange'} strokeDasharray="3 3" />
+                        <Tooltip cursor={{ stroke: 'red', strokeWidth: 2 }} />
+                        <Area connectNulls type="monotone" dataKey="close" name="price" unit=" USD" stroke="#8884d8" fill="#8884d8" fillOpacity={0.3} />
+                    </AreaChart>
+                </ResponsiveContainer>
+            </>
+          }
       </div>
     );
 }

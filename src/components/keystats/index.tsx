@@ -1,6 +1,7 @@
 import React from 'react';
 import { _KeyStats } from '../../models'
 import './index.css'
+import loading from '../../gif/loading.gif'
 
 const KeyStats: React.FC<_KeyStats> = ({
     marketCap, 
@@ -14,12 +15,20 @@ const KeyStats: React.FC<_KeyStats> = ({
     volume,
     open,
     dividendYield,
-    actualEPS
+    actualEPS,
+    isFetchingQuote
     }) => {
 
+        const nullValues = (() => {
+            if(!marketCap && !peRatio && !week52High && !week52Low && !avgTotalVolume && !previousClose && !low && !high && !volume && !open && !dividendYield && !actualEPS) {
+                return true
+            }
+        })() 
+
     return (
-        <div className='KeyStatsContainer'>
+        <div className={nullValues ? 'KeyStatsLoadingContainer' : 'KeyStatsContainer'}>
             <span className='Title'>KEY STATS</span>
+            {nullValues ? <img className='LoadingStats' src={loading} /> : 
             <div className='TableContainer'>
                 <table className='Table'>
                     <tbody className='Tbody'>
@@ -69,7 +78,7 @@ const KeyStats: React.FC<_KeyStats> = ({
                         </tr>
                     </tbody>
                 </table>
-            </div> 
+            </div>} 
         </div>       
     )
 }

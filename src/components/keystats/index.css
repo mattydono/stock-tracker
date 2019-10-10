@@ -41,6 +41,20 @@
     color: #608fd1;
 }
 
+.LoadingStats {
+    background-color: rgba(89, 89, 105, 0.2);
+    border-radius: 5%;
+    padding: 5% 40% 5% 40%;
+}
+
+.KeyStatsLoadingContainer {
+    flex: 3 0 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
 @media(max-width: 800px) {
     .KeyStatsContainer {
         margin-bottom: 40px;

@@ -11,6 +11,8 @@ import Chart from './charts';
 import Header from './header'
 import useTicker from '../redux/hooks';
 
+import loading from '../gif/loading.gif'
+
 import './root.css'
 
 import {
@@ -42,6 +44,8 @@ const Root: React.FC<_StateProps & _DispatchProps> = ({
 
     const [updateTicker, errors, fetching]:any = useTicker(ticker, callbacks);
 
+    const { news: isFetchingNews = false, quote: isFetchingQuote = false, company: isFetchingCompany = false, peers: isFetchingPeers = false } = fetching;
+
     useEffect(() => {
         updateTicker(ticker);
     }, [ticker])
@@ -64,13 +68,13 @@ const Root: React.FC<_StateProps & _DispatchProps> = ({
                         updateChartPrices={updateChartPrices} 
                         updateChartRange={updateChartRange} 
                     />
-                    <News news ={news}/>
+                    <News isFetchingNews={isFetchingNews} news={news}/>
                 </div>
                 <div className='StatsCompany'>
-                    <KeyStats {...keyStats}/>
+                    <KeyStats isFetchingQuote={isFetchingQuote} {...keyStats}/>
                     <div className='CompanyContainer'>
-                        <CompanyOverview {...companyOverview} />
-                        <Peers peers={peers} />
+                        <CompanyOverview isFetchingCompany={isFetchingCompany} {...companyOverview} />
+                        <Peers isFetchingPeers={isFetchingPeers} peers={peers} />
                     </div>
                 </div>
             </div>
