@@ -6,7 +6,7 @@ import { UpdateTickerAction, UPDATE_TICKER,
         UpdateCompanyAction, UPDATE_COMPANY, 
         UpdateNewsAction, UPDATE_NEWS, 
         UpdatePeersAction, UPDATE_PEERS,
-        UpdateFavoritesDataAction, UPDATE_FAVORITES_DATA, updateFavoritesData } from './actions'
+        UpdateFavoritesDataAction, UPDATE_FAVORITES_DATA } from './actions'
 import { _CompanyOverview, _KeyStats, _Charts, _News, _Favorites } from '../models'
 
 export interface _AppState {
