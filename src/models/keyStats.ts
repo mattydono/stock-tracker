@@ -19,4 +19,5 @@ export interface _KeyStats {
     primaryExchange: string | null,
     latestTime: string | null,
     isUSMarketOpen: boolean | null,
+    isFetchingQuote: boolean,
 }

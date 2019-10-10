@@ -10,3 +10,27 @@
     height: 25%;
 }
 
+.PeersLoadingContainer {
+    height: 25px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.LoadingPeers {
+    height: 100px;
+    padding-left: 35%;
+    padding-right: 35%;
+    border-radius: 5%;
+    background-color: rgba(89, 89, 105, 0.2);
+}
+
+.contentContainer {
+    display: flex;
+    justify-content: space-between;
+}
+
+.FetchingPeers {
+    height: 50px;
+}
