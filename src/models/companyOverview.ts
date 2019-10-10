@@ -3,5 +3,6 @@ export interface _CompanyOverview {
     companyName: string | null,
     website: string | null,
     description: string | null,
-    tags: string[]
+    tags: string[],
+    isFetchingCompany: boolean
 }
