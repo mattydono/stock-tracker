@@ -13,7 +13,7 @@ const FooterTickerCard: React.FC<_PriceSingleDataPoint> = ({ ticker, latestPrice
 
     return (
         <span className="Card">
-            <div className="Ticker">{ticker ? ticker.toUpperCase() : null}</div>
+            <div className="Ticker">{ticker}</div>
             <TickerCard latestPrice={latestPrice} change={change} changePercent={changePercent} />
         </span>
     )
@@ -24,8 +24,11 @@ const Footer: React.FC<FooterProps> = ({ favorites: { prices } }) => {
     return (
         <div className="FooterHolder">
             <div className="Markets">hello</div>
-            <div className="Favorites">
-                {favoritesArray}
+            <div className="FavoritesContainer" >
+                <div className="Header">Favorites</div>
+                <div className="Favorites">
+                    {favoritesArray}
+                </div>
             </div>
         </div>
     )
