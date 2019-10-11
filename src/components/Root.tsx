@@ -48,10 +48,6 @@ const Root: React.FC<_StateProps & _DispatchProps> = ({
     const { news: isFetchingNews = false, quote: isFetchingQuote = false, company: isFetchingCompany = false, peers: isFetchingPeers = false } = fetching;
     const { news: errorNews = false, quote: errorQuote = false, company: errorCompany = false, peers: errorPeers = false } = errors;
 
-    console.log('HERE',errors.news)
-
-    const { news: isNewsError = false } = errors;
-
     useEffect(() => {
         updateTicker(ticker);
     }, [ticker])
@@ -62,6 +58,7 @@ const Root: React.FC<_StateProps & _DispatchProps> = ({
                 <Header />
                 <Search 
                 search={search} 
+                errorQuote={errorQuote}
                 {...keyStats} 
                 {...companyOverview}
                 />

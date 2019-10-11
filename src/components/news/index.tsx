@@ -6,21 +6,21 @@ import loading from '../../gif/loading.gif'
 
 type NewsProps = {
     news: _News,
-    isFetchingNews: boolean,
-    errorNews: any,
 }
 
-const News: React.FC<NewsProps> = ({ errorNews, isFetchingNews, news }) => {
+type ErrorLoading = {
+    errorNews: any,
+    isFetchingNews: boolean,
+}
 
-    console.log(errorNews)
-
+const News: React.FC<NewsProps & ErrorLoading> = ({ errorNews, isFetchingNews, news }) => {
     return (
         <div className={news.length > 0 ? 'NewsContainer' : 'NewsLoadingContainer' }>
             <span className='Title'>LATEST NEWS</span>
             {errorNews ? 
                 <div className='NewsErrorContainer'>
                     <div className='NewsError'>⊗</div>
-                    <div className='NewsErrorMessage'>Error: 400</div>
+                    <div className='NewsErrorMessage'>{errorNews.message}</div>
                 </div> : 
                 null
             }

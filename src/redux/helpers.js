@@ -10,7 +10,7 @@ export const fetchData = async (url, callback, error, fetching) => {
             callback(await response.json());
             error(false);
         }
-        else throw new Error(`fetching ${url.split('/')[3]} data unsuccessful`)
+        else throw new Error(`Failed to fetch ${url.split('/')[3]} data`)
     } catch (e) {
         error(e);
     } finally {

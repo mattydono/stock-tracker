@@ -82,8 +82,8 @@ a:visited {
 .CompanyErrorContainer {
     background-color: rgba(89, 89, 105, 0.2);
     display: flex;
-    height: 100%;
-    width: 100%;
+    height: 90%;
+    width: 80%;
     justify-content: center;
     align-items: center;
     flex-direction: column;
@@ -92,7 +92,7 @@ a:visited {
 }
 
 .CompanyError {
-    font-size: 15rem;
+    font-size: 180px;
     color: rgba(89, 89, 105, 0.2);
 }
 
@@ -100,6 +100,8 @@ a:visited {
     color: #c72820;
     font-weight: 700;
     font-size: 2rem;
+    text-align: center;
+    padding-bottom: 10%;
 }
 
 @media(max-width: 800px) {

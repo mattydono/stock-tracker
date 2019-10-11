@@ -3,14 +3,23 @@ import { _CompanyOverview } from '../../models'
 import './index.css'
 import loading from '../../gif/loading.gif'
 
-const CompanyOverview: React.FC<_CompanyOverview> = ({ errorCompany, isFetchingCompany, companyName, symbol, website, description }) => {
+type ErrorLoading = {
+    errorCompany: any,
+    isFetchingCompany: boolean,
+}
 
-    console.log(errorCompany)
-
+const CompanyOverview: React.FC<_CompanyOverview & ErrorLoading> = ({ errorCompany, isFetchingCompany, companyName, symbol, website, description }) => {
     return (
         <div className={companyName && symbol && website && description ? 'CompanyOverviewContainer' : 'CompanyLoadingContainer'}>
             <div className='Title'>COMPANY OVERVIEW</div>
-            {!companyName || !symbol || !website || !description ? <div className='LoadingContainer'><img className='CompanyLoading' src={loading} /> </div> :
+            {errorCompany ? 
+                <div className='CompanyErrorContainer'>
+                    <div className='CompanyError'>⊗</div>
+                    <div className='CompanyErrorMessage'>{errorCompany.message}</div>
+                </div> : 
+                null
+            }
+            {!companyName && !symbol && !website && !description && !errorCompany ? <div className='LoadingContainer'><img className='CompanyLoading' src={loading} /> </div> :
             <div className='content'>
                 <div className='FetchingContainer'>
                     <div className='Name'>{companyName}{symbol}</div>

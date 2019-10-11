@@ -84,6 +84,12 @@
     margin-top: 15px;
 }
 
+.SubError {
+    display: flex;
+    margin-top: 15px;
+    opacity: 0;
+}
+
 .SubInput {
     display: flex;
     flex-direction: row;
@@ -138,6 +144,11 @@
     left: 0;
     z-index: 1;
     outline: none;
+}
+
+.StockError {
+    background-color: rgba(0,24,57,0.9);
+    color: #c72820;
 }
 
 .Stock {
