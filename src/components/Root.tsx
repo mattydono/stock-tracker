@@ -10,7 +10,7 @@ import Peers from './peers';
 import Chart from './charts';
 import Header from './header';
 import Footer from './footer';
-import useTicker from '../redux/hooks';
+import useTicker from '../redux/useTicker';
 
 import './root.css'
 

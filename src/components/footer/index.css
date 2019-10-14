@@ -28,7 +28,7 @@
     flex-direction: row;
     margin-bottom: 1rem;
     position: fixed;
-    animation: footerAnimation 15s linear infinite;
+    /* animation: footerAnimation 15s linear infinite; */
     overflow: hidden;
 }
 
