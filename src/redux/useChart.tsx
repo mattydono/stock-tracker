@@ -64,9 +64,6 @@ const initialState: ChartState = {
 const useChart: React.FC<useChartProps> = ({ range: chartRange, ticker: chartTicker, open: isUSMarketOpen, updateChartPrices }): any =>  {
 
     const [chart, setChart] = useState<ChartState>(initialState);
-    // const [chartRange, setChartRange] = useState<Range>(range);
-    // const [chartTicker, setChartTicker] = useState<string>(ticker);
-    // const [isUSMarketOpen, setIsUSMarketOpen] = useState<boolean>(open);
     const [flag, setFlag] = useState<boolean>(true);
 
 
@@ -119,7 +116,6 @@ const useChart: React.FC<useChartProps> = ({ range: chartRange, ticker: chartTic
 
     }, [chartTicker, chartRange]);
 
-    //return [chart, chartRange, chartTicker, setChartRange, setChartTicker, setIsUSMarketOpen, setFlag];
     return [chart, setFlag];
 
 }
