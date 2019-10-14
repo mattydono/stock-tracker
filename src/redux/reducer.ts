@@ -48,7 +48,7 @@ const keyStatsInitialState: _KeyStats = {
     latestPrice: undefined,
     primaryExchange: null,
     latestTime: null,
-    isUSMarketOpen: null,
+    isUSMarketOpen: false,
     isFetchingQuote: false,
 }
 

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import './index.css'
 import loading from '../../gif/loading.gif'
-import { getExpirationDate } from '../../redux/helpers';
+import useChart from '../../redux/useChart';
 
 import { 
     XAxis, 
@@ -26,7 +26,7 @@ type ChartProps = {
     range: Range,
     updateChartRange: (range: Range) => void,
     updateChartPrices: (chartRange: _ChartSingleDataPoint[]) => void,
-    open: boolean | null,
+    open: boolean,
     ticker: string,
     latest?: number
 }
@@ -46,88 +46,19 @@ const RangeButton: React.FC<RangeButtonProps> = ({ range, update, current }) => 
 }
 
 
-type ChartState = { [key in Range]: {
-    data: _ChartSingleDataPoint[] | [],
-    expirationTime: Date | null,
-} | null }
-
-const initialState: ChartState = {
-    '1d': {
-        data: [],
-        expirationTime: null,
-    },
-    '5d': {
-        data: [],
-        expirationTime: null,
-    },
-    '1m': {
-        data: [],
-        expirationTime: null,
-    },
-    '1y': {
-        data: [],
-        expirationTime: null,
-    },
-    '5y': {
-        data: [],
-        expirationTime: null,
-    },
-}
-
-
 const Chart: React.FC<ChartProps> = ({ prices, ticker, open, latest, range, updateChartRange, updateChartPrices }) => {
 
-    const [chart, setChart] = useState<ChartState>(initialState);
-    const [isFetching, setIsFetching] = useState<boolean>(false);
-    const [isError, setIsError] = useState<boolean>(false);
-    const [flag, setFlag] = useState<boolean>(true);
-
-    const boolFlag = open && (range === '1d');
-
-    const fetchChart = async () => {
-        setIsFetching(true);
-        try {
-            const chart = await fetch(`/stock/${ticker}/chart/${range}`).then(res => res.json());
-            
-            setChart(state => {
-                return ({
-                    ...state,
-                    [range]: { data: chart, expirationTime: getExpirationDate() }
-                })
-            })
-            if(flag) updateChartPrices(chart);
-        } catch (error) {
-            setIsError(true);
-        }
-        setIsFetching(false);
-    }
-
+    const [chart, chartRange, chartTicker, marketOpen, cancelFlag]: any = useChart({ range, ticker, open, updateChartPrices });
 
     useEffect(() => {
-        setFlag(true);
-        const chartData = chart[range];
-        if (chartData && chartData.data[0] && chartData.data[0].symbol === ticker && chartData.expirationTime && chartData.expirationTime.getTime() > Date.now()) {
-            updateChartPrices(chartData.data);
-        } else {
-            fetchChart();
-        }
-        return () => {
-            setFlag(false);
-        }
-    }, [range, ticker, open])
-
-    useEffect(() => {
-        if(boolFlag) {
-            fetchChart();
-            const polling = window.setInterval(
-                () => {
-                    fetchChart();
-                },
-                10000
-            )
-            return () => clearInterval(polling)
-        }
-    }, [ticker, boolFlag])
+        chartRange(range);
+        chartTicker(ticker);
+        marketOpen(open);
+        // cancelFlag(true);
+        // return () => {
+        //     cancelFlag(false);
+        // }
+    }, [ticker, range, open])
 
     const ranges: Range[] = ['5y', '1y', '1m', '5d', '1d'];
     const buttons = ranges.map(rangeItem => <RangeButton current={rangeItem === range} range={rangeItem} update={updateChartRange} />)
@@ -141,10 +72,12 @@ const Chart: React.FC<ChartProps> = ({ prices, ticker, open, latest, range, upda
 
     const data = open || testing ? prices.concat(now) : prices;
 
+    const fetching = chart[range] && chart[range].isFetching;
+
     //TODO: Add loading spinner. Add error message if error (conditional rendering based on isFetching & isError)
     return (
-      <div className={!isFetching ? 'ChartContainer' : 'ChartLoadingContainer'}>
-          {isFetching ? <img className='ChartLoading' src={loading} /> :
+      <div className={!fetching ? 'ChartContainer' : 'ChartLoadingContainer'}>
+          {fetching ? <img className='ChartLoading' src={loading} /> :
             <>
                 <div className='ButtonsContainer'>
                     {buttons}
