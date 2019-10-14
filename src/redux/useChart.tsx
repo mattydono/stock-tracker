@@ -77,22 +77,25 @@ const useChart: React.FC<useChartProps> = ({ range: chartRange, ticker: chartTic
         if(flag) updateChartPrices(chart)
     }
 
-    const doChartFetch = () => fetchData(
-        createURL(chartTicker, 'chart', chartRange),
-        renderChartCallback,
-        (e: string) => setChart(state => {
-            return ({
-                ...state,
-                [chartRange]: ({ ...state[chartRange], error: e })
-            })
-        }),
-        (bool: boolean) => setChart(state => {
-            return ({
-                ...state,
-                [chartRange]: ({ ...state[chartRange], isFetching: bool })
-            })
-        }),
-    );
+    const doChartFetch = () => {
+        setFlag(true);
+        fetchData(
+            createURL(chartTicker, 'chart', chartRange),
+            renderChartCallback,
+            (e: string) => setChart(state => {
+                return ({
+                    ...state,
+                    [chartRange]: ({ ...state[chartRange], error: e })
+                })
+            }),
+            (bool: boolean) => setChart(state => {
+                return ({
+                    ...state,
+                    [chartRange]: ({ ...state[chartRange], isFetching: bool })
+                })
+            }),
+        );
+    }
 
     const renderChart = () => {
         const chartData = chart[chartRange];
@@ -104,7 +107,6 @@ const useChart: React.FC<useChartProps> = ({ range: chartRange, ticker: chartTic
     }
 
     useEffect(() => {
-        setFlag(true);
         renderChart();
 
         const chartPoll = (isUSMarketOpen && chartRange === '1d') ? window.setInterval(doChartFetch, 60000) : false;

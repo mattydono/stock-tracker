@@ -41,7 +41,7 @@ const RangeButton: React.FC<RangeButtonProps> = ({ range, update, current, fetch
                 name="chart" 
                 defaultChecked={current}
             />
-            <span onClick={fetching ? () => {} : () => update(range)} style={{opacity}}>{range}</span>
+            <span onClick={() => update(range)} style={{opacity}}>{range}</span>
         </div>
     )
 }
