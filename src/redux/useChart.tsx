@@ -3,13 +3,16 @@ import { createURL, fetchData, getExpirationDate } from './helpers';
 
 
 import { _ChartSingleDataPoint, Range } from '../models';
+import { string } from 'prop-types';
 
-type ChartState = { [key in Range]: {
+type ChartState = { 
+    [key in Range]: {
+    ticker: string | null,
     data: _ChartSingleDataPoint[] | [],
     error: string | null,
     isFetching: boolean,
     expirationTime: Date | null,
-} | null }
+} | null}
 
 type useChartProps = {
     range: Range,
@@ -20,30 +23,35 @@ type useChartProps = {
 
 const initialState: ChartState = {
     '1d': {
+        ticker: null,
         data: [],
         error: null,
         isFetching: false,
         expirationTime: null,
     },
     '5d': {
+        ticker: null,
         data: [],
         error: null,
         isFetching: false,
         expirationTime: null,
     },
     '1m': {
+        ticker: null,
         data: [],
         error: null,
         isFetching: false,
         expirationTime: null,
     },
     '1y': {
+        ticker: null,
         data: [],
         error: null,
         isFetching: false,
         expirationTime: null,
     },
     '5y': {
+        ticker: null,
         data: [],
         error: null,
         isFetching: false,
@@ -53,12 +61,12 @@ const initialState: ChartState = {
 
 
 
-const useChart: React.FC<useChartProps> = ({ range, ticker, open, updateChartPrices }): any =>  {
+const useChart: React.FC<useChartProps> = ({ range: chartRange, ticker: chartTicker, open: isUSMarketOpen, updateChartPrices }): any =>  {
 
     const [chart, setChart] = useState<ChartState>(initialState);
-    const [chartRange, setChartRange] = useState<Range>(range);
-    const [chartTicker, setChartTicker] = useState<string>(ticker);
-    const [isUSMarketOpen, setIsUSMarketOpen] = useState<boolean>(open);
+    // const [chartRange, setChartRange] = useState<Range>(range);
+    // const [chartTicker, setChartTicker] = useState<string>(ticker);
+    // const [isUSMarketOpen, setIsUSMarketOpen] = useState<boolean>(open);
     const [flag, setFlag] = useState<boolean>(true);
 
 
@@ -66,7 +74,7 @@ const useChart: React.FC<useChartProps> = ({ range, ticker, open, updateChartPri
         setChart(state => {
             return ({
                 ...state,
-                [chartRange]: ({ ...state[chartRange], data: chart, expirationTime: getExpirationDate(chartRange) })
+                [chartRange]: ({ ...state[chartRange], data: chart, ticker: chart[0].symbol, expirationTime: getExpirationDate(chartRange) })
             })
         })
         if(flag) updateChartPrices(chart)
@@ -111,7 +119,8 @@ const useChart: React.FC<useChartProps> = ({ range, ticker, open, updateChartPri
 
     }, [chartTicker, chartRange]);
 
-    return [chart, setChartRange, setChartTicker, setIsUSMarketOpen, setFlag];
+    //return [chart, chartRange, chartTicker, setChartRange, setChartTicker, setIsUSMarketOpen, setFlag];
+    return [chart, setFlag];
 
 }
 
