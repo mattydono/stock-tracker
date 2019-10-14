@@ -21,7 +21,7 @@ export const fetchData = async (url, callback, error, fetching) => {
 export const getExpirationDate = (range) => {
     let date = new Date();
     if (range !== '1d') {
-        const shouldAddDay = date.getUTCHours() >= 14 && date.getUTCMinutes() >= 30;
+        const shouldAddDay = date.getUTCHours() >= 14 && (date.getUTCMinutes() >= 30 || date.getUTCHours() > 14);
         date.setUTCDate(date.getUTCDate() + Number(shouldAddDay));
         date.setUTCHours(14, 30, 0, 0)
     } else {
