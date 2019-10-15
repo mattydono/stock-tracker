@@ -71,7 +71,6 @@ const Root: React.FC<_StateProps & _DispatchProps> = ({
                         latest={latestPrice} 
                         updateChartPrices={updateChartPrices} 
                         updateChartRange={updateChartRange}
-                        errorQuote={errorQuote} 
                     />
                     <News errorNews={errorNews} isFetchingNews={isFetchingNews} news={news}/>
                 </div>
