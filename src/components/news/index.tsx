@@ -28,7 +28,7 @@ const News: React.FC<NewsProps & ErrorLoading> = ({ errorNews, isFetchingNews, n
             <span className='Title'>LATEST NEWS</span>
             {errorNews ? NewsError : News}
             <div className='AlignNewsFetching'>
-                {isFetchingNews && news.length > 0 ? <img className='NewsFetching' src={loading}/> : null}
+                {isFetchingNews && news.length > 0 ? <img className='NewsFetching' src={loading}/> : <img className='NewsFetching' /> }
             </div>
         </div>
     )
