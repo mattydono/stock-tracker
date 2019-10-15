@@ -50,8 +50,9 @@ const RangeButton: React.FC<RangeButtonProps> = ({ range, update, current, fetch
 const Chart: React.FC<ChartProps> = ({ prices, ticker, open, latest, range, updateChartRange, updateChartPrices }) => {
     const [chart]: any = useChart({ range, ticker, open, updateChartPrices });
 
-    const fetching = chart[range] && chart[range].isFetching
+    const fetching = chart[range] && chart[range].isFetching;
     const fetchingAndStateEmpty = fetching && (prices.length == 0 || prices[0].symbol !== ticker);
+    const error = chart[range] && chart[range].error ? chart[range].error.message : '';
 
 
     const ranges: Range[] = ['5y', '1y', '1m', '5d', '1d'];
@@ -83,7 +84,11 @@ const Chart: React.FC<ChartProps> = ({ prices, ticker, open, latest, range, upda
                         <Area connectNulls type="monotone" dataKey="close" name="price" unit=" USD" stroke="#8884d8" fill="#8884d8" fillOpacity={0.3} />
                     </AreaChart>
                 </ResponsiveContainer>
-                {fetching ? <p>fetching data...</p> : <p>&nbsp;</p>}
+                {
+                    fetching ? <p>fetching data...</p>
+                    : error ? <p>{error}</p>
+                    : <p>&nbsp;</p>
+                }
             </>
           }
       </div>
