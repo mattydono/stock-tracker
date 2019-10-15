@@ -1,5 +1,6 @@
 .FooterHolder {
     background-image: linear-gradient(to bottom, #0042a0, #001839);
+    flex: 0 0 70px;
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -8,14 +9,27 @@
 }
 
 .Markets {
-    width: 50%;
+    width: 50vw;
     background-color: red;
+}
+
+.Header {
+    margin-left: 2rem;
+    margin-bottom: 0.5rem;
+    font-size: 25px;
+}
+
+.FavoritesContainer {
+    width: 50vw;
 }
 
 .Favorites {
     display: flex;
     flex-direction: row;
-    width: 50%;
+    margin-bottom: 1rem;
+    position: fixed;
+    /* animation: footerAnimation 15s linear infinite; */
+    overflow: hidden;
 }
 
 .PriceStats {
@@ -56,6 +70,7 @@
 .Ticker {
     font-size: 20px;
     margin-right: 25px;
+    text-transform: uppercase;
 }
 
 .Card {
@@ -69,4 +84,15 @@
     font-size: 15px;
     margin-top: 3%;
     margin-right: 2px;
+}
+
+@keyframes footerAnimation {
+    0% {
+        transform: translateX(0%);
+        left: 100%;
+    }
+    100% {
+        transform: translateX(-100%);
+        left: 0;
+    }
 }

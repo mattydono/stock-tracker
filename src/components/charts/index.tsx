@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import './index.css'
 import loading from '../../gif/loading.gif'
+import { getExpirationDate } from '../../redux/helpers';
 
 import { 
     XAxis, 
@@ -83,14 +84,6 @@ const Chart: React.FC<ChartProps> = ({ errorQuote, prices, ticker, open, latest,
     const [flag, setFlag] = useState<boolean>(true);
 
     const boolFlag = open && (range === '1d');
-
-    const getExpirationDate = () => {
-        let date = new Date();
-        const shouldAddDay = date.getUTCHours() >= 14 && date.getUTCMinutes() >= 30;
-        date.setUTCDate(date.getUTCDate() + Number(shouldAddDay));
-        date.setUTCHours(14, 30, 0, 0)
-        return date;
-    }
 
     const fetchChart = async () => {
         setIsFetching(true);
