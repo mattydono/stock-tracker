@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import './index.css'
 import loading from '../../gif/loading.gif'
 import useChart from '../../redux/useChart';
@@ -48,7 +48,7 @@ const RangeButton: React.FC<RangeButtonProps> = ({ range, update, current, fetch
 
 
 const Chart: React.FC<ChartProps> = ({ prices, ticker, open, latest, range, updateChartRange, updateChartPrices }) => {
-    const [chart, setFlag]: any = useChart({ range, ticker, open, updateChartPrices });
+    const [chart]: any = useChart({ range, ticker, open, updateChartPrices });
 
     const fetching = chart[range] && chart[range].isFetching
     const fetchingAndStateEmpty = fetching && (prices.length == 0 || prices[0].symbol !== ticker);
@@ -62,9 +62,7 @@ const Chart: React.FC<ChartProps> = ({ prices, ticker, open, latest, range, upda
         close: latest,
     }
 
-    const testing = false;
-
-    const data = open || testing ? prices.concat(now) : prices;
+    const data = open ? prices.concat(now) : prices;
 
 
     //TODO: Add loading spinner. Add error message if error (conditional rendering based on isFetching & isError)

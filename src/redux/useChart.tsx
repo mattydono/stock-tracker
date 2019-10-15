@@ -1,9 +1,6 @@
 import React, { useEffect, useState} from 'react';
 import { createURL, fetchData, getExpirationDate } from './helpers';
-
-
 import { _ChartSingleDataPoint, Range } from '../models';
-import { string } from 'prop-types';
 
 type ChartState = { 
     [key in Range]: {
@@ -61,7 +58,7 @@ const initialState: ChartState = {
 
 
 
-const useChart: React.FC<useChartProps> = ({ range: chartRange, ticker: chartTicker, open: isUSMarketOpen, updateChartPrices }): any =>  {
+const useChart: React.FC<useChartProps> = ({ range, ticker, open, updateChartPrices }): any =>  {
 
     const [chart, setChart] = useState<ChartState>(initialState);
     let shouldChartUpdate = true;
@@ -71,7 +68,7 @@ const useChart: React.FC<useChartProps> = ({ range: chartRange, ticker: chartTic
         setChart(state => {
             return ({
                 ...state,
-                [chartRange]: ({ ...state[chartRange], data: chart, ticker: chart[0].symbol, expirationTime: getExpirationDate(chartRange) })
+                [range]: ({ ...state[range], data: chart, ticker: chart[0].symbol, expirationTime: getExpirationDate(range) })
             })
         })
         if(shouldChartUpdate) updateChartPrices(chart)
@@ -79,26 +76,26 @@ const useChart: React.FC<useChartProps> = ({ range: chartRange, ticker: chartTic
 
     const doChartFetch = () => {
         fetchData(
-            createURL(chartTicker, 'chart', chartRange),
+            createURL(ticker, 'chart', range),
             renderChartCallback,
             (e: string) => setChart(state => {
                 return ({
                     ...state,
-                    [chartRange]: ({ ...state[chartRange], error: e })
+                    [range]: ({ ...state[range], error: e })
                 })
             }),
             (bool: boolean) => setChart(state => {
                 return ({
                     ...state,
-                    [chartRange]: ({ ...state[chartRange], isFetching: bool })
+                    [range]: ({ ...state[range], isFetching: bool })
                 })
             }),
         );
     }
 
     const renderChart = () => {
-        const chartData = chart[chartRange];
-        if (chartData && chartData.data[0] && chartData.data[0].symbol === chartTicker && chartData.expirationTime && chartData.expirationTime.getTime() > Date.now()) {
+        const chartData = chart[range];
+        if (chartData && chartData.data[0] && chartData.data[0].symbol === ticker && chartData.expirationTime && chartData.expirationTime.getTime() > Date.now()) {
             updateChartPrices(chartData.data);
         } else {
             doChartFetch()
@@ -107,15 +104,14 @@ const useChart: React.FC<useChartProps> = ({ range: chartRange, ticker: chartTic
 
     useEffect(() => {
         renderChart();
-
-        const chartPoll = (isUSMarketOpen && chartRange === '1d') ? window.setInterval(doChartFetch, 60000) : false;
+        const chartPoll = (open && range === '1d') ? window.setInterval(doChartFetch, 60000) : false;
 
         return () => {
             shouldChartUpdate = false;
             if(chartPoll) clearInterval(chartPoll)
         }
 
-    }, [chartTicker, chartRange]);
+    }, [ticker, range]);
 
     return [chart];
 
