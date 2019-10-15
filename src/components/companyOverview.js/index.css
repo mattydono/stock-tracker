@@ -79,6 +79,7 @@ a:visited {
     height: 50px;
 }
 
+
 @media(max-width: 800px) {
     .CompanyOverviewContainer {
         margin-bottom: 30px;

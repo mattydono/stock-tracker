@@ -28,7 +28,8 @@ type ChartProps = {
     updateChartPrices: (chartRange: _ChartSingleDataPoint[]) => void,
     open: boolean | null,
     ticker: string,
-    latest?: number
+    latest?: number,
+    errorQuote: boolean,
 }
 
 const RangeButton: React.FC<RangeButtonProps> = ({ range, update, current }) => {
@@ -45,6 +46,9 @@ const RangeButton: React.FC<RangeButtonProps> = ({ range, update, current }) => 
     )
 }
 
+type Error = {
+    errorQuote: any,
+}
 
 type ChartState = { [key in Range]: {
     data: _ChartSingleDataPoint[] | [],
@@ -75,7 +79,7 @@ const initialState: ChartState = {
 }
 
 
-const Chart: React.FC<ChartProps> = ({ prices, ticker, open, latest, range, updateChartRange, updateChartPrices }) => {
+const Chart: React.FC<ChartProps & Error> = ({ errorQuote, prices, ticker, open, latest, range, updateChartRange, updateChartPrices }) => {
 
     const [chart, setChart] = useState<ChartState>(initialState);
     const [isFetching, setIsFetching] = useState<boolean>(false);
@@ -144,21 +148,31 @@ const Chart: React.FC<ChartProps> = ({ prices, ticker, open, latest, range, upda
     //TODO: Add loading spinner. Add error message if error (conditional rendering based on isFetching & isError)
     return (
       <div className={!isFetching ? 'ChartContainer' : 'ChartLoadingContainer'}>
+          {errorQuote ? 
+                <div className='ChartErrorContainer'>
+                    <div className='ChartError'>⊗</div>
+                    <div className='ChartErrorMessage'>{errorQuote.message}</div>
+                </div> : 
+                null
+            }
           {isFetching ? <img className='ChartLoading' src={loading} /> :
             <>
-                <div className='ButtonsContainer'>
+               {!errorQuote ? <div className='ButtonsContainer'>
                     {buttons}
-                </div>
-                <ResponsiveContainer aspect={0.9} width='99%' height='100%' maxHeight={500}>
-                    <AreaChart data={data} >
-                        <CartesianGrid strokeDasharray="3 3" />
-                        <XAxis dataKey="label"/>
-                        <YAxis orientation="right" domain={['dataMin', 'auto']} tickLine={false}/>
-                        <ReferenceLine y={now.close} stroke={'orange'} strokeDasharray="3 3" />
-                        <Tooltip cursor={{ stroke: 'red', strokeWidth: 2 }} />
-                        <Area connectNulls type="monotone" dataKey="close" name="price" unit=" USD" stroke="#8884d8" fill="#8884d8" fillOpacity={0.3} />
-                    </AreaChart>
-                </ResponsiveContainer>
+                </div> : null
+                }
+                { !errorQuote ?
+                    <ResponsiveContainer aspect={0.9} width='99%' height='100%' maxHeight={500}>
+                        <AreaChart data={data} >
+                            <CartesianGrid strokeDasharray="3 3" />
+                            <XAxis dataKey="label"/>
+                            <YAxis orientation="right" domain={['dataMin', 'auto']} tickLine={false}/>
+                            <ReferenceLine y={now.close} stroke={'orange'} strokeDasharray="3 3" />
+                            <Tooltip cursor={{ stroke: 'red', strokeWidth: 2 }} />
+                            <Area connectNulls type="monotone" dataKey="close" name="price" unit=" USD" stroke="#8884d8" fill="#8884d8" fillOpacity={0.3} />
+                        </AreaChart>
+                    </ResponsiveContainer> : null
+                }
             </>
           }
       </div>
