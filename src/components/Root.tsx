@@ -10,7 +10,7 @@ import Peers from './peers';
 import Chart from './charts';
 import Header from './header';
 import Footer from './footer';
-import useTicker from '../redux/hooks';
+import useTicker from '../redux/useTicker';
 
 import './root.css'
 
@@ -46,6 +46,7 @@ const Root: React.FC<_StateProps & _DispatchProps> = ({
     const [updateTicker, updateFavorites, errors, fetching]:any = useTicker(ticker, callbacks);
 
     const { news: isFetchingNews = false, quote: isFetchingQuote = false, company: isFetchingCompany = false, peers: isFetchingPeers = false } = fetching;
+
     const { news: errorNews = false, quote: errorQuote = false, company: errorCompany = false, peers: errorPeers = false } = errors;
 
     useEffect(() => {

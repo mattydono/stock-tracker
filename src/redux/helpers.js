@@ -17,3 +17,11 @@ export const fetchData = async (url, callback, error, fetching) => {
         fetching(false);
     }
 }
+
+export const getExpirationDate = () => {
+    let date = new Date();
+    const shouldAddDay = date.getUTCHours() >= 14 && date.getUTCMinutes() >= 30;
+    date.setUTCDate(date.getUTCDate() + Number(shouldAddDay));
+    date.setUTCHours(14, 30, 0, 0)
+    return date;
+}
