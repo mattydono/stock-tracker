@@ -1,6 +1,129 @@
 import React, { useState, useEffect, useRef } from 'react';
 import TickerCard from './tickerCard';
-import './index.css'
+import styled from '@emotion/styled'
+
+const SearchContainer = styled.div`
+    flex: 1 0 auto;
+`
+
+const RowContainer = styled.div`
+    position: relative;
+    font-size: 20px;
+    border-bottom: 1px solid #608fd1;;
+    display: flex;
+    @media(max-width: 800px) {
+        flex-direction: column-reverse;
+        margin-bottom: 30px;
+    }
+`
+
+const Icon = styled.span`
+    font-size: 30px;
+    transform: rotate(-45deg);
+    color: #608fd1;
+    position: absolute;
+`
+
+const IconAlign = styled.span`
+    flex: 0 0 30px;
+    align-items: center;
+    @media(max-width: 800px) {
+        top: -7px;
+    }
+`
+
+const Input = styled.input`
+    background-color: rgba(0,0,0,0);
+    color: white;
+    font-size: 30px;
+    outline: none;
+    border: none;
+    flex: 1 0 0;
+    @import url('https://fonts.googleapis.com/css?family=Quicksand&display=swap');
+    font-family: 'Quicksand', sans-serif;
+    margin-bottom: 10px;
+`
+
+const PriceGroup = styled.div`
+    display: flex;
+    flex: 1 0 0;
+`
+
+const SubSearch = styled.div`
+    display: flex;
+    margin-top: 15px;
+    @media(max-width: 800px) {
+        flex-direction: column-reverse;
+        margin-bottom: 40px;
+    }
+`
+
+const SubInput = styled.div`
+    display: flex;
+    flex-direction: row;
+    flex: 1 0 0;
+    @media(max-width: 800px) {
+        justify-content: space-evenly;
+    }
+`
+
+const Sub = styled.span`
+    background-color: #41608a;
+    border-radius: 5%;
+    margin-left: 2%;
+    padding: 1%;
+`
+
+const DateOpen = styled.div`
+    font-size: 15px;
+    display: flex;
+    flex: 1 0 0;
+    justify-content: flex-end;
+    @media(max-width: 800px) {
+        justify-content: center;
+        margin-bottom: 30px;
+    }
+`
+
+const Time = styled.span`
+    color: #608fd1
+`
+
+const MarketStatus = styled.span`
+    font-size: 15px;
+    display: flex;
+    margin-left: 30px;
+    position: relative;
+`
+
+const MarketIcon = styled.span`
+    color: gray;
+    color: ${props => props.color}
+    font-size: 15px;
+    position: absolute;
+    top: -2px;
+    left: -20px;
+`
+
+const StockList = styled.div`
+    position: absolute;
+    height: 100%;
+    width: 95%;
+    margin: 0 2.5% 0 2.5%;
+    bottom: -100%;
+    left: 0;
+    z-index: 1;
+    outline: none;
+`
+
+const Stock = styled.div`
+    background-color: rgba(0,24,57,0.9);
+    color: #608fd1;
+    cursor: pointer;
+    &:hover {
+        background-color: #0042a0;
+    }
+`
 
 type _Stock = {
     name: string,
@@ -69,7 +192,7 @@ const Search: React.FC<SearchProps> = ({ search, change, changePercent, latestPr
     }, [stockList.length])
 
     const renderStock = (stock: _Stock) => {
-        return <div className='Stock' onClick={() => onStockClick(stock)}>{stock.name} ({stock.symbol})</div>
+        return <Stock onClick={() => onStockClick(stock)}>{stock.name} ({stock.symbol})</Stock>
     }
 
     useEffect(() => {
@@ -91,34 +214,29 @@ const Search: React.FC<SearchProps> = ({ search, change, changePercent, latestPr
     }, [query]);
 
     return (
-        <div className='SearchContainer'>
-            <div className='RowContainer'>
-                <div className='PriceGroup'>
-                    <span className='IconAlign'><span className='Icon'>⚲</span></span>
-                    <input className='InputButton' ref={inputSelect} placeholder='Stock Search Here' value={query} onClick={inputClickHandler} onChange={event => { setQuery(event.target.value); toggleIsOpen(query.length > 0) }} onKeyPress={onKeyPress} onBlur={handleBlur} />
-                </div>
+        <SearchContainer>
+            <RowContainer>
+                <PriceGroup>
+                    <IconAlign><Icon>⚲</Icon></IconAlign>
+                    <Input ref={inputSelect} placeholder='Stock Search Here' value={query} onClick={inputClickHandler} onChange={(event: any) => { setQuery(event.target.value); toggleIsOpen(query.length > 0) }} onKeyPress={onKeyPress} onBlur={handleBlur} />
+                </PriceGroup>
                 <TickerCard latestPrice={latestPrice} change={change} changePercent={changePercent} />
-                {/* <div className='PriceStats'>
-                    {latestPrice ? <span className='PriceSpan'><span className='DollarIcon'>$</span>{latestPrice}</span> : null}
-                    {!change ? null : change > 0 ? <span className='Span positive'><span className='PriceIcon'>&#8593;</span>{Math.abs(change)}</span> : <span className='Span'><span className='PriceIcon'>&#8595;</span>{Math.abs(change)}</span>} {!change ? null : change > 0 ? <span className='Span positive'>|</span> : <span className='Span'>|</span> }
-                    {!changePercent ? null : changePercent > 0 ? <span className='Span positive'>{Math.abs(Math.round((changePercent * 100) * 100) / 100)}<span className='PriceIcon'>&#37;</span></span> : <span className='Span'>{Math.abs(Math.round((changePercent * 100) * 100) / 100)}<span className='PriceIcon'>&#37;</span></span>}
-                </div> */}
-                <div className='StockList' ref={dropSelect} tabIndex={-1}>
+                <StockList ref={dropSelect} tabIndex={-1}>
                     {isOpen ? stockList.map( stock => renderStock(stock)) : null}
-                </div>
-            </div>
-            <div className='SubSearch'>
-                <div className='SubInput'>
-                    <span className='Sub'>{primaryExchange}</span>
-                    <span className='Sub'>{tags[0]}</span>
-                    <span className='Sub'>{tags[1]}</span>
-                </div>
-                <div className='DateOpen'>
-                    {latestTime ? <span className='Time'>Real-Time Price as of {latestTime} EST</span> : null}
-                    {tags.length < 1 ? null : isUSMarketOpen ? <span className='MarketStatus'><span className='MarketIcon open'>☀</span>Market Open</span> : <span className='MarketStatus'><span className='MarketIcon'>☽</span> Market Closed</span>}
-                </div>
-            </div>
-        </div>
+                </StockList>
+            </RowContainer>
+            <SubSearch>
+                <SubInput>
+                    <Sub>{primaryExchange}</Sub>
+                    <Sub>{tags[0]}</Sub>
+                    <Sub>{tags[1]}</Sub>
+                </SubInput>
+                <DateOpen>
+                    {latestTime ? <Time>Real-Time Price as of {latestTime} EST</Time> : null}
+                    {tags.length < 1 ? null : isUSMarketOpen ? <MarketStatus><MarketIcon color='yellow'>☀</MarketIcon>Market Open</MarketStatus> : <MarketStatus><MarketIcon>☽</MarketIcon> Market Closed</MarketStatus>}
+                </DateOpen>
+            </SubSearch>
+        </SearchContainer>
     )
 
 }

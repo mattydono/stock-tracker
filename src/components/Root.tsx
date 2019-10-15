@@ -12,8 +12,6 @@ import Header from './header';
 import Footer from './footer';
 import useTicker from '../redux/hooks';
 
-import './root.css'
-
 import {
     updateTicker,
     updateCompany,
@@ -26,6 +24,57 @@ import {
 } from '../redux/actions'
 
 import { connect } from 'react-redux';
+
+import styled from '@emotion/styled'
+
+export const Title =styled.span`
+    border-bottom: 2px solid #608fd1;
+    width: 95%;
+    padding-bottom: 2px;
+    margin-bottom: 10px;
+    color: #608fd1;
+`
+
+const RootContainer = styled.div`
+    font-family: sans-serif;
+    color: white;
+    font-size: 1rem;
+    display: flex;
+    flex-direction: column;
+    min-height: 100%;
+    align-items: center;
+`
+
+const AppContainer = styled.div`
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: column;
+    margin-left: 5%;
+    margin-right: 5%;
+    max-width: 1500px;
+`
+
+const CompanyContainer = styled.div`
+    display: flex;
+    flex: 1 0 0;
+    flex-direction: column;
+`
+
+const ChartNews = styled.div`
+    display: flex;
+    flex: 1 0 auto;
+    @media(max-width: 800px) {
+        flex-direction: column
+    }
+`
+
+const StatsCompany = styled.div`
+    display: flex;
+    flex: 1 0 auto;
+    @media(max-width: 800px) {
+        flex-direction: column
+    }
+`
 
 const Root: React.FC<_StateProps & _DispatchProps> = ({ 
     ticker, 
@@ -50,22 +99,20 @@ const Root: React.FC<_StateProps & _DispatchProps> = ({
 
     console.log('HERE',errors.news)
 
-    const { news: isNewsError = false } = errors;
-
     useEffect(() => {
         updateTicker(ticker);
     }, [ticker])
 
     return (
-        <div className='RootContainer'>
-            <div className='AppContainer'>
+        <RootContainer>
+            <AppContainer>
                 <Header />
                 <Search 
                 search={search} 
                 {...keyStats} 
                 {...companyOverview}
                 />
-                <div className='ChartNews'>
+                <ChartNews>
                     <Chart 
                         {...chart} 
                         ticker={ticker} 
@@ -76,17 +123,17 @@ const Root: React.FC<_StateProps & _DispatchProps> = ({
                         errorQuote={errorQuote} 
                     />
                     <News errorNews={errorNews} isFetchingNews={isFetchingNews} news={news}/>
-                </div>
-                <div className='StatsCompany'>
+                </ChartNews>
+                <StatsCompany>
                     <KeyStats errorQuote={errorQuote} isFetchingQuote={isFetchingQuote} {...keyStats}/>
-                    <div className='CompanyContainer'>
+                    <CompanyContainer>
                         <CompanyOverview errorCompany={errorCompany} isFetchingCompany={isFetchingCompany} {...companyOverview} />
                         <Peers errorPeers={errorPeers} isFetchingPeers={isFetchingPeers} peers={peers} />
-                    </div>
-                </div>
-            </div>
+                    </CompanyContainer>
+                </StatsCompany>
+            </AppContainer>
             <Footer favorites={favorites} />
-        </div>
+        </RootContainer>
     )
 }
 

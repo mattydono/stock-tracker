@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import './index.css'
 import loading from '../../gif/loading.gif'
+import styled from '@emotion/styled'
 
 import { 
     XAxis, 
@@ -13,6 +13,52 @@ import {
     ReferenceLine,
 } from 'recharts';
 import { _ChartSingleDataPoint, Range } from '../../models';
+
+const ChartContainer = styled.div`    
+    flex: 0 1 75%;
+    max-width: 1200px;
+    @media(max-width: 800px) {
+        margin-bottom: 40px;
+    }
+`
+
+const ChartLoadingContainer = styled.div`
+    flex: 0 1 75%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+`
+
+const ButtonsContainer = styled.div`
+    display: flex;
+    flex-direction: row-reverse;
+    margin-right: 60px;
+    height: 10%;
+    @media(max-width: 800px) {
+        justify-content: space-evenly;
+        margin-bottom: 20px;
+    }
+`
+
+const Label = styled.div`
+    margin: 0rem 0rem 1rem 0.5rem;
+    display: inline-block;
+    color: inherit;
+    text-decoration: none;
+    font-weight: 100;
+    text-transform: uppercase;
+    cursor: pointer;
+`
+
+const Input = styled.input`
+    display: none;
+`
+
+const ChartLoading = styled.img`
+    background-color: rgba(89, 89, 105, 0.2);
+    padding: 10% 40% 10% 40%;
+    border-radius: 5%;
+`
 
 type RangeButtonProps = {
     range: Range;
@@ -34,14 +80,14 @@ type ChartProps = {
 const RangeButton: React.FC<RangeButtonProps> = ({ range, update, current }) => {
     const opacity = current ? 1.0 : 0.5;
     return (
-        <div className='Label'>
-            <input className='Input' 
+        <Label>
+            <Input 
                 type="radio" 
                 name="chart" 
                 defaultChecked={current}
             />
             <span onClick={() => update(range)} style={{opacity}}>{range}</span>
-        </div>
+        </Label>
     )
 }
 
@@ -151,25 +197,30 @@ const Chart: React.FC<ChartProps> = ({ errorQuote, prices, ticker, open, latest,
 
     //TODO: Add loading spinner. Add error message if error (conditional rendering based on isFetching & isError)
     return (
-      <div className={!isFetching ? 'ChartContainer' : 'ChartLoadingContainer'}>
-          {isFetching ? <img className='ChartLoading' src={loading} /> :
-            <>
-                <div className='ButtonsContainer'>
-                    {buttons}
-                </div>
-                <ResponsiveContainer aspect={0.9} width='99%' height='100%' maxHeight={500}>
-                    <AreaChart data={data} >
-                        <CartesianGrid strokeDasharray="3 3" />
-                        <XAxis dataKey="label"/>
-                        <YAxis orientation="right" domain={['dataMin', 'auto']} tickLine={false}/>
-                        <ReferenceLine y={now.close} stroke={'orange'} strokeDasharray="3 3" />
-                        <Tooltip cursor={{ stroke: 'red', strokeWidth: 2 }} />
-                        <Area connectNulls type="monotone" dataKey="close" name="price" unit=" USD" stroke="#8884d8" fill="#8884d8" fillOpacity={0.3} />
-                    </AreaChart>
-                </ResponsiveContainer>
-            </>
-          }
-      </div>
+          <>    
+            {!isFetching ? 
+                <ChartContainer>
+                    <ButtonsContainer>
+                        {buttons}
+                    </ButtonsContainer>
+                    <ResponsiveContainer aspect={0.9} width='99%' height='100%' maxHeight={500}>
+                        <AreaChart data={data} >
+                            <CartesianGrid strokeDasharray="3 3" />
+                            <XAxis dataKey="label"/>
+                            <YAxis orientation="right" domain={['dataMin', 'auto']} tickLine={false}/>
+                            <ReferenceLine y={now.close} stroke={'orange'} strokeDasharray="3 3" />
+                            <Tooltip cursor={{ stroke: 'red', strokeWidth: 2 }} />
+                            <Area connectNulls type="monotone" dataKey="close" name="price" unit=" USD" stroke="#8884d8" fill="#8884d8" fillOpacity={0.3} />
+                        </AreaChart>
+                    </ResponsiveContainer>
+                </ChartContainer>
+                :
+                <ChartLoadingContainer>
+                    <ChartLoading src={loading} />
+                </ChartLoadingContainer>
+            }
+          </>
+
     );
 }
 
