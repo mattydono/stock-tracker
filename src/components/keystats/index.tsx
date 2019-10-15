@@ -3,7 +3,7 @@ import { _KeyStats } from '../../models'
 import './index.css'
 import loading from '../../gif/loading.gif'
 
-const KeyStats: React.FC<_KeyStats> = ({
+const KeyStats: React.FC<_KeyStats & any> = ({
     marketCap, 
     peRatio, 
     week52High, 
@@ -20,16 +20,19 @@ const KeyStats: React.FC<_KeyStats> = ({
     errorQuote,
     }) => {
 
-        const nullValues = (() => {
-            if(!marketCap && !peRatio && !week52High && !week52Low && !avgTotalVolume && !previousClose && !low && !high && !volume && !open && !dividendYield && !actualEPS) {
-                return true
-            }
-        })() 
+    const nullValues = !marketCap && !peRatio && !week52High && !week52Low && !avgTotalVolume && !previousClose && !low && !high && !volume && !open && !dividendYield && !actualEPS;
 
     return (
         <div className={nullValues ? 'KeyStatsLoadingContainer' : 'KeyStatsContainer'}>
             <span className='Title'>KEY STATS</span>
-            {nullValues ? <img className='LoadingStats' src={loading} /> : 
+            {errorQuote ? 
+                <div className='StatsErrorContainer'>
+                    <div className='StatsError'>⊗</div>
+                    <div className='StatsErrorMessage'>{errorQuote.message}</div>
+                </div> : 
+                null
+            }
+            {nullValues && !errorQuote ? <img className='LoadingStats' src={loading} /> : errorQuote ? null : 
             <div className='TableContainer'>
                 <table className='Table'>
                     <tbody className='Tbody'>

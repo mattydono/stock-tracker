@@ -55,6 +55,30 @@
     align-items: center;
 }
 
+.StatsErrorContainer {
+    background-color: rgba(89, 89, 105, 0.2);
+    display: flex;
+    height: 100%;
+    width: 80%;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    border-radius: 5%;
+    margin-bottom: 10px;
+}
+
+.StatsError {
+    font-size: 180px;
+    color: rgba(89, 89, 105, 0.2);
+}
+
+.StatsErrorMessage {
+    color: #c72820;
+    font-weight: 700;
+    font-size: 2rem;
+    text-align: center;
+}
+
 @media(max-width: 800px) {
     .KeyStatsContainer {
         margin-bottom: 40px;

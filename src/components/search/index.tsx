@@ -23,7 +23,11 @@ type StockListItem = {
     name: string
 }
 
-const Search: React.FC<SearchProps> = ({ search, change, changePercent, latestPrice, primaryExchange, tags, latestTime, isUSMarketOpen }) => {
+type Error = {
+    errorQuote: any,
+}
+
+const Search: React.FC<SearchProps & Error> = ({ errorQuote, search, change, changePercent, latestPrice, primaryExchange, tags, latestTime, isUSMarketOpen }) => {
 
     const [query, setQuery] = useState<string>('Apple Inc. (AAPL)');
     const [stockList, setStockList] = useState<StockListItem[]>([])
@@ -66,10 +70,21 @@ const Search: React.FC<SearchProps> = ({ search, change, changePercent, latestPr
 
     useEffect(() => {
         toggleIsOpen(stockList.length !== 0)
-    }, [stockList.length])
+        if(errorQuote) {
+            setStockList([{name: errorQuote.message, symbol:'⊗'}])
+        }
+    }, [stockList.length, errorQuote])
 
     const renderStock = (stock: _Stock) => {
-        return <div className='Stock' onClick={() => onStockClick(stock)}>{stock.name} ({stock.symbol})</div>
+        return (
+            <>
+            {!errorQuote ? 
+                <div className='Stock' onClick={() => onStockClick(stock)}>{stock.name} ({stock.symbol})</div>
+                :
+                <div className='StockError'>{stock.name} {stock.symbol}</div>
+            }
+            </>
+        )
     }
 
     useEffect(() => {
@@ -107,7 +122,7 @@ const Search: React.FC<SearchProps> = ({ search, change, changePercent, latestPr
                     {isOpen ? stockList.map( stock => renderStock(stock)) : null}
                 </div>
             </div>
-            <div className='SubSearch'>
+           <div className={!errorQuote ? 'SubSearch' : 'SubError'}>
                 <div className='SubInput'>
                     <span className='Sub'>{primaryExchange}</span>
                     <span className='Sub'>{tags[0]}</span>
