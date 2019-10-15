@@ -24,10 +24,6 @@ const useTicker = (myticker, { quote, news, company, peers, favorites }) => {
     const [ticker, setTicker] = useState(myticker);
     const [favoritesArray, setFavoritesArray] = useState(['msft', 'amzn', 'fb']);
 
-    const getIsFetching = () => {
-        return isFetching;
-    }
-
     useEffect(() => {
         const fetchCompany = () => fetchData(createURL(ticker, 'company'), company, (e) => setErrors(state => ({ ...state, company: e })), (bool) => setIsFetching(state => ({ ...state, company: bool })));
         const fetchNews = () => fetchData(createURL(ticker, 'news'), news, (e) => setErrors(state => ({ ...state, news: e })), (bool) => setIsFetching(state => ({ ...state, news: bool })));
