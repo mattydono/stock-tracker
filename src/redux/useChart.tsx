@@ -64,7 +64,7 @@ const initialState: ChartState = {
 const useChart: React.FC<useChartProps> = ({ range: chartRange, ticker: chartTicker, open: isUSMarketOpen, updateChartPrices }): any =>  {
 
     const [chart, setChart] = useState<ChartState>(initialState);
-    const [flag, setFlag] = useState<boolean>(true);
+    let shouldChartUpdate = true;
 
 
     const renderChartCallback = (chart: _ChartSingleDataPoint[]) => {
@@ -74,11 +74,10 @@ const useChart: React.FC<useChartProps> = ({ range: chartRange, ticker: chartTic
                 [chartRange]: ({ ...state[chartRange], data: chart, ticker: chart[0].symbol, expirationTime: getExpirationDate(chartRange) })
             })
         })
-        if(flag) updateChartPrices(chart)
+        if(shouldChartUpdate) updateChartPrices(chart)
     }
 
     const doChartFetch = () => {
-        setFlag(true);
         fetchData(
             createURL(chartTicker, 'chart', chartRange),
             renderChartCallback,
@@ -112,13 +111,13 @@ const useChart: React.FC<useChartProps> = ({ range: chartRange, ticker: chartTic
         const chartPoll = (isUSMarketOpen && chartRange === '1d') ? window.setInterval(doChartFetch, 60000) : false;
 
         return () => {
-            setFlag(false);
+            shouldChartUpdate = false;
             if(chartPoll) clearInterval(chartPoll)
         }
 
     }, [chartTicker, chartRange]);
 
-    return [chart, setFlag];
+    return [chart];
 
 }
 
