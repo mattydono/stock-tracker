@@ -63,8 +63,7 @@ const Chart: React.FC<ChartProps> = ({ prices, ticker, open, latest, range, upda
     }
 
     const data = open ? prices.concat(now) : prices;
-
-    //TODO: Add loading spinner. Add error message if error (conditional rendering based on isFetching & isError)
+    
     return (
       <div className={fetchingAndStateEmpty ? 'ChartLoadingContainer' : 'ChartContainer'}>
           {fetchingAndStateEmpty ? <img className='ChartLoading' src={loading} /> :
