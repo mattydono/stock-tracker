@@ -28,8 +28,6 @@
     border-radius: 5%;
 }
 
-.NewsLoading {
-}
 
 .AlignNewsFetching {
     display: flex;
@@ -47,28 +45,4 @@
 
 .Link:hover {
     color: yellow
-}
-
-.NewsErrorContainer {
-    background-color: rgba(89, 89, 105, 0.2);
-    display: flex;
-    height: 100%;
-    width: 80%;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    border-radius: 5%;
-    margin-bottom: 10px;
-}
-
-.NewsError{
-    font-size: 180px;
-    color: rgba(89, 89, 105, 0.2);
-}
-
-.NewsErrorMessage {
-    color: #c72820;
-    font-weight: 700;
-    font-size: 2rem;
-    text-align: center;
 }
