@@ -19,7 +19,6 @@ type RangeButtonProps = {
     range: Range;
     update: (range: Range) => void;
     current: boolean;
-    fetching: boolean;
 }
 
 type ChartProps = {
@@ -32,7 +31,7 @@ type ChartProps = {
     latest?: number
 }
 
-const RangeButton: React.FC<RangeButtonProps> = ({ range, update, current, fetching }) => {
+const RangeButton: React.FC<RangeButtonProps> = ({ range, update, current }) => {
     const opacity = current ? 1.0 : 0.5;
     return (
         <div className='Label'>
@@ -56,7 +55,7 @@ const Chart: React.FC<ChartProps> = ({ prices, ticker, open, latest, range, upda
 
 
     const ranges: Range[] = ['5y', '1y', '1m', '5d', '1d'];
-    const buttons = ranges.map(rangeItem => <RangeButton fetching={fetching} current={rangeItem === range} range={rangeItem} update={updateChartRange} />)
+    const buttons = ranges.map(rangeItem => <RangeButton current={rangeItem === range} range={rangeItem} update={updateChartRange} />)
 
     const now: _ChartSingleDataPoint = {
         label: 'latest',
@@ -64,7 +63,6 @@ const Chart: React.FC<ChartProps> = ({ prices, ticker, open, latest, range, upda
     }
 
     const data = open ? prices.concat(now) : prices;
-
 
     //TODO: Add loading spinner. Add error message if error (conditional rendering based on isFetching & isError)
     return (
