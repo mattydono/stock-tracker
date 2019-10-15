@@ -28,7 +28,8 @@ type ChartProps = {
     updateChartPrices: (chartRange: _ChartSingleDataPoint[]) => void,
     open: boolean,
     ticker: string,
-    latest?: number
+    latest?: number,
+    errorQuote: boolean,
 }
 
 const RangeButton: React.FC<RangeButtonProps> = ({ range, update, current }) => {
@@ -45,6 +46,9 @@ const RangeButton: React.FC<RangeButtonProps> = ({ range, update, current }) => 
     )
 }
 
+type Error = {
+    errorQuote: any,
+}
 
 const Chart: React.FC<ChartProps> = ({ prices, ticker, open, latest, range, updateChartRange, updateChartPrices }) => {
     const [chart]: any = useChart({ range, ticker, open, updateChartPrices });
@@ -68,7 +72,7 @@ const Chart: React.FC<ChartProps> = ({ prices, ticker, open, latest, range, upda
       <div className={fetchingAndStateEmpty ? 'ChartLoadingContainer' : 'ChartContainer'}>
           {fetchingAndStateEmpty ? <img className='ChartLoading' src={loading} /> :
             <>
-                <div className='ButtonsContainer'>
+               <div className='ButtonsContainer'>
                     {buttons}
                 </div>
                 <ResponsiveContainer aspect={0.9} width='99%' height='100%' maxHeight={500}>

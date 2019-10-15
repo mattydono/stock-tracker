@@ -1,33 +1,34 @@
 import React from 'react';
-import moment from 'moment';
 import { _News } from '../../models'
 import './index.css'
-import loading from '../../gif/loading.gif'
+import loading from '../../gif/loading.gif';
+import FetchingError from '../errors/errorFetching';
+import Article from './article';
 
 type NewsProps = {
     news: _News,
+}
+
+type ErrorLoading = {
+    errorNews: any,
     isFetchingNews: boolean,
 }
 
-const News: React.FC<NewsProps> = ({ isFetchingNews, news }) => {
+const News: React.FC<NewsProps & ErrorLoading> = ({ errorNews, isFetchingNews, news }) => {
+
+    const Loading = (<div className='NewsLoadingSymbolContainer'><img className='NewsLoading'src={loading} /></div>)
+
+    const News = news.length > 0 ? news.map(article => <Article {...article}/>) : Loading;
+
+    const NewsError = <FetchingError message={errorNews.message}/>
+
+
     return (
         <div className={news.length > 0 ? 'NewsContainer' : 'NewsLoadingContainer' }>
             <span className='Title'>LATEST NEWS</span>
-            { news.length < 1 ? <div className='NewsLoadingSymbolContainer'><img className='NewsLoading'src={loading} /></div> :
-                news.map(article => {
-                    const { url, headline, datetime, source } = article;
-                    return (
-                        <div className='Article'>
-                            <a className='Link' href={url}>
-                                <div style={{fontSize: '1.2rem'}} >{headline}</div>
-                            </a>
-                            <div style={{opacity: 0.5}} >{moment(datetime).fromNow()} - {source}</div>
-                        </div>
-                    )
-                })
-            }
+            {errorNews ? NewsError : News}
             <div className='AlignNewsFetching'>
-                {isFetchingNews && news.length > 0 ? <img className='NewsFetching' src={loading}/> : null}
+                {isFetchingNews && news.length > 0 ? <img className='NewsFetching' src={loading}/> : <img className='NewsFetching' /> }
             </div>
         </div>
     )

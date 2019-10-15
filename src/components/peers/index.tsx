@@ -4,15 +4,28 @@ import loading from '../../gif/loading.gif'
 
 type PeersProps = {
     peers: string[],
+}
+
+type ErrorLoading = {
+    errorPeers: any,
     isFetchingPeers: boolean,
 }
 
-const Peers: React.FC<PeersProps> = ({ isFetchingPeers, peers }) => {
+const Peers: React.FC<PeersProps & ErrorLoading> = ({ errorPeers, isFetchingPeers, peers }) => {
+
+    console.log('PEERS',errorPeers)
     return (
         <div className={isFetchingPeers ? 'PeersLoadingContainer' : 'PeersContainer'}>
             <span className='Title'>TOP PEERS</span>
+            {errorPeers ? 
+                <div className='PeersErrorContainer'>
+                    <div className='PeersError'>⊗</div>
+                    <div className='PeersErrorMessage'>{errorPeers.message}</div>
+                </div> : 
+                null
+            }
             {   
-                isFetchingPeers ? 
+                isFetchingPeers && !errorPeers ? 
                 <img className='LoadingPeers' src={loading} /> : 
                 <div className='contentContainer'>
                     <div>{peers.map( peer => peer + ' ')}</div>

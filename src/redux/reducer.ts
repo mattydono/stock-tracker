@@ -25,7 +25,6 @@ const companyOverviewInitialState: _CompanyOverview = {
     website: null,
     description: null,
     tags: [],
-    isFetchingCompany: false,
 }
 
 const keyStatsInitialState: _KeyStats = {
