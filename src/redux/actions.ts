@@ -30,5 +30,9 @@ export const updateChartData = createAction<_ChartSingleDataPoint[]>(UPDATE_CHAR
 export type UpdateChartDataAction = ReturnType<typeof updateChartData>
 
 export const UPDATE_FAVORITES_DATA = 'UPDATE_FAVORITES_DATA';
-export const updateFavoritesData = createAction<_PriceSingleDataPoint[]>(UPDATE_FAVORITES_DATA);
+export const updateFavoritesData = createAction<string[]>(UPDATE_FAVORITES_DATA);
 export type UpdateFavoritesDataAction = ReturnType<typeof updateFavoritesData>;
+
+export const UPDATE_PRICES_DATA = 'UPDATE_PRICES_DATA';
+export const updatePricesData = createAction<_PriceSingleDataPoint[]>(UPDATE_PRICES_DATA);
+export type UpdatePricesDataAction = ReturnType<typeof updatePricesData>;

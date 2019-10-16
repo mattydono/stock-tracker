@@ -17,7 +17,7 @@ const isFetchingInitialState = {
     favorites: false,
 }
 
-const useTicker = (myticker, { quote, news, company, peers, favorites }) => {
+const useTicker = (myticker, { quote, news, company, peers, favorites, prices }) => {
 
     const [errors, setErrors] = useState(errorInitialState);
     const [isFetching, setIsFetching] = useState(isFetchingInitialState);
@@ -39,8 +39,8 @@ const useTicker = (myticker, { quote, news, company, peers, favorites }) => {
 
     useEffect(() => {
         const fetchFavorites = () => fetchData(
-            createURL(favoritesArray, 'favorites'), 
-            favorites, 
+            createURL(favoritesArray.concat(myticker), 'favorites'), 
+            prices,
             (e) => setErrors(state => ({ ...state, favorites: e })), 
             (bool) => setIsFetching(state => ({ ...state, favorites: bool }))
         );
@@ -49,7 +49,7 @@ const useTicker = (myticker, { quote, news, company, peers, favorites }) => {
         return () => {
             clearInterval(favoritesPolling);
         }
-    }, [favoritesArray]);
+    }, [favoritesArray, myticker]);
 
     return [setTicker, setFavoritesArray, errors, isFetching];
 }

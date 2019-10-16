@@ -3,7 +3,8 @@ import { _CompanyOverview } from './companyOverview'
 import { _KeyStats } from './keyStats'
 import { _News } from './news'
 import { Range } from './range'
-import { _PriceSingleDataPoint, _Favorites } from './favorites';
+import { _Favorites } from './favorites';
+import { _Prices, _PriceSingleDataPoint } from './prices';
 
 export interface _StateProps {
     companyOverview: _CompanyOverview,
@@ -12,6 +13,7 @@ export interface _StateProps {
     news: _News,
     peers: string[],
     favorites: _Favorites,
+    prices: _Prices,
     chart: {
         range: Range,
         prices: _ChartSingleDataPoint[]
@@ -26,6 +28,7 @@ export interface _DispatchProps {
         quote: (quote: _KeyStats) => void,
         news: (news: _News) => void,
         peers: (peers: string[]) => void,
-        favorites: (prices: _PriceSingleDataPoint[]) => void,
+        favorites: (tickers: string[]) => void,
+        prices: (prices: _Prices) => void,
     }
 };

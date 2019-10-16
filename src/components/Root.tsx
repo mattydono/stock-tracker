@@ -23,6 +23,7 @@ import {
     updateChartRange,
     updateChartData,
     updateFavoritesData,
+    updatePricesData,
 } from '../redux/actions'
 
 import { connect } from 'react-redux';
@@ -37,6 +38,7 @@ const Root: React.FC<_StateProps & _DispatchProps> = ({
     news,
     chart,
     favorites,
+    prices,
     updateChartRange,
     updateChartPrices,
 }) => {
@@ -82,7 +84,7 @@ const Root: React.FC<_StateProps & _DispatchProps> = ({
                     </div>
                 </div>
             </div>
-            <Footer favorites={favorites} />
+            <Footer favorites={prices} />
         </div>
     )
 }
@@ -94,6 +96,7 @@ const mapStateToProps: MapStateToProps<_StateProps, {}, _AppState> = state => ({
     news: state.news,
     peers: state.peers,
     favorites: state.favorites,
+    prices: state.prices,
     chart: {
         range: state.charts.range,
         prices: state.charts.prices,
@@ -109,7 +112,8 @@ const mapDispatchToProps: MapDispatchToProps<_DispatchProps, {}> = dispatch => (
         quote: quote => dispatch(updateKeyStats(quote)),
         news: news => dispatch(updateNews(news)),
         peers: peers => dispatch(updatePeers(peers)),
-        favorites: prices => dispatch(updateFavoritesData(prices))
+        favorites: tickers => dispatch(updateFavoritesData(tickers)),
+        prices: prices => dispatch(updatePricesData(prices))
     }
 })
 

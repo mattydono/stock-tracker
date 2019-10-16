@@ -6,8 +6,9 @@ import { UpdateTickerAction, UPDATE_TICKER,
         UpdateCompanyAction, UPDATE_COMPANY, 
         UpdateNewsAction, UPDATE_NEWS, 
         UpdatePeersAction, UPDATE_PEERS,
-        UpdateFavoritesDataAction, UPDATE_FAVORITES_DATA } from './actions'
-import { _CompanyOverview, _KeyStats, _Charts, _News, _Favorites } from '../models'
+        UpdateFavoritesDataAction, UPDATE_FAVORITES_DATA, 
+        UpdatePricesDataAction, UPDATE_PRICES_DATA } from './actions'
+import { _CompanyOverview, _KeyStats, _Charts, _News, _Favorites, _Prices } from '../models'
 
 export interface _AppState {
     search: string,
@@ -17,6 +18,7 @@ export interface _AppState {
     news: _News,
     peers: string[],
     favorites: _Favorites,
+    prices: _Prices,
 }
 
 const companyOverviewInitialState: _CompanyOverview = {
@@ -58,10 +60,9 @@ const chartsIntitialState: _Charts = {
 
 const newsInitialState: _News = []
 
-const favoritesInitialState: _Favorites = {
-    tickers: [''],
-    prices: [],
-}
+const favoritesInitialState: string[] = ['']
+
+const pricesInitialState: _Prices = []
 
 const search: Reducer<string, UpdateTickerAction> = (
     state = 'aapl', 
@@ -173,7 +174,21 @@ const favorites = (
         case UPDATE_FAVORITES_DATA: {
             const updateFavoritesDataAction = action as UpdateFavoritesDataAction;
             const { payload } = updateFavoritesDataAction;
-            return ({ ...state, prices: payload })
+            return payload;
+        }
+        default: {
+            return state;
+        }
+    }
+}
+
+const prices = (state = pricesInitialState, action: UpdatePricesDataAction) => {
+    const { type } = action;
+    switch (type) {
+        case UPDATE_PRICES_DATA: {
+            const updatePricesDataAction = action as UpdatePricesDataAction;
+            const { payload } = updatePricesDataAction;
+            return payload;
         }
         default: {
             return state;
@@ -189,4 +204,5 @@ export default combineReducers({
     peers,
     charts,
     favorites,
+    prices
 })
