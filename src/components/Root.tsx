@@ -28,7 +28,6 @@ import {
 } from '../redux/actions'
 
 import { connect } from 'react-redux';
-import { stat } from 'fs';
 
 const Root: React.FC<_StateProps & _DispatchProps> = ({ 
     ticker, 
@@ -46,9 +45,6 @@ const Root: React.FC<_StateProps & _DispatchProps> = ({
     searchProps
 }) => {
 
-    const { isUSMarketOpen } = keyStats;
-    const { price: { latestPrice } } = searchProps;
-
     const [updateTicker, updateFavorites, errors, fetching]:any = useTicker(ticker, callbacks);
 
     const { news: isFetchingNews = false, quote: isFetchingQuote = false, company: isFetchingCompany = false, peers: isFetchingPeers = false } = fetching;
@@ -59,7 +55,6 @@ const Root: React.FC<_StateProps & _DispatchProps> = ({
         updateTicker(ticker);
     }, [ticker])
 
-    console.log(chartProps);
 
     return (
         <div className='RootContainer'>
@@ -112,7 +107,7 @@ const mapStateToProps: MapStateToProps<_StateProps, {}, _AppState> = state => {
 
     return ({
         companyOverview,
-        ticker,
+        ticker: search,
         keyStats,
         news,
         peers,

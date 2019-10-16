@@ -49,29 +49,3 @@ export interface _DispatchProps {
         prices: (prices: _Prices) => void,
     }
 };
-
-// export interface _StateProps {
-//     companyOverview: _CompanyOverview,
-//     ticker: string,
-//     keyStats: _KeyStats,
-//     news: _News,
-//     peers: string[],
-//     footerProps: {
-//         favorites: string[],
-//         prices: _Prices,
-//     }
-//     searchProps: {
-//         price: _PriceSingleDataPoint,
-//         primaryExchange: string | null,
-//         isUSMarketOpen: boolean,
-//         tags: string[],
-//         latestTime: string | null
-//     },
-//     chartProps: {
-//         range: Range,
-//         prices: _ChartSingleDataPoint[],
-//         ticker: string,
-//         latest: number,
-//         open: boolean,
-//     }
-// }

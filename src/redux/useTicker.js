@@ -24,6 +24,7 @@ const useTicker = (myticker, { quote, news, company, peers, favorites, prices })
     const [ticker, setTicker] = useState(myticker);
     const [favoritesArray, setFavoritesArray] = useState(['msft', 'amzn', 'fb']);
 
+
     useEffect(() => {
         const fetchCompany = () => fetchDataWrapper(createURL(ticker, 'company'), company, (e) => setErrors(state => ({ ...state, company: e })), (bool) => setIsFetching(state => ({ ...state, company: bool })));
         const fetchNews = () => fetchData(createURL(ticker, 'news'), news, (e) => setErrors(state => ({ ...state, news: e })), (bool) => setIsFetching(state => ({ ...state, news: bool })));
@@ -39,7 +40,7 @@ const useTicker = (myticker, { quote, news, company, peers, favorites, prices })
 
     useEffect(() => {
         const fetchFavorites = () => fetchData(
-            createURL(favoritesArray.concat(myticker), 'favorites'), 
+            createURL(Array.from(new Set([...favoritesArray, ticker])), 'favorites'), 
             prices,
             (e) => setErrors(state => ({ ...state, favorites: e })), 
             (bool) => setIsFetching(state => ({ ...state, favorites: bool }))
@@ -49,7 +50,7 @@ const useTicker = (myticker, { quote, news, company, peers, favorites, prices })
         return () => {
             clearInterval(favoritesPolling);
         }
-    }, [favoritesArray, myticker]);
+    }, [ticker, favoritesArray]);
 
     return [setTicker, setFavoritesArray, errors, isFetching];
 }

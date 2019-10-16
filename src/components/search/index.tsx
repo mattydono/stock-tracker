@@ -10,8 +10,6 @@ type _Stock = {
 
 type SearchProps = {
     search: (query: string) => void,
-    // change: number | null,
-    // changePercent: number | null,
     latestPrice?: number,
     primaryExchange: string | null,
     tags: string[],
