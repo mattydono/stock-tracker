@@ -1,8 +1,7 @@
 import React from 'react';
 import { _News } from '../../models'
 import './index.css'
-import loading from '../../gif/loading.gif';
-import FetchingError from '../errors/errorFetching';
+import Loading from '../../gif/loading';
 import Article from './article';
 
 type NewsProps = {
@@ -11,25 +10,22 @@ type NewsProps = {
 
 type ErrorLoading = {
     errorNews: any,
-    isFetchingNews: boolean,
 }
 
-const News: React.FC<NewsProps & ErrorLoading> = ({ errorNews, isFetchingNews, news }) => {
+const News: React.FC<NewsProps & ErrorLoading> = ({ errorNews, news }) => {
 
-    const Loading = (<div className='NewsLoadingSymbolContainer'><img className='NewsLoading'src={loading} /></div>)
+    const News = news.length > 0 ? news.map(article => <Article {...article}/>) : <Loading />;
 
-    const News = news.length > 0 ? news.map(article => <Article {...article}/>) : Loading;
-
-    const NewsError = <FetchingError message={errorNews.message}/>
+    const NewsError = news.length ? (
+        <div style={{color: 'red', marginBottom: '1rem'}}>Connection to server lost.</div>
+    ) : null;
 
 
     return (
-        <div className={news.length > 0 ? 'NewsContainer' : 'NewsLoadingContainer' }>
+        <div className='NewsContainer'>
             <span className='Title'>LATEST NEWS</span>
-            {errorNews ? NewsError : News}
-            <div className='AlignNewsFetching'>
-                {isFetchingNews && news.length > 0 ? <img className='NewsFetching' src={loading}/> : <img className='NewsFetching' /> }
-            </div>
+            {errorNews ? NewsError : null}
+            {News}
         </div>
     )
 }

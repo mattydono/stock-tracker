@@ -47,7 +47,7 @@ const Root: React.FC<_StateProps & _DispatchProps> = ({
 
     const { news: isFetchingNews = false, quote: isFetchingQuote = false, company: isFetchingCompany = false, peers: isFetchingPeers = false } = fetching;
 
-    const { news: errorNews = false, quote: errorQuote = false, company: errorCompany = false, peers: errorPeers = false } = errors;
+    const { news: errorNews, quote: errorQuote = false, company: errorCompany = false, peers: errorPeers = false } = errors;
 
     useEffect(() => {
         updateTicker(ticker);
@@ -72,7 +72,7 @@ const Root: React.FC<_StateProps & _DispatchProps> = ({
                         updateChartPrices={updateChartPrices} 
                         updateChartRange={updateChartRange}
                     />
-                    <News errorNews={errorNews} isFetchingNews={isFetchingNews} news={news}/>
+                    <News errorNews={errorNews} news={news}/>
                 </div>
                 <div className='StatsCompany'>
                     <KeyStats errorQuote={errorQuote} isFetchingQuote={isFetchingQuote} {...keyStats}/>

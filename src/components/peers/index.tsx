@@ -12,8 +12,6 @@ type ErrorLoading = {
 }
 
 const Peers: React.FC<PeersProps & ErrorLoading> = ({ errorPeers, isFetchingPeers, peers }) => {
-
-    console.log('PEERS',errorPeers)
     return (
         <div className={isFetchingPeers ? 'PeersLoadingContainer' : 'PeersContainer'}>
             <span className='Title'>TOP PEERS</span>
