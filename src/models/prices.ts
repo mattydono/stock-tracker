@@ -1,6 +1,6 @@
 export interface _PriceSingleDataPoint {
-    ticker?: string,
-    latestPrice?: number,
+    ticker: string,
+    latestPrice: number,
     change: number | null,
     changePercent: number | null,
 }

@@ -31,8 +31,6 @@ const companyOverviewInitialState: _CompanyOverview = {
 }
 
 const keyStatsInitialState: _KeyStats = {
-    symbol: null,
-    companyName: null,
     marketCap: null,
     peRatio: null,
     week52High: null,
@@ -45,9 +43,6 @@ const keyStatsInitialState: _KeyStats = {
     open: null,
     dividendYield: null,
     actualEPS: null,
-    change: null,
-    changePercent: null,
-    latestPrice: undefined,
     primaryExchange: null,
     latestTime: null,
     isUSMarketOpen: false,
@@ -63,7 +58,7 @@ const newsInitialState: _News = []
 
 const favoritesInitialState: string[] = ['amzn', 'msft', 'fb']
 
-const pricesInitialState: _Prices = [{ change: 0, changePercent: 0 }]
+const pricesInitialState: _Prices = [{ ticker: 'aapl', change: 0, changePercent: 0, latestPrice: 0 }]
 
 const search: Reducer<string, UpdateTickerAction> = (
     state = 'aapl', 
