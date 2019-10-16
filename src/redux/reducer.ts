@@ -63,7 +63,7 @@ const newsInitialState: _News = []
 
 const favoritesInitialState: string[] = ['amzn', 'msft', 'fb']
 
-const pricesInitialState: _Prices = []
+const pricesInitialState: _Prices = [{ change: 0, changePercent: 0 }]
 
 const search: Reducer<string, UpdateTickerAction> = (
     state = 'aapl', 

@@ -14,6 +14,13 @@ export interface _StateProps {
     peers: string[],
     favorites: string[],
     prices: _Prices,
+    searchProps: {
+        price: _PriceSingleDataPoint,
+        primaryExchange: string | null,
+        isUSMarketOpen: boolean,
+        tags: string[],
+        latestTime: string | null
+    },
     chart: {
         range: Range,
         prices: _ChartSingleDataPoint[]

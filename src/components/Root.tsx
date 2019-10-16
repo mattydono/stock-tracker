@@ -42,6 +42,7 @@ const Root: React.FC<_StateProps & _DispatchProps> = ({
     prices,
     updateChartRange,
     updateChartPrices,
+    searchProps
 }) => {
 
     const { isUSMarketOpen, latestPrice } = keyStats;
@@ -51,8 +52,6 @@ const Root: React.FC<_StateProps & _DispatchProps> = ({
     const { news: isFetchingNews = false, quote: isFetchingQuote = false, company: isFetchingCompany = false, peers: isFetchingPeers = false } = fetching;
 
     const { news: errorNews, quote: errorQuote = false, company: errorCompany = false, peers: errorPeers = false } = errors;
-
-    const currentTickerPriceObject = prices.find(obj => obj.ticker === ticker) || { ticker: '', change: 0, changePercent: 0 }
 
     useEffect(() => {
         updateTicker(ticker);
@@ -65,9 +64,7 @@ const Root: React.FC<_StateProps & _DispatchProps> = ({
                 <Search 
                 search={search} 
                 errorQuote={errorQuote}
-                price={currentTickerPriceObject}
-                {...keyStats} 
-                {...companyOverview}
+                {...searchProps}
                 />
                 <div className='ChartNews'>
                     <Chart 
@@ -101,6 +98,13 @@ const mapStateToProps: MapStateToProps<_StateProps, {}, _AppState> = state => ({
     peers: state.peers,
     favorites: state.favorites,
     prices: state.prices,
+    searchProps: {
+        price: state.prices.filter(({ ticker }) => ticker === state.search)[0] || state.prices[0],
+        primaryExchange: state.keyStats.primaryExchange,
+        isUSMarketOpen: state.keyStats.isUSMarketOpen,
+        tags: state.companyOverview.tags,
+        latestTime: state.keyStats.latestTime,
+    },
     chart: {
         range: state.charts.range,
         prices: state.charts.prices,
