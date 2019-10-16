@@ -25,10 +25,6 @@ export interface _StateProps {
         tags: string[],
         latestTime: string | null
     },
-    chart: {
-        range: Range,
-        prices: _ChartSingleDataPoint[],
-    },
     chartProps: {
         range: Range,
         prices: _ChartSingleDataPoint[],

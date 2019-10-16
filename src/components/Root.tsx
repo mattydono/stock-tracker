@@ -38,7 +38,6 @@ const Root: React.FC<_StateProps & _DispatchProps> = ({
     callbacks, 
     search, 
     news,
-    chart,
     chartProps,
     favorites,
     prices,
@@ -74,9 +73,6 @@ const Root: React.FC<_StateProps & _DispatchProps> = ({
                 <div className='ChartNews'>
                     <Chart 
                         {...chartProps}
-                        // {...chart}
-                        // open={isUSMarketOpen} 
-                        // ticker={ticker} 
                         updateChartPrices={updateChartPrices} 
                         updateChartRange={updateChartRange}
                     />
@@ -124,46 +120,9 @@ const mapStateToProps: MapStateToProps<_StateProps, {}, _AppState> = state => {
         prices,
         footerProps,
         searchProps,
-        chart: {
-            range: state.charts.range,
-            prices: state.charts.prices
-        },
         chartProps
     })
-
-    // return {
-    //     ticker,
-    //     searchProps,
-    //     chartProps,
-    //     news,
-    //     peers,
-    //     keyStats,
-    //     companyOverview,
-    //     footerProps,
-    // }
-
 }
-
-// const mapStateToProps: MapStateToProps<_StateProps, {}, _AppState> = state => ({
-//     companyOverview: state.companyOverview,
-//     ticker: state.search,
-//     keyStats: state.keyStats,
-//     news: state.news,
-//     peers: state.peers,
-//     favorites: state.favorites,
-//     prices: state.prices,
-//     searchProps: {
-//         price: state.prices.filter(({ ticker }) => ticker === state.search)[0] || state.prices[0],
-//         primaryExchange: state.keyStats.primaryExchange,
-//         isUSMarketOpen: state.keyStats.isUSMarketOpen,
-//         tags: state.companyOverview.tags,
-//         latestTime: state.keyStats.latestTime,
-//     },
-//     chart: {
-//         range: state.charts.range,
-//         prices: state.charts.prices,
-//     }
-// })
 
 const mapDispatchToProps: MapDispatchToProps<_DispatchProps, {}> = dispatch => ({
     search: query => dispatch(updateTicker(query)),
