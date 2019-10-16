@@ -22,7 +22,8 @@ import {
     updatePeers,
     updateChartRange,
     updateChartData,
-    updateFavoritesData,
+    updateFavoritesAddTicker,
+    updateFavoritesRemoveTicker,
     updatePricesData,
 } from '../redux/actions'
 
@@ -51,6 +52,8 @@ const Root: React.FC<_StateProps & _DispatchProps> = ({
 
     const { news: errorNews, quote: errorQuote = false, company: errorCompany = false, peers: errorPeers = false } = errors;
 
+    const currentTickerPriceObject = prices.find(obj => obj.ticker === ticker) || { ticker: '', change: 0, changePercent: 0 }
+
     useEffect(() => {
         updateTicker(ticker);
     }, [ticker])
@@ -62,6 +65,7 @@ const Root: React.FC<_StateProps & _DispatchProps> = ({
                 <Search 
                 search={search} 
                 errorQuote={errorQuote}
+                price={currentTickerPriceObject}
                 {...keyStats} 
                 {...companyOverview}
                 />
@@ -84,7 +88,7 @@ const Root: React.FC<_StateProps & _DispatchProps> = ({
                     </div>
                 </div>
             </div>
-            <Footer favorites={prices} />
+            <Footer prices={prices} favorites={favorites} />
         </div>
     )
 }
@@ -112,7 +116,10 @@ const mapDispatchToProps: MapDispatchToProps<_DispatchProps, {}> = dispatch => (
         quote: quote => dispatch(updateKeyStats(quote)),
         news: news => dispatch(updateNews(news)),
         peers: peers => dispatch(updatePeers(peers)),
-        favorites: tickers => dispatch(updateFavoritesData(tickers)),
+        favorites: {
+            add: ticker => dispatch(updateFavoritesAddTicker(ticker)),
+            remove: ticker => dispatch(updateFavoritesRemoveTicker(ticker)),
+        },
         prices: prices => dispatch(updatePricesData(prices))
     }
 })

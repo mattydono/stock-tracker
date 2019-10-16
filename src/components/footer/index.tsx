@@ -7,7 +7,8 @@ import TickerCard from '../search/tickerCard';
 import './index.css';
 
 type FooterProps = {
-    favorites: _PriceSingleDataPoint[],
+    prices: _PriceSingleDataPoint[],
+    favorites: string[],
 }
 
 const FooterTickerCard: React.FC<_PriceSingleDataPoint> = ({ ticker, latestPrice, change, changePercent }) => {
@@ -20,8 +21,8 @@ const FooterTickerCard: React.FC<_PriceSingleDataPoint> = ({ ticker, latestPrice
     )
 }
 
-const Footer: React.FC<FooterProps> = ({ favorites: prices }) => {
-    const favoritesArray = prices[0] && prices.map(item => <FooterTickerCard {...item}/>);
+const Footer: React.FC<FooterProps> = ({ prices, favorites }) => {
+    const favoritesArray = prices[0] && prices.filter(({ ticker }) => ticker && favorites.includes(ticker)).map(item => <FooterTickerCard {...item} /> );
     const usMarketsArray = USMarketsMockData.map(item => <FooterTickerCard {...item}/>)
     return (
         <div className="FooterHolder">

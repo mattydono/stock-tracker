@@ -12,7 +12,7 @@ export interface _StateProps {
     keyStats: _KeyStats,
     news: _News,
     peers: string[],
-    favorites: _Favorites,
+    favorites: string[],
     prices: _Prices,
     chart: {
         range: Range,
@@ -28,7 +28,10 @@ export interface _DispatchProps {
         quote: (quote: _KeyStats) => void,
         news: (news: _News) => void,
         peers: (peers: string[]) => void,
-        favorites: (tickers: string[]) => void,
+        favorites: {
+            add : (ticker: string) => void,
+            remove : (ticker: string) => void,
+        }
         prices: (prices: _Prices) => void,
     }
 };

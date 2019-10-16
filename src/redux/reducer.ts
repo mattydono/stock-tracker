@@ -6,8 +6,9 @@ import { UpdateTickerAction, UPDATE_TICKER,
         UpdateCompanyAction, UPDATE_COMPANY, 
         UpdateNewsAction, UPDATE_NEWS, 
         UpdatePeersAction, UPDATE_PEERS,
-        UpdateFavoritesDataAction, UPDATE_FAVORITES_DATA, 
-        UpdatePricesDataAction, UPDATE_PRICES_DATA } from './actions'
+        UpdateFavoritesAddTickerAction, FAVORITES_ADD_TICKER,
+        UpdateFavoritesRemoveTickerAction, FAVORITES_REMOVE_TICKER,
+        UpdatePricesDataAction, UPDATE_PRICES_DATA, updateFavoritesAddTicker } from './actions'
 import { _CompanyOverview, _KeyStats, _Charts, _News, _Favorites, _Prices } from '../models'
 
 export interface _AppState {
@@ -17,7 +18,7 @@ export interface _AppState {
     charts: _Charts,
     news: _News,
     peers: string[],
-    favorites: _Favorites,
+    favorites: string[],
     prices: _Prices,
 }
 
@@ -60,7 +61,7 @@ const chartsIntitialState: _Charts = {
 
 const newsInitialState: _News = []
 
-const favoritesInitialState: string[] = ['']
+const favoritesInitialState: string[] = ['amzn', 'msft', 'fb']
 
 const pricesInitialState: _Prices = []
 
@@ -167,14 +168,22 @@ const charts = (
 
 const favorites = (
     state = favoritesInitialState,
-    action: UpdateFavoritesDataAction
+    action: UpdateFavoritesAddTickerAction | UpdateFavoritesRemoveTickerAction
     ) => {
     const { type } = action;
     switch (type) {
-        case UPDATE_FAVORITES_DATA: {
-            const updateFavoritesDataAction = action as UpdateFavoritesDataAction;
-            const { payload } = updateFavoritesDataAction;
-            return payload;
+        case FAVORITES_ADD_TICKER: {
+            const updateFavoritesAddTickerAction = action as UpdateFavoritesAddTickerAction;
+            const { payload } = updateFavoritesAddTickerAction;
+            return ([
+                ...state,
+                payload
+            ])
+        }
+        case FAVORITES_REMOVE_TICKER: {
+            const updateFavoritesRemoveTickerAction = action as UpdateFavoritesRemoveTickerAction;
+            const { payload } = updateFavoritesRemoveTickerAction;
+            return state.filter(ticker => ticker !== payload)
         }
         default: {
             return state;
