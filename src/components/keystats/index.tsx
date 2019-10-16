@@ -4,27 +4,33 @@ import './index.css'
 import loading from '../../gif/loading.gif'
 
 const KeyStats: React.FC<_KeyStats & any> = ({
-    marketCap, 
-    peRatio, 
-    week52High, 
-    week52Low, 
-    avgTotalVolume,
-    previousClose,
-    low,
-    high,
-    volume,
-    open,
-    dividendYield,
-    actualEPS,
     isFetchingQuote,
     errorQuote,
+    ...keystatsProps
     }) => {
 
-    const nullValues = !marketCap && !peRatio && !week52High && !week52Low && !avgTotalVolume && !previousClose && !low && !high && !volume && !open && !dividendYield && !actualEPS;
+    const nullValues = Object.values(keystatsProps).every(item => !item);
+
+    const {
+        marketCap, 
+        peRatio, 
+        week52High, 
+        week52Low, 
+        avgTotalVolume,
+        previousClose,
+        low,
+        high,
+        volume,
+        open,
+        dividendYield,
+        actualEPS,
+    } = keystatsProps;
+
+    const KeySatsError = <div style={{color: 'red', marginBottom: '1rem'}}>{nullValues ? 'Fetching stats failed' : 'Connection to server lost'}</div>;
 
     return (
         <div className={nullValues ? 'KeyStatsLoadingContainer' : 'KeyStatsContainer'}>
-            <span className='Title'>KEY STATS</span>
+            <span className='Title'>KEY STATS &nbsp; &nbsp; {errorQuote ? KeySatsError : ''}</span>
             {errorQuote ? 
                 <div className='StatsErrorContainer'>
                     <div className='StatsError'>⊗</div>
@@ -82,8 +88,8 @@ const KeyStats: React.FC<_KeyStats & any> = ({
                         </tr>
                     </tbody>
                 </table>
-            </div>} 
-        </div>       
+            </div>}
+        </div>
     )
 }
 
