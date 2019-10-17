@@ -12,6 +12,7 @@ type FooterProps = {
 }
 
 const FooterContainer = styled.div`
+    align-self: flex-end;
     background-image: linear-gradient(to bottom, #00265d, #00204f);
     display: flex;
     flex-direction: row;

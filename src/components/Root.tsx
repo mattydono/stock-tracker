@@ -51,8 +51,6 @@ const RootContainer = styled.div`
     * {
         font-family: 'Lato', sans-serif;
     };
-    @media(max-width: 750px) {
-    }
 `
 
 const AppContainer = styled.div`
@@ -71,7 +69,7 @@ const CompanyContainer = styled.div`
     flex-direction: column;
     @media(max-width: 750px) {
         margin-left: 0;
-    }
+    };
 `
 
 const ChartNews = styled.div`
@@ -79,7 +77,17 @@ const ChartNews = styled.div`
     flex: 1 0 auto;
     @media(max-width: 750px) {
         flex-direction: column;
-    }
+    };
+    @media(min-width: 750px) {
+        min-width: 721px;
+        min-height: 602px;
+    };
+    @media(min-width: 1200px) {
+        min-width: 1065px;
+    };
+    @media(min-width: 1500px) {
+        min-width: 1335px;
+    };
 `
 
 const StatsCompany = styled.div`
@@ -87,7 +95,17 @@ const StatsCompany = styled.div`
     flex: 1 0 auto;
     @media(max-width: 750px) {
         flex-direction: column;
-    }
+    };
+    @media(min-width: 750px) {
+        min-width: 721px;
+        min-height: 367px;
+    };
+    @media(min-width: 1200px) {
+        min-width: 1065px;
+    };
+    @media(min-width: 1500px) {
+        min-width: 1335px;    
+    };
 `
 
 const FooterLogo = styled.img`

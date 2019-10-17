@@ -12,12 +12,12 @@ const Link = styled.a`
     text-decoration: none;
     color: white;
     font-weight: 300;
-    font-size: 1.5rem;
+    font-size: 1.4rem;
     &:hover {
         color: #e0be86;
     };
     @media(max-width: 1100px) {
-        font-size: 1.3rem;
+        font-size: 1.2rem;
     };
     @media(max-width: 800px) {
         font-size: 1.1rem;

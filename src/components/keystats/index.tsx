@@ -53,7 +53,6 @@ const LoadingStats = styled.img`
 `
 
 const KeyStatsLoadingContainer = styled.div`
-    flex: 0 1 65%;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -110,10 +109,9 @@ const KeyStats: React.FC<_KeyStats & any> = ({
     const KeySatsError = <div style={{color: 'red', marginBottom: '1rem'}}>{nullValues ? 'Fetching stats failed' : 'Connection to server lost'}</div>;
 
     return (    
-        <>
-        {!nullValues ?
         <KeyStatsContainer>
             <Title>KEY STATS</Title>
+            {!nullValues ?
             <TableContainer>
                  <Table>
                      <Tbody>
@@ -164,19 +162,17 @@ const KeyStats: React.FC<_KeyStats & any> = ({
                      </Tbody>
                  </Table>
              </TableContainer>
+             : nullValues && !errorQuote ?
+             <KeyStatsLoadingContainer>
+                 <LoadingStats src={loading} />
+             </KeyStatsLoadingContainer> 
+             :
+            <StatsErrorContainer>
+                <StatsError>⊗</StatsError>
+                <StatsErrorMessage>{errorQuote.message}</StatsErrorMessage>
+            </StatsErrorContainer>
+            } 
         </KeyStatsContainer>
-        : nullValues && !errorQuote ?
-        <KeyStatsLoadingContainer>
-            <Title>KEY STATS</Title>
-            <LoadingStats src={loading} />
-        </KeyStatsLoadingContainer>
-        :
-        <StatsErrorContainer>
-            <StatsError>⊗</StatsError>
-            <StatsErrorMessage>{errorQuote.message}</StatsErrorMessage>
-        </StatsErrorContainer> 
-        }
-        </>
     )
 }
 
