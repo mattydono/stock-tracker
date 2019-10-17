@@ -250,12 +250,12 @@ type Error = {
 
 const Search: React.FC<SearchProps & Error> = ({ errorQuote, search, primaryExchange, tags, latestTime, isUSMarketOpen, price: { change, changePercent, latestPrice } }) => {
 
-    const [query, setQuery] = useState<string>('Apple Inc. (AAPL)');
+    const [query, setQuery] = useState<string>('Apple Inc (AAPL)');
     const [stockList, setStockList] = useState<StockListItem[]>([])
     const [isOpen, toggleIsOpen] = useState<boolean>(false)
     const dropSelect = useRef<HTMLDivElement>(null)
     const inputSelect = useRef<HTMLInputElement>(null)
-    const [selectedStock, setSelectedStock] = useState<string[]>([])
+    const [selectedStock, setSelectedStock] = useState<string[]>(['Apple Inc', '(AAPL)'])
 
     const onKeyPress = (event: React.KeyboardEvent) => {
         if(event.key === 'Enter') {
@@ -341,7 +341,7 @@ const Search: React.FC<SearchProps & Error> = ({ errorQuote, search, primaryExch
                     {query && (
                     <Label htmlFor='search'>
                         <span>{selectedStock[0]}</span>
-                        <span>{selectedStock[1]}</span>
+                        <span style={{color: '#beccdc', marginLeft: '10px'}}>{selectedStock[1]}</span>
                     </Label>
                     )}
                 </PriceGroup>
@@ -352,7 +352,7 @@ const Search: React.FC<SearchProps & Error> = ({ errorQuote, search, primaryExch
                     </Tgroup>
                     <Sub1>{primaryExchange}</Sub1>
                 </NameExchange> */}
-                <TickerCard latestPrice={latestPrice} change={change} changePercent={changePercent} />
+                {latestPrice && <TickerCard latestPrice={latestPrice} change={change} changePercent={changePercent} />}
                 <StockList ref={dropSelect} tabIndex={-1}>
                     {isOpen ? stockList.map( stock => renderStock(stock)) : null}
                 </StockList>

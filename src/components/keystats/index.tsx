@@ -14,7 +14,7 @@ const TableContainer = styled.div`
     justify-content: space-between;
     font-size: 0.8rem;
     height: 100%;
-    @media(max-width: 500px) {
+    @media(max-width: 750px) {
         flex-direction: column;
         align-items: center;
     };

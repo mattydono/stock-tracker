@@ -69,6 +69,9 @@ const CompanyContainer = styled.div`
     flex: 0 1 35%;
     margin-left: 40px;
     flex-direction: column;
+    @media(max-width: 750px) {
+        margin-left: 0;
+    }
 `
 
 const ChartNews = styled.div`

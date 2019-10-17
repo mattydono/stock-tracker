@@ -80,7 +80,7 @@ const TickerCard: React.FC<TickerCardPropTypes> = ({ latestPrice, change, change
                     !change ? null 
                     : change > 0 ? 
                         <Span color='green'>
-                            <PriceIcon>&#129123;</PriceIcon>
+                            <PriceIcon>&#129121;</PriceIcon>
                             {Math.abs(change).toFixed(2)}
                         </Span> 
                     : <Span><PriceIcon>&#129123;</PriceIcon>{Math.abs(change).toFixed(2)}</Span>
