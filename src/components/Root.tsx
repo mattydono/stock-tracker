@@ -11,8 +11,7 @@ import Chart from './charts';
 import Header from './header';
 import Footer from './footer';
 import useTicker from '../redux/useTicker';
-
-import './root.css'
+import logo from '../components/header/logo.png'
 
 import {
     updateTicker,
@@ -26,6 +25,74 @@ import {
 } from '../redux/actions'
 
 import { connect } from 'react-redux';
+
+import styled from '@emotion/styled'
+
+export const Title =styled.div`
+    border-bottom: 2px solid #7fb3ff;
+    width: 100%;
+    padding-bottom: 2px;
+    margin-bottom: 10px;
+    color: #7fb3ff;
+    font-weight: 700;
+`
+
+const RootContainer = styled.div`
+    font-family: sans-serif;
+    color: white;
+    font-size: 1rem;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    min-height: 100%;
+    align-items: center;
+    * {
+        font-family: 'Lato', sans-serif;
+    };
+    @media(max-width: 750px) {
+    }
+`
+
+const AppContainer = styled.div`
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: column;
+    margin-left: 5%;
+    margin-right: 5%;
+    max-width: 1500px;
+`
+
+const CompanyContainer = styled.div`
+    display: flex;
+    flex: 0 1 35%;
+    margin-left: 40px;
+    flex-direction: column;
+`
+
+const ChartNews = styled.div`
+    display: flex;
+    flex: 1 0 auto;
+    @media(max-width: 750px) {
+        flex-direction: column;
+    }
+`
+
+const StatsCompany = styled.div`
+    display: flex;
+    flex: 1 0 auto;
+    @media(max-width: 750px) {
+        flex-direction: column;
+    }
+`
+
+const FooterLogo = styled.img`
+    height: 40px;
+    width: 100px;
+    margin-left: 60%;
+    @media(min-width: 375px) {
+        display: none;
+    }
+`
 
 const Root: React.FC<_StateProps & _DispatchProps> = ({ 
     ticker, 
@@ -54,8 +121,8 @@ const Root: React.FC<_StateProps & _DispatchProps> = ({
     }, [ticker])
 
     return (
-        <div className='RootContainer'>
-            <div className='AppContainer'>
+        <RootContainer>
+            <AppContainer>
                 <Header />
                 <Search 
                 search={search} 
@@ -63,7 +130,7 @@ const Root: React.FC<_StateProps & _DispatchProps> = ({
                 {...keyStats} 
                 {...companyOverview}
                 />
-                <div className='ChartNews'>
+                <ChartNews>
                     <Chart 
                         {...chart} 
                         ticker={ticker} 
@@ -73,17 +140,18 @@ const Root: React.FC<_StateProps & _DispatchProps> = ({
                         updateChartRange={updateChartRange}
                     />
                     <News errorNews={errorNews} isFetchingNews={isFetchingNews} news={news}/>
-                </div>
-                <div className='StatsCompany'>
+                </ChartNews>
+                <StatsCompany>
                     <KeyStats errorQuote={errorQuote} isFetchingQuote={isFetchingQuote} {...keyStats}/>
-                    <div className='CompanyContainer'>
+                    <CompanyContainer>
                         <CompanyOverview errorCompany={errorCompany} isFetchingCompany={isFetchingCompany} {...companyOverview} />
                         <Peers errorPeers={errorPeers} isFetchingPeers={isFetchingPeers} peers={peers} />
-                    </div>
-                </div>
-            </div>
+                    </CompanyContainer>
+                </StatsCompany>
+            </AppContainer>
             <Footer favorites={favorites} />
-        </div>
+            <FooterLogo src={logo} />
+        </RootContainer>
     )
 }
 
