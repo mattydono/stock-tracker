@@ -26,6 +26,7 @@ const FooterContainer = styled.div`
 
 const Ticker = styled.div`
     margin-right: 25px;
+    text-transform: uppercase;
 `
 
 const Card = styled.div`
@@ -72,7 +73,6 @@ const Footer: React.FC<FooterProps> = ({ prices, favorites }) => {
     const favoritesArray = prices[0] && prices.filter(({ ticker }) => ticker && favorites.includes(ticker)).map(item => <FooterTickerCard {...item} /> );
     const usMarketsArray = USMarketsMockData.map(item => <FooterTickerCard {...item}/>)
 
-    console.log(usMarketsArray)
     return (
         <FooterContainer>
             <FavouritesContainer>

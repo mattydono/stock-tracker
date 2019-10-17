@@ -108,7 +108,9 @@ export const Chart: React.FC<ChartProps> = ({ prices, ticker, open, latest, rang
         close: latest,
     }
 
-    const data = open ? prices.concat(now) : prices;
+    const testing = true;
+
+    const data = open || testing ? prices.concat(now) : prices;
 
     return (
           <>    
@@ -129,7 +131,7 @@ export const Chart: React.FC<ChartProps> = ({ prices, ticker, open, latest, rang
                             <XAxis dataKey="label" />
                             <YAxis orientation="right" domain={['dataMin', 'auto']} tickLine={false}/>
                             <ReferenceLine y={now.close} stroke={'#e95656'} strokeDasharray="3 3" label={
-                                <Label value={latest} position="right" fill="#e95656" /> } 
+                                <Label value={now.close} position="right" fill="#e95656" /> } 
                             />
                             <Tooltip cursor={{ stroke: 'red', strokeWidth: 2 }} />
                             <Area connectNulls type="monotone" dataKey="close" name="price" unit=" USD" fill='url(#area)' fillOpacity={1} stroke="#608fd1" />
