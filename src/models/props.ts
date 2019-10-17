@@ -3,8 +3,7 @@ import { _CompanyOverview } from './companyOverview'
 import { _KeyStats } from './keyStats'
 import { _News } from './news'
 import { Range } from './range'
-import { _Favorites } from './favorites';
-import { _Prices, _PriceSingleDataPoint } from './prices';
+import { _PriceSingleDataPoint, _Favorites } from './favorites';
 
 export interface _StateProps {
     companyOverview: _CompanyOverview,
@@ -12,25 +11,10 @@ export interface _StateProps {
     keyStats: _KeyStats,
     news: _News,
     peers: string[],
-    favorites: string[],
-    prices: _Prices,
-    footerProps: {
-        favorites: string[],
-        prices: _Prices
-    }
-    searchProps: {
-        price: _PriceSingleDataPoint,
-        primaryExchange: string | null,
-        isUSMarketOpen: boolean,
-        tags: string[],
-        latestTime: string | null
-    },
-    chartProps: {
+    favorites: _Favorites,
+    chart: {
         range: Range,
-        prices: _ChartSingleDataPoint[],
-        ticker: string,
-        latest: number,
-        open: boolean,
+        prices: _ChartSingleDataPoint[]
     }
 }
 export interface _DispatchProps {
@@ -42,10 +26,6 @@ export interface _DispatchProps {
         quote: (quote: _KeyStats) => void,
         news: (news: _News) => void,
         peers: (peers: string[]) => void,
-        favorites: {
-            add : (ticker: string) => void,
-            remove : (ticker: string) => void,
-        }
-        prices: (prices: _Prices) => void,
+        favorites: (prices: _PriceSingleDataPoint[]) => void,
     }
 };

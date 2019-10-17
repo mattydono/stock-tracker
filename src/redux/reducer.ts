@@ -6,10 +6,8 @@ import { UpdateTickerAction, UPDATE_TICKER,
         UpdateCompanyAction, UPDATE_COMPANY, 
         UpdateNewsAction, UPDATE_NEWS, 
         UpdatePeersAction, UPDATE_PEERS,
-        UpdateFavoritesAddTickerAction, FAVORITES_ADD_TICKER,
-        UpdateFavoritesRemoveTickerAction, FAVORITES_REMOVE_TICKER,
-        UpdatePricesDataAction, UPDATE_PRICES_DATA } from './actions'
-import { _CompanyOverview, _KeyStats, _Charts, _News, _Favorites, _Prices } from '../models'
+        UpdateFavoritesDataAction, UPDATE_FAVORITES_DATA } from './actions'
+import { _CompanyOverview, _KeyStats, _Charts, _News, _Favorites } from '../models'
 
 export interface _AppState {
     search: string,
@@ -18,8 +16,7 @@ export interface _AppState {
     charts: _Charts,
     news: _News,
     peers: string[],
-    favorites: string[],
-    prices: _Prices,
+    favorites: _Favorites,
 }
 
 const companyOverviewInitialState: _CompanyOverview = {
@@ -28,9 +25,12 @@ const companyOverviewInitialState: _CompanyOverview = {
     website: null,
     description: null,
     tags: [],
+    isFetchingCompany: false,
 }
 
 const keyStatsInitialState: _KeyStats = {
+    symbol: null,
+    companyName: null,
     marketCap: null,
     peRatio: null,
     week52High: null,
@@ -43,9 +43,12 @@ const keyStatsInitialState: _KeyStats = {
     open: null,
     dividendYield: null,
     actualEPS: null,
+    change: null,
+    changePercent: null,
+    latestPrice: undefined,
     primaryExchange: null,
     latestTime: null,
-    isUSMarketOpen: false,
+    isUSMarketOpen: null,
     isFetchingQuote: false,
 }
 
@@ -56,9 +59,10 @@ const chartsIntitialState: _Charts = {
 
 const newsInitialState: _News = []
 
-const favoritesInitialState: string[] = ['amzn', 'msft', 'fb']
-
-const pricesInitialState: _Prices = [{ ticker: 'aapl', change: 0, changePercent: 0, latestPrice: 0 }]
+const favoritesInitialState: _Favorites = {
+    tickers: [''],
+    prices: [],
+}
 
 const search: Reducer<string, UpdateTickerAction> = (
     state = 'aapl', 
@@ -163,36 +167,14 @@ const charts = (
 
 const favorites = (
     state = favoritesInitialState,
-    action: UpdateFavoritesAddTickerAction | UpdateFavoritesRemoveTickerAction
+    action: UpdateFavoritesDataAction
     ) => {
     const { type } = action;
     switch (type) {
-        case FAVORITES_ADD_TICKER: {
-            const updateFavoritesAddTickerAction = action as UpdateFavoritesAddTickerAction;
-            const { payload } = updateFavoritesAddTickerAction;
-            return ([
-                ...state,
-                payload
-            ])
-        }
-        case FAVORITES_REMOVE_TICKER: {
-            const updateFavoritesRemoveTickerAction = action as UpdateFavoritesRemoveTickerAction;
-            const { payload } = updateFavoritesRemoveTickerAction;
-            return state.filter(ticker => ticker !== payload)
-        }
-        default: {
-            return state;
-        }
-    }
-}
-
-const prices = (state = pricesInitialState, action: UpdatePricesDataAction) => {
-    const { type } = action;
-    switch (type) {
-        case UPDATE_PRICES_DATA: {
-            const updatePricesDataAction = action as UpdatePricesDataAction;
-            const { payload } = updatePricesDataAction;
-            return payload;
+        case UPDATE_FAVORITES_DATA: {
+            const updateFavoritesDataAction = action as UpdateFavoritesDataAction;
+            const { payload } = updateFavoritesDataAction;
+            return ({ ...state, prices: payload })
         }
         default: {
             return state;
@@ -208,5 +190,4 @@ export default combineReducers({
     peers,
     charts,
     favorites,
-    prices
 })
