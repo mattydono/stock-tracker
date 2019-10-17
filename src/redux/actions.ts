@@ -29,14 +29,6 @@ export const UPDATE_CHART_DATA = 'UPDATE_CHART_DATA';
 export const updateChartData = createAction<_ChartSingleDataPoint[]>(UPDATE_CHART_DATA)
 export type UpdateChartDataAction = ReturnType<typeof updateChartData>
 
-export const FAVORITES_ADD_TICKER = 'FAVORITES_ADD_TICKER';
-export const updateFavoritesAddTicker = createAction<string>(FAVORITES_ADD_TICKER);
-export type UpdateFavoritesAddTickerAction = ReturnType<typeof updateFavoritesAddTicker>;
-
-export const FAVORITES_REMOVE_TICKER = 'FAVORITES_REMOVE_TICKER';
-export const updateFavoritesRemoveTicker = createAction<string>(FAVORITES_REMOVE_TICKER);
-export type UpdateFavoritesRemoveTickerAction = ReturnType<typeof updateFavoritesRemoveTicker>;
-
-export const UPDATE_PRICES_DATA = 'UPDATE_PRICES_DATA';
-export const updatePricesData = createAction<_PriceSingleDataPoint[]>(UPDATE_PRICES_DATA);
-export type UpdatePricesDataAction = ReturnType<typeof updatePricesData>;
+export const UPDATE_FAVORITES_DATA = 'UPDATE_FAVORITES_DATA';
+export const updateFavoritesData = createAction<_PriceSingleDataPoint[]>(UPDATE_FAVORITES_DATA);
+export type UpdateFavoritesDataAction = ReturnType<typeof updateFavoritesData>;

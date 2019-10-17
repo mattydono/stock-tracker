@@ -1,0 +1,86 @@
+.Title {
+    border-bottom: 2px solid #608fd1;
+    width: 95%;
+    padding-bottom: 2px;
+    margin-bottom: 10px;
+    color: #608fd1;
+}
+
+.CompanyOverviewContainer {
+    max-height: 400px;
+    height: 75%;
+    margin-bottom: 20px;
+}
+
+.CompanyLoadingContainer {
+    max-height: 400px;
+    height: 75%;
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.content {
+    height: 250px;
+    display: flex;
+    flex-direction: column
+}
+
+.Name {
+    margin-top: 2%;
+    font-size: 2rem;
+}
+
+.Website {
+    margin-top: 2%;
+    margin-bottom: 2%;
+}
+
+a:link {
+    color: white;
+    text-decoration: none;
+}
+
+a:hover {
+    color: yellow;
+}
+
+a:visited {
+    color: #608fd1;
+}
+
+.Description {
+    font-size: 1.2rem;
+    overflow: auto;
+}
+
+.LoadingContainer {
+    margin-bottom: 50px;
+    background-color: rgba(89, 89, 105, 0.2);
+    border-radius: 5%;
+    width: 90%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.CompanyLoading {
+    height: 100%;
+}
+
+.FetchingContainer {
+    display: flex;
+    justify-content: space-between;
+}
+
+.FetchingCompany {
+    height: 50px;
+}
+
+@media(max-width: 800px) {
+    .CompanyOverviewContainer {
+        margin-bottom: 30px;
+    }
+}
