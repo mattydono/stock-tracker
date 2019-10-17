@@ -3,7 +3,6 @@ import { _Prices, _PriceSingleDataPoint } from '../../models';
 import TickerCard from './tickerCard';
 import styled from '@emotion/styled'
 import Star from './star';
-import searchIcon from './search.png'
 
 const SearchContainer = styled.div`
     flex: 1 0 auto;

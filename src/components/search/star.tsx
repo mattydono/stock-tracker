@@ -1,7 +1,9 @@
 import React from 'react';
 import styled from '@emotion/styled';
 
-const StarContainer = styled.div``
+const StarContainer = styled.div`
+    cursor: pointer;
+`
 
 const Span = styled.span`
     font-size: 30px;
@@ -19,14 +21,9 @@ const Star: React.FC<StarProps> = ({ favorites, ticker, add, remove }) => {
 
     const isFavorite = favorites && favorites.includes(ticker)
 
-    const handleClick = () => {
-        if(isFavorite) remove(ticker);
-        else add(ticker);
-    }
-
     return (
         <StarContainer>
-            {isFavorite ? <Span onClick={handleClick} >&#9733;</Span> : <Span onClick={handleClick} >&#9734;</Span> }
+            {isFavorite ? <Span onClick={() => remove(ticker)} >&#9733;</Span> : <Span onClick={() => add(ticker)} >&#9734;</Span> }
         </StarContainer>
     )
 }
