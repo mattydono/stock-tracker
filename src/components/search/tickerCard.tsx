@@ -65,7 +65,6 @@ type TickerCardPropTypes = {
 
 const TickerCard: React.FC<TickerCardPropTypes> = ({ latestPrice, change, changePercent, booleanBig }) => {
 
-    console.log(change, changePercent)
     return (
         <PriceStats>
             {

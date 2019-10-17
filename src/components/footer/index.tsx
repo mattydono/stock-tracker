@@ -7,7 +7,8 @@ import TickerCard from '../search/tickerCard';
 import styled from '@emotion/styled'
 
 type FooterProps = {
-    favorites: _Favorites,
+    prices: _PriceSingleDataPoint[],
+    favorites: string[],
 }
 
 const FooterContainer = styled.div`
@@ -25,6 +26,7 @@ const FooterContainer = styled.div`
 
 const Ticker = styled.div`
     margin-right: 25px;
+    text-transform: uppercase;
 `
 
 const Card = styled.div`
@@ -67,11 +69,10 @@ const FooterTickerCard: React.FC<_PriceSingleDataPoint> = ({ ticker, latestPrice
     )
 }
 
-const Footer: React.FC<FooterProps> = ({ favorites: { prices } }) => {
-    const favoritesArray = prices[0] && prices.map(item => <FooterTickerCard {...item}/>);
+const Footer: React.FC<FooterProps> = ({ prices, favorites }) => {
+    const favoritesArray = prices[0] && prices.filter(({ ticker }) => ticker && favorites.includes(ticker)).map(item => <FooterTickerCard {...item} /> );
     const usMarketsArray = USMarketsMockData.map(item => <FooterTickerCard {...item}/>)
 
-    console.log(usMarketsArray)
     return (
         <FooterContainer>
             <FavouritesContainer>

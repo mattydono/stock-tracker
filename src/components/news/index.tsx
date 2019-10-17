@@ -40,20 +40,22 @@ const NewsLoading = styled.img`
 
 type NewsProps = {
     news: _News,
+    isFetchingNews: boolean,
 }
 
 type ErrorLoading = {
     errorNews: any,
-    isFetchingNews: boolean,
 }
 
-const News: React.FC<NewsProps & ErrorLoading> = ({ errorNews, isFetchingNews, news }) => {
+const News: React.FC<NewsProps & ErrorLoading> = ({ errorNews, news }) => {
 
     const Loading = (<NewsLoadingSymbolContainer><NewsLoading src={loading} /></NewsLoadingSymbolContainer>)
 
     const News = news.length > 0 ? news.map(article => <Article {...article}/>) : Loading;
 
-    const NewsError = <FetchingError message={errorNews.message}/>
+    const NewsError = news.length ? (
+        <div style={{color: 'red', marginBottom: '1rem'}}>Connection to server lost.</div>
+    ) : null;
 
 
     return (

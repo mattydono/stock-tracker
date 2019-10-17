@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { _Prices, _PriceSingleDataPoint } from '../../models';
 import TickerCard from './tickerCard';
 import styled from '@emotion/styled'
 import searchIcon from './search.png'
@@ -230,13 +231,12 @@ type _Stock = {
 
 type SearchProps = {
     search: (query: string) => void,
-    change: number | null,
-    changePercent: number | null,
     latestPrice?: number,
     primaryExchange: string | null,
     tags: string[],
     latestTime: string | null,
-    isUSMarketOpen: boolean | null,    
+    isUSMarketOpen: boolean | null,
+    price: _PriceSingleDataPoint,
 }
 
 type StockListItem = {
@@ -248,7 +248,7 @@ type Error = {
     errorQuote: any,
 }
 
-const Search: React.FC<SearchProps & Error> = ({ errorQuote, search, change, changePercent, latestPrice, primaryExchange, tags, latestTime, isUSMarketOpen }) => {
+const Search: React.FC<SearchProps & Error> = ({ errorQuote, search, primaryExchange, tags, latestTime, isUSMarketOpen, price: { change, changePercent, latestPrice } }) => {
 
     const [query, setQuery] = useState<string>('Apple Inc (AAPL)');
     const [stockList, setStockList] = useState<StockListItem[]>([])

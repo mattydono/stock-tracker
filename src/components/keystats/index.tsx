@@ -85,23 +85,29 @@ const StatsErrorMessage = styled.div`
 `
 
 const KeyStats: React.FC<_KeyStats & any> = ({
-    marketCap, 
-    peRatio, 
-    week52High, 
-    week52Low, 
-    avgTotalVolume,
-    previousClose,
-    low,
-    high,
-    volume,
-    open,
-    dividendYield,
-    actualEPS,
     isFetchingQuote,
     errorQuote,
+    ...keystatsProps
     }) => {
 
-    const nullValues = !marketCap && !peRatio && !week52High && !week52Low && !avgTotalVolume && !previousClose && !low && !high && !volume && !open && !dividendYield && !actualEPS;
+    const nullValues = Object.values(keystatsProps).every(item => !item);
+
+    const {
+        marketCap, 
+        peRatio, 
+        week52High, 
+        week52Low, 
+        avgTotalVolume,
+        previousClose,
+        low,
+        high,
+        volume,
+        open,
+        dividendYield,
+        actualEPS,
+    } = keystatsProps;
+
+    const KeySatsError = <div style={{color: 'red', marginBottom: '1rem'}}>{nullValues ? 'Fetching stats failed' : 'Connection to server lost'}</div>;
 
     return (    
         <>

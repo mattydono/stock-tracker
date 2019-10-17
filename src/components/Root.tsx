@@ -21,7 +21,9 @@ import {
     updatePeers,
     updateChartRange,
     updateChartData,
-    updateFavoritesData,
+    updateFavoritesAddTicker,
+    updateFavoritesRemoveTicker,
+    updatePricesData,
 } from '../redux/actions'
 
 import { connect } from 'react-redux';
@@ -105,23 +107,19 @@ const Root: React.FC<_StateProps & _DispatchProps> = ({
     callbacks, 
     search, 
     news,
-    chart,
+    chartProps,
     favorites,
+    footerProps,
     updateChartRange,
     updateChartPrices,
+    searchProps
 }) => {
 
-    const { isUSMarketOpen, latestPrice } = keyStats;
-
-    const [updateTicker, updateFavorites, errors, fetching]:any = useTicker(ticker, callbacks);
+    const [errors, fetching]:any = useTicker({ ticker, favorites, callbacks })
 
     const { news: isFetchingNews = false, quote: isFetchingQuote = false, company: isFetchingCompany = false, peers: isFetchingPeers = false } = fetching;
 
-    const { news: errorNews = false, quote: errorQuote = false, company: errorCompany = false, peers: errorPeers = false } = errors;
-
-    useEffect(() => {
-        updateTicker(ticker);
-    }, [ticker])
+    const { news: errorNews, quote: errorQuote = false, company: errorCompany = false, peers: errorPeers = false } = errors;
 
     return (
         <RootContainer>
@@ -130,15 +128,11 @@ const Root: React.FC<_StateProps & _DispatchProps> = ({
                 <Search 
                 search={search} 
                 errorQuote={errorQuote}
-                {...keyStats} 
-                {...companyOverview}
+                {...searchProps}
                 />
                 <ChartNews>
                     <Chart 
-                        {...chart} 
-                        ticker={ticker} 
-                        open={isUSMarketOpen} 
-                        latest={latestPrice} 
+                        {...chartProps}
                         updateChartPrices={updateChartPrices} 
                         updateChartRange={updateChartRange}
                     />
@@ -152,24 +146,44 @@ const Root: React.FC<_StateProps & _DispatchProps> = ({
                     </CompanyContainer>
                 </StatsCompany>
             </AppContainer>
-            <Footer favorites={favorites} />
+            <Footer {...footerProps} />
             <FooterLogo src={logo} />
         </RootContainer>
     )
 }
 
-const mapStateToProps: MapStateToProps<_StateProps, {}, _AppState> = state => ({
-    companyOverview: state.companyOverview,
-    ticker: state.search,
-    keyStats: state.keyStats,
-    news: state.news,
-    peers: state.peers,
-    favorites: state.favorites,
-    chart: {
-        range: state.charts.range,
-        prices: state.charts.prices,
-    }
-})
+const mapStateToProps: MapStateToProps<_StateProps, {}, _AppState> = state => {
+    const { companyOverview, search, keyStats, news, peers, favorites, prices, charts } = state;
+    const { isUSMarketOpen, primaryExchange, latestTime, ...keyStatsProps } = keyStats;
+    const { tags } = companyOverview;
+    const { range, prices: chartPrices } = charts;
+    const price = prices.filter(({ ticker }) => ticker === search)[0] || prices[0];
+
+    const { ticker, latestPrice: latest } = price;
+
+    const footerProps = { prices, favorites };
+    const searchProps = { primaryExchange, latestTime, isUSMarketOpen, tags, price };
+    const chartProps = {
+        range,
+        prices: chartPrices,
+        ticker,
+        latest,
+        open: isUSMarketOpen
+    };
+
+    return ({
+        companyOverview,
+        ticker: search,
+        keyStats,
+        news,
+        peers,
+        favorites,
+        prices,
+        footerProps,
+        searchProps,
+        chartProps
+    })
+}
 
 const mapDispatchToProps: MapDispatchToProps<_DispatchProps, {}> = dispatch => ({
     search: query => dispatch(updateTicker(query)),
@@ -180,7 +194,11 @@ const mapDispatchToProps: MapDispatchToProps<_DispatchProps, {}> = dispatch => (
         quote: quote => dispatch(updateKeyStats(quote)),
         news: news => dispatch(updateNews(news)),
         peers: peers => dispatch(updatePeers(peers)),
-        favorites: prices => dispatch(updateFavoritesData(prices))
+        favorites: {
+            add: ticker => dispatch(updateFavoritesAddTicker(ticker)),
+            remove: ticker => dispatch(updateFavoritesRemoveTicker(ticker)),
+        },
+        prices: prices => dispatch(updatePricesData(prices))
     }
 })
 

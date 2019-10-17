@@ -10,11 +10,38 @@ export const fetchData = async (url, callback, error, fetching) => {
             callback(await response.json());
             error(false);
         }
-        else throw new Error(`fetching ${url.split('/')[3]} data for ${url.split('/')[2]} unsuccessful`)
+        else throw new Error(`fetching ${url.split('/')[3]} failed`)
     } catch (e) {
         error(e);
     } finally {
         fetching(false);
+    }
+}
+
+export const fetchDataWrapper = async (url, callback, error, fetching) => {
+    const wait = async ms => {
+        return new Promise(resolve => {
+            setTimeout(resolve, ms);
+        });
+    }
+    const fetchData = async (urln, n) => {
+        try {
+            return await fetch(urln).then(res => res.json());
+        } catch (err) {
+            if (n === 1) throw err;
+            await wait(5000);
+            return await fetchData(urln, n-1);
+        }
+    }
+    try {
+        fetching(true)
+        const response = await fetchData(url, 10);
+        callback(response);
+        error(false)
+    } catch (err) {
+        error('error fetching data')
+    } finally {
+        fetching(false)
     }
 }
 
