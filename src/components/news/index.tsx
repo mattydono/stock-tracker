@@ -12,6 +12,7 @@ const NewsContainer =styled.div`
     margin-left: 40px;
     @media(max-width: 750px) {
         margin-top: 0;
+        margin-left: 0;
     }
 `
 
