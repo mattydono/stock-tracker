@@ -352,7 +352,7 @@ const Search: React.FC<SearchProps & Error> = ({ errorQuote, search, change, cha
                     </Tgroup>
                     <Sub1>{primaryExchange}</Sub1>
                 </NameExchange> */}
-                <TickerCard latestPrice={latestPrice} change={change} changePercent={changePercent} />
+                {latestPrice && <TickerCard latestPrice={latestPrice} change={change} changePercent={changePercent} />}
                 <StockList ref={dropSelect} tabIndex={-1}>
                     {isOpen ? stockList.map( stock => renderStock(stock)) : null}
                 </StockList>

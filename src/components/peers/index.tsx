@@ -19,7 +19,7 @@ const PeersLoadingContainer = styled.div`
 `
 
 const LoadingPeers = styled.img`
-    // height: 100px;
+    height: 40px;
     border-radius: 5%;
     background-color: rgba(89, 89, 105, 0.2);
 `
