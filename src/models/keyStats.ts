@@ -1,6 +1,4 @@
 export interface _KeyStats {
-    symbol: string | null,
-    companyName: string | null,
     marketCap: number | null,
     peRatio: number | null,
     week52High: number | null,
@@ -13,11 +11,8 @@ export interface _KeyStats {
     open: number | null,
     dividendYield: number | null,
     actualEPS: number | null,
-    change: number | null,
-    changePercent: number | null,
-    latestPrice: number | undefined,
     primaryExchange: string | null,
     latestTime: string | null,
-    isUSMarketOpen: boolean | null,
+    isUSMarketOpen: boolean,
     isFetchingQuote: boolean,
 }
