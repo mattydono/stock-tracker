@@ -5,9 +5,6 @@ import styled from '@emotion/styled'
 
 const PeersContainer = styled.div`
     height: 25%;
-    @media(max-width: 588px) {
-        margin-bottom: 50px;
-    }
 `
 
 const PeersLoadingContainer = styled.div`
@@ -16,6 +13,10 @@ const PeersLoadingContainer = styled.div`
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    @media(min-width: 1700px) {
+        min-width: 510px;
+        min-height: height: 100%;
+    }
 `
 
 const LoadingPeers = styled.img`
@@ -53,31 +54,28 @@ const Peers: React.FC<PeersProps & ErrorLoading> = ({ errorPeers, isFetchingPeer
     }
 
     return (
-        <>
-            {!isFetchingPeers ?
             <PeersContainer>
                 <Title>TOP PEERS</Title>
-                <ContentContainer>
-                    {peers.map( peer => renderPeer(peer))}
-                </ContentContainer>
-            </PeersContainer>
-            : isFetchingPeers && !errorPeers ?
-            <PeersLoadingContainer>
-                <Title>TOP PEERS</Title>
-                <LoadingPeers src={loading} /> 
-            </PeersLoadingContainer>
-            :
-            <>
-                {errorPeers ? 
-                    <div className='PeersErrorContainer'>
-                        <div className='PeersError'>⊗</div>
-                        <div className='PeersErrorMessage'>{errorPeers.message}</div>
-                    </div> : 
-                    null
+                {!isFetchingPeers ?
+                    <ContentContainer>
+                        {peers.map( peer => renderPeer(peer))}
+                    </ContentContainer>
+                    : isFetchingPeers && !errorPeers ?
+                    <PeersLoadingContainer>
+                        <LoadingPeers src={loading} /> 
+                    </PeersLoadingContainer>
+                    :
+                    <>
+                        {errorPeers ? 
+                            <div className='PeersErrorContainer'>
+                                <div className='PeersError'>⊗</div>
+                                <div className='PeersErrorMessage'>{errorPeers.message}</div>
+                            </div> : 
+                            null
+                        }
+                    </>
                 }
-            </>
-            }
-        </>
+            </PeersContainer>
     );
 }
 

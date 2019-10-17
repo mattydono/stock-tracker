@@ -23,19 +23,19 @@ const ArticleContainer = styled.div`
     justify-content: space-evenly;
 `
 
-const NewsLoadingSymbolContainer =styled.div`
-    flex: 0 1 35%;
-    background-color: rgba(89, 89, 105, 0.2);
-    border-radius: 5%;
+const NewsLoadingContainer =styled.div`
     display: flex;
-    flex-direction: column;
     justify-content: center;
     align-items: center;
+    margin-top: 15%;
+    @media(max-width: 750px) {
+        margin-top: 0;
+    }
 `
 
 const NewsLoading = styled.img`
-    // background-color: rgba(89, 89, 105, 0.2);
-    // border-radius: 5%;
+    background-color: rgba(89, 89, 105, 0.2);
+    border-radius: 5%;
 `
 
 type NewsProps = {
@@ -49,7 +49,7 @@ type ErrorLoading = {
 
 const News: React.FC<NewsProps & ErrorLoading> = ({ errorNews, news }) => {
 
-    const Loading = (<NewsLoadingSymbolContainer><NewsLoading src={loading} /></NewsLoadingSymbolContainer>)
+    const Loading = <NewsLoadingContainer><NewsLoading src={loading} /></NewsLoadingContainer>
 
     const News = news.length > 0 ? news.map(article => <Article {...article}/>) : Loading;
 

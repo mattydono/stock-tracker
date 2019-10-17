@@ -44,6 +44,9 @@ const Description = styled.div`
 const CompanyLoading = styled.img`
     background-color: rgba(89, 89, 105, 0.2);
     border-radius: 5%;
+`
+
+const LoadingContainer = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
@@ -81,7 +84,7 @@ const CompanyOverview: React.FC<_CompanyOverview & ErrorLoading> = ({ errorCompa
 
     const CompanyError = <FetchingError message={errorCompany.message}/>
 
-    const Loading = <CompanyLoading src={loading} />
+    const Loading = <LoadingContainer><CompanyLoading src={loading} /></LoadingContainer>
 
     return (
         <CompanyOverviewContainer>
