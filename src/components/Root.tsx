@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { MapDispatchToProps, MapStateToProps } from 'react-redux'
 import { _StateProps, _DispatchProps } from '../models/props'
 import { _AppState } from '../redux/reducer'
@@ -144,6 +144,8 @@ const Root: React.FC<_StateProps & _DispatchProps> = ({
             <AppContainer>
                 <Header />
                 <Search 
+                addToFavorites={callbacks.favorites.add}
+                removeFromFavorites={callbacks.favorites.remove}
                 search={search} 
                 errorQuote={errorQuote}
                 {...searchProps}
@@ -180,7 +182,7 @@ const mapStateToProps: MapStateToProps<_StateProps, {}, _AppState> = state => {
     const { ticker, latestPrice: latest } = price;
 
     const footerProps = { prices, favorites };
-    const searchProps = { primaryExchange, latestTime, isUSMarketOpen, tags, price };
+    const searchProps = { primaryExchange, latestTime, isUSMarketOpen, tags, favorites, price };
     const chartProps = {
         range,
         prices: chartPrices,

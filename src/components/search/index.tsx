@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { _Prices, _PriceSingleDataPoint } from '../../models';
 import TickerCard from './tickerCard';
 import styled from '@emotion/styled'
-import searchIcon from './search.png'
+import Star from './star';
 
 const SearchContainer = styled.div`
     flex: 1 0 auto;
@@ -224,6 +224,7 @@ const Label = styled.label`
     opacity: 1;
 `
 
+
 type _Stock = {
     name: string,
     symbol: string
@@ -231,12 +232,15 @@ type _Stock = {
 
 type SearchProps = {
     search: (query: string) => void,
+    addToFavorites: (ticker: string) => void,
+    removeFromFavorites: (ticker: string) => void,
     latestPrice?: number,
     primaryExchange: string | null,
     tags: string[],
     latestTime: string | null,
     isUSMarketOpen: boolean | null,
     price: _PriceSingleDataPoint,
+    favorites?: string[],
 }
 
 type StockListItem = {
@@ -248,7 +252,23 @@ type Error = {
     errorQuote: any,
 }
 
-const Search: React.FC<SearchProps & Error> = ({ errorQuote, search, primaryExchange, tags, latestTime, isUSMarketOpen, price: { change, changePercent, latestPrice } }) => {
+const Search: React.FC<SearchProps & Error> = ({ 
+    errorQuote, 
+    search, 
+    primaryExchange, 
+    tags, 
+    latestTime, 
+    isUSMarketOpen, 
+    favorites, 
+    price: { 
+        ticker, 
+        change, 
+        changePercent, 
+        latestPrice 
+    },
+    addToFavorites,
+    removeFromFavorites,
+}) => {
 
     const [query, setQuery] = useState<string>('Apple Inc (AAPL)');
     const [stockList, setStockList] = useState<StockListItem[]>([])
@@ -294,6 +314,10 @@ const Search: React.FC<SearchProps & Error> = ({ errorQuote, search, primaryExch
         setSelectedStock([])
     }
 
+    const favoritesClickHandler = () => {
+        addToFavorites('aobc')
+    }
+
     useEffect(() => {
         toggleIsOpen(stockList.length !== 0)
         if(errorQuote) {
@@ -331,11 +355,11 @@ const Search: React.FC<SearchProps & Error> = ({ errorQuote, search, primaryExch
         return () => { clearTimeout(timeoutId); isCleared = true }
     }, [query]);
 
+
     return (
         <SearchContainer>
             <RowContainer>
                 <PriceGroup>
-                    {/* <SearchIcon src={searchIcon}/> */}
                     <SearchIcon>⚲</SearchIcon>
                     <Input id='search' ref={inputSelect} value={query} onClick={inputClickHandler} onChange={(event: any) => { setQuery(event.target.value); toggleIsOpen(query.length > 0) }} onKeyPress={onKeyPress} onBlur={handleBlur} />
                     {query && (
@@ -345,13 +369,6 @@ const Search: React.FC<SearchProps & Error> = ({ errorQuote, search, primaryExch
                     </Label>
                     )}
                 </PriceGroup>
-                {/* <NameExchange>
-                    <Tgroup>
-                        <OverlayName>{test[0]}</OverlayName>
-                        <OverlaySymbol>{test[1]}</OverlaySymbol>
-                    </Tgroup>
-                    <Sub1>{primaryExchange}</Sub1>
-                </NameExchange> */}
                 {latestPrice && <TickerCard latestPrice={latestPrice} change={change} changePercent={changePercent} />}
                 <StockList ref={dropSelect} tabIndex={-1}>
                     {isOpen ? stockList.map( stock => renderStock(stock)) : null}
@@ -373,7 +390,7 @@ const Search: React.FC<SearchProps & Error> = ({ errorQuote, search, primaryExch
                 :
                 <SubError />
             }
-           
+           <Star favorites={favorites} ticker={ticker} add={addToFavorites} remove={removeFromFavorites}/>
         </SearchContainer>
     )
 
@@ -382,3 +399,7 @@ const Search: React.FC<SearchProps & Error> = ({ errorQuote, search, primaryExch
 export default Search;
 
 // ⚲
+
+                    {/* <Button onClick={inputClickHandler}></Button> */}
+                    {/* {isFavorite ? <span onClick={favoritesClickHandler} >&#9733;</span> : <span onClick={favoritesClickHandler} >&#9734;</span> } */}
+                    {/* <Star favorites={favorites} ticker={ticker} add={addToFavorites} remove={removeFromFavorites} /> */}
