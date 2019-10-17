@@ -39,22 +39,17 @@ const Root: React.FC<_StateProps & _DispatchProps> = ({
     news,
     chartProps,
     favorites,
-    prices,
+    footerProps,
     updateChartRange,
     updateChartPrices,
     searchProps
 }) => {
 
-    const [updateTicker, updateFavorites, errors, fetching]:any = useTicker(ticker, callbacks);
+    const [errors, fetching]:any = useTicker({ ticker, favorites, callbacks })
 
     const { news: isFetchingNews = false, quote: isFetchingQuote = false, company: isFetchingCompany = false, peers: isFetchingPeers = false } = fetching;
 
     const { news: errorNews, quote: errorQuote = false, company: errorCompany = false, peers: errorPeers = false } = errors;
-
-    useEffect(() => {
-        updateTicker(ticker);
-    }, [ticker])
-
 
     return (
         <div className='RootContainer'>
@@ -81,7 +76,7 @@ const Root: React.FC<_StateProps & _DispatchProps> = ({
                     </div>
                 </div>
             </div>
-            <Footer favorites={favorites} prices={prices} />
+            <Footer {...footerProps} />
         </div>
     )
 }

@@ -8,7 +8,7 @@ import { UpdateTickerAction, UPDATE_TICKER,
         UpdatePeersAction, UPDATE_PEERS,
         UpdateFavoritesAddTickerAction, FAVORITES_ADD_TICKER,
         UpdateFavoritesRemoveTickerAction, FAVORITES_REMOVE_TICKER,
-        UpdatePricesDataAction, UPDATE_PRICES_DATA, updateFavoritesAddTicker } from './actions'
+        UpdatePricesDataAction, UPDATE_PRICES_DATA } from './actions'
 import { _CompanyOverview, _KeyStats, _Charts, _News, _Favorites, _Prices } from '../models'
 
 export interface _AppState {
