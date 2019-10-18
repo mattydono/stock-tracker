@@ -13,6 +13,7 @@ import {
     Area,
     ReferenceLine,
     Label,
+    Text,
 } from 'recharts';
 import { _ChartSingleDataPoint, Range } from '../../models';
 
@@ -110,13 +111,16 @@ export const Chart: React.FC<ChartProps> = ({ prices, ticker, open, latest, rang
     const buttons = ranges.map(rangeItem => <RangeButton current={rangeItem === range} range={rangeItem} update={updateChartRange} />)
 
     const now: _ChartSingleDataPoint = {
-        label: 'latest',
+        label: 'now',
         close: latest,
     }
 
-    const testing = true;
+    const testing = false;
 
-    const data = open || testing ? prices.concat(now) : prices;
+    const data = open && testing ? prices.concat(now) : prices;
+
+    const interval = range === '5d' ? 39 : range === '1m' ? 12 : range === '1d' ? 59 : range === '1y' ? 23 : 253;
+
 
     return (     
             <ChartContainer>
@@ -126,7 +130,7 @@ export const Chart: React.FC<ChartProps> = ({ prices, ticker, open, latest, rang
                             {buttons}
                         </ButtonsContainer>
                         <ResponsiveContainer aspect={0.9} width='99%' height='100%' maxHeight={500}>
-                            <AreaChart data={data} >
+                            <AreaChart data={data} margin={{ left: 20 }} >
                                 <defs>
                                     <linearGradient id='area' x1="0" y1="0" x2="0" y2="1">
                                         <stop offset="30%" stopColor="#2d5083" stopOpacity={0.5}/>
@@ -134,8 +138,8 @@ export const Chart: React.FC<ChartProps> = ({ prices, ticker, open, latest, rang
                                     </linearGradient>
                                 </defs>
                                 <CartesianGrid stroke='#1d4168' strokeWidth={0.8} />
-                                <XAxis dataKey="label" />
-                                <YAxis orientation="right" domain={['dataMin', 'auto']} tickLine={false}/>
+                                <XAxis axisLine={false} interval={interval} dataKey="label" type="category" allowDataOverflow={false} />
+                                <YAxis axisLine={false} orientation="right" domain={['dataMin', 'auto']} tickLine={false}/>
                                 <ReferenceLine y={now.close} stroke={'#e95656'} strokeDasharray="3 3" label={
                                     <Label value={now.close} position="right" fill="#e95656" /> } 
                                 />
