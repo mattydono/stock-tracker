@@ -13,8 +13,8 @@ type FooterProps = {
 
 const FooterContainer = styled.div`
     align-self: flex-end;
-    background-image: linear-gradient(to bottom, #00265d, #00204f);
     display: flex;
+    background-image: linear-gradient(to bottom, #00265d, #00204f);
     flex-direction: row;
     justify-content: center;
     margin-top: 40px;
@@ -40,6 +40,10 @@ const Card = styled.div`
 
 const FavouritesContainer = styled.div`
     width: 50%;
+    position: relative;
+    overflow: hidden;
+    margin-left: 5px;
+    background-image: linear-gradient(to bottom, #00265d, #00204f);
 `
 
 const Header = styled.div`
@@ -54,10 +58,31 @@ const Favourites = styled.div`
     flex-direction: row;
     margin-bottom: 1rem;
     // position: fixed;
+    // overflow: hidden;
+    font-weight: 700;
+    font-size: 14px;
+
+    animation: footerAnimation 15s linear infinite;
+    @keyframes footerAnimation {
+        0% {transform: translateX(100%)}
+        100% {transform: translateX(-100%)}
+    };
+`
+
+const TestFavourites = styled.div`
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 1rem;
+    // position: fixed;
     overflow: hidden;
     font-weight: 700;
     font-size: 14px;
-    // animation: footerAnimation 15s linear infinite;
+
+    animation: footerAnimation 15s linear infinite;
+    @keyframes footerAnimation {
+        0% {transform: translateX(100%)}
+        100% {transform: translateX(-100%)}
+    };
 `
 
 const FooterTickerCard: React.FC<_PriceSingleDataPoint> = ({ ticker, latestPrice, change, changePercent }) => {
@@ -84,9 +109,9 @@ const Footer: React.FC<FooterProps> = ({ prices, favorites }) => {
             </FavouritesContainer>
             <FavouritesContainer>
                 <Header>Favorites</Header>
-                <Favourites>
+                <TestFavourites>
                     {favoritesArray}
-                </Favourites>
+                </TestFavourites>
             </FavouritesContainer>
         </FooterContainer>
     )
