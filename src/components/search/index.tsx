@@ -16,6 +16,9 @@ const RowContainer = styled.div`
     font-size: 40px;
     border-bottom: 1px solid #608fd1;;
     display: flex;
+    @media(max-width: 750px) {
+        flex-direction: column;
+    };
     @media(max-width: 650px) {
         font-size: 30px;
     };
@@ -111,7 +114,7 @@ const SubSearch = styled.div`
 const SubInput = styled.div`
     display: flex;
     flex-direction: row;
-    flex: 1 0 60%;
+    flex: 0 1 60%;
 `
 
 const Sub = styled.span`
@@ -222,8 +225,28 @@ const Label = styled.label`
     left: 45px;
     font-weight: 300;
     opacity: 1;
+    overflow: auto;
+    display: flex;
+    z-index: 1;
+    @media(max-width: 650px) {
+        margin-top: 5px;
+    };
+    @media(max-width: 500px) {
+        margin-top: 5px;
+    };
 `
 
+const LabelName = styled.div`
+    flex: 1 0 0;
+    min-height: 30px;
+    overflow: auto;
+`
+
+const LabelSymbol = styled.div`
+    flex: 0 1 0;
+    color: '#beccdc';
+    marginLeft: '10px'
+`
 
 type _Stock = {
     name: string,
@@ -283,7 +306,7 @@ const Search: React.FC<SearchProps & Error> = ({
             setQuery(`${stockList[0].name} (${stockList[0].symbol})`)
             setSelectedStock([`${stockList[0].name}`, `(${stockList[0].symbol})`])
             toggleIsOpen(false)
-            handleBlur()
+            // handleBlur()
             event.preventDefault()
         }
     }
@@ -364,8 +387,8 @@ const Search: React.FC<SearchProps & Error> = ({
                     <Input id='search' ref={inputSelect} value={query} onClick={inputClickHandler} onChange={(event: any) => { setQuery(event.target.value); toggleIsOpen(query.length > 0) }} onKeyPress={onKeyPress} onBlur={handleBlur} />
                     {query && (
                     <Label htmlFor='search'>
-                        <span>{selectedStock[0]}</span>
-                        <span style={{color: '#beccdc', marginLeft: '10px'}}>{selectedStock[1]}</span>
+                        <LabelName>{selectedStock[0]}</LabelName>
+                        <LabelSymbol>{selectedStock[1]}</LabelSymbol>
                     </Label>
                     )}
                 </PriceGroup>
