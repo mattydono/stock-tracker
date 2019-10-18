@@ -13,3 +13,13 @@ html, body {
 
     );
 }
+
+::-webkit-scrollbar {
+    background: #fff0;
+    width: 5px;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: #7fb3ff;
+    opacity: 0.5;
+}
