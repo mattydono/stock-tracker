@@ -20,6 +20,7 @@ import { _ChartSingleDataPoint, Range } from '../../models';
 const ChartContainer = styled.div`    
     flex: 0 1 65%;
     margin-top: 15px;
+    margin-left: -35px;
     @media(max-width: 750px) {
         margin-top: 40px;
         margin-right: -30px;
@@ -130,7 +131,7 @@ export const Chart: React.FC<ChartProps> = ({ prices, ticker, open, latest, rang
                             {buttons}
                         </ButtonsContainer>
                         <ResponsiveContainer aspect={0.9} width='99%' height='100%' maxHeight={500}>
-                            <AreaChart data={data} margin={{ left: 20 }} >
+                            <AreaChart data={data} margin={{ left: 35 }} >
                                 <defs>
                                     <linearGradient id='area' x1="0" y1="0" x2="0" y2="1">
                                         <stop offset="30%" stopColor="#2d5083" stopOpacity={0.5}/>

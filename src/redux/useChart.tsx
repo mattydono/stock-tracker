@@ -2,7 +2,6 @@ import React, { useEffect, useState} from 'react';
 import { createURL, fetchData, getExpirationDate, chartFormatDates } from './helpers';
 import { _ChartSingleDataPoint, Range } from '../models';
 
-import fivedayChart from '../redux/chartfiveday.json';
 
 type ChartState = { 
     [key in Range]: {

@@ -86,7 +86,7 @@ export const chartFormatDates = (chart, range) => {
                 const { date } = item;
                 let d = new Date(date);
                 //d = d.getUTCDate();
-                d = months[d.getUTCMonth() - 1]
+                d = months[d.getUTCMonth()]
                 return ({ ...item, label: d });
             })
             return returnedChart
