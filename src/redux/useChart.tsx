@@ -1,6 +1,7 @@
 import React, { useEffect, useState} from 'react';
-import { createURL, fetchData, getExpirationDate } from './helpers';
+import { createURL, fetchData, getExpirationDate, chartFormatDates } from './helpers';
 import { _ChartSingleDataPoint, Range } from '../models';
+
 
 type ChartState = { 
     [key in Range]: {
@@ -65,6 +66,7 @@ const useChart: React.FC<useChartProps> = ({ range, ticker, open, updateChartPri
 
 
     const renderChartCallback = (chart: _ChartSingleDataPoint[]) => {
+        chart = chartFormatDates(chart, range)
         setChart(state => {
             return ({
                 ...state,

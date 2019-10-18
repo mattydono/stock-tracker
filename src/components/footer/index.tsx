@@ -5,11 +5,23 @@ import USMarketsMockData from './USMarketsMockData.json';
 import TickerCard from '../search/tickerCard';
 
 import styled from '@emotion/styled'
+import { keyframes } from '@emotion/core';
 
 type FooterProps = {
     prices: _PriceSingleDataPoint[],
     favorites: string[],
 }
+
+const footerAnimation = keyframes`
+    0% {
+        transform: translateX(0%);
+        left: 100%;
+    }
+    100% {
+        transform: translateX(-100%);
+        left: 0;
+    }
+`
 
 const FooterContainer = styled.div`
     align-self: flex-end;
@@ -22,7 +34,7 @@ const FooterContainer = styled.div`
     width: 100%;
     @media(max-width: 588px) {
         display: none;
-    }
+    };
 `
 
 const Ticker = styled.div`
@@ -40,6 +52,7 @@ const Card = styled.div`
 
 const FavouritesContainer = styled.div`
     width: 50%;
+    overflow: hidden;
 `
 
 const Header = styled.div`
@@ -57,8 +70,20 @@ const Favourites = styled.div`
     overflow: hidden;
     font-weight: 700;
     font-size: 14px;
-    // animation: footerAnimation 15s linear infinite;
+    animation: ${footerAnimation} 15s linear infinite;
 `
+
+const Markets = styled.div`
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 1rem;
+    // position: fixed;
+    overflow: hidden;
+    font-weight: 700;
+    font-size: 14px;
+`
+
+
 
 const FooterTickerCard: React.FC<_PriceSingleDataPoint> = ({ ticker, latestPrice, change, changePercent }) => {
 
@@ -78,9 +103,9 @@ const Footer: React.FC<FooterProps> = ({ prices, favorites }) => {
         <FooterContainer>
             <FavouritesContainer>
                 <Header>US Markets</Header>
-                <Favourites>
+                <Markets>
                     {usMarketsArray}
-                </Favourites>
+                </Markets>
             </FavouritesContainer>
             <FavouritesContainer>
                 <Header>Favorites</Header>
