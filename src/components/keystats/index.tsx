@@ -4,6 +4,7 @@ import loading from '../../gif/loading.gif'
 import styled from '@emotion/styled'
 import { Title } from '../Root'
 import { numberWithCommas } from '../../redux/helpers'
+import AdaptiveLoader from '../loader'
 
 const KeyStatsContainer = styled.div`
     flex: 0 1 65%;
@@ -58,16 +59,16 @@ const Tbody = styled.tbody`
     width: 100%;
 `
 
-const LoadingStats = styled.img`
-    background-color: rgba(89, 89, 105, 0.2);
-    border-radius: 5%;
-`
-
 const KeyStatsLoadingContainer = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    margin-top: 100px;
+    @media(max-width: 750px) {
+        margin-top: 50px;
+        margin-bottom: 50px;
+    }
 `
 
 const StatsErrorContainer = styled.div`
@@ -176,7 +177,7 @@ const KeyStats: React.FC<_KeyStats & any> = ({
              </TableContainer>
              : nullValues && !errorQuote ?
              <KeyStatsLoadingContainer>
-                 <LoadingStats src={loading} />
+                <AdaptiveLoader size={50} seperation={2} speed={1.4} />
              </KeyStatsLoadingContainer> 
              :
             <StatsErrorContainer>

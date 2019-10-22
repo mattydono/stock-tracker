@@ -2,6 +2,7 @@ import React from 'react';
 import loading from '../../gif/loading.gif'
 import { Title } from '../Root'
 import styled from '@emotion/styled'
+import AdaptiveLoader from '../loader'
 
 const PeersContainer = styled.div`
     max-height: 30%;
@@ -14,21 +15,15 @@ const PeersContainer = styled.div`
 `
 
 const PeersLoadingContainer = styled.div`
-    // height: 25px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    @media(min-width: 1700px) {
-        min-width: 510px;
-        min-height: height: 100%;
+    margin-top: 30px;
+    @media(max-width: 750px) {
+        margin-top: 50px;
+        margin-bottom: 50px;
     }
-`
-
-const LoadingPeers = styled.img`
-    height: 40px;
-    border-radius: 5%;
-    background-color: rgba(89, 89, 105, 0.2);
 `
 
 const ContentContainer = styled.div`
@@ -70,7 +65,7 @@ const Peers: React.FC<PeersProps & ErrorLoading> = ({ errorPeers, isFetchingPeer
                     </ContentContainer>
                     : isFetchingPeers && !errorPeers ?
                     <PeersLoadingContainer>
-                        <LoadingPeers src={loading} /> 
+                        <AdaptiveLoader size={50} seperation={2} speed={1.4} /> 
                     </PeersLoadingContainer>
                     :
                     <>

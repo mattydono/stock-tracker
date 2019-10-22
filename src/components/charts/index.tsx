@@ -2,6 +2,7 @@ import React from 'react';
 import loading from '../../gif/loading.gif'
 import useChart from '../../redux/useChart';
 import styled from '@emotion/styled'
+import AdaptiveLoader from '../loader'
 
 import { 
     XAxis, 
@@ -54,19 +55,11 @@ const ChartLoadingContainer = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-top: 15%;
-    @media(max-width: 1200px) {
-        margin-top: 20%;
-    };
+    margin-top: 250px;
     @media(max-width: 750px) {
-        margin-top: 0;
-    };
-`
-
-const ChartLoading = styled.img`
-    background-color: rgba(89, 89, 105, 0.2);
-    border-radius: 5%;
-    margin: 5px;
+        margin-top: 10px;
+        margin-bottom: 50px;
+    }
 `
 
 type RangeButtonProps = {
@@ -155,7 +148,7 @@ export const Chart: React.FC<ChartProps> = ({ prices, ticker, open, latest, rang
                     </>
                     :
                     <ChartLoadingContainer>
-                        <ChartLoading src={loading} />
+                        <AdaptiveLoader size={50} seperation={2} speed={1.4} />
                     </ChartLoadingContainer>   
                     }                         
             </ChartContainer>

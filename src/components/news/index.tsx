@@ -5,6 +5,7 @@ import loading from '../../gif/loading.gif'
 import { Title } from '../Root'
 import FetchingError from '../errors/errorFetching';
 import Article from './article';
+import AdaptiveLoader from '../loader'
 
 const NewsContainer =styled.div`
     flex: 0 1 34%;
@@ -30,15 +31,11 @@ const NewsLoadingContainer =styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-top: 15%;
+    margin-top: 200px;
     @media(max-width: 750px) {
-        margin-top: 0;
-    }
-`
-
-const NewsLoading = styled.img`
-    background-color: rgba(89, 89, 105, 0.2);
-    border-radius: 5%;
+        margin-top: 50px;
+        margin-bottom: 50px;
+    };
 `
 
 type NewsProps = {
@@ -52,7 +49,7 @@ type ErrorLoading = {
 
 const News: React.FC<NewsProps & ErrorLoading> = ({ errorNews, news }) => {
 
-    const Loading = <NewsLoadingContainer><NewsLoading src={loading} /></NewsLoadingContainer>
+    const Loading = <NewsLoadingContainer><AdaptiveLoader size={50} seperation={2} speed={1.4} /></NewsLoadingContainer>
 
     const News = news.length > 0 ? news.map(article => <Article {...article}/>) : Loading;
 

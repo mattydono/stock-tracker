@@ -4,6 +4,7 @@ import loading from '../../gif/loading.gif'
 import styled from '@emotion/styled'
 import { Title } from '../Root'
 import FetchingError from '../errors/errorFetching'
+import AdaptiveLoader from '../loader'
 
 const CompanyOverviewContainer = styled.div`
     max-height: 400px;
@@ -41,15 +42,12 @@ const Description = styled.div`
     max-height: 140px;
 `
 
-const CompanyLoading = styled.img`
-    background-color: rgba(89, 89, 105, 0.2);
-    border-radius: 5%;
-`
-
 const LoadingContainer = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
+    margin-top: 50px;
+    margin-bottom: 50px;
 `
 
 const OverflowContainer = styled.div`
@@ -84,7 +82,7 @@ const CompanyOverview: React.FC<_CompanyOverview & ErrorLoading> = ({ errorCompa
 
     const CompanyError = <FetchingError message={errorCompany.message}/>
 
-    const Loading = <LoadingContainer><CompanyLoading src={loading} /></LoadingContainer>
+    const Loading = <LoadingContainer><AdaptiveLoader size={50} seperation={2} speed={1.4} /></LoadingContainer>
 
     return (
         <CompanyOverviewContainer>
