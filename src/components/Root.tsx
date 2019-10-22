@@ -82,6 +82,7 @@ const ChartNews = styled.div`
     margin-bottom: -50px;
     @media(max-width: 750px) {
         flex-direction: column;
+        margin-bottom: 20px;
     };
     @media(min-width: 750px) {
         min-width: 721px;
