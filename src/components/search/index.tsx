@@ -379,11 +379,11 @@ const Search: React.FC<SearchProps & Error> = ({
             {
                 !errorQuote ?
                 <SubSearch>
-                    <SubInput>
+                    {primaryExchange && <SubInput>
                         <Sub>{primaryExchange}</Sub>
                         <Sub>{tags[0]}</Sub>
                         <Sub>{tags[1]}</Sub>
-                    </SubInput>
+                    </SubInput>}
                     <DateOpen>
                         {latestTime ? <Time>Real-Time Price as of {latestTime} EST</Time> : null}
                         {tags.length < 1 ? null : isUSMarketOpen ? <MarketStatus><MarketIcon color='yellow'>☀</MarketIcon>Market Open</MarketStatus> : <MarketStatus><MarketIcon>☽</MarketIcon> Market Closed</MarketStatus>}
