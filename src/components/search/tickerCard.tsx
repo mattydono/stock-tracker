@@ -29,7 +29,7 @@ const PriceIcon = styled.span`
     height: 20px;
     width: 120x;
     align-self: flex-start;
-    margin-top: 8px;
+    margin-top: 4px;
     object-fit: contain;
 `
 
