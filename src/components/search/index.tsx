@@ -5,6 +5,7 @@ import styled from '@emotion/styled'
 import Star from './star';
 
 const SearchContainer = styled.div`
+    height: 60px;
     flex: 1 0 auto;
     @media(max-width: 375px) {
         margin-top: 20px;
@@ -12,6 +13,8 @@ const SearchContainer = styled.div`
 `
 
 const RowContainer = styled.div`
+    height: 48px;
+    padding-bottom: 9px;
     position: relative;
     font-size: 40px;
     border-bottom: 1px solid #608fd1;;

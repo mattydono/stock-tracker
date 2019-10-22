@@ -6,7 +6,6 @@ const PriceStats = styled.div`
     display: flex;
     flex: 0 0 300px;
     font-weight: 300;
-    margin-bottom: 5px;
     @media(max-width: 1000px) {
         max-height: 60px;
     };
@@ -26,22 +25,26 @@ const Span = styled.span`
 `
 
 const PriceIcon = styled.span`
-    font-size: 0.5em;
+    font-size: 20px;
+    height: 20px;
+    width: 120x;
     align-self: flex-start;
-    margin-top: 6px;
+    margin-top: 8px;
+    object-fit: contain;
 `
 
 const PriceSpan = styled.span`
     display: flex;
     flex: 0 0 1;
-    margin-right: 10px;
+    margin-right: 13px;
 `
 
 const DollarIcon = styled.div`
-    font-size: 0.5em;
+    font-size: 20px;
+    height: 24px;
+    width: 12px;
     font-weight: 400;
     margin-top: 6px;
-    margin-right: 2px;
 `
 
 const ChangeContainer = styled.div`
