@@ -9,14 +9,8 @@ const PriceStats = styled.div`
     margin-bottom: 5px;
     @media(max-width: 1000px) {
         max-height: 60px;
-        justify-content: center;
-    };
-    @media(max-width: 800px) {
-        max-height: 60px;
-        justify-content: center;
     };
     @media(max-width: 650px) {
-        font-size: 40px;
         margin-top: 10px;
     };
     @media(max-width: 588px) {

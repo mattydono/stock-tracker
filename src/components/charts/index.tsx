@@ -18,7 +18,7 @@ import {
 import { _ChartSingleDataPoint, Range } from '../../models';
 
 const ChartContainer = styled.div`    
-    flex: 0 1 65%;
+    flex: 0 1 66%;
     margin-top: 15px;
     margin-left: -35px;
     @media(max-width: 750px) {
@@ -32,7 +32,7 @@ const ButtonsContainer = styled.div`
     flex-direction: row-reverse;
     margin-right: 60px;
     font-family: 300;
-    font-size: 16px;
+    font-size: 12px;
     color: #beccdc;
 `
 
@@ -122,7 +122,6 @@ export const Chart: React.FC<ChartProps> = ({ prices, ticker, open, latest, rang
 
     const interval = range === '5d' ? 39 : range === '1m' ? 12 : range === '1d' ? 59 : range === '1y' ? 23 : 253;
 
-
     return (     
             <ChartContainer>
                     {!fetchingAndStateEmpty ?
@@ -140,7 +139,7 @@ export const Chart: React.FC<ChartProps> = ({ prices, ticker, open, latest, rang
                                 </defs>
                                 <CartesianGrid stroke='#1d4168' strokeWidth={0.8} />
                                 <XAxis axisLine={false} interval={interval} dataKey="label" type="category" allowDataOverflow={false} />
-                                <YAxis axisLine={false} orientation="right" domain={['dataMin', 'auto']} tickLine={false}/>
+                                <YAxis axisLine={false} orientation="right" domain={['dataMin', 'auto']} tickLine={false} />
                                 <ReferenceLine y={now.close} stroke={'#e95656'} strokeDasharray="3 3" label={
                                     <Label value={now.close} position="right" fill="#e95656" /> } 
                                 />

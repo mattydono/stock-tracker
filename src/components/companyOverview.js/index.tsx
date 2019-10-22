@@ -7,8 +7,7 @@ import FetchingError from '../errors/errorFetching'
 
 const CompanyOverviewContainer = styled.div`
     max-height: 400px;
-    height: 75%;
-    margin-bottom: 33px;
+    margin-bottom: 25px;
     @media(max-width: 750px) {
         margin-top: 40px;
         margin-bottom: 20px;

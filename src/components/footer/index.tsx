@@ -61,6 +61,17 @@ const Card = styled.div`
 const FavouritesContainer = styled.div`
     width: 50%;
     overflow: hidden;
+    @media(max-width: 1099px) {
+        display: none;
+    }
+`
+
+const MarketsContainer = styled.div`
+    width: 50%;
+    overflow: hidden;
+    @media(max-width: 1099px) {
+        width: 100%;
+    }
 `
 
 const Header = styled.div`
@@ -72,16 +83,6 @@ const Header = styled.div`
     margin-left: 19px;
     font-size: 12px;
     font-weight: 400;
-`
-
-const Favourites = styled.div`
-    display: flex;
-    flex-direction: row;
-    margin-bottom: 1rem;
-    overflow: hidden;
-    font-weight: 700;
-    font-size: 14px;
-    // animation: ${footerAnimation} 15s linear infinite;
 `
 
 const FooterSection = styled.div`
@@ -125,12 +126,12 @@ const Footer: React.FC<FooterProps> = ({ prices, favorites }) => {
 
     return (
         <FooterContainer>
-            <FavouritesContainer>
+            <MarketsContainer>
                 <Header>US MARKET</Header>
                 <FooterSection>
                     {usMarketsArray}
                 </FooterSection>
-            </FavouritesContainer>
+            </MarketsContainer>
             <Seperator />
             <FavouritesContainer>
                 <Header>FAVORITES</Header>

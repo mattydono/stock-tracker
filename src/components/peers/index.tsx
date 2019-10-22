@@ -4,7 +4,7 @@ import { Title } from '../Root'
 import styled from '@emotion/styled'
 
 const PeersContainer = styled.div`
-    height: 25%;
+    max-height: 30%;
 `
 
 const PeersLoadingContainer = styled.div`

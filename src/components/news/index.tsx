@@ -7,9 +7,12 @@ import FetchingError from '../errors/errorFetching';
 import Article from './article';
 
 const NewsContainer =styled.div`
-    flex: 0 1 35%;
+    flex: 0 1 34%;
     margin-top: 40px;
-    margin-left: 40px;
+    margin-left: 53px;
+    @media(min-width: 750px) {
+        min-width: 250px;
+    };
     @media(max-width: 750px) {
         margin-top: 0;
         margin-left: 0;
