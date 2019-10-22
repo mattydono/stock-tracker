@@ -5,6 +5,12 @@ import styled from '@emotion/styled'
 
 const PeersContainer = styled.div`
     max-height: 30%;
+    @media(max-width: 1000px) {
+        margin-bottom: 100px;
+    };
+    @media(max-width: 588px) {
+        margin-bottom: 44.7px;
+    }
 `
 
 const PeersLoadingContainer = styled.div`
@@ -28,6 +34,7 @@ const LoadingPeers = styled.img`
 const ContentContainer = styled.div`
     margin-top: 10px;
     display: flex;
+    flex-flow: row wrap;
     color: #beccdc;
 `
 

@@ -13,10 +13,6 @@ const PriceStats = styled.div`
         max-height: 60px;
         justify-content: center;
     };
-    @media(max-width: 650px) {
-        font-size: 40px;
-        margin-top: 10px;
-    };
     @media(max-width: 588px) {
         font-size: 30px;
     };
