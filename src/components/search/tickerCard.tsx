@@ -7,27 +7,28 @@ const PriceStats = styled.div`
     flex: 0 0 300px;
     font-weight: 300;
     margin-bottom: 5px;
+    @media(max-width: 1000px) {
+        max-height: 60px;
+        justify-content: center;
+    };
     @media(max-width: 800px) {
         max-height: 60px;
         justify-content: center;
     };
     @media(max-width: 650px) {
-        font-size: 30px;
+        font-size: 40px;
         margin-top: 10px;
     };
-    @media(max-width: 500px) {
-        justify-content: space-between;
+    @media(max-width: 588px) {
+        font-size: 30px;
     };
 `
 
 const Span = styled.span`
     display: flex;
-    color: ${(props: any) => props.color ? 'green' : 'red'};
+    color: ${(props: any) => props.color ? '#91e4a5' : '#e95656'};
     margin-left: 5px;
     margin-right: 5px;
-    @media(max-width: 500px) {
-        margin-top: 10px;
-    }
 `
 
 const PriceIcon = styled.span`
@@ -40,9 +41,6 @@ const PriceSpan = styled.span`
     display: flex;
     flex: 0 0 1;
     margin-right: 10px;
-    @media(max-width: 500px) {
-        font-size: 40px;
-    }
 `
 
 const DollarIcon = styled.div`

@@ -28,6 +28,7 @@ const LoadingPeers = styled.img`
 const ContentContainer = styled.div`
     margin-top: 10px;
     display: flex;
+    color: #beccdc;
 `
 
 const Peer = styled.span`

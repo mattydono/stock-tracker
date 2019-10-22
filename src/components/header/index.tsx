@@ -7,9 +7,6 @@ const HeaderContainer = styled.div`
     display: flex;
     justify-content: space-between;
     align-items: center;
-    @media(max-width: 500px) {
-        justify-content: center;
-    };
 `
 
 const Nav = styled.div`
@@ -17,6 +14,10 @@ const Nav = styled.div`
     justify-content: space-evenly;
     flex: 0 0 400px;
     min-width: 15%;
+    @media(max-width: 750px) {
+        flex: 1 0 0;
+        margin-left: 77px;
+    };
     @media(max-width: 588px) {
         display: none;
     }
@@ -24,10 +25,8 @@ const Nav = styled.div`
 
 const Logo = styled.img`
     width: 155px;
+    height: 75px;
     color: white;
-    @media(max-width: 375px) {
-        display: none;
-    }
 `
 
 const Button = styled.button`
@@ -46,6 +45,8 @@ const Button = styled.button`
     &:hover {
         color: white;
         background-color: rgba(0, 104, 255, 0.5);
+    };
+    @media(max-width: 750px) {
     };
 `
 

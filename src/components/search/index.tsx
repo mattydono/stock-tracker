@@ -16,15 +16,11 @@ const RowContainer = styled.div`
     font-size: 40px;
     border-bottom: 1px solid #608fd1;;
     display: flex;
-    @media(max-width: 750px) {
-        flex-direction: column;
+    @media(max-width: 1000px) {
+        flex-direction: column-reverse;
     };
-    @media(max-width: 650px) {
+    @media(max-width: 588px) {
         font-size: 30px;
-    };
-    @media(max-width: 500px) {
-        flex-direction: column;
-        border-bottom: none;
     };
 `
 
@@ -40,10 +36,6 @@ const Input = styled.input`
     margin-bottom: 10px;
     font-weight: 300;
     z-index: 2;
-    @media(max-width: 375px) {
-        height: 30px;
-        font-size: 25px;
-    };
     &:focus {
         color: #fff;
     };
@@ -52,59 +44,17 @@ const Input = styled.input`
     };
 `
 
-const OverlayQuery = styled.div`
-    color: white;
-`
-
-const OverlayName = styled.div`
-    color: white;
-    font-weight: 300;
-    margin-right: 15px;
-    @media(max-width: 600px) {
-
-    }
-`
-
-const OverlaySymbol = styled.div`
-    color: #beccdc;
-    opacity: 0.5;
-    font-weight: 300;
-    @media(max-width: 750px) {
-        opacity: 0;
-    }
-    @media(max-width: 500px) {
-        opacity: 1;
-    }
-`
-
-const Tgroup = styled.div`
-    display: flex;
-    font-size: 20px;
-`
-
-const NameExchange = styled.div`
-    display: flex;
-    width: 100%;
-    justify-content: space-between;
-    @media(min-width: 375px) {
-        display: none
-    };
-`
-
 const PriceGroup = styled.div`
     display: flex;
     flex: 1 0 0;
     align-items: center;
+    justify-content: center;
     position: relative;
-    @media(max-width: 375px) {
-        background-color: rgba(255, 255, 255, 0.12);
-        border-radius: 10px;
-        margin-bottom: 20px;
-    }
 `
 
 const SubSearch = styled.div`
     display: flex;
+    justify-content: space-between;
     margin-top: 15px;
     @media(max-width: 375px) {
         display: none;
@@ -114,43 +64,30 @@ const SubSearch = styled.div`
 const SubInput = styled.div`
     display: flex;
     flex-direction: row;
-    flex: 0 1 60%;
 `
 
 const Sub = styled.span`
     background-color: #415f8a;
     border-radius: 2px;
-    height: 24px;
-    margin-left: 2%;
-    padding: 1%;
-    @media(max-width: 500px) {
-        display: none;
-    }
-`
-
-const Sub1 = styled.span`
-    background-color: #415f8a;
-    border-radius: 2px;
-    height: 24px;
-    margin-left: 2%;
-    padding: 1%;
-    @media(max-width: 375px) {
-        font-size: 12px;
-        height: 100%;
-    }
+    height: 22px;
+    font-size: 14px;
+    margin-right: 11px;
+    padding-left: 8px;
+    padding-right: 8px;
+    display: flex;
+    align-items: center;
 `
 
 const DateOpen = styled.div`
     font-size: 15px;
     display: flex;
-    flex: 1 0 40%;
     font-weight: 300;
     justify-content: flex-end;
     margin-left: 5px;
 `
 
 const Time = styled.span`
-    color: #608fd1;
+    color: rgba(255, 255, 255, 0.8);
     @media(max-width: 750px) {
         display: none;
     }
@@ -174,28 +111,51 @@ const MarketIcon = styled.div(props => ({
 
 const StockList = styled.div`
     position: absolute;
-    height: 100%;
-    width: 95%;
     margin: 0 2.5% 0 2.5%;
-    bottom: -100%;
-    left: 0;
+    width: 100%;
+    // bottom: -185px;
+    top: 63px;
+    left: -2.5%;
     z-index: 1;
     outline: none;
-    @media(max-width: 500px) {
-        bottom: -50px;
-    };
-    @media(max-width: 375px) {
-        bottom: -27%;
-    };
+    background-image: linear-gradient(to bottom, #001330 2%, rgba(0, 8, 19, 0.8) 177%);
+    box-shadow: 0 7px 10px 5px rgba(0, 0, 0, 0.5);
+    padding-top: 19px;
+    padding-bottom: 29px;
 `
 
-const Stock = styled.div`
-    background-color: rgba(0,24,57,0.9);
-    color: #608fd1;
-    cursor: pointer;
+const TdSymbol = styled.td`
+    color: #0068ff;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    max-width: 12px;
+`
+
+const TdName = styled.td`
+    color: #fff;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    position: absolute;
+    left: 60px;
+`
+
+const TR = styled.tr`
+    margin-bottom: 100%;
+    position: relative;
     &:hover {
-        background-color: #0042a0;
+        background-color: rgba(0, 104, 255, 0.5);
+        cursor: pointer;
+        padding-right: 100%;
     }
+`
+
+const TdEx = styled.span`
+    font-size: 14px;
+    padding: 2px;
+    background-color: rgba(128, 180, 255, 0.13);
+    border-radius: 2px;
+    color:rgba(255,255,255, 0.5);
+    margin-left: 10px;
 `
 
 const SubError = styled.div`
@@ -244,13 +204,14 @@ const LabelName = styled.div`
 
 const LabelSymbol = styled.div`
     flex: 0 1 0;
-    color: '#beccdc';
-    marginLeft: '10px'
+    color: #beccdc;
+    marginLeft: 200px;
 `
 
 type _Stock = {
     name: string,
-    symbol: string
+    symbol: string,
+    exchange?: string
 }
 
 type SearchProps = {
@@ -348,18 +309,6 @@ const Search: React.FC<SearchProps & Error> = ({
         }
     }, [stockList.length, errorQuote])
 
-    const renderStock = (stock: _Stock) => {
-        return (
-            <>
-            {!errorQuote ? 
-                <Stock onClick={() => onStockClick(stock)}>{stock.name} ({stock.symbol})</Stock>
-                :
-                <StockError>{stock.name} {stock.symbol}</StockError>
-            }
-            </>
-        )
-    }
-
     useEffect(() => {
 
         if(query === '') {
@@ -378,6 +327,28 @@ const Search: React.FC<SearchProps & Error> = ({
         return () => { clearTimeout(timeoutId); isCleared = true }
     }, [query]);
 
+    const renderSymbols = (stock: _Stock) => {
+        return (
+            // <>
+            // {!errorQuote ? 
+            //     <Stock onClick={() => onStockClick(stock)}><StockSpan>{stock.symbol}</StockSpan> {stock.name}</Stock>
+            //     :
+            //     <StockError>{stock.name} {stock.symbol}</StockError>
+            // }
+            // </>
+            <>
+            {!errorQuote ?
+                <TR onClick={() => onStockClick(stock)}>
+                    <TdSymbol>{stock.symbol}</TdSymbol>
+                    <TdName>{stock.name} <TdEx>{stock.exchange}</TdEx></TdName>
+                </TR>
+                // <Stock onClick={() => onStockClick(stock)}><StockSpan>{stock.symbol}</StockSpan> {stock.name}</Stock>
+                :
+                <StockError>{stock.name} {stock.symbol}</StockError>
+            }
+            </>
+        )
+    }
 
     return (
         <SearchContainer>
@@ -393,15 +364,23 @@ const Search: React.FC<SearchProps & Error> = ({
                     )}
                 </PriceGroup>
                 {latestPrice && <TickerCard latestPrice={latestPrice} change={change} changePercent={changePercent} />}
+                {isOpen ? 
                 <StockList ref={dropSelect} tabIndex={-1}>
-                    {isOpen ? stockList.map( stock => renderStock(stock)) : null}
+                    <table style={{width: '100%'}}>
+                        <tbody style={{fontSize: '18px'}}>
+                            {stockList.map( stock => renderSymbols(stock))}
+                        </tbody> 
+                    </table>               
                 </StockList>
+                :
+                null
+                }
             </RowContainer>
             {
                 !errorQuote ?
                 <SubSearch>
                     <SubInput>
-                        <Sub1>{primaryExchange}</Sub1>
+                        <Sub>{primaryExchange}</Sub>
                         <Sub>{tags[0]}</Sub>
                         <Sub>{tags[1]}</Sub>
                     </SubInput>
@@ -413,7 +392,7 @@ const Search: React.FC<SearchProps & Error> = ({
                 :
                 <SubError />
             }
-           <Star favorites={favorites} ticker={ticker} add={addToFavorites} remove={removeFromFavorites}/>
+           {/* <Star favorites={favorites} ticker={ticker} add={addToFavorites} remove={removeFromFavorites}/> */}
         </SearchContainer>
     )
 

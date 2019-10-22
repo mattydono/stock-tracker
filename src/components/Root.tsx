@@ -37,6 +37,7 @@ export const Title =styled.div`
     margin-bottom: 10px;
     color: #7fb3ff;
     font-weight: 700;
+    font-size: 16px;
 `
 
 const RootContainer = styled.div`
@@ -59,7 +60,7 @@ const AppContainer = styled.div`
     flex-direction: column;
     margin-left: 5%;
     margin-right: 5%;
-    max-width: 1500px;
+    max-width: 1368px;
 `
 
 const CompanyContainer = styled.div`

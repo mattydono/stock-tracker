@@ -3,6 +3,7 @@ import { _KeyStats } from '../../models'
 import loading from '../../gif/loading.gif'
 import styled from '@emotion/styled'
 import { Title } from '../Root'
+import { numberWithCommas } from '../../redux/helpers'
 
 const KeyStatsContainer = styled.div`
     flex: 0 1 65%;
@@ -12,7 +13,6 @@ const TableContainer = styled.div`
     width: 100%;
     display flex;
     justify-content: space-between;
-    font-size: 0.8rem;
     height: 100%;
     @media(max-width: 750px) {
         flex-direction: column;
@@ -29,11 +29,11 @@ const TR = styled.tr`
     justify-content: space-between;
     align-items: center;
     width: 90%;
-    height: 50px;
-    max-height: 50px;
+    height: 46px;
+    max-height: 46px;
     border-bottom: 1px solid #0a2e63;
     margin-bottom: 1%;
-    font-size: 1.5rem;
+    font-size: 14px;
     @media(max-width: 1099px) {
         font-size: 17px;
     }
@@ -129,7 +129,7 @@ const KeyStats: React.FC<_KeyStats & any> = ({
                          </TR>
                          <TR>
                              <TD>Market Cap</TD>
-                             <td>{marketCap ? marketCap : null}</td>
+                             <td>{marketCap ? numberWithCommas(marketCap) : null}</td>
                          </TR>
                          <TR>
                          <TD>P/E Ratio</TD>

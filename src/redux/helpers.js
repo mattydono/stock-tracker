@@ -58,6 +58,10 @@ export const getExpirationDate = (range) => {
     return date;
 }
 
+export const numberWithCommas = (number) => {
+    return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
+
 export const chartFormatDates = (chart, range) => {
     switch (range) {
         case '5d': {
