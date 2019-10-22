@@ -2,7 +2,7 @@ import React from 'react';
 import { _PriceSingleDataPoint, _Favorites } from '../../models';
 import USMarketsMockData from './USMarketsMockData.json';
 
-import TickerCard from '../search/tickerCard';
+import TickerCard from './footerTickerCard';
 
 import styled from '@emotion/styled'
 import { keyframes } from '@emotion/core';
@@ -24,6 +24,8 @@ const footerAnimation = keyframes`
 `
 
 const FooterContainer = styled.div`
+    position: fixed;
+    bottom: 0;
     align-self: flex-end;
     background-image: linear-gradient(to bottom, #00265d, #00204f);
     display: flex;
@@ -38,16 +40,21 @@ const FooterContainer = styled.div`
 `
 
 const Ticker = styled.div`
-    margin-right: 25px;
+    margin-right: 10px;
     text-transform: uppercase;
-    font-weight: 700;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    text-align: left;
 `
 
 const Card = styled.div`
+    width: 220px;
+    margin-right: 25px;
     display: flex;
-    align-items: baseline;
     flex: 0 0 1;
-    margin-left: 2rem;
     font-size: 14px;
 `
 
@@ -57,8 +64,12 @@ const FavouritesContainer = styled.div`
 `
 
 const Header = styled.div`
-    margin-left: 2rem;
-    margin-bottom: 0.5rem;
+    width: 67px;
+    height: 15px;
+    margin-top: 9px;
+    margin-bottom: 7px;
+    font-family: Lato;
+    margin-left: 19px;
     font-size: 12px;
     font-weight: 400;
 `
@@ -73,14 +84,27 @@ const Favourites = styled.div`
     // animation: ${footerAnimation} 15s linear infinite;
 `
 
-const Markets = styled.div`
+const FooterSection = styled.div`
+    margin-left: 19px;
+    margin-top: 3px;
+    margin-bottom: 12px;
+    height: 17px;
+    font-family: Lato;
     display: flex;
     flex-direction: row;
-    margin-bottom: 1rem;
-    // position: fixed;
     overflow: hidden;
-    font-weight: 700;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    text-align: left;
     font-size: 14px;
+`
+
+const Seperator = styled.div`
+    opacity: 0.1;
+    border: solid 1px white;
 `
 
 
@@ -103,15 +127,16 @@ const Footer: React.FC<FooterProps> = ({ prices, favorites }) => {
         <FooterContainer>
             <FavouritesContainer>
                 <Header>US MARKET</Header>
-                <Markets>
+                <FooterSection>
                     {usMarketsArray}
-                </Markets>
+                </FooterSection>
             </FavouritesContainer>
+            <Seperator />
             <FavouritesContainer>
                 <Header>FAVORITES</Header>
-                <Favourites>
+                <FooterSection>
                     {favoritesArray}
-                </Favourites>
+                </FooterSection>
             </FavouritesContainer>
         </FooterContainer>
     )
