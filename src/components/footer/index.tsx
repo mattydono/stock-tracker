@@ -53,6 +53,17 @@ const Card = styled.div`
 const FavouritesContainer = styled.div`
     width: 50%;
     overflow: hidden;
+    @media(max-width: 1099px) {
+        display: none;
+    }
+`
+
+const MarketsContainer = styled.div`
+    width: 50%;
+    overflow: hidden;
+    @media(max-width: 1099px) {
+        width: 100%;
+    }
 `
 
 const Header = styled.div`
@@ -100,12 +111,12 @@ const Footer: React.FC<FooterProps> = ({ prices, favorites }) => {
 
     return (
         <FooterContainer>
-            <FavouritesContainer>
+            <MarketsContainer>
                 <Header>US MARKET</Header>
                 <Markets>
                     {usMarketsArray}
                 </Markets>
-            </FavouritesContainer>
+            </MarketsContainer>
             <FavouritesContainer>
                 <Header>FAVORITES</Header>
                 <Favourites>
