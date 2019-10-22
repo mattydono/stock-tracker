@@ -45,7 +45,6 @@ const Ticker = styled.div`
 
 const Card = styled.div`
     display: flex;
-    align-items: baseline;
     flex: 0 0 1;
     margin-left: 2rem;
     font-size: 14px;

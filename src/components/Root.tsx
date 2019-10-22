@@ -66,8 +66,11 @@ const AppContainer = styled.div`
 const CompanyContainer = styled.div`
     display: flex;
     flex: 0 1 35%;
-    margin-left: 40px;
+    margin-left: 53px;
     flex-direction: column;
+    @media(min-width: 750px) {
+        min-width: 250px;
+    };
     @media(max-width: 750px) {
         margin-left: 0;
     };
@@ -76,6 +79,7 @@ const CompanyContainer = styled.div`
 const ChartNews = styled.div`
     display: flex;
     flex: 1 0 auto;
+    margin-bottom: -50px;
     @media(max-width: 750px) {
         flex-direction: column;
     };

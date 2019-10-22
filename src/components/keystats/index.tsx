@@ -13,7 +13,6 @@ const TableContainer = styled.div`
     width: 100%;
     display flex;
     justify-content: space-between;
-    height: 100%;
     @media(max-width: 750px) {
         flex-direction: column;
         align-items: center;
@@ -22,18 +21,19 @@ const TableContainer = styled.div`
 
 const TD = styled.td`
     color: #41608a;
+    font-size: 14px;
 `
 
 const TR = styled.tr`
     display: flex;
     justify-content: space-between;
     align-items: center;
-    width: 90%;
+    width: 100%;
     height: 46px;
     max-height: 46px;
     border-bottom: 1px solid #0a2e63;
     margin-bottom: 1%;
-    font-size: 14px;
+    font-size: 16px;
     @media(max-width: 1099px) {
         font-size: 17px;
     }
@@ -41,6 +41,17 @@ const TR = styled.tr`
 
 const Table =styled.table`
     width: 90%;
+    margin-top: -10px;
+`
+
+const TableDivide = styled.div`
+    width: 90px;
+    @media(max-width: 1099px) {
+        width: 68px;
+    };
+    @media(max-width: 588px) {
+        display: none;
+    };
 `
 
 const Tbody = styled.tbody`
@@ -137,6 +148,7 @@ const KeyStats: React.FC<_KeyStats & any> = ({
                          </TR>
                      </Tbody>
                  </Table>
+                 <TableDivide />
                  <Table>
                      <Tbody>
                          <TR>

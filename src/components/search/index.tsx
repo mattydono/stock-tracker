@@ -113,7 +113,6 @@ const StockList = styled.div`
     position: absolute;
     margin: 0 2.5% 0 2.5%;
     width: 100%;
-    // bottom: -185px;
     top: 63px;
     left: -2.5%;
     z-index: 1;
@@ -122,6 +121,9 @@ const StockList = styled.div`
     box-shadow: 0 7px 10px 5px rgba(0, 0, 0, 0.5);
     padding-top: 19px;
     padding-bottom: 29px;
+    @media(max-width: 1000px) {
+        top: 126px;
+    };
 `
 
 const TdSymbol = styled.td`
@@ -181,8 +183,8 @@ const SearchIcon = styled.div`
 
 const Label = styled.label`
     position: absolute;
-    top: 0;
-    left: 45px;
+    top: 1px;
+    left: 52px;
     font-weight: 300;
     opacity: 1;
     overflow: auto;
@@ -205,7 +207,7 @@ const LabelName = styled.div`
 const LabelSymbol = styled.div`
     flex: 0 1 0;
     color: #beccdc;
-    marginLeft: 200px;
+    margin-left: 15px;
 `
 
 type _Stock = {
@@ -267,23 +269,23 @@ const Search: React.FC<SearchProps & Error> = ({
             setQuery(`${stockList[0].name} (${stockList[0].symbol})`)
             setSelectedStock([`${stockList[0].name}`, `(${stockList[0].symbol})`])
             toggleIsOpen(false)
-            // handleBlur()
             event.preventDefault()
         }
     }
 
     const onStockClick = (stock: _Stock) => {
-        const stockSymbol = stock.symbol.toLowerCase()
-        const stockName = stock.name.toLowerCase()
+        const stockSymbol = stock.symbol
+        const stockName = stock.name
         setQuery(`${stockName} (${stockSymbol})`)
         inputSelect.current!.blur()
         search(stockSymbol)
         setStockList([])
-        toggleIsOpen(false)
-        setSelectedStock([`${stockList[0].name}`, `(${stockList[0].symbol})`])
+        setSelectedStock([`${stock.name}`, `(${stock.symbol})`])
     }
 
     const handleBlur = () => {
+        if(!isOpen) return
+
         requestAnimationFrame(() => {
                 if(!inputSelect.current!.contains(document.activeElement) && !dropSelect.current!.contains(document.activeElement)) {
                     toggleIsOpen(false)
@@ -293,21 +295,19 @@ const Search: React.FC<SearchProps & Error> = ({
         })
     }
 
-    const inputClickHandler = () => {
-        setQuery('')
-        setSelectedStock([])
-    }
-
     const favoritesClickHandler = () => {
         addToFavorites('aobc')
     }
 
     useEffect(() => {
-        toggleIsOpen(stockList.length !== 0)
         if(errorQuote) {
             setStockList([{name: errorQuote.message, symbol:'⊗'}])
         }
-    }, [stockList.length, errorQuote])
+    }, [errorQuote])
+
+    useEffect(() => {
+        toggleIsOpen(stockList.length !== 0)
+    },[ stockList.length])
 
     useEffect(() => {
 
@@ -355,7 +355,7 @@ const Search: React.FC<SearchProps & Error> = ({
             <RowContainer>
                 <PriceGroup>
                     <SearchIcon>⚲</SearchIcon>
-                    <Input id='search' ref={inputSelect} value={query} onClick={inputClickHandler} onChange={(event: any) => { setQuery(event.target.value); toggleIsOpen(query.length > 0) }} onKeyPress={onKeyPress} onBlur={handleBlur} />
+                    <Input id='search' ref={inputSelect} value={query} onChange={(event: any) => { setQuery(event.target.value); toggleIsOpen(query.length > 0) }} onKeyPress={onKeyPress} onBlur={handleBlur} />
                     {query && (
                     <Label htmlFor='search'>
                         <LabelName>{selectedStock[0]}</LabelName>
