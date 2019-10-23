@@ -78,41 +78,23 @@ const useChart: React.FC<useChartProps> = ({ range, ticker, open, updateChartPri
         if(shouldChartUpdate) updateChartPrices(chart)
     }
 
-    const doChartFetch = () => {
-        fetchData(
-            createURL(ticker, 'chart', range),
-            renderChartCallback,
-            (e: string) => setChart(state => {
-                return ({
-                    ...state,
-                    [range]: ({ ...state[range], error: e })
-                })
-            }),
-            (bool: boolean) => setChart(state => {
-                return ({
-                    ...state,
-                    [range]: ({ ...state[range], isFetching: bool })
-                })
-            }),
-        );
-    }
-
-    const renderChart = () => {
+    const renderChart = (ticker: string, range: Range) => {
         const chartData = chart[range];
         if (chartData && chartData.data[0] && chartData.data[0].symbol === ticker && chartData.expirationTime && chartData.expirationTime.getTime() > Date.now()) {
             updateChartPrices(chartData.data);
         } else {
-            doChartFetch()
+            socket.emit('chart', [ticker, range]);
         }
     }
 
     useEffect(() => {
-        renderChart();
-        const chartPoll = (open && range === '1d') ? window.setInterval(doChartFetch, 60000) : false;
+        renderChart(ticker, range);
+        socket.on('chart', (result: _ChartSingleDataPoint[]) => {
+            renderChartCallback(result);
+        })
 
         return () => {
             shouldChartUpdate = false;
-            if(chartPoll) clearInterval(chartPoll)
         }
 
     }, [ticker, range]);
