@@ -10,7 +10,11 @@ import AdaptiveLoader from '../loader'
 const NewsContainer =styled.div`
     flex: 0 1 34%;
     margin-top: 40px;
-    margin-left: 53px;
+    margin-left: 26px;
+    max-height: 400px;
+    @media(max-width: 1000px) {
+        margin-left: 29px;
+    }
     @media(min-width: 750px) {
         min-width: 250px;
     };
@@ -25,6 +29,8 @@ const ArticleContainer = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
+    max-height: 400px;
+    overflow: auto;
 `
 
 const NewsLoadingContainer =styled.div`
@@ -51,7 +57,7 @@ const News: React.FC<NewsProps & ErrorLoading> = ({ errorNews, news }) => {
 
     const Loading = <NewsLoadingContainer><AdaptiveLoader size={50} seperation={2} speed={1.4} /></NewsLoadingContainer>
 
-    const News = news.length > 0 ? news.map(article => <Article {...article}/>) : Loading;
+    const News = news.length > 0 ? news.map(article => <Article key={article.headline} {...article}/>) : Loading;
 
     const NewsError = news.length ? (
         <div style={{color: 'red', marginBottom: '1rem'}}>Connection to server lost.</div>

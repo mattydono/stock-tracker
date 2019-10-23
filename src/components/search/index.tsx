@@ -4,17 +4,22 @@ import TickerCard from './tickerCard';
 import styled from '@emotion/styled'
 import Star from './star';
 import io from 'socket.io-client';
+import moment from 'moment'
 
 const SearchContainer = styled.div`
     flex: 1 0 auto;
+    margin-bottom: -40px;
+    @media(max-width: 1000px) {
+        margin-bottom: -20px;
+    }
     @media(max-width: 375px) {
         margin-top: 20px;
     }
 `
 
 const RowContainer = styled.div`
-    height: 48px;
-    padding-bottom: 9px;
+    min-height: 48px;
+    padding-bottom: 7px;
     position: relative;
     font-size: 40px;
     border-bottom: 1px solid #608fd1;;
@@ -36,7 +41,6 @@ const Input = styled.input`
     // flex: 1 0 0;
     max-width: 100%;
     width: 100%;
-    margin-bottom: 10px;
     font-weight: 300;
     z-index: 2;
     &:focus {
@@ -75,14 +79,15 @@ const Sub = styled.span`
     height: 22px;
     font-size: 14px;
     margin-right: 11px;
-    padding-left: 8px;
-    padding-right: 8px;
+    padding-left: 16px;
+    padding-right: 16px;
     display: flex;
     align-items: center;
+    overflow: hidden;
 `
 
 const DateOpen = styled.div`
-    font-size: 15px;
+    font-size: 14px;
     display: flex;
     font-weight: 300;
     justify-content: flex-end;
@@ -97,10 +102,10 @@ const Time = styled.span`
 `
 
 const MarketStatus = styled.span`
-    font-size: 15px;
+    font-size: 14px;
     font-weight: 400;
     display: flex;
-    margin-left: 30px;
+    margin-left: 25px;
     position: relative;
 `
 
@@ -109,7 +114,7 @@ const MarketIcon = styled.div(props => ({
     fontSize: '15px',
     position: 'absolute',
     top: '-2px',
-    left: '-20px',
+    left: '-15px',
 }))
 
 const StockList = styled.div`
@@ -330,18 +335,19 @@ const Search: React.FC<SearchProps & Error> = ({
 
     const renderSymbols = (stock: _Stock) => {
         return (
-            <>
-            {!errorQuote ?
-                <TR onClick={() => onStockClick(stock)}>
+                <TR key={stock.name} onClick={() => onStockClick(stock)}>
                     <TdSymbol>{stock.symbol}</TdSymbol>
                     <TdName>{stock.name} <TdEx>{stock.exchange}</TdEx></TdName>
                 </TR>
-                :
-                <StockError>{stock.name} {stock.symbol}</StockError>
-            }
-            </>
         )
     }
+
+
+    const formatDate = (date: any) => new Date(date);
+    const EST = formatDate(moment()).toLocaleString("en-US", {
+        timeZone: "America/New_York"
+      });
+    const formattedEST = moment(EST).format("lll");
 
     return (
         <SearchContainer>
@@ -376,25 +382,19 @@ const Search: React.FC<SearchProps & Error> = ({
                         <Sub>{primaryExchange}</Sub>
                         <Sub>{tags[0]}</Sub>
                         <Sub>{tags[1]}</Sub>
+                        {/* <Sub>USD</Sub> */}
                     </SubInput>}
-                    <DateOpen>
-                        {latestTime ? <Time>Real-Time Price as of {latestTime} EST</Time> : null}
+                    {primaryExchange && <DateOpen>
+                        {latestTime ? <Time>Real-Time Price as of {formattedEST} EST</Time> : null}
                         {tags.length < 1 ? null : isUSMarketOpen ? <MarketStatus><MarketIcon color='yellow'>☀</MarketIcon>Market Open</MarketStatus> : <MarketStatus><MarketIcon>☽</MarketIcon> Market Closed</MarketStatus>}
-                    </DateOpen>
+                    </DateOpen>}
                 </SubSearch>
                 :
                 <SubError />
             }
-           {/* <Star favorites={favorites} ticker={ticker} add={addToFavorites} remove={removeFromFavorites}/> */}
         </SearchContainer>
     )
 
 }
 
 export default Search;
-
-// ⚲
-
-                    {/* <Button onClick={inputClickHandler}></Button> */}
-                    {/* {isFavorite ? <span onClick={favoritesClickHandler} >&#9733;</span> : <span onClick={favoritesClickHandler} >&#9734;</span> } */}
-                    {/* <Star favorites={favorites} ticker={ticker} add={addToFavorites} remove={removeFromFavorites} /> */}

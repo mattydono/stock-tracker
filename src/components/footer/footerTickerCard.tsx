@@ -40,7 +40,6 @@ const DollarIcon = styled.div`
     font-size: 8px;
     font-weight: 400;
     margin-top: 1px;
-    margin-right: 2px;
 `
 
 const ChangeContainer = styled.div`

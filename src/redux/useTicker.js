@@ -24,7 +24,6 @@ const useTicker = ({ticker, favorites: favoritesArray, callbacks: { quote, news,
     const [errors, setErrors] = useState(errorInitialState);
     const [isFetching, setIsFetching] = useState(isFetchingInitialState);
 
-
     useEffect(() => {
         socket.emit('company', ticker);
         socket.on('company', result => company(result));

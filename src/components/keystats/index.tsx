@@ -7,7 +7,7 @@ import { numberWithCommas } from '../../redux/helpers'
 import AdaptiveLoader from '../loader'
 
 const KeyStatsContainer = styled.div`
-    flex: 0 1 65%;
+    flex: 0 1 63%;
 `
 
 const TableContainer = styled.div`
@@ -21,8 +21,9 @@ const TableContainer = styled.div`
 `
 
 const TD = styled.td`
-    color: #41608a;
+    color: #beccdc;
     font-size: 14px;
+    font-weight: 300;
 `
 
 const TR = styled.tr`
@@ -35,6 +36,7 @@ const TR = styled.tr`
     border-bottom: 1px solid #0a2e63;
     margin-bottom: 1%;
     font-size: 16px;
+    font-weight: 400;
     @media(max-width: 1099px) {
         font-size: 17px;
     }
@@ -118,7 +120,7 @@ const KeyStats: React.FC<_KeyStats & any> = ({
         actualEPS,
     } = keystatsProps;
 
-    const KeySatsError = <div style={{color: 'red', marginBottom: '1rem'}}>{nullValues ? 'Fetching stats failed' : 'Connection to server lost'}</div>;
+    const KeyStatsError = <div style={{color: 'red', marginBottom: '1rem'}}>{nullValues ? 'Fetching stats failed' : 'Connection to server lost'}</div>;
 
     return (    
         <KeyStatsContainer>
@@ -137,7 +139,7 @@ const KeyStats: React.FC<_KeyStats & any> = ({
                          </TR>
                          <TR>
                              <TD>Volume</TD>
-                             <td>{volume ? volume : null}</td>
+                             <td>{volume ? numberWithCommas(volume) : null}</td>
                          </TR>
                          <TR>
                              <TD>Market Cap</TD>
@@ -162,7 +164,7 @@ const KeyStats: React.FC<_KeyStats & any> = ({
                          </TR>
                          <TR>
                              <TD>Total Avg Volume</TD>
-                             <td>{avgTotalVolume ? avgTotalVolume : null}</td>
+                             <td>{avgTotalVolume ? numberWithCommas(avgTotalVolume) : null}</td>
                          </TR>
                          <TR>
                              <TD>Earnings Per Share</TD>
@@ -175,7 +177,7 @@ const KeyStats: React.FC<_KeyStats & any> = ({
                      </Tbody>
                  </Table>
              </TableContainer>
-             : nullValues && !errorQuote ?
+             : !errorQuote ?
              <KeyStatsLoadingContainer>
                 <AdaptiveLoader size={50} seperation={2} speed={1.4} />
              </KeyStatsLoadingContainer> 

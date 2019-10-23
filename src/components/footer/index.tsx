@@ -51,7 +51,6 @@ const Ticker = styled.div`
 `
 
 const Card = styled.div`
-    width: 220px;
     margin-right: 25px;
     display: flex;
     flex: 0 0 1;
@@ -61,7 +60,7 @@ const Card = styled.div`
 const FavouritesContainer = styled.div`
     width: 50%;
     overflow: hidden;
-    @media(max-width: 1099px) {
+    @media(max-width: 1390px) {
         display: none;
     }
 `
@@ -69,7 +68,7 @@ const FavouritesContainer = styled.div`
 const MarketsContainer = styled.div`
     width: 50%;
     overflow: hidden;
-    @media(max-width: 1099px) {
+    @media(max-width: 1390px) {
         width: 100%;
     }
 `
@@ -106,6 +105,9 @@ const FooterSection = styled.div`
 const Seperator = styled.div`
     opacity: 0.1;
     border: solid 1px white;
+    @media(max-width: 1390px) {
+        display: none;
+    }
 `
 
 
@@ -121,8 +123,8 @@ const FooterTickerCard: React.FC<_PriceSingleDataPoint> = ({ ticker, latestPrice
 }
 
 const Footer: React.FC<FooterProps> = ({ prices, favorites }) => {
-    const favoritesArray = prices[0] && prices.filter(({ ticker }) => ticker && favorites.includes(ticker)).map(item => <FooterTickerCard {...item} /> );
-    const usMarketsArray = USMarketsMockData.map(item => <FooterTickerCard {...item}/>)
+    const favoritesArray = prices[0] && prices.filter(({ ticker }) => ticker && favorites.includes(ticker)).map(item => <FooterTickerCard key={item.ticker} {...item} /> );
+    const usMarketsArray = USMarketsMockData.map(item => <FooterTickerCard key={item.ticker} {...item}/>)
 
     return (
         <FooterContainer>

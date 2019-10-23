@@ -22,9 +22,13 @@ const ChartContainer = styled.div`
     flex: 0 1 66%;
     margin-top: 15px;
     margin-left: -35px;
+    font-size: 10px;
+    font-weight: 300;
+    max-width: 890px;
     @media(max-width: 750px) {
         margin-top: 40px;
         margin-right: -30px;
+        margin-bottom: -10px;
     }
 `
 
@@ -101,8 +105,8 @@ export const Chart: React.FC<ChartProps> = ({ prices, ticker, open, latest, rang
     const error = chart[range] && chart[range].error ? chart[range].error.message : '';
 
 
-    const ranges: Range[] = ['5y', '1y', '1m', '5d', '1d'];
-    const buttons = ranges.map(rangeItem => <RangeButton current={rangeItem === range} range={rangeItem} update={updateChartRange} />)
+    const ranges: Range[] = ['MAX', '5y', '1y', '1m', '5d', '1d'];
+    const buttons = ranges.map(rangeItem => <RangeButton key={rangeItem} current={rangeItem === range} range={rangeItem} update={updateChartRange} />)
 
     const now: _ChartSingleDataPoint = {
         label: 'now',
@@ -122,7 +126,7 @@ export const Chart: React.FC<ChartProps> = ({ prices, ticker, open, latest, rang
                         <ButtonsContainer>
                             {buttons}
                         </ButtonsContainer>
-                        <ResponsiveContainer aspect={0.9} width='99%' height='100%' maxHeight={500}>
+                        <ResponsiveContainer aspect={0.1} width='99%' maxHeight={425}>
                             <AreaChart data={data} margin={{ left: 35 }} >
                                 <defs>
                                     <linearGradient id='area' x1="0" y1="0" x2="0" y2="1">
@@ -131,8 +135,8 @@ export const Chart: React.FC<ChartProps> = ({ prices, ticker, open, latest, rang
                                     </linearGradient>
                                 </defs>
                                 <CartesianGrid stroke='#1d4168' strokeWidth={0.8} />
-                                <XAxis axisLine={false} interval={interval} dataKey="label" type="category" allowDataOverflow={false} />
-                                <YAxis axisLine={false} orientation="right" domain={['dataMin', 'auto']} tickLine={false} tickFormatter={item => item.toFixed(2)} />
+                                <XAxis tick={{fill: 'white', fontWeight: '300'}} axisLine={false} interval={interval} dataKey="label" type="category" allowDataOverflow={false} />
+                                <YAxis tick={{fill: 'white', fontWeight: '300'}} axisLine={false} orientation="right" domain={['dataMin', 'auto']} tickLine={false} tickFormatter={item => item.toFixed(2)} />
                                 <ReferenceLine y={now.close} stroke={'#e95656'} strokeDasharray="3 3" label={
                                     <Label value={now.close && now.close.toFixed(2)} position="right" fill="#e95656" /> } 
                                 />
@@ -141,7 +145,7 @@ export const Chart: React.FC<ChartProps> = ({ prices, ticker, open, latest, rang
                             </AreaChart>
                         </ResponsiveContainer>
                         {
-                            fetching ? <p>fetching data...</p>
+                            fetching ? <p style={{marginLeft: '35px'}}>fetching data...</p>
                             : error ? <p>{error}</p>
                             : <p>&nbsp;</p>
                         }
