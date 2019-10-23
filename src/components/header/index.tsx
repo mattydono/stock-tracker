@@ -7,16 +7,23 @@ const HeaderContainer = styled.div`
     display: flex;
     justify-content: space-between;
     align-items: center;
-    @media(max-width: 500px) {
-        justify-content: center;
-    };
+    margin-bottom: -12px;
 `
 
 const Nav = styled.div`
     display: flex;
     justify-content: space-evenly;
     flex: 0 0 400px;
+    margin-right: -30px;
     min-width: 15%;
+    @media(max-width: 1099px) {
+        margin-right: -25px;
+    };
+    @media(max-width: 750px) {
+        flex: 1 0 0;
+        margin-left: 77px;
+        margin-right: -8px;
+    };
     @media(max-width: 588px) {
         display: none;
     }
@@ -24,10 +31,8 @@ const Nav = styled.div`
 
 const Logo = styled.img`
     width: 155px;
+    height: 75px;
     color: white;
-    @media(max-width: 375px) {
-        display: none;
-    }
 `
 
 const Button = styled.button`

@@ -37,6 +37,7 @@ export const Title =styled.div`
     margin-bottom: 10px;
     color: #7fb3ff;
     font-weight: 700;
+    font-size: 16px;
 `
 
 const RootContainer = styled.div`
@@ -59,14 +60,18 @@ const AppContainer = styled.div`
     flex-direction: column;
     margin-left: 5%;
     margin-right: 5%;
-    max-width: 1500px;
+    max-width: 1368px;
+    // max-height: 1100px;
 `
 
 const CompanyContainer = styled.div`
     display: flex;
-    flex: 0 1 35%;
-    margin-left: 40px;
+    flex: 0 1 37%;
+    margin-left: 53px;
     flex-direction: column;
+    @media(min-width: 750px) {
+        min-width: 250px;
+    };
     @media(max-width: 750px) {
         margin-left: 0;
     };
@@ -75,8 +80,17 @@ const CompanyContainer = styled.div`
 const ChartNews = styled.div`
     display: flex;
     flex: 1 0 auto;
+    margin-bottom: -120px;
+    margin-top: 40px;
+    @media(max-height: 1100px) {
+        margin-bottom: -100px;
+    }
+    @media(max-width: 1000px) {
+        margin-bottom: -90px;
+    };
     @media(max-width: 750px) {
         flex-direction: column;
+        margin-bottom: 20px;
     };
     @media(min-width: 750px) {
         min-width: 721px;

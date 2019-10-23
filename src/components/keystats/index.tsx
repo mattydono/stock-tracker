@@ -3,17 +3,17 @@ import { _KeyStats } from '../../models'
 import loading from '../../gif/loading.gif'
 import styled from '@emotion/styled'
 import { Title } from '../Root'
+import { numberWithCommas } from '../../redux/helpers'
+import AdaptiveLoader from '../loader'
 
 const KeyStatsContainer = styled.div`
-    flex: 0 1 65%;
+    flex: 0 1 63%;
 `
 
 const TableContainer = styled.div`
     width: 100%;
     display flex;
     justify-content: space-between;
-    font-size: 0.8rem;
-    height: 100%;
     @media(max-width: 750px) {
         flex-direction: column;
         align-items: center;
@@ -21,19 +21,22 @@ const TableContainer = styled.div`
 `
 
 const TD = styled.td`
-    color: #41608a;
+    color: #beccdc;
+    font-size: 14px;
+    font-weight: 300;
 `
 
 const TR = styled.tr`
     display: flex;
     justify-content: space-between;
     align-items: center;
-    width: 90%;
-    height: 50px;
-    max-height: 50px;
+    width: 100%;
+    height: 46px;
+    max-height: 46px;
     border-bottom: 1px solid #0a2e63;
     margin-bottom: 1%;
-    font-size: 1.5rem;
+    font-size: 16px;
+    font-weight: 400;
     @media(max-width: 1099px) {
         font-size: 17px;
     }
@@ -41,15 +44,21 @@ const TR = styled.tr`
 
 const Table =styled.table`
     width: 90%;
+    margin-top: -10px;
+`
+
+const TableDivide = styled.div`
+    width: 90px;
+    @media(max-width: 1099px) {
+        width: 68px;
+    };
+    @media(max-width: 588px) {
+        display: none;
+    };
 `
 
 const Tbody = styled.tbody`
     width: 100%;
-`
-
-const LoadingStats = styled.img`
-    background-color: rgba(89, 89, 105, 0.2);
-    border-radius: 5%;
 `
 
 const KeyStatsLoadingContainer = styled.div`
@@ -57,6 +66,11 @@ const KeyStatsLoadingContainer = styled.div`
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    margin-top: 100px;
+    @media(max-width: 750px) {
+        margin-top: 50px;
+        margin-bottom: 50px;
+    }
 `
 
 const StatsErrorContainer = styled.div`
@@ -106,7 +120,7 @@ const KeyStats: React.FC<_KeyStats & any> = ({
         actualEPS,
     } = keystatsProps;
 
-    const KeySatsError = <div style={{color: 'red', marginBottom: '1rem'}}>{nullValues ? 'Fetching stats failed' : 'Connection to server lost'}</div>;
+    const KeyStatsError = <div style={{color: 'red', marginBottom: '1rem'}}>{nullValues ? 'Fetching stats failed' : 'Connection to server lost'}</div>;
 
     return (    
         <KeyStatsContainer>
@@ -125,11 +139,11 @@ const KeyStats: React.FC<_KeyStats & any> = ({
                          </TR>
                          <TR>
                              <TD>Volume</TD>
-                             <td>{volume ? volume : null}</td>
+                             <td>{volume ? numberWithCommas(volume) : null}</td>
                          </TR>
                          <TR>
                              <TD>Market Cap</TD>
-                             <td>{marketCap ? marketCap : null}</td>
+                             <td>{marketCap ? numberWithCommas(marketCap) : null}</td>
                          </TR>
                          <TR>
                          <TD>P/E Ratio</TD>
@@ -137,6 +151,7 @@ const KeyStats: React.FC<_KeyStats & any> = ({
                          </TR>
                      </Tbody>
                  </Table>
+                 <TableDivide />
                  <Table>
                      <Tbody>
                          <TR>
@@ -149,7 +164,7 @@ const KeyStats: React.FC<_KeyStats & any> = ({
                          </TR>
                          <TR>
                              <TD>Total Avg Volume</TD>
-                             <td>{avgTotalVolume ? avgTotalVolume : null}</td>
+                             <td>{avgTotalVolume ? numberWithCommas(avgTotalVolume) : null}</td>
                          </TR>
                          <TR>
                              <TD>Earnings Per Share</TD>
@@ -162,9 +177,9 @@ const KeyStats: React.FC<_KeyStats & any> = ({
                      </Tbody>
                  </Table>
              </TableContainer>
-             : nullValues && !errorQuote ?
+             : !errorQuote ?
              <KeyStatsLoadingContainer>
-                 <LoadingStats src={loading} />
+                <AdaptiveLoader size={50} seperation={2} speed={1.4} />
              </KeyStatsLoadingContainer> 
              :
             <StatsErrorContainer>

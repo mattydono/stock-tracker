@@ -2,7 +2,7 @@ import React from 'react';
 import { _PriceSingleDataPoint, _Favorites } from '../../models';
 import USMarketsMockData from './USMarketsMockData.json';
 
-import TickerCard from '../search/tickerCard';
+import TickerCard from './footerTickerCard';
 
 import styled from '@emotion/styled'
 import { keyframes } from '@emotion/core';
@@ -24,6 +24,8 @@ const footerAnimation = keyframes`
 `
 
 const FooterContainer = styled.div`
+    position: fixed;
+    bottom: 0;
     align-self: flex-end;
     background-image: linear-gradient(to bottom, #00265d, #00204f);
     display: flex;
@@ -38,49 +40,74 @@ const FooterContainer = styled.div`
 `
 
 const Ticker = styled.div`
-    margin-right: 25px;
+    margin-right: 10px;
     text-transform: uppercase;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    text-align: left;
 `
 
 const Card = styled.div`
+    margin-right: 25px;
     display: flex;
-    align-items: center;
     flex: 0 0 1;
-    margin-left: 2rem;
-    font-size: 20px;
+    font-size: 14px;
 `
 
 const FavouritesContainer = styled.div`
     width: 50%;
     overflow: hidden;
+    @media(max-width: 1390px) {
+        display: none;
+    }
+`
+
+const MarketsContainer = styled.div`
+    width: 50%;
+    overflow: hidden;
+    @media(max-width: 1390px) {
+        width: 100%;
+    }
 `
 
 const Header = styled.div`
-    margin-left: 2rem;
-    margin-bottom: 0.5rem;
-    font-size: 16px;
+    width: 67px;
+    height: 15px;
+    margin-top: 9px;
+    margin-bottom: 7px;
+    font-family: Lato;
+    margin-left: 19px;
+    font-size: 12px;
     font-weight: 400;
 `
 
-const Favourites = styled.div`
+const FooterSection = styled.div`
+    margin-left: 19px;
+    margin-top: 3px;
+    margin-bottom: 12px;
+    height: 17px;
+    font-family: Lato;
     display: flex;
     flex-direction: row;
-    margin-bottom: 1rem;
-    // position: fixed;
     overflow: hidden;
-    font-weight: 700;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    text-align: left;
     font-size: 14px;
-    animation: ${footerAnimation} 15s linear infinite;
 `
 
-const Markets = styled.div`
-    display: flex;
-    flex-direction: row;
-    margin-bottom: 1rem;
-    // position: fixed;
-    overflow: hidden;
-    font-weight: 700;
-    font-size: 14px;
+const Seperator = styled.div`
+    opacity: 0.1;
+    border: solid 1px white;
+    @media(max-width: 1390px) {
+        display: none;
+    }
 `
 
 
@@ -96,22 +123,23 @@ const FooterTickerCard: React.FC<_PriceSingleDataPoint> = ({ ticker, latestPrice
 }
 
 const Footer: React.FC<FooterProps> = ({ prices, favorites }) => {
-    const favoritesArray = prices[0] && prices.filter(({ ticker }) => ticker && favorites.includes(ticker)).map(item => <FooterTickerCard {...item} /> );
-    const usMarketsArray = USMarketsMockData.map(item => <FooterTickerCard {...item}/>)
+    const favoritesArray = prices[0] && prices.filter(({ ticker }) => ticker && favorites.includes(ticker)).map(item => <FooterTickerCard key={item.ticker} {...item} /> );
+    const usMarketsArray = USMarketsMockData.map(item => <FooterTickerCard key={item.ticker} {...item}/>)
 
     return (
         <FooterContainer>
-            <FavouritesContainer>
-                <Header>US Markets</Header>
-                <Markets>
+            <MarketsContainer>
+                <Header>US MARKET</Header>
+                <FooterSection>
                     {usMarketsArray}
-                </Markets>
-            </FavouritesContainer>
+                </FooterSection>
+            </MarketsContainer>
+            <Seperator />
             <FavouritesContainer>
-                <Header>Favorites</Header>
-                <Favourites>
+                <Header>FAVORITES</Header>
+                <FooterSection>
                     {favoritesArray}
-                </Favourites>
+                </FooterSection>
             </FavouritesContainer>
         </FooterContainer>
     )

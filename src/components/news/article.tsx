@@ -4,33 +4,36 @@ import moment from 'moment';
 import styled from '@emotion/styled'
 
 const ArticleItem = styled.div`
-    margin-bottom: 5%;
     font-weight: 400;
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
 `
 
 const Link = styled.a`
     text-decoration: none;
     color: white;
-    font-weight: 300;
-    font-size: 1.4rem;
+    font-weight: 400;
+    font-size: 16px;
+    margin-bottom: 5px;
     &:hover {
         color: #e0be86;
     };
-    @media(max-width: 1100px) {
-        font-size: 1.2rem;
-    };
-    @media(max-width: 800px) {
-        font-size: 1.1rem;
-    }
+`
+
+const Time = styled.div`
+    font-size: 14px;
+    color: #beccdc;
+    font-weight: 300;
 `
 
 const Article: React.FC<_Article> = ({ url, headline, datetime, source }) => {
     return (
         <ArticleItem>
-            <Link href={url}>
+            <Link href={url} target='_blank'>
                 <div style={{fontSize: 'inherit'}}>{headline}</div>
             </Link>
-            <div style={{opacity: 0.5}} >{moment(datetime).fromNow()} - {source}</div>
+            <Time>{moment(datetime).fromNow()} - {source}</Time>
         </ArticleItem>
     )
 }

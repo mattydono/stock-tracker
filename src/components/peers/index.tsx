@@ -2,36 +2,40 @@ import React from 'react';
 import loading from '../../gif/loading.gif'
 import { Title } from '../Root'
 import styled from '@emotion/styled'
+import AdaptiveLoader from '../loader'
 
 const PeersContainer = styled.div`
-    height: 25%;
+    max-height: 30%;
+    @media(max-width: 1000px) {
+        margin-bottom: 100px;
+    };
+    @media(max-width: 588px) {
+        margin-bottom: 44.7px;
+    }
 `
 
 const PeersLoadingContainer = styled.div`
-    // height: 25px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    @media(min-width: 1700px) {
-        min-width: 510px;
-        min-height: height: 100%;
+    margin-top: 30px;
+    @media(max-width: 750px) {
+        margin-top: 50px;
+        margin-bottom: 50px;
     }
 `
 
-const LoadingPeers = styled.img`
-    height: 40px;
-    border-radius: 5%;
-    background-color: rgba(89, 89, 105, 0.2);
-`
-
 const ContentContainer = styled.div`
-    margin-top: 10px;
+    margin-top: 10.2px;
     display: flex;
+    flex-flow: row wrap;
+    color: #beccdc;
 `
 
 const Peer = styled.span`
-    margin-right: 15px;
+    margin-right: 18px;
+    font-size: 14px;
     &:hover {
         color: #e0be86;
         cursor: pointer;
@@ -47,10 +51,14 @@ type ErrorLoading = {
     isFetchingPeers: boolean,
 }
 
+const HARD_PEERS = [
+    'MSFT',' NOK', 'IBM'
+]
+
 const Peers: React.FC<PeersProps & ErrorLoading> = ({ errorPeers, isFetchingPeers, peers }) => {
 
     const renderPeer = (peer: string) => {
-        return <Peer>{peer}</Peer>
+        return <Peer key={peer} >{peer}</Peer>
     }
 
     return (
@@ -58,11 +66,11 @@ const Peers: React.FC<PeersProps & ErrorLoading> = ({ errorPeers, isFetchingPeer
                 <Title>TOP PEERS</Title>
                 {!isFetchingPeers ?
                     <ContentContainer>
-                        {peers.map( peer => renderPeer(peer))}
+                        {HARD_PEERS.map( peer => renderPeer(peer))}
                     </ContentContainer>
                     : isFetchingPeers && !errorPeers ?
                     <PeersLoadingContainer>
-                        <LoadingPeers src={loading} /> 
+                        <AdaptiveLoader size={50} seperation={2} speed={1.4} /> 
                     </PeersLoadingContainer>
                     :
                     <>

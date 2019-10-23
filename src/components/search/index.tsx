@@ -3,28 +3,31 @@ import { _Prices, _PriceSingleDataPoint } from '../../models';
 import TickerCard from './tickerCard';
 import styled from '@emotion/styled'
 import Star from './star';
+import moment from 'moment'
 
 const SearchContainer = styled.div`
     flex: 1 0 auto;
+    margin-bottom: -40px;
+    @media(max-width: 1000px) {
+        margin-bottom: -20px;
+    }
     @media(max-width: 375px) {
         margin-top: 20px;
     }
 `
 
 const RowContainer = styled.div`
+    min-height: 48px;
+    padding-bottom: 7px;
     position: relative;
     font-size: 40px;
     border-bottom: 1px solid #608fd1;;
     display: flex;
-    @media(max-width: 750px) {
-        flex-direction: column;
+    @media(max-width: 1000px) {
+        flex-direction: column-reverse;
     };
-    @media(max-width: 650px) {
+    @media(max-width: 588px) {
         font-size: 30px;
-    };
-    @media(max-width: 500px) {
-        flex-direction: column;
-        border-bottom: none;
     };
 `
 
@@ -37,13 +40,8 @@ const Input = styled.input`
     // flex: 1 0 0;
     max-width: 100%;
     width: 100%;
-    margin-bottom: 10px;
     font-weight: 300;
     z-index: 2;
-    @media(max-width: 375px) {
-        height: 30px;
-        font-size: 25px;
-    };
     &:focus {
         color: #fff;
     };
@@ -52,59 +50,17 @@ const Input = styled.input`
     };
 `
 
-const OverlayQuery = styled.div`
-    color: white;
-`
-
-const OverlayName = styled.div`
-    color: white;
-    font-weight: 300;
-    margin-right: 15px;
-    @media(max-width: 600px) {
-
-    }
-`
-
-const OverlaySymbol = styled.div`
-    color: #beccdc;
-    opacity: 0.5;
-    font-weight: 300;
-    @media(max-width: 750px) {
-        opacity: 0;
-    }
-    @media(max-width: 500px) {
-        opacity: 1;
-    }
-`
-
-const Tgroup = styled.div`
-    display: flex;
-    font-size: 20px;
-`
-
-const NameExchange = styled.div`
-    display: flex;
-    width: 100%;
-    justify-content: space-between;
-    @media(min-width: 375px) {
-        display: none
-    };
-`
-
 const PriceGroup = styled.div`
     display: flex;
     flex: 1 0 0;
     align-items: center;
+    justify-content: center;
     position: relative;
-    @media(max-width: 375px) {
-        background-color: rgba(255, 255, 255, 0.12);
-        border-radius: 10px;
-        margin-bottom: 20px;
-    }
 `
 
 const SubSearch = styled.div`
     display: flex;
+    justify-content: space-between;
     margin-top: 15px;
     @media(max-width: 375px) {
         display: none;
@@ -114,53 +70,41 @@ const SubSearch = styled.div`
 const SubInput = styled.div`
     display: flex;
     flex-direction: row;
-    flex: 0 1 60%;
 `
 
 const Sub = styled.span`
     background-color: #415f8a;
     border-radius: 2px;
-    height: 24px;
-    margin-left: 2%;
-    padding: 1%;
-    @media(max-width: 500px) {
-        display: none;
-    }
-`
-
-const Sub1 = styled.span`
-    background-color: #415f8a;
-    border-radius: 2px;
-    height: 24px;
-    margin-left: 2%;
-    padding: 1%;
-    @media(max-width: 375px) {
-        font-size: 12px;
-        height: 100%;
-    }
+    height: 22px;
+    font-size: 14px;
+    margin-right: 11px;
+    padding-left: 16px;
+    padding-right: 16px;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
 `
 
 const DateOpen = styled.div`
-    font-size: 15px;
+    font-size: 14px;
     display: flex;
-    flex: 1 0 40%;
     font-weight: 300;
     justify-content: flex-end;
     margin-left: 5px;
 `
 
 const Time = styled.span`
-    color: #608fd1;
+    color: rgba(255, 255, 255, 0.8);
     @media(max-width: 750px) {
         display: none;
     }
 `
 
 const MarketStatus = styled.span`
-    font-size: 15px;
+    font-size: 14px;
     font-weight: 400;
     display: flex;
-    margin-left: 30px;
+    margin-left: 25px;
     position: relative;
 `
 
@@ -169,33 +113,58 @@ const MarketIcon = styled.div(props => ({
     fontSize: '15px',
     position: 'absolute',
     top: '-2px',
-    left: '-20px',
+    left: '-15px',
 }))
 
 const StockList = styled.div`
     position: absolute;
-    height: 100%;
-    width: 95%;
     margin: 0 2.5% 0 2.5%;
-    bottom: -100%;
-    left: 0;
+    width: 100%;
+    top: 63px;
+    left: -2.5%;
     z-index: 1;
     outline: none;
-    @media(max-width: 500px) {
-        bottom: -50px;
-    };
-    @media(max-width: 375px) {
-        bottom: -27%;
+    background-image: linear-gradient(to bottom, #001330 2%, rgba(0, 8, 19, 0.8) 177%);
+    box-shadow: 0 7px 10px 5px rgba(0, 0, 0, 0.5);
+    padding-top: 19px;
+    padding-bottom: 29px;
+    @media(max-width: 1000px) {
+        top: 126px;
     };
 `
 
-const Stock = styled.div`
-    background-color: rgba(0,24,57,0.9);
-    color: #608fd1;
-    cursor: pointer;
+const TdSymbol = styled.td`
+    color: #0068ff;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    max-width: 12px;
+`
+
+const TdName = styled.td`
+    color: #fff;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    position: absolute;
+    left: 60px;
+`
+
+const TR = styled.tr`
+    margin-bottom: 100%;
+    position: relative;
     &:hover {
-        background-color: #0042a0;
+        background-color: rgba(0, 104, 255, 0.5);
+        cursor: pointer;
+        padding-right: 100%;
     }
+`
+
+const TdEx = styled.span`
+    font-size: 14px;
+    padding: 2px;
+    background-color: rgba(128, 180, 255, 0.13);
+    border-radius: 2px;
+    color:rgba(255,255,255, 0.5);
+    margin-left: 10px;
 `
 
 const SubError = styled.div`
@@ -221,8 +190,8 @@ const SearchIcon = styled.div`
 
 const Label = styled.label`
     position: absolute;
-    top: 0;
-    left: 45px;
+    top: 1px;
+    left: 52px;
     font-weight: 300;
     opacity: 1;
     overflow: auto;
@@ -244,13 +213,14 @@ const LabelName = styled.div`
 
 const LabelSymbol = styled.div`
     flex: 0 1 0;
-    color: '#beccdc';
-    marginLeft: '10px'
+    color: #beccdc;
+    margin-left: 15px;
 `
 
 type _Stock = {
     name: string,
-    symbol: string
+    symbol: string,
+    exchange?: string
 }
 
 type SearchProps = {
@@ -306,23 +276,23 @@ const Search: React.FC<SearchProps & Error> = ({
             setQuery(`${stockList[0].name} (${stockList[0].symbol})`)
             setSelectedStock([`${stockList[0].name}`, `(${stockList[0].symbol})`])
             toggleIsOpen(false)
-            // handleBlur()
             event.preventDefault()
         }
     }
 
     const onStockClick = (stock: _Stock) => {
-        const stockSymbol = stock.symbol.toLowerCase()
-        const stockName = stock.name.toLowerCase()
+        const stockSymbol = stock.symbol
+        const stockName = stock.name
         setQuery(`${stockName} (${stockSymbol})`)
         inputSelect.current!.blur()
         search(stockSymbol)
         setStockList([])
-        toggleIsOpen(false)
-        setSelectedStock([`${stockList[0].name}`, `(${stockList[0].symbol})`])
+        setSelectedStock([`${stock.name}`, `(${stock.symbol})`])
     }
 
     const handleBlur = () => {
+        if(!isOpen) return
+
         requestAnimationFrame(() => {
                 if(!inputSelect.current!.contains(document.activeElement) && !dropSelect.current!.contains(document.activeElement)) {
                     toggleIsOpen(false)
@@ -332,33 +302,19 @@ const Search: React.FC<SearchProps & Error> = ({
         })
     }
 
-    const inputClickHandler = () => {
-        setQuery('')
-        setSelectedStock([])
-    }
-
     const favoritesClickHandler = () => {
         addToFavorites('aobc')
     }
 
     useEffect(() => {
-        toggleIsOpen(stockList.length !== 0)
         if(errorQuote) {
             setStockList([{name: errorQuote.message, symbol:'⊗'}])
         }
-    }, [stockList.length, errorQuote])
+    }, [errorQuote])
 
-    const renderStock = (stock: _Stock) => {
-        return (
-            <>
-            {!errorQuote ? 
-                <Stock onClick={() => onStockClick(stock)}>{stock.name} ({stock.symbol})</Stock>
-                :
-                <StockError>{stock.name} {stock.symbol}</StockError>
-            }
-            </>
-        )
-    }
+    useEffect(() => {
+        toggleIsOpen(stockList.length !== 0)
+    },[ stockList.length])
 
     useEffect(() => {
 
@@ -378,13 +334,42 @@ const Search: React.FC<SearchProps & Error> = ({
         return () => { clearTimeout(timeoutId); isCleared = true }
     }, [query]);
 
+    const renderSymbols = (stock: _Stock) => {
+        return (
+            // <>
+            // {!errorQuote ? 
+            //     <Stock onClick={() => onStockClick(stock)}><StockSpan>{stock.symbol}</StockSpan> {stock.name}</Stock>
+            //     :
+            //     <StockError>{stock.name} {stock.symbol}</StockError>
+            // }
+            // </>
+            // <>
+            // {!errorQuote ?
+                <TR key={stock.name} onClick={() => onStockClick(stock)}>
+                    <TdSymbol>{stock.symbol}</TdSymbol>
+                    <TdName>{stock.name} <TdEx>{stock.exchange}</TdEx></TdName>
+                </TR>
+                // <Stock onClick={() => onStockClick(stock)}><StockSpan>{stock.symbol}</StockSpan> {stock.name}</Stock>
+            //     :
+            //     <StockError>{stock.name} {stock.symbol}</StockError>
+            // }
+            // </>
+        )
+    }
+
+
+    const formatDate = (date: any) => new Date(date);
+    const EST = formatDate(moment()).toLocaleString("en-US", {
+        timeZone: "America/New_York"
+      });
+    const formattedEST = moment(EST).format("lll");
 
     return (
         <SearchContainer>
             <RowContainer>
                 <PriceGroup>
                     <SearchIcon>⚲</SearchIcon>
-                    <Input id='search' ref={inputSelect} value={query} onClick={inputClickHandler} onChange={(event: any) => { setQuery(event.target.value); toggleIsOpen(query.length > 0) }} onKeyPress={onKeyPress} onBlur={handleBlur} />
+                    <Input id='search' ref={inputSelect} value={query} onChange={(event: any) => { setQuery(event.target.value); toggleIsOpen(query.length > 0) }} onKeyPress={onKeyPress} onBlur={handleBlur} />
                     {query && (
                     <Label htmlFor='search'>
                         <LabelName>{selectedStock[0]}</LabelName>
@@ -393,27 +378,36 @@ const Search: React.FC<SearchProps & Error> = ({
                     )}
                 </PriceGroup>
                 {latestPrice && <TickerCard latestPrice={latestPrice} change={change} changePercent={changePercent} />}
+                {isOpen ? 
                 <StockList ref={dropSelect} tabIndex={-1}>
-                    {isOpen ? stockList.map( stock => renderStock(stock)) : null}
+                    <table style={{width: '100%'}}>
+                        <tbody style={{fontSize: '18px'}}>
+                            {stockList.map( stock => renderSymbols(stock))}
+                        </tbody> 
+                    </table>               
                 </StockList>
+                :
+                null
+                }
             </RowContainer>
             {
                 !errorQuote ?
                 <SubSearch>
-                    <SubInput>
-                        <Sub1>{primaryExchange}</Sub1>
+                    {primaryExchange && <SubInput>
+                        <Sub>{primaryExchange}</Sub>
                         <Sub>{tags[0]}</Sub>
                         <Sub>{tags[1]}</Sub>
-                    </SubInput>
-                    <DateOpen>
-                        {latestTime ? <Time>Real-Time Price as of {latestTime} EST</Time> : null}
+                        {/* <Sub>USD</Sub> */}
+                    </SubInput>}
+                    {primaryExchange && <DateOpen>
+                        {latestTime ? <Time>Real-Time Price as of {formattedEST} EST</Time> : null}
                         {tags.length < 1 ? null : isUSMarketOpen ? <MarketStatus><MarketIcon color='yellow'>☀</MarketIcon>Market Open</MarketStatus> : <MarketStatus><MarketIcon>☽</MarketIcon> Market Closed</MarketStatus>}
-                    </DateOpen>
+                    </DateOpen>}
                 </SubSearch>
                 :
                 <SubError />
             }
-           <Star favorites={favorites} ticker={ticker} add={addToFavorites} remove={removeFromFavorites}/>
+           {/* <Star favorites={favorites} ticker={ticker} add={addToFavorites} remove={removeFromFavorites}/> */}
         </SearchContainer>
     )
 

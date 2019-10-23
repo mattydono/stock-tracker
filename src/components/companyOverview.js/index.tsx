@@ -4,11 +4,11 @@ import loading from '../../gif/loading.gif'
 import styled from '@emotion/styled'
 import { Title } from '../Root'
 import FetchingError from '../errors/errorFetching'
+import AdaptiveLoader from '../loader'
 
 const CompanyOverviewContainer = styled.div`
     max-height: 400px;
-    height: 75%;
-    margin-bottom: 20px;
+    margin-bottom: 25px;
     @media(max-width: 750px) {
         margin-top: 40px;
         margin-bottom: 20px;
@@ -16,18 +16,19 @@ const CompanyOverviewContainer = styled.div`
 `
 
 const Name = styled.div`
-    margin-top: 5px;
-    font-size: 2rem;
+    margin-top: 10px;
+    font-size: 24px;
 `
 
 const Website = styled.div`
-    margin-top: 25px;
-    margin-bottom: 25px;
+    margin-top: 8px;
+    margin-bottom: 8px;
 `
 
 const Link = styled.a`
-    color: white;
     text-decoration: none;
+    font-size: 14px;
+    color: #beccdc;
     &:hover {
         color: #e0be86;
     };
@@ -37,19 +38,16 @@ const Link = styled.a`
 `
 
 const Description = styled.div`
-    font-size: 1.2rem;
+    font-size: 16px;
     max-height: 140px;
-`
-
-const CompanyLoading = styled.img`
-    background-color: rgba(89, 89, 105, 0.2);
-    border-radius: 5%;
 `
 
 const LoadingContainer = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
+    margin-top: 50px;
+    margin-bottom: 50px;
 `
 
 const OverflowContainer = styled.div`
@@ -84,7 +82,7 @@ const CompanyOverview: React.FC<_CompanyOverview & ErrorLoading> = ({ errorCompa
 
     const CompanyError = <FetchingError message={errorCompany.message}/>
 
-    const Loading = <LoadingContainer><CompanyLoading src={loading} /></LoadingContainer>
+    const Loading = <LoadingContainer><AdaptiveLoader size={50} seperation={2} speed={1.4} /></LoadingContainer>
 
     return (
         <CompanyOverviewContainer>
