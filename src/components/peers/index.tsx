@@ -1,5 +1,4 @@
 import React from 'react';
-import loading from '../../gif/loading.gif'
 import { Title } from '../Root'
 import styled from '@emotion/styled'
 import AdaptiveLoader from '../loader'
