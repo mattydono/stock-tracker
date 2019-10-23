@@ -132,9 +132,9 @@ export const Chart: React.FC<ChartProps> = ({ prices, ticker, open, latest, rang
                                 </defs>
                                 <CartesianGrid stroke='#1d4168' strokeWidth={0.8} />
                                 <XAxis axisLine={false} interval={interval} dataKey="label" type="category" allowDataOverflow={false} />
-                                <YAxis axisLine={false} orientation="right" domain={['dataMin', 'auto']} tickLine={false} />
+                                <YAxis axisLine={false} orientation="right" domain={['dataMin', 'auto']} tickLine={false} tickFormatter={item => item.toFixed(2)} />
                                 <ReferenceLine y={now.close} stroke={'#e95656'} strokeDasharray="3 3" label={
-                                    <Label value={now.close} position="right" fill="#e95656" /> } 
+                                    <Label value={now.close && now.close.toFixed(2)} position="right" fill="#e95656" /> } 
                                 />
                                 <Tooltip cursor={{ stroke: 'red', strokeWidth: 2 }} />
                                 <Area connectNulls type="monotone" dataKey="close" name="price" unit=" USD" fill='url(#area)' fillOpacity={1} stroke="#608fd1" />

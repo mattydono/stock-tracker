@@ -1,6 +1,7 @@
 import React, { useEffect, useState} from 'react';
 import { createURL, fetchData, getExpirationDate, chartFormatDates } from './helpers';
 import { _ChartSingleDataPoint, Range } from '../models';
+import io from 'socket.io-client';
 
 
 type ChartState = { 
@@ -57,6 +58,7 @@ const initialState: ChartState = {
     },
 }
 
+const socket = io('http://localhost:4000');
 
 
 const useChart: React.FC<useChartProps> = ({ range, ticker, open, updateChartPrices }): any =>  {
