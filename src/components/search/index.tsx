@@ -3,6 +3,7 @@ import { _Prices, _PriceSingleDataPoint } from '../../models';
 import TickerCard from './tickerCard';
 import styled from '@emotion/styled'
 import Star from './star';
+import io from 'socket.io-client';
 import moment from 'moment'
 
 const SearchContainer = styled.div`
@@ -245,6 +246,8 @@ type Error = {
     errorQuote: any,
 }
 
+const socket = io('http://localhost:4000');
+
 const Search: React.FC<SearchProps & Error> = ({ 
     errorQuote, 
     search, 
@@ -272,11 +275,17 @@ const Search: React.FC<SearchProps & Error> = ({
 
     const onKeyPress = (event: React.KeyboardEvent) => {
         if(event.key === 'Enter') {
-            search(query)
-            setQuery(`${stockList[0].name} (${stockList[0].symbol})`)
-            setSelectedStock([`${stockList[0].name}`, `(${stockList[0].symbol})`])
+            socket.emit('isValid', query);
+            socket.on('isValid', (bool: boolean) => {
+                if(bool) {
+                    search(query)
+                    setQuery(`${stockList[0].name} (${stockList[0].symbol})`)
+                    setQuery(`${stockList[0].name} (${stockList[0].symbol})`)
+                    setSelectedStock([`${stockList[0].name}`, `(${stockList[0].symbol})`])
+                }
+            });
             toggleIsOpen(false)
-            event.preventDefault()
+            event.preventDefault();
         }
     }
 
@@ -302,10 +311,6 @@ const Search: React.FC<SearchProps & Error> = ({
         })
     }
 
-    const favoritesClickHandler = () => {
-        addToFavorites('aobc')
-    }
-
     useEffect(() => {
         if(errorQuote) {
             setStockList([{name: errorQuote.message, symbol:'⊗'}])
@@ -322,38 +327,18 @@ const Search: React.FC<SearchProps & Error> = ({
             return setStockList([])
         }
 
-        let isCleared = false;
+        socket.emit('search', query);
 
-        const timeoutId = setTimeout(async () => {
-            const response = await fetch(`http://localhost:4000/stock/search/${query}`)
-            const data = await response.json()
-            if (!isCleared) {
-                setStockList(data)
-            }
-        }, 300);
-        return () => { clearTimeout(timeoutId); isCleared = true }
+        socket.on('search', (result: StockListItem[]) => setStockList(result) )
+
     }, [query]);
 
     const renderSymbols = (stock: _Stock) => {
         return (
-            // <>
-            // {!errorQuote ? 
-            //     <Stock onClick={() => onStockClick(stock)}><StockSpan>{stock.symbol}</StockSpan> {stock.name}</Stock>
-            //     :
-            //     <StockError>{stock.name} {stock.symbol}</StockError>
-            // }
-            // </>
-            // <>
-            // {!errorQuote ?
                 <TR key={stock.name} onClick={() => onStockClick(stock)}>
                     <TdSymbol>{stock.symbol}</TdSymbol>
                     <TdName>{stock.name} <TdEx>{stock.exchange}</TdEx></TdName>
                 </TR>
-                // <Stock onClick={() => onStockClick(stock)}><StockSpan>{stock.symbol}</StockSpan> {stock.name}</Stock>
-            //     :
-            //     <StockError>{stock.name} {stock.symbol}</StockError>
-            // }
-            // </>
         )
     }
 
@@ -407,16 +392,9 @@ const Search: React.FC<SearchProps & Error> = ({
                 :
                 <SubError />
             }
-           {/* <Star favorites={favorites} ticker={ticker} add={addToFavorites} remove={removeFromFavorites}/> */}
         </SearchContainer>
     )
 
 }
 
 export default Search;
-
-// ⚲
-
-                    {/* <Button onClick={inputClickHandler}></Button> */}
-                    {/* {isFavorite ? <span onClick={favoritesClickHandler} >&#9733;</span> : <span onClick={favoritesClickHandler} >&#9734;</span> } */}
-                    {/* <Star favorites={favorites} ticker={ticker} add={addToFavorites} remove={removeFromFavorites} /> */}
