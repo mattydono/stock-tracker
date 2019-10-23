@@ -1,7 +1,8 @@
-import React from 'react';
-import useChart from '../../redux/useChart';
-import styled from '@emotion/styled'
-import AdaptiveLoader from '../loader'
+import React, { useEffect, useState} from 'react';
+import styled from '@emotion/styled';
+import AdaptiveLoader from '../loader';
+import io from 'socket.io-client';
+import { chartFormatDates } from '../../redux/helpers';
 
 import { 
     XAxis, 
@@ -95,16 +96,32 @@ const RangeButton: React.FC<RangeButtonProps> = ({ range, update, current }) => 
 }
 
 
-export const Chart: React.FC<ChartProps> = ({ prices, ticker, open, latest, range, updateChartRange, updateChartPrices }) => {
-    const [chart]: any = useChart({ range, ticker, open, updateChartPrices });
+const socket = io('http://localhost:4000');
 
-    const fetching = chart[range] && chart[range].isFetching;
-    const fetchingAndStateEmpty = fetching && (prices.length === 0 || prices[0].symbol !== ticker);
-    const error = chart[range] && chart[range].error ? chart[range].error.message : '';
+
+export const Chart: React.FC<ChartProps> = ({ prices, ticker, open, latest, range, updateChartRange, updateChartPrices }) => {
+
+    const [fetching, setFetching] = useState(false);
+
+    const renderChart = (chart: _ChartSingleDataPoint[]) => {
+        setFetching(true);
+        const formattedChart = chartFormatDates(chart, range);
+        updateChartPrices(formattedChart);
+        setFetching(false);
+    }
+
+    useEffect(() => {
+        socket.emit('chart', [ticker, range]);
+        socket.on('chart', (result: _ChartSingleDataPoint[]) => renderChart(result));
+        return () => {
+            socket.emit('unsubscribeChart', [ticker, range])
+        }
+    }, [ticker, range])
 
 
     const ranges: Range[] = ['MAX', '5y', '1y', '1m', '5d', '1d'];
-    const buttons = ranges.map(rangeItem => <RangeButton key={rangeItem} current={rangeItem === range} range={rangeItem} update={updateChartRange} />)
+    const buttons = ranges.map(rangeItem => <RangeButton key={rangeItem} current={rangeItem === range} range={rangeItem} update={updateChartRange} />);
+    const fetchingAndStateEmpty = prices.length === 0 || fetching;
 
     const now: _ChartSingleDataPoint = {
         label: 'now',
@@ -142,11 +159,11 @@ export const Chart: React.FC<ChartProps> = ({ prices, ticker, open, latest, rang
                                 <Area connectNulls type="monotone" dataKey="close" name="price" unit=" USD" fill='url(#area)' fillOpacity={1} stroke="#608fd1" />
                             </AreaChart>
                         </ResponsiveContainer>
-                        {
+                        {/* {
                             fetching ? <p style={{marginLeft: '35px'}}>fetching data...</p>
                             : error ? <p>{error}</p>
                             : <p>&nbsp;</p>
-                        }
+                        } */}
                     </>
                     :
                     <ChartLoadingContainer>
