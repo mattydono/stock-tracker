@@ -21,9 +21,8 @@ import {
     updatePeers,
     updateChartRange,
     updateChartData,
-    updateFavoritesAddTicker,
-    updateFavoritesRemoveTicker,
     updatePricesData,
+    resetState,
 } from '../redux/actions'
 
 import { connect } from 'react-redux';
@@ -144,10 +143,11 @@ const Root: React.FC<_StateProps & _DispatchProps> = ({
     footerProps,
     updateChartRange,
     updateChartPrices,
-    searchProps
+    searchProps,
+    resetState,
 }) => {
 
-    const [errors, fetching]:any = useTicker({ ticker, favorites, callbacks })
+    const [errors, fetching]:any = useTicker({ ticker, favorites, callbacks, resetState })
 
     const { news: isFetchingNews = false, quote: isFetchingQuote = false, company: isFetchingCompany = false, peers: isFetchingPeers = false } = fetching;
 
@@ -221,6 +221,7 @@ const mapDispatchToProps: MapDispatchToProps<_DispatchProps, {}> = dispatch => (
     search: query => dispatch(updateTicker(query)),
     updateChartRange: range => dispatch(updateChartRange(range)),
     updateChartPrices: prices => dispatch(updateChartData(prices)),
+    resetState: () => dispatch(resetState(undefined)),
     callbacks: {
         company: company => dispatch(updateCompany(company)),
         quote: quote => dispatch(updateKeyStats(quote)),

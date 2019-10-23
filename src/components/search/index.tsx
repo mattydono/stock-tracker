@@ -289,7 +289,7 @@ const Search: React.FC<SearchProps & Error> = ({
 
     const handleBlur = () => {
         if(!isOpen) return
-
+        
         requestAnimationFrame(() => {
                 if(!inputSelect.current!.contains(document.activeElement) && !dropSelect.current!.contains(document.activeElement)) {
                     toggleIsOpen(false)

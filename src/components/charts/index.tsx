@@ -101,13 +101,9 @@ const socket = io('http://localhost:4000');
 
 export const Chart: React.FC<ChartProps> = ({ prices, ticker, open, latest, range, updateChartRange, updateChartPrices }) => {
 
-    const [fetching, setFetching] = useState(false);
-
     const renderChart = (chart: _ChartSingleDataPoint[]) => {
-        setFetching(true);
         const formattedChart = chartFormatDates(chart, range);
         updateChartPrices(formattedChart);
-        setFetching(false);
     }
 
     useEffect(() => {
@@ -121,7 +117,7 @@ export const Chart: React.FC<ChartProps> = ({ prices, ticker, open, latest, rang
 
     const ranges: Range[] = ['MAX', '5y', '1y', '1m', '5d', '1d'];
     const buttons = ranges.map(rangeItem => <RangeButton key={rangeItem} current={rangeItem === range} range={rangeItem} update={updateChartRange} />);
-    const fetchingAndStateEmpty = prices.length === 0 || fetching;
+    const fetchingAndStateEmpty = prices.length === 0;
 
     const now: _ChartSingleDataPoint = {
         label: 'now',

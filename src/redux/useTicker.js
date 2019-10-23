@@ -19,7 +19,7 @@ const isFetchingInitialState = {
 
 const socket = io('http://localhost:4000');
 
-const useTicker = ({ticker, favorites: favoritesArray, callbacks: { quote, news, company, peers, prices }}) => {
+const useTicker = ({ticker, favorites: favoritesArray, callbacks: { quote, news, company, peers, prices }, resetState}) => {
 
     const [errors, setErrors] = useState(errorInitialState);
     const [isFetching, setIsFetching] = useState(isFetchingInitialState);
@@ -32,6 +32,9 @@ const useTicker = ({ticker, favorites: favoritesArray, callbacks: { quote, news,
         socket.emit('news', ticker);
         socket.on('news', result => news(result));
         socket.on('error', err => setErrors(state => ({ ...state, [err]: true })));
+
+        return () => resetState()
+
     }, [ticker])
 
     useEffect(() => {
