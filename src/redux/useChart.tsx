@@ -55,6 +55,13 @@ const initialState: ChartState = {
         isFetching: false,
         expirationTime: null,
     },
+    'MAX': {
+        ticker: null,
+        data: [],
+        error: false,
+        isFetching: false,
+        expirationTime: null,
+    },
 }
 
 

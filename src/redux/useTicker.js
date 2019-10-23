@@ -22,7 +22,6 @@ const useTicker = ({ticker, favorites: favoritesArray, callbacks: { quote, news,
     const [errors, setErrors] = useState(errorInitialState);
     const [isFetching, setIsFetching] = useState(isFetchingInitialState);
 
-
     useEffect(() => {
         const fetchCompany = () => fetchDataWrapper(createURL(ticker, 'company'), company, (e) => setErrors(state => ({ ...state, company: e })), (bool) => setIsFetching(state => ({ ...state, company: bool })));
         const fetchNews = () => fetchData(createURL(ticker, 'news'), news, (e) => setErrors(state => ({ ...state, news: e })), (bool) => setIsFetching(state => ({ ...state, news: bool })));

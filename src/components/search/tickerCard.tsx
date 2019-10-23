@@ -8,6 +8,7 @@ const PriceStats = styled.div`
     font-weight: 300;
     @media(max-width: 1000px) {
         max-height: 60px;
+        justify-content: center;
     };
     @media(max-width: 650px) {
         margin-top: 10px;

@@ -27,14 +27,15 @@ const PeersLoadingContainer = styled.div`
 `
 
 const ContentContainer = styled.div`
-    margin-top: 10px;
+    margin-top: 10.2px;
     display: flex;
     flex-flow: row wrap;
     color: #beccdc;
 `
 
 const Peer = styled.span`
-    margin-right: 15px;
+    margin-right: 18px;
+    font-size: 14px;
     &:hover {
         color: #e0be86;
         cursor: pointer;
@@ -50,10 +51,14 @@ type ErrorLoading = {
     isFetchingPeers: boolean,
 }
 
+const HARD_PEERS = [
+    'MSFT',' NOK', 'IBM'
+]
+
 const Peers: React.FC<PeersProps & ErrorLoading> = ({ errorPeers, isFetchingPeers, peers }) => {
 
     const renderPeer = (peer: string) => {
-        return <Peer>{peer}</Peer>
+        return <Peer key={peer} >{peer}</Peer>
     }
 
     return (
@@ -61,7 +66,7 @@ const Peers: React.FC<PeersProps & ErrorLoading> = ({ errorPeers, isFetchingPeer
                 <Title>TOP PEERS</Title>
                 {!isFetchingPeers ?
                     <ContentContainer>
-                        {peers.map( peer => renderPeer(peer))}
+                        {HARD_PEERS.map( peer => renderPeer(peer))}
                     </ContentContainer>
                     : isFetchingPeers && !errorPeers ?
                     <PeersLoadingContainer>
