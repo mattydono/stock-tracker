@@ -40,3 +40,7 @@ export type UpdateFavoritesRemoveTickerAction = ReturnType<typeof updateFavorite
 export const UPDATE_PRICES_DATA = 'UPDATE_PRICES_DATA';
 export const updatePricesData = createAction<_PriceSingleDataPoint[]>(UPDATE_PRICES_DATA);
 export type UpdatePricesDataAction = ReturnType<typeof updatePricesData>;
+
+export const RESET_APP_STATE = 'RESET_APP_STATE';
+export const resetState = createAction<undefined>(RESET_APP_STATE);
+export type ResetStateAction = ReturnType<typeof resetState>

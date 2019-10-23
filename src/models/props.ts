@@ -37,6 +37,7 @@ export interface _DispatchProps {
     search: (query: string) => void,
     updateChartRange: (range: Range) => void,
     updateChartPrices: (prices: _ChartSingleDataPoint[]) => void,
+    resetState: () => void,
     callbacks: {
         company: (company: _CompanyOverview) => void,
         quote: (quote: _KeyStats) => void,

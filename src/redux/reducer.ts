@@ -8,7 +8,9 @@ import { UpdateTickerAction, UPDATE_TICKER,
         UpdatePeersAction, UPDATE_PEERS,
         UpdateFavoritesAddTickerAction, FAVORITES_ADD_TICKER,
         UpdateFavoritesRemoveTickerAction, FAVORITES_REMOVE_TICKER,
-        UpdatePricesDataAction, UPDATE_PRICES_DATA } from './actions'
+        UpdatePricesDataAction, UPDATE_PRICES_DATA,
+        ResetStateAction, RESET_APP_STATE
+     } from './actions'
 import { _CompanyOverview, _KeyStats, _Charts, _News, _Prices } from '../models'
 
 export interface _AppState {
@@ -78,13 +80,16 @@ const search: Reducer<string, UpdateTickerAction> = (
 
 const companyOverview = (
     state = companyOverviewInitialState, 
-    action: UpdateCompanyAction
+    action: UpdateCompanyAction | ResetStateAction
     ) => {
     switch (action.type) {
         case UPDATE_COMPANY: {
             const updateCompanyAction = action as UpdateCompanyAction
             const { payload } = updateCompanyAction;
             return payload;
+        }
+        case RESET_APP_STATE: {
+            return companyOverviewInitialState
         }
         default: {
             return state;
@@ -102,6 +107,9 @@ const keyStats = (
             const { payload } = updateKeyStatsAction;
             return ({ ...state, ...payload });
         }
+        case RESET_APP_STATE: {
+            return keyStatsInitialState
+        }
         default: {
             return state;
         }
@@ -118,6 +126,9 @@ const news = (
             const { payload } = updateNewsAction;
             return payload;
         }
+        case RESET_APP_STATE: {
+            return newsInitialState
+        }
         default: {
             return state;
         }
@@ -133,6 +144,9 @@ const peers = (
             const updatePeersAction = action as UpdatePeersAction
             const { payload } = updatePeersAction;
             return payload
+        }
+        case RESET_APP_STATE: {
+            return ['']
         }
         default: {
             return state;
@@ -154,6 +168,9 @@ const charts = (
             const updateChartDataAction = action as UpdateChartDataAction
             const { payload } = updateChartDataAction;
             return ({ ...state, prices: payload });
+        }
+        case RESET_APP_STATE: {
+            return chartsIntitialState
         }
         default: {
             return state;
