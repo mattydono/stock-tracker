@@ -1,5 +1,4 @@
 import React from 'react';
-import loading from '../../gif/loading.gif'
 import useChart from '../../redux/useChart';
 import styled from '@emotion/styled'
 import AdaptiveLoader from '../loader'
@@ -14,7 +13,6 @@ import {
     Area,
     ReferenceLine,
     Label,
-    Text,
 } from 'recharts';
 import { _ChartSingleDataPoint, Range } from '../../models';
 
@@ -101,7 +99,7 @@ export const Chart: React.FC<ChartProps> = ({ prices, ticker, open, latest, rang
     const [chart]: any = useChart({ range, ticker, open, updateChartPrices });
 
     const fetching = chart[range] && chart[range].isFetching;
-    const fetchingAndStateEmpty = fetching && (prices.length == 0 || prices[0].symbol !== ticker);
+    const fetchingAndStateEmpty = fetching && (prices.length === 0 || prices[0].symbol !== ticker);
     const error = chart[range] && chart[range].error ? chart[range].error.message : '';
 
 
@@ -135,8 +133,8 @@ export const Chart: React.FC<ChartProps> = ({ prices, ticker, open, latest, rang
                                     </linearGradient>
                                 </defs>
                                 <CartesianGrid stroke='#1d4168' strokeWidth={0.8} />
-                                <XAxis tick={{fill: 'white', fontWeight: '300'}} axisLine={false} interval={interval} dataKey="label" type="category" allowDataOverflow={false} />
-                                <YAxis tick={{fill: 'white', fontWeight: '300'}} axisLine={false} orientation="right" domain={['dataMin', 'auto']} tickLine={false} tickFormatter={item => item.toFixed(2)} />
+                                <XAxis tick={{fill: 'white'}} axisLine={false} interval={interval} dataKey="label" type="category" allowDataOverflow={false} />
+                                <YAxis tick={{fill: 'white'}} axisLine={false} orientation="right" domain={['dataMin', 'auto']} tickLine={false} tickFormatter={item => item.toFixed(2)} />
                                 <ReferenceLine y={now.close} stroke={'#e95656'} strokeDasharray="3 3" label={
                                     <Label value={now.close && now.close.toFixed(2)} position="right" fill="#e95656" /> } 
                                 />

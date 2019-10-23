@@ -1,27 +1,15 @@
 import React from 'react';
-import { _PriceSingleDataPoint, _Favorites } from '../../models';
+import { _PriceSingleDataPoint } from '../../models';
 import USMarketsMockData from './USMarketsMockData.json';
 
 import TickerCard from './footerTickerCard';
 
 import styled from '@emotion/styled'
-import { keyframes } from '@emotion/core';
 
 type FooterProps = {
     prices: _PriceSingleDataPoint[],
     favorites: string[],
 }
-
-const footerAnimation = keyframes`
-    0% {
-        transform: translateX(0%);
-        left: 100%;
-    }
-    100% {
-        transform: translateX(-100%);
-        left: 0;
-    }
-`
 
 const FooterContainer = styled.div`
     position: fixed;

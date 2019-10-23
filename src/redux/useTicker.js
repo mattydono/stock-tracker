@@ -31,6 +31,7 @@ const useTicker = ({ticker, favorites: favoritesArray, callbacks: { quote, news,
         socket.on('keystats', result => quote(result));
         socket.emit('news', ticker);
         socket.on('news', result => news(result));
+        socket.on('error', err => setErrors(state => ({ ...state, [err]: true })));
     }, [ticker])
 
     useEffect(() => {

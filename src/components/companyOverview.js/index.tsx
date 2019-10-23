@@ -1,6 +1,5 @@
 import React from 'react';
 import { _CompanyOverview } from '../../models'
-import loading from '../../gif/loading.gif'
 import styled from '@emotion/styled'
 import { Title } from '../Root'
 import FetchingError from '../errors/errorFetching'

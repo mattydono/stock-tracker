@@ -42,10 +42,6 @@ export interface _DispatchProps {
         quote: (quote: _KeyStats) => void,
         news: (news: _News) => void,
         peers: (peers: string[]) => void,
-        favorites: {
-            add : (ticker: string) => void,
-            remove : (ticker: string) => void,
-        }
         prices: (prices: _Prices) => void,
     }
 };

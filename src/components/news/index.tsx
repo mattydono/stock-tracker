@@ -1,9 +1,7 @@
 import React from 'react';
 import { _News } from '../../models'
 import styled from '@emotion/styled'
-import loading from '../../gif/loading.gif'
 import { Title } from '../Root'
-import FetchingError from '../errors/errorFetching';
 import Article from './article';
 import AdaptiveLoader from '../loader'
 

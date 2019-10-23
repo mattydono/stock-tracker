@@ -158,8 +158,6 @@ const Root: React.FC<_StateProps & _DispatchProps> = ({
             <AppContainer>
                 <Header />
                 <Search 
-                addToFavorites={callbacks.favorites.add}
-                removeFromFavorites={callbacks.favorites.remove}
                 search={search} 
                 errorQuote={errorQuote}
                 {...searchProps}
@@ -188,7 +186,7 @@ const Root: React.FC<_StateProps & _DispatchProps> = ({
 
 const mapStateToProps: MapStateToProps<_StateProps, {}, _AppState> = state => {
     const { companyOverview, search, keyStats, news, peers, favorites, prices, charts } = state;
-    const { isUSMarketOpen, primaryExchange, latestTime, ...keyStatsProps } = keyStats;
+    const { isUSMarketOpen, primaryExchange, latestTime } = keyStats;
     const { tags } = companyOverview;
     const { range, prices: chartPrices } = charts;
     const price = prices.filter(({ ticker }) => ticker === search)[0] || prices[0];
@@ -228,10 +226,6 @@ const mapDispatchToProps: MapDispatchToProps<_DispatchProps, {}> = dispatch => (
         quote: quote => dispatch(updateKeyStats(quote)),
         news: news => dispatch(updateNews(news)),
         peers: peers => dispatch(updatePeers(peers)),
-        favorites: {
-            add: ticker => dispatch(updateFavoritesAddTicker(ticker)),
-            remove: ticker => dispatch(updateFavoritesRemoveTicker(ticker)),
-        },
         prices: prices => dispatch(updatePricesData(prices))
     }
 })

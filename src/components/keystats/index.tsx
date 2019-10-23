@@ -1,6 +1,5 @@
 import React from 'react';
 import { _KeyStats } from '../../models'
-import loading from '../../gif/loading.gif'
 import styled from '@emotion/styled'
 import { Title } from '../Root'
 import { numberWithCommas } from '../../redux/helpers'
@@ -119,8 +118,6 @@ const KeyStats: React.FC<_KeyStats & any> = ({
         dividendYield,
         actualEPS,
     } = keystatsProps;
-
-    const KeyStatsError = <div style={{color: 'red', marginBottom: '1rem'}}>{nullValues ? 'Fetching stats failed' : 'Connection to server lost'}</div>;
 
     return (    
         <KeyStatsContainer>

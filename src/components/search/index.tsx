@@ -1,8 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { _Prices, _PriceSingleDataPoint } from '../../models';
+import { _PriceSingleDataPoint } from '../../models';
 import TickerCard from './tickerCard';
 import styled from '@emotion/styled'
-import Star from './star';
 import io from 'socket.io-client';
 import moment from 'moment'
 
@@ -174,11 +173,6 @@ const SubError = styled.div`
     opacity: 0;
 `
 
-const StockError = styled.div`
-    background-color: rgba(0,24,57,0.9);
-    color: #c72820;
-`
-
 const SearchIcon = styled.div`
     height: 23.5px;
     width: 23.5px;
@@ -226,8 +220,6 @@ type _Stock = {
 
 type SearchProps = {
     search: (query: string) => void,
-    addToFavorites: (ticker: string) => void,
-    removeFromFavorites: (ticker: string) => void,
     latestPrice?: number,
     primaryExchange: string | null,
     tags: string[],
@@ -255,15 +247,11 @@ const Search: React.FC<SearchProps & Error> = ({
     tags, 
     latestTime, 
     isUSMarketOpen, 
-    favorites, 
     price: { 
-        ticker, 
         change, 
         changePercent, 
         latestPrice 
-    },
-    addToFavorites,
-    removeFromFavorites,
+    }
 }) => {
 
     const [query, setQuery] = useState<string>('Apple Inc (AAPL)');

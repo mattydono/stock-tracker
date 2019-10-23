@@ -1,5 +1,5 @@
 import React, { useEffect, useState} from 'react';
-import { createURL, fetchData, getExpirationDate, chartFormatDates } from './helpers';
+import { getExpirationDate, chartFormatDates } from './helpers';
 import { _ChartSingleDataPoint, Range } from '../models';
 import io from 'socket.io-client';
 
