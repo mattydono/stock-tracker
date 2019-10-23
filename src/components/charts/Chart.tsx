@@ -1,8 +1,8 @@
-import React, { useEffect, useState} from 'react';
+import React, { useEffect } from 'react';
 import styled from '@emotion/styled';
-import AdaptiveLoader from '../loader';
+import AdaptiveLoader from '../loader/Loader';
 import io from 'socket.io-client';
-import { chartFormatDates } from '../../redux/helpers';
+import { chartFormatDates } from './chart_formatter';
 
 import { 
     XAxis, 
@@ -15,7 +15,7 @@ import {
     ReferenceLine,
     Label,
 } from 'recharts';
-import { _ChartSingleDataPoint, Range } from '../../models';
+import { _ChartSingleDataPoint, Range } from './models';
 
 const ChartContainer = styled.div`    
     flex: 0 1 66%;
@@ -94,7 +94,6 @@ const RangeButton: React.FC<RangeButtonProps> = ({ range, update, current }) => 
         </LabelRange>
     )
 }
-
 
 const socket = io('http://localhost:4000');
 

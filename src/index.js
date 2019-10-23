@@ -2,13 +2,25 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 import { Provider } from 'react-redux';
-import { createStore } from 'redux';
-
-import rootReducer from './redux/reducer';
+import { createStore, combineReducers } from 'redux';
 
 import Root from './components/Root';
 
 import './index.css'
+
+import { search, companyOverview, keyStats, news, peers, favorites, prices} from './redux/reducer'
+import { charts } from './components/charts/redux/reducers'
+
+const rootReducer = combineReducers({
+    search,
+    companyOverview,
+    keyStats,
+    news,
+    peers,
+    charts,
+    favorites,
+    prices
+})
 
 const store = createStore(
     rootReducer,

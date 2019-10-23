@@ -1,9 +1,8 @@
-import { _ChartSingleDataPoint } from './charts'
-import { _CompanyOverview } from './companyOverview'
-import { _KeyStats } from './keyStats'
-import { _News } from './news'
-import { Range } from './range'
-import { _Favorites } from './favorites';
+import { _ChartSingleDataPoint } from '../components/charts/models/charts'
+import { _CompanyOverview } from '../components/companyOverview/models/companyOverview'
+import { _KeyStats } from '../components/keystats/models/keyStats'
+import { _News } from '../components/news/models/news'
+import { Range } from '../components/charts/models/range'
 import { _Prices, _PriceSingleDataPoint } from './prices';
 
 export interface _StateProps {

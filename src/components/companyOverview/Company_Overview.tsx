@@ -1,9 +1,9 @@
 import React from 'react';
-import { _CompanyOverview } from '../../models'
+import { _CompanyOverview } from './models/companyOverview'
 import styled from '@emotion/styled'
 import { Title } from '../Root'
-import FetchingError from '../errors/errorFetching'
-import AdaptiveLoader from '../loader'
+import FetchingError from '../errors/Error_Fetching'
+import AdaptiveLoader from '../loader/Loader'
 
 const CompanyOverviewContainer = styled.div`
     max-height: 400px;

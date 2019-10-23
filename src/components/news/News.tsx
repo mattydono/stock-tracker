@@ -1,9 +1,9 @@
 import React from 'react';
-import { _News } from '../../models'
+import { _News } from './models/news'
 import styled from '@emotion/styled'
 import { Title } from '../Root'
 import Article from './article';
-import AdaptiveLoader from '../loader'
+import AdaptiveLoader from '../loader/Loader'
 
 const NewsContainer =styled.div`
     flex: 0 1 34%;

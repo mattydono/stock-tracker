@@ -1,8 +1,6 @@
 import { combineReducers, Reducer } from 'redux';
 import { UpdateTickerAction, UPDATE_TICKER, 
         UpdateKeyStatsAction, UPDATE_KEY_STATS, 
-        UpdateChartDataAction, UPDATE_CHART_DATA, 
-        UpdateChartRangeAction, UPDATE_CHART_RANGE, 
         UpdateCompanyAction, UPDATE_COMPANY, 
         UpdateNewsAction, UPDATE_NEWS, 
         UpdatePeersAction, UPDATE_PEERS,
@@ -11,7 +9,11 @@ import { UpdateTickerAction, UPDATE_TICKER,
         UpdatePricesDataAction, UPDATE_PRICES_DATA,
         ResetStateAction, RESET_APP_STATE
      } from './actions'
-import { _CompanyOverview, _KeyStats, _Charts, _News, _Prices } from '../models'
+import { _CompanyOverview } from '../components/companyOverview/models/companyOverview'
+import { _KeyStats } from '../components/keystats/models/keyStats'
+import { _Charts } from '../components/charts/models/charts'
+import { _News } from '../components/news/models/news'
+import { _Prices } from '../models/prices'
 
 export interface _AppState {
     search: string,
@@ -51,18 +53,13 @@ const keyStatsInitialState: _KeyStats = {
     isFetchingQuote: false,
 }
 
-const chartsIntitialState: _Charts = {
-    range: '1m',
-    prices: [],
-}
-
 const newsInitialState: _News = []
 
 const favoritesInitialState: string[] = ['amzn', 'msft', 'fb']
 
 const pricesInitialState: _Prices = [{ ticker: 'aapl', change: 0, changePercent: 0, latestPrice: 0 }]
 
-const search: Reducer<string, UpdateTickerAction> = (
+export const search: Reducer<string, UpdateTickerAction> = (
     state = 'aapl', 
     action
 ) => {
@@ -78,7 +75,7 @@ const search: Reducer<string, UpdateTickerAction> = (
     }
 };
 
-const companyOverview = (
+export const companyOverview = (
     state = companyOverviewInitialState, 
     action: UpdateCompanyAction | ResetStateAction
     ) => {
@@ -97,7 +94,7 @@ const companyOverview = (
     }
 }
 
-const keyStats = (
+export const keyStats = (
     state = keyStatsInitialState, 
     action: UpdateKeyStatsAction
     ) => {
@@ -116,7 +113,7 @@ const keyStats = (
     }
 }
 
-const news = (
+export const news = (
     state = newsInitialState,
     action: UpdateNewsAction
     ) => {
@@ -135,7 +132,7 @@ const news = (
     }
 }
 
-const peers = (
+export const peers = (
     state = [''],
     action: UpdatePeersAction
     ) => {
@@ -154,31 +151,7 @@ const peers = (
     }
 }
 
-const charts = (
-    state = chartsIntitialState, 
-    action: UpdateChartDataAction | UpdateChartRangeAction
-    ) => {
-    switch (action.type) {
-        case UPDATE_CHART_RANGE: {
-            const updateChartRangeAction = action as UpdateChartRangeAction
-            const { payload } = updateChartRangeAction;
-            return ({ ...state, range: payload })
-        }
-        case UPDATE_CHART_DATA: {
-            const updateChartDataAction = action as UpdateChartDataAction
-            const { payload } = updateChartDataAction;
-            return ({ ...state, prices: payload });
-        }
-        case RESET_APP_STATE: {
-            return chartsIntitialState
-        }
-        default: {
-            return state;
-        }
-    }
-}
-
-const favorites = (
+export const favorites = (
     state = favoritesInitialState,
     action: UpdateFavoritesAddTickerAction | UpdateFavoritesRemoveTickerAction
     ) => {
@@ -203,7 +176,7 @@ const favorites = (
     }
 }
 
-const prices = (state = pricesInitialState, action: UpdatePricesDataAction) => {
+export const prices = (state = pricesInitialState, action: UpdatePricesDataAction) => {
     const { type } = action;
     switch (type) {
         case UPDATE_PRICES_DATA: {
@@ -216,14 +189,3 @@ const prices = (state = pricesInitialState, action: UpdatePricesDataAction) => {
         }
     }
 }
-
-export default combineReducers({
-    search,
-    companyOverview,
-    keyStats,
-    news,
-    peers,
-    charts,
-    favorites,
-    prices
-})

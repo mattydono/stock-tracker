@@ -2,14 +2,14 @@ import React from 'react';
 import { MapDispatchToProps, MapStateToProps } from 'react-redux'
 import { _StateProps, _DispatchProps } from '../models/props'
 import { _AppState } from '../redux/reducer'
-import Search from './search';
-import CompanyOverview from './companyOverview.js';
-import KeyStats from './keystats';
-import News from './news';
-import Peers from './peers';
-import Chart from './charts';
-import Header from './header';
-import Footer from './footer';
+import Search from './search/Search';
+import CompanyOverview from './companyOverview/Company_Overview';
+import KeyStats from './keystats/Key_Stats';
+import News from './news/News';
+import Peers from './peers/Peers';
+import Chart from './charts/Chart';
+import Header from './header/Header';
+import Footer from './footer/Footer';
 import useTicker from '../redux/useTicker';
 import logo from '../components/header/logo.png'
 
@@ -19,11 +19,11 @@ import {
     updateKeyStats,
     updateNews,
     updatePeers,
-    updateChartRange,
-    updateChartData,
     updatePricesData,
     resetState,
 } from '../redux/actions'
+
+import { updateChartRange, updateChartData } from '../components/charts/redux/actions/actions'
 
 import { connect } from 'react-redux';
 
