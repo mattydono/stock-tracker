@@ -9,7 +9,7 @@ import Root from './components/Root';
 import './index.css'
 
 import { search, companyOverview, keyStats, news, peers, favorites, prices} from './redux/reducer'
-import { charts } from './components/charts/redux/reducers'
+import { charts } from './components/charts/redux/reducers/reducer'
 
 const rootReducer = combineReducers({
     search,
