@@ -18,10 +18,14 @@ const PriceStats = styled.div`
     };
 `
 
-const Span = styled.span`
+type SpanProps = {
+    color: string
+}
+
+const Span = styled.span<SpanProps>`
     display: flex;
     margin-right: 2px;
-    color: ${(props: any) => props.color ? '#91e4a5' : '#e95656'};
+    color: ${(props: SpanProps) => props.color};
 `
 
 const PriceIcon = styled.span`
@@ -69,28 +73,28 @@ const TickerCard: React.FC<TickerCardPropTypes> = ({ latestPrice, change, change
                 {
                     !change ? null 
                     : change > 0 ? 
-                        <Span color='green'>
+                        <Span color='#91e4a5'>
                             <PriceIcon>&#129121;</PriceIcon>
                             {Math.abs(change).toFixed(2)}
                         </Span> 
-                    : <Span><PriceIcon>&#129123;</PriceIcon>{Math.abs(change).toFixed(2)}</Span>
+                    : <Span color='#e95656'><PriceIcon>&#129123;</PriceIcon>{Math.abs(change).toFixed(2)}</Span>
                 } 
                 {
                     !change ? null 
                     : change > 0 ? 
-                        <Span color='green'>|</Span> 
+                        <Span color='#91e4a5'>|</Span> 
                     : 
-                        <Span>|</Span> 
+                        <Span color='#e95656'>|</Span> 
                 }
                 {
                     !changePercent ? null 
                     : changePercent > 0 ? 
-                        <Span color='green'>
+                        <Span color='#91e4a5'>
                             {Math.abs(Math.round((changePercent * 100) * 100) / 100).toFixed(2)}
                             <PriceIcon>%</PriceIcon>
                         </Span> 
                     : 
-                        <Span>
+                        <Span color='#e95656'>
                             {Math.abs(Math.round((changePercent * 100) * 100) / 100).toFixed(2)}
                             <PriceIcon>%</PriceIcon>
                         </Span>
