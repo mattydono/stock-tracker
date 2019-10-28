@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 import { Provider } from 'react-redux';
-import { createStore, combineReducers } from 'redux';
+import { createStore, combineReducers, compose } from 'redux';
 
 import Root from './components/Root';
 
@@ -28,9 +28,15 @@ const rootReducer = combineReducers({
     prices
 })
 
+declare global {
+    interface Window {
+        __REDUX_DEVTOOLS_EXTENSION__?: typeof compose // module augmentation ts
+    }
+}
+
 const store = createStore(
     rootReducer,
-    (window as any).__REDUX_DEVTOOLS_EXTENSION__ && (window as any).__REDUX_DEVTOOLS_EXTENSION__()
+    window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
 );
 
 
