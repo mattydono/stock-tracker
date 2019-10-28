@@ -8,8 +8,14 @@ import Root from './components/Root';
 
 import './index.css'
 
-import { search, companyOverview, keyStats, news, peers, favorites, prices} from './redux/reducer'
+import { prices } from './redux/reducers/price'
 import { charts } from './components/charts/redux/reducers/reducer'
+import { companyOverview } from './components/companyOverview/redux/reducers/reducer'
+import { keyStats } from './components/keystats/redux/reducers/reducer'
+import { news } from './components/news/redux/reducers/reducer'
+import { peers } from './components/peers/redux/reducers/reducer'
+import { search } from './components/search/redux/reducers/reducer'
+import { favorites } from './components/footer/redux/reducers/reducer'
 
 const rootReducer = combineReducers({
     search,
