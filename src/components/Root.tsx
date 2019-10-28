@@ -1,29 +1,31 @@
 import React from 'react';
 import { MapDispatchToProps, MapStateToProps } from 'react-redux'
 import { _StateProps, _DispatchProps } from '../models/props'
-import { _AppState } from '../redux/reducer'
-import Search from './search';
-import CompanyOverview from './companyOverview.js';
-import KeyStats from './keystats';
-import News from './news';
-import Peers from './peers';
-import Chart from './charts';
-import Header from './header';
-import Footer from './footer';
+import Search from './search/Search';
+import CompanyOverview from './companyOverview/Company_Overview';
+import KeyStats from './keystats/Key_Stats';
+import News from './news/News';
+import Peers from './peers/Peers';
+import Chart from './charts/Chart';
+import Header from './header/Header';
+import Footer from './footer/Footer';
 import useTicker from '../redux/useTicker';
 import logo from '../components/header/logo.png'
 
-import {
-    updateTicker,
-    updateCompany,
-    updateKeyStats,
-    updateNews,
-    updatePeers,
-    updateChartRange,
-    updateChartData,
-    updatePricesData,
-    resetState,
-} from '../redux/actions'
+import { resetState } from '../redux/actions/reset_app'
+import { updateChartRange, updateChartData } from '../components/charts/redux/actions/actions'
+import { updateCompany } from '../components/companyOverview/redux/actions/actions'
+import { updateKeyStats } from '../components/keystats/redux/actions/actions'
+import { updateNews } from '../components/news/redux/actions/actions'
+import { updatePeers } from '../components/peers/redux/actions/actions'
+import { updateTicker } from '../components/search/redux/actions/actions'
+import { updatePricesData } from '../redux/actions/price'
+
+import { _CompanyOverview } from '../components/companyOverview/models/companyOverview'
+import { _KeyStats } from '../components/keystats/models/keyStats'
+import { _Charts } from '../components/charts/models/charts'
+import { _News } from '../components/news/models/news'
+import { _Prices } from '../models/prices'
 
 import { connect } from 'react-redux';
 
@@ -129,6 +131,16 @@ const FooterLogo = styled.img`
         display: none;
     }
 `
+interface _AppState {
+    search: string,
+    companyOverview: _CompanyOverview,
+    keyStats: _KeyStats,
+    charts: _Charts,
+    news: _News,
+    peers: string[],
+    favorites: string[],
+    prices: _Prices,
+}
 
 const Root: React.FC<_StateProps & _DispatchProps> = ({ 
     ticker, 

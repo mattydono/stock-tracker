@@ -1,5 +1,5 @@
 import React from 'react';
-import { _PriceSingleDataPoint } from '../../models';
+import { _PriceSingleDataPoint } from '../../models/prices';
 import USMarketsMockData from './USMarketsMockData.json';
 
 import TickerCard from './footerTickerCard';

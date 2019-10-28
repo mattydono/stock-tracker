@@ -1,5 +1,5 @@
 import React from 'react';
-import { _Article } from '../../models';
+import { _Article } from './models/news';
 import moment from 'moment';
 import styled from '@emotion/styled'
 

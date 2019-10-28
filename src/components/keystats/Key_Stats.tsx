@@ -1,9 +1,8 @@
 import React from 'react';
-import { _KeyStats } from '../../models'
+import { _KeyStats } from './models/keyStats'
 import styled from '@emotion/styled'
 import { Title } from '../Root'
-import { numberWithCommas } from '../../redux/helpers'
-import AdaptiveLoader from '../loader'
+import AdaptiveLoader from '../loader/Loader'
 
 const KeyStatsContainer = styled.div`
     flex: 0 1 63%;
@@ -95,6 +94,10 @@ const StatsErrorMessage = styled.div`
     font-size: 2rem;
     text-align: center;
 `
+
+const numberWithCommas = (number: number) => {
+    return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
 
 const KeyStats: React.FC<_KeyStats & any> = ({
     isFetchingQuote,

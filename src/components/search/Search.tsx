@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { _PriceSingleDataPoint } from '../../models';
+import { _PriceSingleDataPoint } from '../../models/prices';
 import TickerCard from './tickerCard';
 import styled from '@emotion/styled'
 import io from 'socket.io-client';

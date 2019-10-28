@@ -1,7 +1,7 @@
 import React from 'react';
 import { Title } from '../Root'
 import styled from '@emotion/styled'
-import AdaptiveLoader from '../loader'
+import AdaptiveLoader from '../loader/Loader'
 
 const PeersContainer = styled.div`
     max-height: 30%;

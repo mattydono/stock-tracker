@@ -22,7 +22,7 @@ const socket = io('http://localhost:4000');
 const useTicker = ({ticker, favorites: favoritesArray, callbacks: { quote, news, company, peers, prices }, resetState}) => {
 
     const [errors, setErrors] = useState(errorInitialState);
-    const [isFetching, setIsFetching] = useState(isFetchingInitialState);
+    const [isFetching] = useState(isFetchingInitialState);
 
     useEffect(() => {
         socket.emit('company', ticker);
