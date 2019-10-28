@@ -163,7 +163,7 @@ const Root: React.FC<_StateProps & _DispatchProps> = ({
 
     const { news: isFetchingNews = false, quote: isFetchingQuote = false, company: isFetchingCompany = false, peers: isFetchingPeers = false } = fetching;
 
-    const { news: errorNews, quote: errorQuote = false, company: errorCompany = false, peers: errorPeers = false } = errors;
+    const { news: errorNews = false, quote: errorQuote = false, company: errorCompany = false, peers: errorPeers = false } = errors;
 
     return (
         <RootContainer>

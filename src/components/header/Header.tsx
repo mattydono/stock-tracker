@@ -54,7 +54,7 @@ const Button = styled.button`
     };
 `
 
-const Header = () => {
+const Header: React.FC = () => {
     return (
         <HeaderContainer>
             <Logo src={logo} />

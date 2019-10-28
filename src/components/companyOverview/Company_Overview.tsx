@@ -55,7 +55,9 @@ const OverflowContainer = styled.div`
 `
 
 type ErrorLoading = {
-    errorCompany: any,
+    errorCompany: {
+        message: string,
+    },
     isFetchingCompany: boolean,
 }
 

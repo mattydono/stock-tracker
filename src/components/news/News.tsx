@@ -48,7 +48,9 @@ type NewsProps = {
 }
 
 type ErrorLoading = {
-    errorNews: any,
+    errorNews: {
+        message: string,
+    },
 }
 
 const News: React.FC<NewsProps & ErrorLoading> = ({ errorNews, news }) => {

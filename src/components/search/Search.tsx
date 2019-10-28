@@ -235,7 +235,9 @@ type StockListItem = {
 }
 
 type Error = {
-    errorQuote: any,
+    errorQuote: {
+        message: string
+    }
 }
 
 const socket = io('http://localhost:4000');

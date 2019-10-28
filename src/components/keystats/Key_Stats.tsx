@@ -95,17 +95,23 @@ const StatsErrorMessage = styled.div`
     text-align: center;
 `
 
-const numberWithCommas = (number: number) => {
+const numberWithCommas = (number: number): string => {
     return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
 
-const KeyStats: React.FC<_KeyStats & any> = ({
+type Error = {
+    errorQuote: {
+        message: string
+    }
+}
+
+const KeyStats: React.FC<_KeyStats & Error> = ({
     isFetchingQuote,
     errorQuote,
     ...keystatsProps
     }) => {
 
-    const nullValues = Object.values(keystatsProps).every(item => !item);
+    const nullValues = Object.values(keystatsProps).every((item: number) => !item);
 
     const {
         marketCap, 

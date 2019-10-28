@@ -59,7 +59,7 @@ type TickerCardPropTypes = {
     booleanBig?: boolean,
 }
 
-const TickerCard: React.FC<TickerCardPropTypes> = ({ latestPrice, change, changePercent, booleanBig }) => {
+const TickerCard: React.FC<TickerCardPropTypes> = ({ latestPrice, change, changePercent }) => {
 
     return (
         <PriceStats>

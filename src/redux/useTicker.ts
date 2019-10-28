@@ -18,6 +18,22 @@ interface TickerProps {
     }
 }
 
+export interface ErrorsState {
+    quote: boolean,
+    news: boolean,
+    company: boolean,
+    peers: boolean,
+    favorites: boolean,
+}
+
+export interface isFetchingState {
+    quote: boolean,
+    news: boolean,
+    company: boolean,
+    peers: boolean,
+    favorites: boolean,
+}
+
 const errorInitialState = {
     quote: false,
     news: false,
@@ -38,8 +54,8 @@ const socket = io('http://localhost:4000');
 
 const useTicker = ({ticker, favorites: favoritesArray, callbacks: { quote, news, company, peers, prices }, resetState}: TickerProps) => {
 
-    const [errors, setErrors] = useState(errorInitialState);
-    const [isFetching] = useState(isFetchingInitialState);
+    const [errors, setErrors] = useState<ErrorsState>(errorInitialState);
+    const [isFetching] = useState<isFetchingState>(isFetchingInitialState);
 
     useEffect(() => {
         socket.emit('company', ticker);
