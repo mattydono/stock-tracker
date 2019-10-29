@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 import { Provider } from 'react-redux';
-import { createStore, combineReducers, compose } from 'redux';
+import { createStore, combineReducers, compose, applyMiddleware } from 'redux';
 
 import Root from './components/Root';
 
@@ -16,6 +16,7 @@ import { news } from './components/news/redux/reducers/reducer'
 import { peers } from './components/peers/redux/reducers/reducer'
 import { search } from './components/search/redux/reducers/reducer'
 import { favorites } from './components/footer/redux/reducers/reducer'
+import socketMiddleware from './redux/middleware/socketMiddleware'
 
 const rootReducer = combineReducers({
     search,
@@ -36,7 +37,7 @@ declare global {
 
 const store = createStore(
     rootReducer,
-    window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+    applyMiddleware(socketMiddleware())
 );
 
 

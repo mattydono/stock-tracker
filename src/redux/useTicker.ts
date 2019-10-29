@@ -71,7 +71,7 @@ const useTicker = ({ticker, favorites: favoritesArray, callbacks: { quote, news,
     }, [ticker])
 
     useEffect(() => {
-        const request = Array.from(new Set([...favoritesArray, ticker])).join(',');
+        const request = Array.from(new Set([...favoritesArray, ticker]));
         socket.emit('prices', request);
         socket.on('prices', (result: _PriceSingleDataPoint[]) => prices(result));
         
