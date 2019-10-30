@@ -252,7 +252,8 @@ const Search: React.FC<SearchProps & Error> = ({
     price: { 
         change, 
         changePercent, 
-        latestPrice 
+        latestPrice,
+        error
     }
 }) => {
 
@@ -269,7 +270,6 @@ const Search: React.FC<SearchProps & Error> = ({
             socket.on('isValid', (bool: boolean) => {
                 if(bool) {
                     search(query)
-                    setQuery(`${stockList[0].name} (${stockList[0].symbol})`)
                     setQuery(`${stockList[0].name} (${stockList[0].symbol})`)
                     setSelectedStock([`${stockList[0].name}`, `(${stockList[0].symbol})`])
                 }
@@ -302,7 +302,7 @@ const Search: React.FC<SearchProps & Error> = ({
     }
 
     useEffect(() => {
-        if(errorQuote) {
+        if(errorQuote.message.length > 0) {
             setStockList([{name: errorQuote.message, symbol:'⊗'}])
         }
     }, [errorQuote])
@@ -352,7 +352,7 @@ const Search: React.FC<SearchProps & Error> = ({
                     </Label>
                     )}
                 </PriceGroup>
-                {latestPrice && <TickerCard latestPrice={latestPrice} change={change} changePercent={changePercent} />}
+                {latestPrice && <TickerCard error={error} latestPrice={latestPrice} change={change} changePercent={changePercent} />}
                 {isOpen ? 
                 <StockList ref={dropSelect} tabIndex={-1}>
                     <table style={{width: '100%'}}>

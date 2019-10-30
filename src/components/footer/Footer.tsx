@@ -98,12 +98,12 @@ type FooterProps = {
     favorites: string[],
 }
 
-const FooterTickerCard: React.FC<_PriceSingleDataPoint> = ({ ticker, latestPrice, change, changePercent }) => {
+const FooterTickerCard: React.FC<_PriceSingleDataPoint> = ({ ticker, latestPrice, change, changePercent, error }) => {
 
     return (
         <Card>
             <Ticker>{ticker}</Ticker>
-            <TickerCard latestPrice={latestPrice} change={change} changePercent={changePercent} />
+            <TickerCard error={error} latestPrice={latestPrice} change={change} changePercent={changePercent} />
         </Card>
     )
 }

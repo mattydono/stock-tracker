@@ -4,6 +4,7 @@ import { _PriceSingleDataPoint } from '../../models/prices'
 import { _CompanyOverview } from '../../components/companyOverview/models/companyOverview'
 import { _News } from '../../components/news/models/news'
 import { _KeyStats } from '../../components/keystats/models/keyStats'
+import { _Error } from '../../models/errors'
 
 import { AnyAction, Dispatch, MiddlewareAPI } from 'redux'
 
@@ -14,7 +15,8 @@ const socketMiddleware = () => {
         socket.on('prices', (prices: _PriceSingleDataPoint[]) => dispatch({ type: 'UPDATE_PRICES_DATA', payload: prices }));
         socket.on('company', (company: _CompanyOverview) => dispatch({ type: 'UPDATE_COMPANY', payload: company }));
         socket.on('news', (news: _News) => dispatch({ type: 'UPDATE_NEWS', payload: news }));
-        socket.on('keystats', (keystats: _KeyStats) => dispatch({ type: 'UPDATE_KEY_STATS', payload: keystats }));        
+        socket.on('keystats', (keystats: _KeyStats) => dispatch({ type: 'UPDATE_KEY_STATS', payload: keystats }));
+        socket.on('error', (error: string) => dispatch({type: 'ERROR', payload: error}))        
         
         return (next: Dispatch) => (action: AnyAction) => {
             if (typeof action === 'function') {
