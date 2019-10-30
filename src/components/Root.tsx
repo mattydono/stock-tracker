@@ -56,7 +56,6 @@ const AppContainer = styled.div`
     margin-left: 5%;
     margin-right: 5%;
     max-width: 1368px;
-    // max-height: 1100px;
 `
 
 const CompanyContainer = styled.div`
@@ -217,11 +216,6 @@ const mapDispatchToProps: MapDispatchToProps<_DispatchProps, {}> = dispatch => (
     updateChartPrices: prices => dispatch(updateChartData(prices)),
     resetState: () => dispatch(resetState(undefined)),
 })
-
-// company: company => dispatch(updateCompany(company)),
-//         quote: quote => dispatch(updateKeyStats(quote)),
-//         news: news => dispatch(updateNews(news)),
-//         peers: peers => dispatch(updatePeers(peers)),
 
 export default connect(
     mapStateToProps,

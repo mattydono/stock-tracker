@@ -145,11 +145,6 @@ export const Chart: React.FC<ChartProps> = ({ prices, ticker, open, latest, rang
                                 <Area connectNulls type="monotone" dataKey="close" name="price" unit=" USD" fill='url(#area)' fillOpacity={1} stroke="#608fd1" />
                             </AreaChart>
                         </ResponsiveContainer>
-                        {/* {
-                            fetching ? <p style={{marginLeft: '35px'}}>fetching data...</p>
-                            : error ? <p>{error}</p>
-                            : <p>&nbsp;</p>
-                        } */}
                     </>
                     :
                     <ChartLoadingContainer>
