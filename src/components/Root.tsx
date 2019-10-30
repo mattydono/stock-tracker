@@ -9,17 +9,11 @@ import Peers from './peers/Peers';
 import Chart from './charts/Chart';
 import Header from './header/Header';
 import Footer from './footer/Footer';
-import useTicker from '../redux/useTicker';
 import logo from '../components/header/logo.png'
 
 import { resetState } from '../redux/actions/reset_app'
 import { updateChartRange, updateChartData } from '../components/charts/redux/actions/actions'
-import { updateCompany } from '../components/companyOverview/redux/actions/actions'
-import { updateKeyStats } from '../components/keystats/redux/actions/actions'
-import { updateNews } from '../components/news/redux/actions/actions'
-import { updatePeers } from '../components/peers/redux/actions/actions'
 import { updateTicker } from '../components/search/redux/actions/actions'
-import { updatePricesData } from '../redux/actions/price'
 
 import { _CompanyOverview } from '../components/companyOverview/models/companyOverview'
 import { _KeyStats } from '../components/keystats/models/keyStats'
@@ -143,19 +137,16 @@ interface _AppState {
 }
 
 const Root: React.FC<_StateProps & _DispatchProps> = ({ 
-    ticker, 
     peers, 
     companyOverview, 
     keyStats,
     search, 
     news,
     chartProps,
-    favorites,
     footerProps,
     updateChartRange,
     updateChartPrices,
     searchProps,
-    resetState,
 }) => {
 
     return (
@@ -214,8 +205,6 @@ const mapStateToProps: MapStateToProps<_StateProps, {}, _AppState> = state => {
         keyStats,
         news,
         peers,
-        favorites,
-        prices,
         footerProps,
         searchProps,
         chartProps

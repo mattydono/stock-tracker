@@ -11,8 +11,6 @@ export interface _StateProps {
     keyStats: _KeyStats,
     news: _News,
     peers: string[],
-    favorites: string[],
-    prices: _Prices,
     footerProps: {
         favorites: string[],
         prices: _Prices

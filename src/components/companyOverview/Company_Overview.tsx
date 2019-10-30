@@ -94,6 +94,7 @@ const CompanyOverview: React.FC<_CompanyOverview & ErrorLoading> = ({ errorCompa
                 : <Company {...companyProps} />
             }
         </CompanyOverviewContainer>
-    );}
+    );
+}
 
 export default CompanyOverview;
