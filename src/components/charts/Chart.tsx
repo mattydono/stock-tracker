@@ -100,7 +100,6 @@ const socket = io('http://localhost:4000');
 export const Chart: React.FC<ChartProps> = ({ prices, ticker, open, latest, range, updateChartRange, updateChartPrices }) => {
 
     const renderChart = (chart: _ChartSingleDataPoint[]) => {
-        console.log('CHART', chart)
         const formattedChart = chartFormatDates(chart, range);
         updateChartPrices(formattedChart);
     }

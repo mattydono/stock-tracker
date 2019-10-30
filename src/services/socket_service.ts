@@ -7,8 +7,6 @@ const SERVER = `${HOST}:${PORT}`;
 const createSocketService = () => {
   let socket: any;
 
-  console.log(socket)
-
   function get() {
     return socket || (socket = io(SERVER));
   }
