@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import styled from '@emotion/styled';
 import AdaptiveLoader from '../loader/Loader';
-import io from 'socket.io-client';
+import { socketService } from '../../services/socket_service'
 import { chartFormatDates } from './chart_formatter';
 
 import { 
@@ -95,7 +95,7 @@ const RangeButton: React.FC<RangeButtonProps> = ({ range, update, current }) => 
     )
 }
 
-const socket = io('http://localhost:4000');
+const socket = socketService.get();
 
 export const Chart: React.FC<ChartProps> = ({ prices, ticker, open, latest, range, updateChartRange, updateChartPrices }) => {
 
