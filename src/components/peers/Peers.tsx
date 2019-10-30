@@ -46,7 +46,9 @@ type PeersProps = {
 }
 
 type ErrorLoading = {
-    errorPeers: any,
+    errorPeers: {
+        message: string
+    },
     isFetchingPeers: boolean,
 }
 

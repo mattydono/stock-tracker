@@ -35,10 +35,14 @@ const Logo = styled.img`
     color: white;
 `
 
-const Button = styled.button`
-    ${(props: any) => props.style}
-    color: gray;
-    color: ${(props: any) => props.color};
+type ButtonProps = {
+    color: string,
+    backgroundColor: string
+}
+
+const Button = styled.button<ButtonProps>`
+    background-color: ${(props: ButtonProps) => props.backgroundColor};
+    color: ${(props: ButtonProps) => props.color};
     height: 31px;
     min-width: 98px;
     font-size: 18px;
@@ -46,7 +50,6 @@ const Button = styled.button`
     border-radius: 3px;
     cursor: pointer;
     border: none;
-    background-color: rgba(0,0,0,0);
     align-items: center;
     &:hover {
         color: white;
@@ -54,14 +57,14 @@ const Button = styled.button`
     };
 `
 
-const Header = () => {
+const Header: React.FC = () => {
     return (
         <HeaderContainer>
             <Logo src={logo} />
             <Nav>
-                <Button style={{color: 'white', backgroundColor: 'rgba(0, 104, 255, 0.5)'}} >QUOTES</Button>
-                <Button>MARKETS</Button>
-                <Button>WATCHLISTS</Button>
+                <Button color='white' backgroundColor='rgba(0, 104, 255, 0.5)' >QUOTES</Button>
+                <Button color='gray' backgroundColor='rgba(0,0,0,0)'>MARKETS</Button>
+                <Button color='gray' backgroundColor='rgba(0,0,0,0)'>WATCHLISTS</Button>
             </Nav>
         </HeaderContainer>
     )

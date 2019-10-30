@@ -78,7 +78,7 @@ type ChartProps = {
     updateChartPrices: (chartRange: _ChartSingleDataPoint[]) => void,
     open: boolean,
     ticker: string,
-    latest?: number,
+    latest: number,
 }
 
 const RangeButton: React.FC<RangeButtonProps> = ({ range, update, current }) => {
@@ -97,10 +97,10 @@ const RangeButton: React.FC<RangeButtonProps> = ({ range, update, current }) => 
 
 const socket = io('http://localhost:4000');
 
-
 export const Chart: React.FC<ChartProps> = ({ prices, ticker, open, latest, range, updateChartRange, updateChartPrices }) => {
 
     const renderChart = (chart: _ChartSingleDataPoint[]) => {
+        console.log('CHART', chart)
         const formattedChart = chartFormatDates(chart, range);
         updateChartPrices(formattedChart);
     }
@@ -118,15 +118,6 @@ export const Chart: React.FC<ChartProps> = ({ prices, ticker, open, latest, rang
     const buttons = ranges.map(rangeItem => <RangeButton key={rangeItem} current={rangeItem === range} range={rangeItem} update={updateChartRange} />);
     const fetchingAndStateEmpty = prices.length === 0;
 
-    const now: _ChartSingleDataPoint = {
-        label: 'now',
-        close: latest,
-    }
-
-    const testing = false;
-
-    const data = open && testing ? prices.concat(now) : prices;
-
     const interval = range === '5d' ? 39 : range === '1m' ? 12 : range === '1d' ? 59 : range === '1y' ? 23 : 253;
 
     return (     
@@ -137,7 +128,7 @@ export const Chart: React.FC<ChartProps> = ({ prices, ticker, open, latest, rang
                             {buttons}
                         </ButtonsContainer>
                         <ResponsiveContainer aspect={0.1} width='99%' maxHeight={425}>
-                            <AreaChart data={data} margin={{ left: 35 }} >
+                            <AreaChart data={prices} margin={{ left: 35 }} >
                                 <defs>
                                     <linearGradient id='area' x1="0" y1="0" x2="0" y2="1">
                                         <stop offset="30%" stopColor="#2d5083" stopOpacity={0.5}/>
@@ -147,8 +138,8 @@ export const Chart: React.FC<ChartProps> = ({ prices, ticker, open, latest, rang
                                 <CartesianGrid stroke='#1d4168' strokeWidth={0.8} />
                                 <XAxis tick={{fill: 'white'}} axisLine={false} interval={interval} dataKey="label" type="category" allowDataOverflow={false} />
                                 <YAxis tick={{fill: 'white'}} axisLine={false} orientation="right" domain={['dataMin', 'auto']} tickLine={false} tickFormatter={item => item.toFixed(2)} />
-                                <ReferenceLine y={now.close} stroke={'#e95656'} strokeDasharray="3 3" label={
-                                    <Label value={now.close && now.close.toFixed(2)} position="right" fill="#e95656" /> } 
+                                <ReferenceLine y={latest} stroke={'#e95656'} strokeDasharray="3 3" label={
+                                    <Label value={latest && latest.toFixed(2)} position="right" fill="#e95656" /> } 
                                 />
                                 <Tooltip cursor={{ stroke: 'red', strokeWidth: 2 }} />
                                 <Area connectNulls type="monotone" dataKey="close" name="price" unit=" USD" fill='url(#area)' fillOpacity={1} stroke="#608fd1" />

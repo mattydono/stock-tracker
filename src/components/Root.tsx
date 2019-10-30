@@ -9,17 +9,11 @@ import Peers from './peers/Peers';
 import Chart from './charts/Chart';
 import Header from './header/Header';
 import Footer from './footer/Footer';
-import useTicker from '../redux/useTicker';
 import logo from '../components/header/logo.png'
 
 import { resetState } from '../redux/actions/reset_app'
 import { updateChartRange, updateChartData } from '../components/charts/redux/actions/actions'
-import { updateCompany } from '../components/companyOverview/redux/actions/actions'
-import { updateKeyStats } from '../components/keystats/redux/actions/actions'
-import { updateNews } from '../components/news/redux/actions/actions'
-import { updatePeers } from '../components/peers/redux/actions/actions'
 import { updateTicker } from '../components/search/redux/actions/actions'
-import { updatePricesData } from '../redux/actions/price'
 
 import { _CompanyOverview } from '../components/companyOverview/models/companyOverview'
 import { _KeyStats } from '../components/keystats/models/keyStats'
@@ -143,27 +137,17 @@ interface _AppState {
 }
 
 const Root: React.FC<_StateProps & _DispatchProps> = ({ 
-    ticker, 
     peers, 
     companyOverview, 
-    keyStats, 
-    callbacks, 
+    keyStats,
     search, 
     news,
     chartProps,
-    favorites,
     footerProps,
     updateChartRange,
     updateChartPrices,
     searchProps,
-    resetState,
 }) => {
-
-    const [errors, fetching]:any = useTicker({ ticker, favorites, callbacks, resetState })
-
-    const { news: isFetchingNews = false, quote: isFetchingQuote = false, company: isFetchingCompany = false, peers: isFetchingPeers = false } = fetching;
-
-    const { news: errorNews, quote: errorQuote = false, company: errorCompany = false, peers: errorPeers = false } = errors;
 
     return (
         <RootContainer>
@@ -171,7 +155,7 @@ const Root: React.FC<_StateProps & _DispatchProps> = ({
                 <Header />
                 <Search 
                 search={search} 
-                errorQuote={errorQuote}
+                errorQuote={{message: ''}}
                 {...searchProps}
                 />
                 <ChartNews>
@@ -180,13 +164,13 @@ const Root: React.FC<_StateProps & _DispatchProps> = ({
                         updateChartPrices={updateChartPrices} 
                         updateChartRange={updateChartRange}
                     />
-                    <News errorNews={errorNews} isFetchingNews={isFetchingNews} news={news}/>
+                    <News errorNews={{message: ''}} isFetchingNews={false} news={news}/>
                 </ChartNews>
                 <StatsCompany>
-                    <KeyStats errorQuote={errorQuote} isFetchingQuote={isFetchingQuote} {...keyStats}/>
+                    <KeyStats errorQuote={{message: ''}} isFetchingQuote={false} {...keyStats}/>
                     <CompanyContainer>
-                        <CompanyOverview errorCompany={errorCompany} isFetchingCompany={isFetchingCompany} {...companyOverview} />
-                        <Peers errorPeers={errorPeers} isFetchingPeers={isFetchingPeers} peers={peers} />
+                        <CompanyOverview errorCompany={{message: ''}} isFetchingCompany={false} {...companyOverview} />
+                        <Peers errorPeers={{message: ''}} isFetchingPeers={false} peers={peers} />
                     </CompanyContainer>
                 </StatsCompany>
             </AppContainer>
@@ -221,8 +205,6 @@ const mapStateToProps: MapStateToProps<_StateProps, {}, _AppState> = state => {
         keyStats,
         news,
         peers,
-        favorites,
-        prices,
         footerProps,
         searchProps,
         chartProps
@@ -234,14 +216,12 @@ const mapDispatchToProps: MapDispatchToProps<_DispatchProps, {}> = dispatch => (
     updateChartRange: range => dispatch(updateChartRange(range)),
     updateChartPrices: prices => dispatch(updateChartData(prices)),
     resetState: () => dispatch(resetState(undefined)),
-    callbacks: {
-        company: company => dispatch(updateCompany(company)),
-        quote: quote => dispatch(updateKeyStats(quote)),
-        news: news => dispatch(updateNews(news)),
-        peers: peers => dispatch(updatePeers(peers)),
-        prices: prices => dispatch(updatePricesData(prices))
-    }
 })
+
+// company: company => dispatch(updateCompany(company)),
+//         quote: quote => dispatch(updateKeyStats(quote)),
+//         news: news => dispatch(updateNews(news)),
+//         peers: peers => dispatch(updatePeers(peers)),
 
 export default connect(
     mapStateToProps,

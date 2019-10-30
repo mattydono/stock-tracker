@@ -1,9 +1,8 @@
 import { Range } from './range'
 export interface _ChartSingleDataPoint {
-    open?: number,
-    close?: number,
-    symbol?: string,
-    label?: string
+    open: number,
+    close: number,
+    date: string,
 }
 
 export interface _Charts {

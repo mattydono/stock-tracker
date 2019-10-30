@@ -55,7 +55,9 @@ const OverflowContainer = styled.div`
 `
 
 type ErrorLoading = {
-    errorCompany: any,
+    errorCompany: {
+        message: string,
+    },
     isFetchingCompany: boolean,
 }
 
@@ -87,7 +89,7 @@ const CompanyOverview: React.FC<_CompanyOverview & ErrorLoading> = ({ errorCompa
         <CompanyOverviewContainer>
             <Title>COMPANY OVERVIEW</Title>
             {
-                errorCompany && !isFetchingCompany ? CompanyError 
+                errorCompany.message.length > 0  && !isFetchingCompany ? CompanyError 
                 : isFetchingCompany ? Loading 
                 : <Company {...companyProps} />
             }

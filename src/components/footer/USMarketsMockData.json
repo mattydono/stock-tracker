@@ -3,18 +3,21 @@
         "ticker": "nasdaq",
         "latestPrice": 8057.04,
         "change": 106.26,
-        "changePercent": 0.0134
+        "changePercent": 0.0134,
+        "error": false
     },
     {
         "ticker": "djia",
         "latestPrice": 26816.59,
         "change": 312.89,
-        "changePercent": 0.01210
+        "changePercent": 0.01210,
+        "error": false
     },
     {
         "ticker": "s&p",
         "latestPrice": 2970.27,
         "change": 32.14,
-        "changePercent": 0.0109
+        "changePercent": 0.0109,
+        "error": false
     }
 ]

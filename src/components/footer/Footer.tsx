@@ -6,11 +6,6 @@ import TickerCard from './footerTickerCard';
 
 import styled from '@emotion/styled'
 
-type FooterProps = {
-    prices: _PriceSingleDataPoint[],
-    favorites: string[],
-}
-
 const FooterContainer = styled.div`
     position: fixed;
     bottom: 0;
@@ -98,14 +93,17 @@ const Seperator = styled.div`
     }
 `
 
+type FooterProps = {
+    prices: _PriceSingleDataPoint[],
+    favorites: string[],
+}
 
-
-const FooterTickerCard: React.FC<_PriceSingleDataPoint> = ({ ticker, latestPrice, change, changePercent }) => {
+const FooterTickerCard: React.FC<_PriceSingleDataPoint> = ({ ticker, latestPrice, change, changePercent, error }) => {
 
     return (
         <Card>
             <Ticker>{ticker}</Ticker>
-            <TickerCard latestPrice={latestPrice} change={change} changePercent={changePercent} />
+            <TickerCard error={error} latestPrice={latestPrice} change={change} changePercent={changePercent} />
         </Card>
     )
 }
