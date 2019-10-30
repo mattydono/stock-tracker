@@ -14,7 +14,7 @@ interface TickerProps {
         news: (arr: _News) => void,
         company: (company: _CompanyOverview) => void,
         peers: (arr: string[]) => void,
-        prices: (arr: _PriceSingleDataPoint[]) => void,
+        prices: (arr: string[]) => void,
     }
 }
 
@@ -52,31 +52,18 @@ const isFetchingInitialState = {
 
 const socket = io('http://localhost:4000');
 
-const useTicker = ({ticker, favorites: favoritesArray, callbacks: { quote, news, company, peers, prices }, resetState}: TickerProps) => {
+const useTicker = ({ticker, favorites: favoritesArray, resetState}: TickerProps) => {
 
     const [errors, setErrors] = useState<ErrorsState>(errorInitialState);
     const [isFetching] = useState<isFetchingState>(isFetchingInitialState);
 
     useEffect(() => {
-        socket.emit('company', ticker);
-        socket.on('company', (result: _CompanyOverview) => company(result));
-        socket.emit('keystats', ticker);
-        socket.on('keystats', (result: _KeyStats) => quote(result));
-        socket.emit('news', ticker);
-        socket.on('news', (result: _News) => news(result));
-        socket.on('error', (err: string) => setErrors(state => ({ ...state, [err]: true })));
-
-        return () => resetState()
-
-    }, [ticker])
-
-    useEffect(() => {
         const request = Array.from(new Set([...favoritesArray, ticker]));
-        socket.emit('prices', request);
-        socket.on('prices', (result: _PriceSingleDataPoint[]) => prices(result));
+        //socket.emit('prices', request);
+        // socket.on('prices', (result: _PriceSingleDataPoint[]) => prices(result));
         
         return () => {
-            socket.emit('unsubscribePrices')
+            socket.emit('unsubscribePrices', [ticker])
         }
     }, [ticker, favoritesArray]);
 

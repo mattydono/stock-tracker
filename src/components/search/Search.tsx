@@ -2,8 +2,8 @@ import React, { useState, useEffect, useRef } from 'react';
 import { _PriceSingleDataPoint } from '../../models/prices';
 import TickerCard from './tickerCard';
 import styled from '@emotion/styled'
-import io from 'socket.io-client';
 import moment from 'moment'
+import { socketService } from '../../redux/services/socket-service'
 
 const SearchContainer = styled.div`
     flex: 1 0 auto;
@@ -240,7 +240,7 @@ type Error = {
     }
 }
 
-const socket = io('http://localhost:4000');
+const socket = socketService.get();
 
 const Search: React.FC<SearchProps & Error> = ({ 
     errorQuote, 

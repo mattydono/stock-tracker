@@ -59,7 +59,7 @@ const News: React.FC<NewsProps & ErrorLoading> = ({ errorNews, news }) => {
 
     const News = news.length > 0 ? news.map(article => <Article key={article.headline} {...article}/>) : Loading;
 
-    const NewsError = news.length ? (
+    const NewsError = news.length > 0 ? (
         <div style={{color: 'red', marginBottom: '1rem'}}>Connection to server lost.</div>
     ) : null;
 
@@ -67,7 +67,7 @@ const News: React.FC<NewsProps & ErrorLoading> = ({ errorNews, news }) => {
     return (
         <NewsContainer>
             <Title>LATEST NEWS</Title>
-            {errorNews ? NewsError : <ArticleContainer>{News}</ArticleContainer>}
+            {errorNews.message.length > 0 ? NewsError : <ArticleContainer>{News}</ArticleContainer>}
         </NewsContainer>
 
     )

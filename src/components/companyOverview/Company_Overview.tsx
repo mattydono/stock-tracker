@@ -89,12 +89,11 @@ const CompanyOverview: React.FC<_CompanyOverview & ErrorLoading> = ({ errorCompa
         <CompanyOverviewContainer>
             <Title>COMPANY OVERVIEW</Title>
             {
-                errorCompany && !isFetchingCompany ? CompanyError 
+                errorCompany.message.length > 0  && !isFetchingCompany ? CompanyError 
                 : isFetchingCompany ? Loading 
                 : <Company {...companyProps} />
             }
         </CompanyOverviewContainer>
-    );
-}
+    );}
 
 export default CompanyOverview;

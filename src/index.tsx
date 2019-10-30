@@ -31,13 +31,18 @@ const rootReducer = combineReducers({
 
 declare global {
     interface Window {
-        __REDUX_DEVTOOLS_EXTENSION__?: typeof compose // module augmentation ts
+        __REDUX_DEVTOOLS_EXTENSION_COMPOSE__ ?: typeof compose // module augmentation ts
     }
 }
 
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+
 const store = createStore(
     rootReducer,
-    applyMiddleware(socketMiddleware())
+    compose(
+        applyMiddleware(socketMiddleware()),
+        composeEnhancers()
+    )
 );
 
 

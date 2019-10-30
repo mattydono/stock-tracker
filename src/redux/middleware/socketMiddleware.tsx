@@ -1,37 +1,40 @@
-import io from 'socket.io-client';
+import { socketService } from '../services/socket-service'
 
 const socketMiddleware = () => {
-    const socket = io('http://localhost:4000');
+    const socket = socketService.get();
 
-    return ({ dispatch }: any) => (next: any) => (action: any) => {
-        if (typeof action === 'function') {
-            return next(action);
+    return ({ dispatch, getState }: any) => {
+        socket.on('prices', (prices: any) => dispatch({ type: 'UPDATE_PRICES_DATA', payload: prices }));
+        socket.on('company', (company: any) => dispatch({ type: 'UPDATE_COMPANY', payload: company }));
+        socket.on('news', (news: any) => dispatch({ type: 'UPDATE_NEWS', payload: news }));
+        socket.on('keystats', (keystats: any) => dispatch({ type: 'UPDATE_KEY_STATS', payload: keystats }));        
+        
+        return (next: any) => (action: any) => {
+            if (typeof action === 'function') {
+                return next(action);
+            }
+
+            if (action.type === 'UPDATE_TICKER') {
+                const { favorites, search } = getState()
+                const tickerPlusFavorites = Array.from(new Set([...favorites, search]));
+                dispatch({ type: 'RESET_APP_STATE' })
+                socket.emit('prices', tickerPlusFavorites);
+                socket.emit('ticker', action.payload);
+            }
+    
+            const {
+                event,
+                emit,
+                payload,
+            } = action;
+    
+            if (!event) return next(action);
+    
+            if (emit) {
+                socket.emit(event, payload);
+                return;
+            }
         }
-
-        const {
-            event,
-            leave,
-            handle,
-            emit,
-            payload,
-            ...rest 
-        } = action;
-
-        if (!event) return next(action);
-        if (leave) {
-            socket.disconnect();
-        }
-
-        if (emit) {
-            socket.emit(event, payload);
-            return;
-        }
-
-        let handleEvent = handle;
-        if (typeof handleEvent === 'string') {
-            handleEvent = (result: any) => dispatch({ type: handle, payload: result, ...rest });
-        }
-        return socket.on(event, handleEvent);
     }
 }
 

@@ -37,11 +37,11 @@ export interface _DispatchProps {
     updateChartRange: (range: Range) => void,
     updateChartPrices: (prices: _ChartSingleDataPoint[]) => void,
     resetState: () => void,
-    callbacks: {
-        company: (company: _CompanyOverview) => void,
-        quote: (quote: _KeyStats) => void,
-        news: (news: _News) => void,
-        peers: (peers: string[]) => void,
-        prices: (prices: _Prices) => void,
-    }
+    // callbacks: {
+    //     company: (company: _CompanyOverview) => void,
+    //     quote: (quote: _KeyStats) => void,
+    //     news: (news: _News) => void,
+    //     peers: (peers: string[]) => void,
+    //     prices: (prices: string[]) => void,
+    // }
 };

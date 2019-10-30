@@ -146,8 +146,7 @@ const Root: React.FC<_StateProps & _DispatchProps> = ({
     ticker, 
     peers, 
     companyOverview, 
-    keyStats, 
-    callbacks, 
+    keyStats,
     search, 
     news,
     chartProps,
@@ -159,19 +158,13 @@ const Root: React.FC<_StateProps & _DispatchProps> = ({
     resetState,
 }) => {
 
-    const [errors, fetching]:any = useTicker({ ticker, favorites, callbacks, resetState })
-
-    const { news: isFetchingNews = false, quote: isFetchingQuote = false, company: isFetchingCompany = false, peers: isFetchingPeers = false } = fetching;
-
-    const { news: errorNews = false, quote: errorQuote = false, company: errorCompany = false, peers: errorPeers = false } = errors;
-
     return (
         <RootContainer>
             <AppContainer>
                 <Header />
                 <Search 
                 search={search} 
-                errorQuote={errorQuote}
+                errorQuote={{message: ''}}
                 {...searchProps}
                 />
                 <ChartNews>
@@ -180,13 +173,13 @@ const Root: React.FC<_StateProps & _DispatchProps> = ({
                         updateChartPrices={updateChartPrices} 
                         updateChartRange={updateChartRange}
                     />
-                    <News errorNews={errorNews} isFetchingNews={isFetchingNews} news={news}/>
+                    <News errorNews={{message: ''}} isFetchingNews={false} news={news}/>
                 </ChartNews>
                 <StatsCompany>
-                    <KeyStats errorQuote={errorQuote} isFetchingQuote={isFetchingQuote} {...keyStats}/>
+                    <KeyStats errorQuote={{message: ''}} isFetchingQuote={false} {...keyStats}/>
                     <CompanyContainer>
-                        <CompanyOverview errorCompany={errorCompany} isFetchingCompany={isFetchingCompany} {...companyOverview} />
-                        <Peers errorPeers={errorPeers} isFetchingPeers={isFetchingPeers} peers={peers} />
+                        <CompanyOverview errorCompany={{message: ''}} isFetchingCompany={false} {...companyOverview} />
+                        <Peers errorPeers={{message: ''}} isFetchingPeers={false} peers={peers} />
                     </CompanyContainer>
                 </StatsCompany>
             </AppContainer>
@@ -234,14 +227,12 @@ const mapDispatchToProps: MapDispatchToProps<_DispatchProps, {}> = dispatch => (
     updateChartRange: range => dispatch(updateChartRange(range)),
     updateChartPrices: prices => dispatch(updateChartData(prices)),
     resetState: () => dispatch(resetState(undefined)),
-    callbacks: {
-        company: company => dispatch(updateCompany(company)),
-        quote: quote => dispatch(updateKeyStats(quote)),
-        news: news => dispatch(updateNews(news)),
-        peers: peers => dispatch(updatePeers(peers)),
-        prices: prices => dispatch(updatePricesData(prices))
-    }
 })
+
+// company: company => dispatch(updateCompany(company)),
+//         quote: quote => dispatch(updateKeyStats(quote)),
+//         news: news => dispatch(updateNews(news)),
+//         peers: peers => dispatch(updatePeers(peers)),
 
 export default connect(
     mapStateToProps,
