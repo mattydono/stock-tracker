@@ -1,7 +1,7 @@
 import React, { useEffect, memo } from 'react';
 import styled from '@emotion/styled';
 import AdaptiveLoader from '../loader/Loader';
-import { socketService } from '../../services/socket_service'
+import { socketService } from '../../services/socket-service'
 import { chartFormatDates } from './chart_formatter';
 
 import { 

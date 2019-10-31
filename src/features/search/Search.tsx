@@ -3,7 +3,7 @@ import { _PriceSingleDataPoint } from '../../models/prices';
 import TickerCard from './tickerCard';
 import styled from '@emotion/styled'
 import moment from 'moment'
-import { socketService } from '../../redux/services/socket-service'
+import { socketService } from '../../services/socket-service'
 
 const SearchContainer = styled.div`
     flex: 1 0 auto;

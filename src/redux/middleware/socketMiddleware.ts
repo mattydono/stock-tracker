@@ -1,9 +1,9 @@
-import { socketService } from '../services/socket-service'
+import { socketService } from '../../services/socket-service'
 
 import { _PriceSingleDataPoint } from '../../models/prices'
-import { _CompanyOverview } from '../../components/companyOverview/models/companyOverview'
-import { _News } from '../../components/news/models/news'
-import { _KeyStats } from '../../components/keystats/models/keyStats'
+import { _CompanyOverview } from '../../features/companyOverview/models/companyOverview'
+import { _News } from '../../features/news/models/news'
+import { _KeyStats } from '../../features/keystats/models/keyStats'
 import { _Error } from '../../models/errors'
 
 import { AnyAction, Dispatch, MiddlewareAPI } from 'redux'
