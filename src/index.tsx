@@ -4,18 +4,18 @@ import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { createStore, combineReducers, compose, applyMiddleware } from 'redux';
 
-import Root from './components/Root';
+import Root from './features/Root'
 
 import './index.css'
 
 import { prices } from './redux/reducers/price'
-import { charts } from './components/charts/redux/reducers/reducer'
-import { companyOverview } from './components/companyOverview/redux/reducers/reducer'
-import { keyStats } from './components/keystats/redux/reducers/reducer'
-import { news } from './components/news/redux/reducers/reducer'
-import { peers } from './components/peers/redux/reducers/reducer'
-import { search } from './components/search/redux/reducers/reducer'
-import { favorites } from './components/footer/redux/reducers/reducer'
+import { charts } from './features/charts/redux/reducers/reducer'
+import { companyOverview } from './features/companyOverview/redux/reducers/reducer'
+import { keyStats } from './features/keystats/redux/reducers/reducer'
+import { news } from './features/news/redux/reducers/reducer'
+import { peers } from './features/peers/redux/reducers/reducer'
+import { search } from './features/search/redux/reducers/reducer'
+import { favorites } from './features/footer/redux/reducers/reducer'
 import socketMiddleware from './redux/middleware/socketMiddleware'
 
 const rootReducer = combineReducers({

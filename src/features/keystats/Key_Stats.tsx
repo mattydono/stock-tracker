@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { _KeyStats } from './models/keyStats'
 import styled from '@emotion/styled'
 import { Title } from '../Root'
@@ -183,18 +183,13 @@ const KeyStats: React.FC<_KeyStats & Error> = ({
                      </Tbody>
                  </Table>
              </TableContainer>
-             : !errorQuote ?
+             :
              <KeyStatsLoadingContainer>
                 <AdaptiveLoader size={50} seperation={2} speed={1.4} />
              </KeyStatsLoadingContainer> 
-             :
-            <StatsErrorContainer>
-                <StatsError>⊗</StatsError>
-                <StatsErrorMessage>{errorQuote.message}</StatsErrorMessage>
-            </StatsErrorContainer>
             } 
         </KeyStatsContainer>
     )
 }
 
-export default KeyStats;
+export default memo(KeyStats);

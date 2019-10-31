@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 
 type FetchingErrorProps = {
     message: string | null
@@ -13,4 +13,4 @@ const FetchingError: React.FC<FetchingErrorProps> = ({ message }) => {
     )
 }
 
-export default FetchingError;
+export default memo(FetchingError);

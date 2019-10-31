@@ -1,8 +1,8 @@
-import { _ChartSingleDataPoint } from '../components/charts/models/charts'
-import { _CompanyOverview } from '../components/companyOverview/models/companyOverview'
-import { _KeyStats } from '../components/keystats/models/keyStats'
-import { _News } from '../components/news/models/news'
-import { Range } from '../components/charts/models/range'
+import { _ChartSingleDataPoint } from '../features/charts/models/charts'
+import { _CompanyOverview } from '../features/companyOverview/models/companyOverview'
+import { _KeyStats } from '../features/keystats/models/keyStats'
+import { _News } from '../features/news/models/news'
+import { Range } from '../features/charts/models/range'
 import { _Prices, _PriceSingleDataPoint } from './prices';
 
 export interface _StateProps {
@@ -35,11 +35,4 @@ export interface _DispatchProps {
     updateChartRange: (range: Range) => void,
     updateChartPrices: (prices: _ChartSingleDataPoint[]) => void,
     resetState: () => void,
-    // callbacks: {
-    //     company: (company: _CompanyOverview) => void,
-    //     quote: (quote: _KeyStats) => void,
-    //     news: (news: _News) => void,
-    //     peers: (peers: string[]) => void,
-    //     prices: (prices: string[]) => void,
-    // }
 };

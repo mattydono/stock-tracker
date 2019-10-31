@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { _CompanyOverview } from './models/companyOverview'
 import styled from '@emotion/styled'
 import { Title } from '../Root'
@@ -88,13 +88,18 @@ const CompanyOverview: React.FC<_CompanyOverview & ErrorLoading> = ({ errorCompa
     return (
         <CompanyOverviewContainer>
             <Title>COMPANY OVERVIEW</Title>
-            {
+            {/* {
                 errorCompany.message.length > 0  && !isFetchingCompany ? CompanyError 
                 : isFetchingCompany ? Loading 
                 : <Company {...companyProps} />
+            } */}
+            {companyProps.symbol ?
+                <Company {...companyProps} />
+                :
+                Loading
             }
         </CompanyOverviewContainer>
     );
 }
 
-export default CompanyOverview;
+export default memo(CompanyOverview);

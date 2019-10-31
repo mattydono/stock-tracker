@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { _News } from './models/news'
 import styled from '@emotion/styled'
 import { Title } from '../Root'
@@ -74,4 +74,4 @@ const News: React.FC<NewsProps & ErrorLoading> = ({ errorNews, news }) => {
 }
 
 
-export default News;
+export default memo(News);

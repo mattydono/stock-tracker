@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { _PriceSingleDataPoint } from '../../models/prices';
 import USMarketsMockData from './USMarketsMockData.json';
 
@@ -131,4 +131,4 @@ const Footer: React.FC<FooterProps> = ({ prices, favorites }) => {
     )
 }
 
-export default Footer;
+export default memo(Footer);

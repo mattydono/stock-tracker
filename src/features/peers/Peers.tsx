@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { Title } from '../Root'
 import styled from '@emotion/styled'
 import AdaptiveLoader from '../loader/Loader'
@@ -88,4 +88,4 @@ const Peers: React.FC<PeersProps & ErrorLoading> = ({ errorPeers, isFetchingPeer
     );
 }
 
-export default Peers;
+export default memo(Peers);

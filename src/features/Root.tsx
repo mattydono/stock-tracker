@@ -9,16 +9,16 @@ import Peers from './peers/Peers';
 import Chart from './charts/Chart';
 import Header from './header/Header';
 import Footer from './footer/Footer';
-import logo from '../components/header/logo.png'
+import logo from '../features/header/logo.png'
 
 import { resetState } from '../redux/actions/reset_app'
-import { updateChartRange, updateChartData } from '../components/charts/redux/actions/actions'
-import { updateTicker } from '../components/search/redux/actions/actions'
+import { updateChartRange, updateChartData } from './charts/redux/actions/actions'
+import { updateTicker } from './search/redux/actions/actions'
 
-import { _CompanyOverview } from '../components/companyOverview/models/companyOverview'
-import { _KeyStats } from '../components/keystats/models/keyStats'
-import { _Charts } from '../components/charts/models/charts'
-import { _News } from '../components/news/models/news'
+import { _CompanyOverview } from './companyOverview/models/companyOverview'
+import { _KeyStats } from './keystats/models/keyStats'
+import { _Charts } from './charts/models/charts'
+import { _News } from './news/models/news'
 import { _Prices } from '../models/prices'
 
 import { connect } from 'react-redux';
@@ -56,7 +56,6 @@ const AppContainer = styled.div`
     margin-left: 5%;
     margin-right: 5%;
     max-width: 1368px;
-    // max-height: 1100px;
 `
 
 const CompanyContainer = styled.div`
@@ -217,11 +216,6 @@ const mapDispatchToProps: MapDispatchToProps<_DispatchProps, {}> = dispatch => (
     updateChartPrices: prices => dispatch(updateChartData(prices)),
     resetState: () => dispatch(resetState(undefined)),
 })
-
-// company: company => dispatch(updateCompany(company)),
-//         quote: quote => dispatch(updateKeyStats(quote)),
-//         news: news => dispatch(updateNews(news)),
-//         peers: peers => dispatch(updatePeers(peers)),
 
 export default connect(
     mapStateToProps,

@@ -1,7 +1,7 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, memo } from 'react';
 import styled from '@emotion/styled';
 import AdaptiveLoader from '../loader/Loader';
-import io from 'socket.io-client';
+import { socketService } from '../../services/socket-service'
 import { chartFormatDates } from './chart_formatter';
 
 import { 
@@ -95,26 +95,25 @@ const RangeButton: React.FC<RangeButtonProps> = ({ range, update, current }) => 
     )
 }
 
-const socket = io('http://localhost:4000');
+const ranges: Range[] = ['MAX', '5y', '1y', '1m', '5d', '1d'];
 
 export const Chart: React.FC<ChartProps> = ({ prices, ticker, open, latest, range, updateChartRange, updateChartPrices }) => {
 
     const renderChart = (chart: _ChartSingleDataPoint[]) => {
-        console.log('CHART', chart)
         const formattedChart = chartFormatDates(chart, range);
         updateChartPrices(formattedChart);
     }
 
     useEffect(() => {
+        const socket = socketService.get();
+
         socket.emit('chart', [ticker, range]);
-        socket.on('chart', (result: _ChartSingleDataPoint[]) => renderChart(result));
+        socket.on('chart', renderChart);
         return () => {
             socket.emit('unsubscribeChart', [ticker, range])
         }
     }, [ticker, range])
 
-
-    const ranges: Range[] = ['MAX', '5y', '1y', '1m', '5d', '1d'];
     const buttons = ranges.map(rangeItem => <RangeButton key={rangeItem} current={rangeItem === range} range={rangeItem} update={updateChartRange} />);
     const fetchingAndStateEmpty = prices.length === 0;
 
@@ -145,11 +144,6 @@ export const Chart: React.FC<ChartProps> = ({ prices, ticker, open, latest, rang
                                 <Area connectNulls type="monotone" dataKey="close" name="price" unit=" USD" fill='url(#area)' fillOpacity={1} stroke="#608fd1" />
                             </AreaChart>
                         </ResponsiveContainer>
-                        {/* {
-                            fetching ? <p style={{marginLeft: '35px'}}>fetching data...</p>
-                            : error ? <p>{error}</p>
-                            : <p>&nbsp;</p>
-                        } */}
                     </>
                     :
                     <ChartLoadingContainer>
@@ -161,4 +155,4 @@ export const Chart: React.FC<ChartProps> = ({ prices, ticker, open, latest, rang
 }
 
 
-export default Chart;
+export default memo(Chart);

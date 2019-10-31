@@ -1,9 +1,9 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, memo } from 'react';
 import { _PriceSingleDataPoint } from '../../models/prices';
 import TickerCard from './tickerCard';
 import styled from '@emotion/styled'
 import moment from 'moment'
-import { socketService } from '../../redux/services/socket-service'
+import { socketService } from '../../services/socket-service'
 
 const SearchContainer = styled.div`
     flex: 1 0 auto;
@@ -37,7 +37,6 @@ const Input = styled.input`
     font-size: 40px;
     outline: none;
     border: none;
-    // flex: 1 0 0;
     max-width: 100%;
     width: 100%;
     font-weight: 300;
@@ -372,7 +371,6 @@ const Search: React.FC<SearchProps & Error> = ({
                         <Sub>{primaryExchange}</Sub>
                         <Sub>{tags[0]}</Sub>
                         <Sub>{tags[1]}</Sub>
-                        {/* <Sub>USD</Sub> */}
                     </SubInput>}
                     {primaryExchange && <DateOpen>
                         {latestTime ? <Time>Real-Time Price as of {formattedEST} EST</Time> : null}
@@ -387,4 +385,4 @@ const Search: React.FC<SearchProps & Error> = ({
 
 }
 
-export default Search;
+export default memo(Search);

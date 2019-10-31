@@ -1,17 +1,17 @@
-import React from 'react';
+import React, { memo } from 'react';
 import styled from '@emotion/styled'
 
 const PriceStats = styled.div`
     font-size: inherit;
     display: flex;
-    font-weight: normal;
+    flex: 0 0 300px;
+    font-weight: 300;
     @media(max-width: 1000px) {
         max-height: 60px;
         justify-content: center;
     };
-    @media(max-width: 800px) {
-        max-height: 60px;
-        justify-content: center;
+    @media(max-width: 650px) {
+        margin-top: 10px;
     };
     @media(max-width: 588px) {
         font-size: 30px;
@@ -24,26 +24,32 @@ type SpanProps = {
 
 const Span = styled.span<SpanProps>`
     display: flex;
-    margin-right: 2px;
     color: ${(props: SpanProps) => props.color};
+    margin-left: 5px;
+    margin-right: 5px;
 `
 
 const PriceIcon = styled.span`
-    font-size: 0.5em;
+    font-size: 20px;
+    height: 20px;
+    width: 120x;
     align-self: flex-start;
-    margin-top: 1px;
+    margin-top: 4px;
+    object-fit: contain;
 `
 
 const PriceSpan = styled.span`
     display: flex;
     flex: 0 0 1;
-    margin-right: 10px;
+    margin-right: 13px;
 `
 
 const DollarIcon = styled.div`
-    font-size: 8px;
+    font-size: 20px;
+    height: 24px;
+    width: 12px;
     font-weight: 400;
-    margin-top: 1px;
+    margin-top: 6px;
 `
 
 const ChangeContainer = styled.div`
@@ -104,4 +110,4 @@ const TickerCard: React.FC<TickerCardPropTypes> = ({ latestPrice, change, change
     )
 }
 
-export default TickerCard;
+export default memo(TickerCard);
