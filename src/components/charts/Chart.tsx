@@ -95,7 +95,7 @@ const RangeButton: React.FC<RangeButtonProps> = ({ range, update, current }) => 
     )
 }
 
-const socket = socketService.get();
+const ranges: Range[] = ['MAX', '5y', '1y', '1m', '5d', '1d'];
 
 export const Chart: React.FC<ChartProps> = ({ prices, ticker, open, latest, range, updateChartRange, updateChartPrices }) => {
 
@@ -105,15 +105,15 @@ export const Chart: React.FC<ChartProps> = ({ prices, ticker, open, latest, rang
     }
 
     useEffect(() => {
+        const socket = socketService.get();
+
         socket.emit('chart', [ticker, range]);
-        socket.on('chart', (result: _ChartSingleDataPoint[]) => renderChart(result));
+        socket.on('chart', renderChart);
         return () => {
             socket.emit('unsubscribeChart', [ticker, range])
         }
     }, [ticker, range])
 
-
-    const ranges: Range[] = ['MAX', '5y', '1y', '1m', '5d', '1d'];
     const buttons = ranges.map(rangeItem => <RangeButton key={rangeItem} current={rangeItem === range} range={rangeItem} update={updateChartRange} />);
     const fetchingAndStateEmpty = prices.length === 0;
 
