@@ -184,15 +184,9 @@ const KeyStats: React.FC<_KeyStats & Error> = ({
                  </Table>
              </TableContainer>
              :
-            //  : !errorQuote ?
              <KeyStatsLoadingContainer>
                 <AdaptiveLoader size={50} seperation={2} speed={1.4} />
              </KeyStatsLoadingContainer> 
-            //  :
-            // <StatsErrorContainer>
-            //     <StatsError>⊗</StatsError>
-            //     <StatsErrorMessage>{errorQuote.message}</StatsErrorMessage>
-            // </StatsErrorContainer>
             } 
         </KeyStatsContainer>
     )
