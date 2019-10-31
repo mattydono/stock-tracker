@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, memo } from 'react';
 import styled from '@emotion/styled';
 import AdaptiveLoader from '../loader/Loader';
 import { socketService } from '../../services/socket_service'
@@ -155,4 +155,4 @@ export const Chart: React.FC<ChartProps> = ({ prices, ticker, open, latest, rang
 }
 
 
-export default Chart;
+export default memo(Chart);

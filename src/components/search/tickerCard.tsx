@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import styled from '@emotion/styled'
 
 const PriceStats = styled.div`
@@ -110,4 +110,4 @@ const TickerCard: React.FC<TickerCardPropTypes> = ({ latestPrice, change, change
     )
 }
 
-export default TickerCard;
+export default memo(TickerCard);

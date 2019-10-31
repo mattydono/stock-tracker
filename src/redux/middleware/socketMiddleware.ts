@@ -12,6 +12,10 @@ const socketMiddleware = () => {
     const socket = socketService.get();
 
     return ({ dispatch, getState }: MiddlewareAPI) => {
+
+        socket.emit('ticker', 'aapl')
+        socket.emit('prices', ['aapl', 'amzn', 'msft', 'fb'])
+
         socket.on('prices', (prices: _PriceSingleDataPoint[]) => dispatch({ type: 'UPDATE_PRICES_DATA', payload: prices }));
         socket.on('company', (company: _CompanyOverview) => dispatch({ type: 'UPDATE_COMPANY', payload: company }));
         socket.on('news', (news: _News) => dispatch({ type: 'UPDATE_NEWS', payload: news }));

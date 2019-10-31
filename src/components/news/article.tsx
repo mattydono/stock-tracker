@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { _Article } from './models/news';
 import moment from 'moment';
 import styled from '@emotion/styled'
@@ -38,4 +38,4 @@ const Article: React.FC<_Article> = ({ url, headline, datetime, source }) => {
     )
 }
 
-export default Article;
+export default memo(Article);

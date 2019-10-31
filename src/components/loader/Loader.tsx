@@ -1,5 +1,5 @@
 import { memoize } from 'lodash'
-import React from 'react'
+import React, { memo } from 'react'
 import { keyframes } from '@emotion/core'
 import styled from '@emotion/styled'
 
@@ -77,4 +77,4 @@ const AdaptiveLoader: React.FC<Props> = React.memo(
   },
 )
 
-export default AdaptiveLoader
+export default memo(AdaptiveLoader)

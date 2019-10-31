@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, memo } from 'react';
 import { _PriceSingleDataPoint } from '../../models/prices';
 import TickerCard from './tickerCard';
 import styled from '@emotion/styled'
@@ -385,4 +385,4 @@ const Search: React.FC<SearchProps & Error> = ({
 
 }
 
-export default Search;
+export default memo(Search);
