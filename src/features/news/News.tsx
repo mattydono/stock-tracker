@@ -3,7 +3,7 @@ import { _News } from './models/news'
 import styled from '@emotion/styled'
 import { Title } from '../Root'
 import Article from './article';
-import AdaptiveLoader from '../loader/Loader'
+import { Loader } from '../loader/Loader'
 
 const NewsContainer =styled.div`
     flex: 0 1 34%;
@@ -31,17 +31,6 @@ const ArticleContainer = styled.div`
     overflow: auto;
 `
 
-const NewsLoadingContainer =styled.div`
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 200px;
-    @media(max-width: 750px) {
-        margin-top: 50px;
-        margin-bottom: 50px;
-    };
-`
-
 type NewsProps = {
     news: _News,
     isFetchingNews: boolean,
@@ -55,7 +44,7 @@ type ErrorLoading = {
 
 const News: React.FC<NewsProps & ErrorLoading> = ({ errorNews, news }) => {
 
-    const Loading = <NewsLoadingContainer><AdaptiveLoader size={50} seperation={2} speed={1.4} /></NewsLoadingContainer>
+    const Loading = <Loader className='margin-top: 200px; @media(max-width: 750px) {margin-top: 50px; margin-bottom: 50px;};' size={50} seperation={2} speed={1.4} />
 
     const News = news.length > 0 ? news.map(article => <Article key={article.headline} {...article}/>) : Loading;
 

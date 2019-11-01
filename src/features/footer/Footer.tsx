@@ -2,7 +2,7 @@ import React, { memo } from 'react';
 import { _PriceSingleDataPoint } from '../../models/prices';
 import USMarketsMockData from './USMarketsMockData.json';
 
-import TickerCard from './footerTickerCard';
+import FooterTickerCard from './components/footerTickerCard';
 
 import styled from '@emotion/styled'
 
@@ -20,24 +20,6 @@ const FooterContainer = styled.div`
     @media(max-width: 588px) {
         display: none;
     };
-`
-
-const Ticker = styled.div`
-    margin-right: 10px;
-    text-transform: uppercase;
-    font-weight: bold;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: normal;
-    letter-spacing: normal;
-    text-align: left;
-`
-
-const Card = styled.div`
-    margin-right: 25px;
-    display: flex;
-    flex: 0 0 1;
-    font-size: 14px;
 `
 
 const FavouritesContainer = styled.div`
@@ -98,17 +80,8 @@ type FooterProps = {
     favorites: string[],
 }
 
-const FooterTickerCard: React.FC<_PriceSingleDataPoint> = ({ ticker, latestPrice, change, changePercent, error }) => {
-
-    return (
-        <Card>
-            <Ticker>{ticker}</Ticker>
-            <TickerCard error={error} latestPrice={latestPrice} change={change} changePercent={changePercent} />
-        </Card>
-    )
-}
-
 const Footer: React.FC<FooterProps> = ({ prices, favorites }) => {
+    
     const favoritesArray = prices[0] && prices.filter(({ ticker }) => ticker && favorites.includes(ticker)).map(item => <FooterTickerCard key={item.ticker} {...item} /> );
     const usMarketsArray = USMarketsMockData.map(item => <FooterTickerCard key={item.ticker} {...item}/>)
 

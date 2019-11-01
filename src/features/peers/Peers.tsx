@@ -1,7 +1,7 @@
 import React, { memo } from 'react';
 import { Title } from '../Root'
 import styled from '@emotion/styled'
-import AdaptiveLoader from '../loader/Loader'
+import { Loader } from '../loader/Loader'
 
 const PeersContainer = styled.div`
     max-height: 30%;
@@ -10,18 +10,6 @@ const PeersContainer = styled.div`
     };
     @media(max-width: 588px) {
         margin-bottom: 44.7px;
-    }
-`
-
-const PeersLoadingContainer = styled.div`
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    margin-top: 30px;
-    @media(max-width: 750px) {
-        margin-top: 50px;
-        margin-bottom: 50px;
     }
 `
 
@@ -69,20 +57,8 @@ const Peers: React.FC<PeersProps & ErrorLoading> = ({ errorPeers, isFetchingPeer
                     <ContentContainer>
                         {HARD_PEERS.map( peer => renderPeer(peer))}
                     </ContentContainer>
-                    : isFetchingPeers && !errorPeers ?
-                    <PeersLoadingContainer>
-                        <AdaptiveLoader size={50} seperation={2} speed={1.4} /> 
-                    </PeersLoadingContainer>
                     :
-                    <>
-                        {errorPeers ? 
-                            <div className='PeersErrorContainer'>
-                                <div className='PeersError'>⊗</div>
-                                <div className='PeersErrorMessage'>{errorPeers.message}</div>
-                            </div> : 
-                            null
-                        }
-                    </>
+                    <Loader className='flex-direction: column; margin-top: 30px; @media(max-width: 750px) { margin-top: 50px; margin-bottom: 50px;}' size={50} seperation={2} speed={1.4} /> 
                 }
             </PeersContainer>
     );

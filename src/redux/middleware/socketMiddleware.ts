@@ -1,17 +1,16 @@
+import { AnyAction, Middleware } from 'redux'
 import { socketService } from '../../services/socket-service'
-
 import { _PriceSingleDataPoint } from '../../models/prices'
 import { _CompanyOverview } from '../../features/companyOverview/models/companyOverview'
 import { _News } from '../../features/news/models/news'
 import { _KeyStats } from '../../features/keystats/models/keyStats'
 import { _Error } from '../../models/errors'
 
-import { AnyAction, Dispatch, MiddlewareAPI } from 'redux'
 
-const socketMiddleware = () => {
+const socketMiddleware = (): Middleware => {
     const socket = socketService.get();
 
-    return ({ dispatch, getState }: MiddlewareAPI) => {
+    return ({ dispatch, getState }) => {
 
         socket.on('prices', (prices: _PriceSingleDataPoint[]) => dispatch({ type: 'UPDATE_PRICES_DATA', payload: prices }));
         socket.on('company', (company: _CompanyOverview) => dispatch({ type: 'UPDATE_COMPANY', payload: company }));
@@ -22,7 +21,7 @@ const socketMiddleware = () => {
         socket.emit('ticker', 'aapl')
         socket.emit('prices', ['aapl', 'amzn', 'msft', 'fb'])
         
-        return (next: Dispatch) => (action: AnyAction) => {
+        return (next) => (action: AnyAction) => {
 
             if (action.type === 'UPDATE_TICKER') {
                 const { favorites } = getState();
