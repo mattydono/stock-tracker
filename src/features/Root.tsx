@@ -9,7 +9,6 @@ import Peers from './peers/Peers';
 import Chart from './charts/Chart';
 import Header from './header/Header';
 import Footer from './footer/Footer';
-import logo from '../features/header/logo.png'
 
 import { resetState } from '../redux/actions/reset_app'
 import { updateChartRange, updateChartData } from './charts/redux/actions/actions'
@@ -116,14 +115,6 @@ const StatsCompany = styled.div`
     };
 `
 
-const FooterLogo = styled.img`
-    height: 40px;
-    width: 100px;
-    margin-left: 60%;
-    @media(min-width: 375px) {
-        display: none;
-    }
-`
 interface _AppState {
     search: string,
     companyOverview: _CompanyOverview,
@@ -174,7 +165,6 @@ const Root: React.FC<_StateProps & _DispatchProps> = ({
                 </StatsCompany>
             </AppContainer>
             <Footer {...footerProps} />
-            <FooterLogo src={logo} />
         </RootContainer>
     )
 }

@@ -46,7 +46,7 @@ const Chart: React.FC<ChartProps> = ({ prices, ticker, latest, range, updateChar
         return () => {
             socket.emit('unsubscribeChart', [ticker, range])
         }
-    }, [ticker, range, renderChart])
+    }, [ticker, range])
 
     const Loading = <Loader className='margin-top: 250px; @media(max-width: 750px) { margin-top: 10px; margin-bottom: 50px; }' size={50} seperation={2} speed={1.4} />
     const Chart = <><RangeButtons range={range} update={updateChartRange}/><Graph prices={prices} range={range} latest={latest}/></>

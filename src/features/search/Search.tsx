@@ -1,11 +1,12 @@
 import React, { useState, useEffect, useRef, memo } from 'react';
 import { _PriceSingleDataPoint } from '../../models/prices';
-import TickerCard from './tickerCard';
+import TickerCard from './components/tickerCard';
 import styled from '@emotion/styled'
-import moment from 'moment'
 import { socketService } from '../../services/socket-service'
 import { SearchBar } from'./components/search-bar'
 import { StockList } from './components/stockList'
+import { DateTime } from './components/date'
+import { Tags } from './components/tags'
 
 const SearchContainer = styled.div`
     flex: 1 0 auto;
@@ -40,61 +41,6 @@ const SubSearch = styled.div`
     @media(max-width: 375px) {
         display: none;
     }
-`
-
-const SubInput = styled.div`
-    display: flex;
-    flex-direction: row;
-`
-
-const Sub = styled.span`
-    background-color: #415f8a;
-    border-radius: 2px;
-    height: 22px;
-    font-size: 14px;
-    margin-right: 11px;
-    padding-left: 16px;
-    padding-right: 16px;
-    display: flex;
-    align-items: center;
-    overflow: hidden;
-`
-
-const DateOpen = styled.div`
-    font-size: 14px;
-    display: flex;
-    font-weight: 300;
-    justify-content: flex-end;
-    margin-left: 5px;
-`
-
-const Time = styled.span`
-    color: rgba(255, 255, 255, 0.8);
-    @media(max-width: 750px) {
-        display: none;
-    }
-`
-
-const MarketStatus = styled.span`
-    font-size: 14px;
-    font-weight: 400;
-    display: flex;
-    margin-left: 25px;
-    position: relative;
-`
-
-const MarketIcon = styled.div(props => ({
-    color: props.color ? 'yellow' : 'gray',
-    fontSize: '15px',
-    position: 'absolute',
-    top: '-2px',
-    left: '-15px',
-}))
-
-const SubError = styled.div`
-    display: flex;
-    margin-top: 15px;
-    opacity: 0;
 `
 
 type SearchProps = {
@@ -167,12 +113,6 @@ const Search: React.FC<SearchProps & Error> = ({
         socket.emit('search', query);
     }, [query]);
 
-    const formatDate = (date: any) => new Date(date);
-    const EST = formatDate(moment()).toLocaleString("en-US", {
-        timeZone: "America/New_York"
-      });
-    const formattedEST = moment(EST).format("lll");
-
     return (
         <SearchContainer>
             <RowContainer>
@@ -181,15 +121,8 @@ const Search: React.FC<SearchProps & Error> = ({
                 {isOpen && <StockList setQuery={setQuery} inputSelect={inputSelect} search={search} setStockList={setStockList} setSelectedStock={setSelectedStock} dropSelect={dropSelect} stockList={stockList} /> }
             </RowContainer>
             <SubSearch>
-                {primaryExchange && <SubInput>
-                    <Sub>{primaryExchange}</Sub>
-                    <Sub>{tags[0]}</Sub>
-                    <Sub>{tags[1]}</Sub>
-                </SubInput>}
-                {primaryExchange && <DateOpen>
-                    {latestTime ? <Time>Real-Time Price as of {formattedEST} EST</Time> : null}
-                    {tags.length < 1 ? null : isUSMarketOpen ? <MarketStatus><MarketIcon color='yellow'>☀</MarketIcon>Market Open</MarketStatus> : <MarketStatus><MarketIcon>☽</MarketIcon> Market Closed</MarketStatus>}
-                </DateOpen>}
+                {primaryExchange && <Tags primaryExchange={primaryExchange} tags={tags} />}
+                {primaryExchange && <DateTime latestTime={latestTime} tags={tags} isUSMarketOpen={isUSMarketOpen} />}
             </SubSearch>
         </SearchContainer>
     )
