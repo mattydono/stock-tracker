@@ -1,5 +1,5 @@
-import { memoize } from 'lodash'
-import React, { memo } from 'react'
+import memoizeOne from 'memoize-one';
+import React, { memo, FC } from 'react'
 import { keyframes } from '@emotion/core'
 import styled from '@emotion/styled'
 
@@ -10,7 +10,7 @@ for (let i = 0; i < BAR_NUMBER; i++) {
   bars.push(i)
 }
 
-const getBounce = memoize(
+const getBounce = memoizeOne(
   (moveDistance: number) => keyframes`
   0% {
     transform: translate(0px,0px);
@@ -33,7 +33,7 @@ interface BarProps {
 
 const Bar = styled('rect')<BarProps>`
   animation: ${({ moveDistance }: BarProps) => getBounce(moveDistance)} ${({ speed }) => speed}s
-    infinite;
+  infinite;
   animation-delay: ${({ order, speed }) => order * (speed / 1.3 / BAR_NUMBER) - speed * 0.6}s;
   fill: white;
   will-change: transform;
@@ -47,7 +47,13 @@ interface Props {
   speed?: number
 }
 
-const AdaptiveLoader: React.FC<Props> = React.memo(
+const LoadingContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`
+
+const AdaptiveLoader: FC<Props> = React.memo(
   ({ size, type, seperation, speed, children }) => {
     const sizeNum = Number(size)
     const barHeight = sizeNum * 0.75
@@ -77,4 +83,10 @@ const AdaptiveLoader: React.FC<Props> = React.memo(
   },
 )
 
-export default memo(AdaptiveLoader)
+type LoaderProps = Props & { className?: string };
+
+export const Loader = memo<LoaderProps>(({ className, ...props }) => (
+  <LoadingContainer className={className}>
+    <AdaptiveLoader {...props} />
+  </LoadingContainer>
+));

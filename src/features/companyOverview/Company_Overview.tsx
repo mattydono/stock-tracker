@@ -2,8 +2,7 @@ import React, { memo } from 'react';
 import { _CompanyOverview } from './models/companyOverview'
 import styled from '@emotion/styled'
 import { Title } from '../Root'
-import FetchingError from '../errors/Error_Fetching'
-import AdaptiveLoader from '../loader/Loader'
+import { Loader } from '../loader/Loader'
 
 const CompanyOverviewContainer = styled.div`
     max-height: 400px;
@@ -41,14 +40,6 @@ const Description = styled.div`
     max-height: 140px;
 `
 
-const LoadingContainer = styled.div`
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 50px;
-    margin-bottom: 50px;
-`
-
 const OverflowContainer = styled.div`
     overflow: auto;
     max-height: 200px;
@@ -80,23 +71,16 @@ const Company: React.FC<_CompanyOverview> = ({ companyName, symbol, website, des
 }
 
 const CompanyOverview: React.FC<_CompanyOverview & ErrorLoading> = ({ errorCompany, isFetchingCompany, ...companyProps }) => {
-
-    const CompanyError = <FetchingError message={errorCompany.message}/>
-
-    const Loading = <LoadingContainer><AdaptiveLoader size={50} seperation={2} speed={1.4} /></LoadingContainer>
-
     return (
         <CompanyOverviewContainer>
             <Title>COMPANY OVERVIEW</Title>
-            {/* {
-                errorCompany.message.length > 0  && !isFetchingCompany ? CompanyError 
-                : isFetchingCompany ? Loading 
-                : <Company {...companyProps} />
-            } */}
-            {companyProps.symbol ?
-                <Company {...companyProps} />
-                :
-                Loading
+            {companyProps.symbol
+                ? <Company {...companyProps} />
+                : ( <Loader className='margin-top: 50px; margin-bottom: 50px;' size={50} seperation={2} speed={1.4} />
+                    // <LoadingContainer>
+                    //     <AdaptiveLoader size={50} seperation={2} speed={1.4} className={css`margin-top: 50px`} />
+                    // </LoadingContainer>
+                )
             }
         </CompanyOverviewContainer>
     );
