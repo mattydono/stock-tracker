@@ -10,7 +10,7 @@ import Chart from './charts/Chart';
 import Header from './header/Header';
 import Footer from './footer/Footer';
 
-import { resetState } from '../redux/actions/reset_app'
+import { resetState } from '../redux/actions/resetApp'
 import { updateChartRange, updateChartData } from './charts/redux/actions/actions'
 import { updateTicker } from './search/redux/actions/actions'
 

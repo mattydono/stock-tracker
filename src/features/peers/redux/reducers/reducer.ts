@@ -1,5 +1,5 @@
 import { UpdatePeersAction, UPDATE_PEERS } from '../actions/actions'
-import { RESET_APP_STATE } from '../../../../redux/actions/reset_app'
+import { RESET_APP_STATE } from '../../../../redux/actions/resetApp'
 
 export const peers = (
     state = [''],

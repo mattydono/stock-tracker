@@ -4,13 +4,14 @@ import { _CompanyOverview } from '../../features/companyOverview/models/companyO
 import { _News } from '../../features/news/models/news'
 import { _KeyStats } from '../../features/keystats/models/keyStats'
 import { _Error } from '../../models/errors'
+import { updatePricesData } from '../actions';
 
 
 const socketMiddleware = (socket: SocketIOClient.Socket, defaultTicker: string = 'aapl'): Middleware => {
 
     return ({ dispatch, getState }) => {
 
-        socket.on('prices', (prices: _PriceSingleDataPoint[]) => dispatch({ type: 'UPDATE_PRICES_DATA', payload: prices }));
+        socket.on('prices', (prices: _PriceSingleDataPoint[]) => dispatch(updatePricesData(prices)));
         socket.on('company', (company: _CompanyOverview) => dispatch({ type: 'UPDATE_COMPANY', payload: company }));
         socket.on('news', (news: _News) => dispatch({ type: 'UPDATE_NEWS', payload: news }));
         socket.on('keystats', (keystats: _KeyStats) => dispatch({ type: 'UPDATE_KEY_STATS', payload: keystats }));

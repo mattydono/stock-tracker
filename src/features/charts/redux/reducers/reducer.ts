@@ -3,7 +3,7 @@ import {
     UpdateChartDataAction, UPDATE_CHART_DATA, 
     UpdateChartRangeAction, UPDATE_CHART_RANGE,
 } from '../actions/actions'
-import { RESET_APP_STATE } from '../../../../redux/actions/reset_app'
+import { RESET_APP_STATE } from '../../../../redux/actions/resetApp'
 
 const chartsIntitialState: _Charts = {
     range: '1m',
