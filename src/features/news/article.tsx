@@ -3,7 +3,7 @@ import { _Article } from './models/news';
 import moment from 'moment';
 import styled from '@emotion/styled'
 
-const ArticleItem = styled.div`
+const ArticleItemContainer = styled.div`
     font-weight: 400;
     margin-bottom: 20px;
     display: flex;
@@ -29,12 +29,12 @@ const Time = styled.div`
 
 const Article: React.FC<_Article> = ({ url, headline, datetime, source }) => {
     return (
-        <ArticleItem>
+        <ArticleItemContainer>
             <Link href={url} target='_blank'>
                 <div style={{fontSize: 'inherit'}}>{headline}</div>
             </Link>
             <Time>{moment(datetime).fromNow()} - {source}</Time>
-        </ArticleItem>
+        </ArticleItemContainer>
     )
 }
 

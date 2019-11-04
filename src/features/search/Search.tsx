@@ -8,7 +8,7 @@ import { StockList } from './components/stockList'
 import { DateTime } from './components/date'
 import { Tags } from './components/tags'
 
-const SearchContainer = styled.div`
+const SearchLayoutContainer = styled.div`
     flex: 1 0 auto;
     margin-bottom: -40px;
     @media(max-width: 1000px) {
@@ -19,7 +19,7 @@ const SearchContainer = styled.div`
     }
 `
 
-const RowContainer = styled.div`
+const SearchRowLayoutContainer = styled.div`
     min-height: 48px;
     padding-bottom: 7px;
     position: relative;
@@ -34,7 +34,7 @@ const RowContainer = styled.div`
     };
 `
 
-const SubSearch = styled.div`
+const DateRowLayoutContainer = styled.div`
     display: flex;
     justify-content: space-between;
     margin-top: 15px;
@@ -114,17 +114,17 @@ const Search: React.FC<SearchProps & Error> = ({
     }, [query]);
 
     return (
-        <SearchContainer>
-            <RowContainer>
+        <SearchLayoutContainer>
+            <SearchRowLayoutContainer>
                 <SearchBar inputSelect={inputSelect} dropSelect={dropSelect} setQuery={setQuery} isOpen={isOpen} toggleIsOpen={toggleIsOpen} search={search} query={query} stockList={stockList} setSelectedStock={setSelectedStock} selectedStock={selectedStock} socket={socket} />
                 {latestPrice && <TickerCard error={error} latestPrice={latestPrice} change={change} changePercent={changePercent} />}
                 {isOpen && <StockList setQuery={setQuery} inputSelect={inputSelect} search={search} setStockList={setStockList} setSelectedStock={setSelectedStock} dropSelect={dropSelect} stockList={stockList} /> }
-            </RowContainer>
-            <SubSearch>
+            </SearchRowLayoutContainer>
+            <DateRowLayoutContainer>
                 {primaryExchange && <Tags primaryExchange={primaryExchange} tags={tags} />}
                 {primaryExchange && <DateTime latestTime={latestTime} tags={tags} isUSMarketOpen={isUSMarketOpen} />}
-            </SubSearch>
-        </SearchContainer>
+            </DateRowLayoutContainer>
+        </SearchLayoutContainer>
     )
 
 }

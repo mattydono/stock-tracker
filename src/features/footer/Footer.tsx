@@ -6,7 +6,7 @@ import FooterTickerCard from './components/footerTickerCard';
 
 import styled from '@emotion/styled'
 
-const FooterContainer = styled.div`
+const FooterLayoutContainer = styled.div`
     position: fixed;
     bottom: 0;
     align-self: flex-end;
@@ -22,7 +22,7 @@ const FooterContainer = styled.div`
     };
 `
 
-const FavouritesContainer = styled.div`
+const FavouritesLayoutContainer = styled.div`
     width: 50%;
     overflow: hidden;
     @media(max-width: 1390px) {
@@ -30,7 +30,7 @@ const FavouritesContainer = styled.div`
     }
 `
 
-const MarketsContainer = styled.div`
+const MarketsLayoutContainer = styled.div`
     width: 50%;
     overflow: hidden;
     @media(max-width: 1390px) {
@@ -86,21 +86,21 @@ const Footer: React.FC<FooterProps> = ({ prices, favorites }) => {
     const usMarketsArray = USMarketsMockData.map(item => <FooterTickerCard key={item.ticker} {...item}/>)
 
     return (
-        <FooterContainer>
-            <MarketsContainer>
+        <FooterLayoutContainer>
+            <MarketsLayoutContainer>
                 <Header>US MARKET</Header>
                 <FooterSection>
                     {usMarketsArray}
                 </FooterSection>
-            </MarketsContainer>
+            </MarketsLayoutContainer>
             <Seperator />
-            <FavouritesContainer>
+            <FavouritesLayoutContainer>
                 <Header>FAVORITES</Header>
                 <FooterSection>
                     {favoritesArray}
                 </FooterSection>
-            </FavouritesContainer>
-        </FooterContainer>
+            </FavouritesLayoutContainer>
+        </FooterLayoutContainer>
     )
 }
 

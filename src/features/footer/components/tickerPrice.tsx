@@ -22,7 +22,7 @@ type SpanProps = {
     color: string
 }
 
-const Span = styled.span<SpanProps>`
+const PriceChange = styled.span<SpanProps>`
     display: flex;
     margin-right: 2px;
     color: ${(props: SpanProps) => props.color};
@@ -62,42 +62,43 @@ export const TickerPrice: React.FC<TickerCardPropTypes> = ({ latestPrice, change
     return (
         <PriceLayoutContainer>
             {
-                latestPrice ? 
-                    <PriceContainer>
-                        <DollarIcon>$</DollarIcon>
-                        {latestPrice.toFixed(2)}
-                    </PriceContainer> 
+                latestPrice 
+                ? <PriceContainer>
+                    <DollarIcon>$</DollarIcon>
+                    {latestPrice.toFixed(2)}
+                  </PriceContainer> 
                 : null
             }
             <ChangeLayoutContainer>
                 {
                     !change ? null 
-                    : change > 0 ? 
-                        <Span color='#91e4a5'>
-                            <PriceIcon>&#129121;</PriceIcon>
-                            {Math.abs(change).toFixed(2)}
-                        </Span> 
-                    : <Span color='#e95656'><PriceIcon>&#129123;</PriceIcon>{Math.abs(change).toFixed(2)}</Span>
+                    : change > 0 
+                    ? <PriceChange color='#91e4a5'>
+                        <PriceIcon>&#129121;</PriceIcon>
+                        {Math.abs(change).toFixed(2)}
+                      </PriceChange> 
+                    : <PriceChange color='#e95656'>
+                        <PriceIcon>&#129123;</PriceIcon>
+                        {Math.abs(change).toFixed(2)}
+                      </PriceChange>
                 } 
                 {
                     !change ? null 
-                    : change > 0 ? 
-                        <Span color='#91e4a5'>|</Span> 
-                    : 
-                        <Span color='#e95656'>|</Span> 
+                    : change > 0 
+                    ? <PriceChange color='#91e4a5'>|</PriceChange> 
+                    : <PriceChange color='#e95656'>|</PriceChange> 
                 }
                 {
                     !changePercent ? null 
-                    : changePercent > 0 ? 
-                        <Span color='#91e4a5'>
-                            {Math.abs(Math.round((changePercent * 100) * 100) / 100).toFixed(2)}
-                            <PriceIcon>%</PriceIcon>
-                        </Span> 
-                    : 
-                        <Span color='#e95656'>
-                            {Math.abs(Math.round((changePercent * 100) * 100) / 100).toFixed(2)}
-                            <PriceIcon>%</PriceIcon>
-                        </Span>
+                    : changePercent > 0 
+                    ? <PriceChange color='#91e4a5'>
+                        {Math.abs(Math.round((changePercent * 100) * 100) / 100).toFixed(2)}
+                        <PriceIcon>%</PriceIcon>
+                      </PriceChange> 
+                    : <PriceChange color='#e95656'>
+                        {Math.abs(Math.round((changePercent * 100) * 100) / 100).toFixed(2)}
+                        <PriceIcon>%</PriceIcon>
+                      </PriceChange>
                 }
             </ChangeLayoutContainer>
         </PriceLayoutContainer>

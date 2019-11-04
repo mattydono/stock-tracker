@@ -2,7 +2,7 @@ import React, { FC } from 'react'
 import styled from '@emotion/styled'
 import moment from 'moment'
 
-const DateOpen = styled.div`
+const DateLayoutContainer = styled.div`
     font-size: 14px;
     display: flex;
     font-weight: 300;
@@ -47,9 +47,9 @@ const formatDate = (date: any) => new Date(date);
 
 export const DateTime: FC<DateProps> = ({latestTime, isUSMarketOpen, tags}) => {
     return (
-        <DateOpen>
+        <DateLayoutContainer>
             {latestTime ? <Time>Real-Time Price as of {formattedEST} EST</Time> : null}
             {tags.length < 1 ? null : isUSMarketOpen ? <MarketStatus><MarketIcon color='yellow'>☀</MarketIcon>Market Open</MarketStatus> : <MarketStatus><MarketIcon>☽</MarketIcon> Market Closed</MarketStatus>}
-        </DateOpen>
+        </DateLayoutContainer>
     )
 }

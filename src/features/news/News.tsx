@@ -5,7 +5,7 @@ import { Title } from '../Root'
 import Article from './article';
 import { Loader } from '../loader/Loader'
 
-const NewsContainer =styled.div`
+const NewsLayoutContainer =styled.div`
     flex: 0 1 34%;
     margin-top: 40px;
     margin-left: 26px;
@@ -22,7 +22,7 @@ const NewsContainer =styled.div`
     }
 `
 
-const ArticleContainer = styled.div`
+const ArticleLayoutContainer = styled.div`
     margin-top: 15px;
     display: flex;
     flex-direction: column;
@@ -54,10 +54,13 @@ const News: React.FC<NewsProps & ErrorLoading> = ({ errorNews, news }) => {
 
 
     return (
-        <NewsContainer>
+        <NewsLayoutContainer>
             <Title>LATEST NEWS</Title>
-            {errorNews.message.length > 0 ? NewsError : <ArticleContainer>{News}</ArticleContainer>}
-        </NewsContainer>
+            {
+                errorNews.message.length > 0 
+                ? NewsError 
+                : <ArticleLayoutContainer>{News}</ArticleLayoutContainer>}
+        </NewsLayoutContainer>
 
     )
 }

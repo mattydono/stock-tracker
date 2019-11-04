@@ -22,7 +22,7 @@ type SpanProps = {
     color: string
 }
 
-const Span = styled.span<SpanProps>`
+const ChangeItem = styled.span<SpanProps>`
     display: flex;
     color: ${(props: SpanProps) => props.color};
     margin-left: 5px;
@@ -79,31 +79,31 @@ const TickerCard: React.FC<TickerCardPropTypes> = ({ latestPrice, change, change
                 {
                     !change ? null 
                     : change > 0 ? 
-                        <Span color='#91e4a5'>
+                        <ChangeItem color='#91e4a5'>
                             <PriceIcon>&#129121;</PriceIcon>
                             {Math.abs(change).toFixed(2)}
-                        </Span> 
-                    : <Span color='#e95656'><PriceIcon>&#129123;</PriceIcon>{Math.abs(change).toFixed(2)}</Span>
+                        </ChangeItem> 
+                    : <ChangeItem color='#e95656'><PriceIcon>&#129123;</PriceIcon>{Math.abs(change).toFixed(2)}</ChangeItem>
                 } 
                 {
                     !change ? null 
                     : change > 0 ? 
-                        <Span color='#91e4a5'>|</Span> 
+                        <ChangeItem color='#91e4a5'>|</ChangeItem> 
                     : 
-                        <Span color='#e95656'>|</Span> 
+                        <ChangeItem color='#e95656'>|</ChangeItem> 
                 }
                 {
                     !changePercent ? null 
                     : changePercent > 0 ? 
-                        <Span color='#91e4a5'>
+                        <ChangeItem color='#91e4a5'>
                             {Math.abs(Math.round((changePercent * 100) * 100) / 100).toFixed(2)}
                             <PriceIcon>%</PriceIcon>
-                        </Span> 
+                        </ChangeItem> 
                     : 
-                        <Span color='#e95656'>
+                        <ChangeItem color='#e95656'>
                             {Math.abs(Math.round((changePercent * 100) * 100) / 100).toFixed(2)}
                             <PriceIcon>%</PriceIcon>
-                        </Span>
+                        </ChangeItem>
                 }
             </ChangeContainer>
         </PriceStats>

@@ -1,12 +1,12 @@
 import React, { FC } from 'react'
 import styled from '@emotion/styled'
 
-const SubInput = styled.div`
+const TagsLayoutContainer = styled.div`
     display: flex;
     flex-direction: row;
 `
 
-const Sub = styled.span`
+const Tag = styled.span`
     background-color: #415f8a;
     border-radius: 2px;
     height: 22px;
@@ -26,10 +26,10 @@ type TagsProps = {
 
 export const Tags: FC<TagsProps> = ({primaryExchange, tags}) => {
     return (
-        <SubInput>
-            <Sub>{primaryExchange}</Sub>
-            <Sub>{tags[0]}</Sub>
-            <Sub>{tags[1]}</Sub>
-        </SubInput>
+        <TagsLayoutContainer>
+            <Tag>{primaryExchange}</Tag>
+            <Tag>{tags[0]}</Tag>
+            <Tag>{tags[1]}</Tag>
+        </TagsLayoutContainer>
     )
 }

@@ -7,7 +7,7 @@ import { RangeButtons } from './components/range_buttons'
 import { Graph } from './components/graph'
 import { _ChartSingleDataPoint, Range } from './models';
 
-const ChartContainer = styled.div`    
+const ChartLayoutContainer = styled.div`    
     flex: 0 1 66%;
     margin-top: 15px;
     margin-left: -35px;
@@ -48,13 +48,14 @@ const Chart: React.FC<ChartProps> = ({ prices, ticker, latest, range, updateChar
         }
     }, [ticker, range])
 
-    const Loading = <Loader className='margin-top: 250px; @media(max-width: 750px) { margin-top: 10px; margin-bottom: 50px; }' size={50} seperation={2} speed={1.4} />
-    const Chart = <><RangeButtons range={range} update={updateChartRange}/><Graph prices={prices} range={range} latest={latest}/></>
-
     return (     
-            <ChartContainer>
-                {prices.length !== 0 ? Chart : Loading}                         
-            </ChartContainer>
+            <ChartLayoutContainer>
+                {
+                    prices.length !== 0 
+                    ? <><RangeButtons range={range} update={updateChartRange}/><Graph prices={prices} range={range} latest={latest}/></>
+                    : <Loader className='margin-top: 250px; @media(max-width: 750px) { margin-top: 10px; margin-bottom: 50px; }' size={50} seperation={2} speed={1.4} />
+                }                         
+            </ChartLayoutContainer>
     );
 }
 

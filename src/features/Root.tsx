@@ -70,7 +70,7 @@ const CompanyContainer = styled.div`
     };
 `
 
-const ChartNews = styled.div`
+const ChartNewsLayout = styled.div`
     display: flex;
     flex: 1 0 auto;
     margin-bottom: -120px;
@@ -97,7 +97,7 @@ const ChartNews = styled.div`
     };
 `
 
-const StatsCompany = styled.div`
+const StatsCompanyLayout = styled.div`
     display: flex;
     flex: 1 0 auto;
     @media(max-width: 750px) {
@@ -148,21 +148,21 @@ const Root: React.FC<_StateProps & _DispatchProps> = ({
                 errorQuote={{message: ''}}
                 {...searchProps}
                 />
-                <ChartNews>
+                <ChartNewsLayout>
                     <Chart 
                         {...chartProps}
                         updateChartPrices={updateChartPrices} 
                         updateChartRange={updateChartRange}
                     />
                     <News errorNews={{message: ''}} isFetchingNews={false} news={news}/>
-                </ChartNews>
-                <StatsCompany>
+                </ChartNewsLayout>
+                <StatsCompanyLayout>
                     <KeyStats errorQuote={{message: ''}} isFetchingQuote={false} {...keyStats}/>
                     <CompanyContainer>
                         <CompanyOverview errorCompany={{message: ''}} isFetchingCompany={false} {...companyOverview} />
                         <Peers errorPeers={{message: ''}} isFetchingPeers={false} peers={peers} />
                     </CompanyContainer>
-                </StatsCompany>
+                </StatsCompanyLayout>
             </AppContainer>
             <Footer {...footerProps} />
         </RootContainer>

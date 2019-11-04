@@ -5,7 +5,7 @@ import { Title } from '../Root'
 import { StatsTable } from './components/table'
 import { Loader } from '../loader/Loader'
 
-const KeyStatsContainer = styled.div`
+const KeyStatsLayoutContainer = styled.div`
     flex: 0 1 63%;
 `
 
@@ -23,17 +23,15 @@ const KeyStats: React.FC<_KeyStats & Error> = ({
 
     const nullValues = Object.values(keystatsProps).every((item: number) => !item);
     
-    const Loading = <Loader className='flex-direction: column; margin-top: 100px; @media(max-width: 750px) {margin-top: 50px; margin-bottom: 50px}' size={50} seperation={2} speed={1.4} />
-
     return (    
-        <KeyStatsContainer>
+        <KeyStatsLayoutContainer>
             <Title>KEY STATS</Title>
-            {!nullValues ?
-                <StatsTable {...keystatsProps} isFetchingQuote={isFetchingQuote} />
-                :
-                Loading 
+            {
+                !nullValues 
+                ? <StatsTable {...keystatsProps} isFetchingQuote={isFetchingQuote} />
+                : <Loader className='flex-direction: column; margin-top: 100px; @media(max-width: 750px) {margin-top: 50px; margin-bottom: 50px}' size={50} seperation={2} speed={1.4} /> 
             } 
-        </KeyStatsContainer>
+        </KeyStatsLayoutContainer>
     )
 }
 

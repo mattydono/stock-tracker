@@ -3,7 +3,7 @@ import { Title } from '../Root'
 import styled from '@emotion/styled'
 import { Loader } from '../loader/Loader'
 
-const PeersContainer = styled.div`
+const PeersLayoutContainer = styled.div`
     max-height: 30%;
     @media(max-width: 1000px) {
         margin-bottom: 100px;
@@ -51,16 +51,14 @@ const Peers: React.FC<PeersProps & ErrorLoading> = ({ errorPeers, isFetchingPeer
     }
 
     return (
-            <PeersContainer>
+            <PeersLayoutContainer>
                 <Title>TOP PEERS</Title>
-                {!isFetchingPeers ?
-                    <ContentContainer>
-                        {HARD_PEERS.map( peer => renderPeer(peer))}
-                    </ContentContainer>
-                    :
-                    <Loader className='flex-direction: column; margin-top: 30px; @media(max-width: 750px) { margin-top: 50px; margin-bottom: 50px;}' size={50} seperation={2} speed={1.4} /> 
+                {
+                    !isFetchingPeers 
+                    ? <ContentContainer>{HARD_PEERS.map( peer => renderPeer(peer))}</ContentContainer>
+                    : <Loader className='flex-direction: column; margin-top: 30px; @media(max-width: 750px) { margin-top: 50px; margin-bottom: 50px;}' size={50} seperation={2} speed={1.4} /> 
                 }
-            </PeersContainer>
+            </PeersLayoutContainer>
     );
 }
 
