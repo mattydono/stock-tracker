@@ -4,9 +4,10 @@ import { _Prices } from '../../models/prices'
 const pricesInitialState: _Prices = [{ ticker: 'aapl', change: 0, changePercent: 0, latestPrice: 0, error: false }]
 
 export const prices = (state = pricesInitialState, action: UpdatePricesDataAction) => {
-    switch (action.type) {
+    const { type, payload } = action;
+    switch (type) {
         case UPDATE_PRICES_DATA: {
-            return (action as UpdatePricesDataAction).payload;
+            return payload;
         }
         default: {
             return state;
