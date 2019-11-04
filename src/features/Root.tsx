@@ -117,9 +117,7 @@ const Root: React.FC<StateProps & DispatchProps> = ({
     keyStats,
     search, 
     news,
-    chartProps,
     footerProps,
-    updateChartRange,
     searchProps,
 }) => {
 
@@ -133,10 +131,7 @@ const Root: React.FC<StateProps & DispatchProps> = ({
                 {...searchProps}
                 />
                 <ChartNewsLayout>
-                    <Chart 
-                        {...chartProps}
-                        updateChartRange={updateChartRange}
-                    />
+                    <Chart />
                     <News errorNews={{message: ''}} isFetchingNews={false} news={news}/>
                 </ChartNewsLayout>
                 <StatsCompanyLayout>

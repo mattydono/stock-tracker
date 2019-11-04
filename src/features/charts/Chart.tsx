@@ -1,11 +1,11 @@
-import React, { memo } from 'react';
+import React, { memo, useCallback, FC } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import styled from '@emotion/styled';
 import { Loader } from '../loader/Loader';
 import { RangeButtons } from './components/rangeButtons'
 import { Graph } from './components/graph'
 import { ChartSingleDataPoint, Range } from './models';
-import { PriceSingleDataPoint } from '../../models/prices';
+import { updateChartRange } from './redux/actions';
 import { AppState } from '../../models/appState';
 
 const ChartLayoutContainer = styled.div`    
@@ -22,23 +22,25 @@ const ChartLayoutContainer = styled.div`
     }
 `
 
-type ChartProps = {
-    prices: ChartSingleDataPoint[],
-    range: Range,
-    updateChartRange: (range: Range) => void,
-    latest: number,
-}
+type UpdateChartRange = (range: Range) => void;
 
-const Chart: React.FC<ChartProps> = ({ latest, updateChartRange }) => {
+const Chart: FC<{}> = () => {
 
     const prices: ChartSingleDataPoint[] = useSelector((store: AppState) => store.charts.prices);
     const range: Range = useSelector((store: AppState) => store.charts.range);
+    const latest: number = useSelector((store: AppState) => {
+        const { search, prices } = store;
+        const { latestPrice } = prices.find(({ ticker }) => ticker === search) || prices[0];
+        return latestPrice;
+    });
+    const dispatch = useDispatch();
+    const updateRange: UpdateChartRange = useCallback((range: Range) => dispatch(updateChartRange(range)), [range, dispatch])
 
     return (
             <ChartLayoutContainer>
                 {
                     prices.length !== 0 
-                    ? <><RangeButtons range={range} update={updateChartRange}/><Graph prices={prices} range={range} latest={latest}/></>
+                    ? <><RangeButtons range={range} update={updateRange}/><Graph prices={prices} range={range} latest={latest}/></>
                     : <Loader className='margin-top: 250px; @media(max-width: 750px) { margin-top: 10px; margin-bottom: 50px; }' size={50} seperation={2} speed={1.4} />
                 }                         
             </ChartLayoutContainer>
