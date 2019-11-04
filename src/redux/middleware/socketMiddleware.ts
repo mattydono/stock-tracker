@@ -7,8 +7,7 @@ import { _KeyStats } from '../../features/keystats/models/keyStats'
 import { _Error } from '../../models/errors'
 
 
-const socketMiddleware = (): Middleware => {
-    const socket = socketService.get();
+const socketMiddleware = (socket: SocketIOClient.Socket): Middleware => {
 
     return ({ dispatch, getState }) => {
 
@@ -31,7 +30,7 @@ const socketMiddleware = (): Middleware => {
                 socket.emit('prices', tickerPlusFavorites);
                 socket.emit('ticker', action.payload);
             }
-    
+
             return next(action)
         }
     }

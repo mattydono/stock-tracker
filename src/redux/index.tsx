@@ -1,5 +1,6 @@
 import { createStore, combineReducers, compose, applyMiddleware } from 'redux';
 import socketMiddleware from '../redux/middleware/socketMiddleware';
+import { socketService } from '../services/socket-service';
 
 import { prices } from '../redux/reducers/price';
 import { charts } from '../features/charts/redux/reducers/reducer';
@@ -33,7 +34,7 @@ const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 export const store = createStore(
     rootReducer,
     compose(
-        applyMiddleware(socketMiddleware()),
+        applyMiddleware(socketMiddleware(socketService.get())),
         composeEnhancers()
     )
 );
