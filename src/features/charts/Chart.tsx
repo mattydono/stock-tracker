@@ -23,9 +23,6 @@ type ChartProps = {
     prices: _ChartSingleDataPoint[],
     range: Range,
     updateChartRange: (range: Range) => void,
-    updateChartPrices: (chartRange: _ChartSingleDataPoint[]) => void,
-    open: boolean,
-    ticker: string,
     latest: number,
 }
 

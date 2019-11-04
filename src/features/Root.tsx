@@ -151,7 +151,6 @@ const Root: React.FC<_StateProps & _DispatchProps> = ({
                 <ChartNewsLayout>
                     <Chart 
                         {...chartProps}
-                        updateChartPrices={updateChartPrices} 
                         updateChartRange={updateChartRange}
                     />
                     <News errorNews={{message: ''}} isFetchingNews={false} news={news}/>
