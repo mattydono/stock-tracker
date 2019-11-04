@@ -3,13 +3,13 @@ import socketMiddleware from '../redux/middleware/socketMiddleware';
 import { socketService } from '../services/socket-service';
 
 import { prices } from '../redux/reducers/price';
-import { charts } from '../features/charts/redux/reducers/reducer';
-import { companyOverview } from '../features/companyOverview/redux/reducers/reducer';
-import { keyStats } from '../features/keystats/redux/reducers/reducer';
-import { news } from '../features/news/redux/reducers/reducer';
-import { peers } from '../features/peers/redux/reducers/reducer';
-import { search } from '../features/search/redux/reducers/reducer';
-import { favorites } from '../features/footer/redux/reducers/reducer';
+import { charts } from '../features/charts/redux/reducer';
+import { companyOverview } from '../features/companyOverview/redux/reducer';
+import { keyStats } from '../features/keystats/redux/reducer';
+import { news } from '../features/news/redux/reducer';
+import { peers } from '../features/peers/redux/reducer';
+import { search } from '../features/search/redux/reducer';
+import { favorites } from '../features/footer/redux/reducer';
 
 
 const rootReducer = combineReducers({

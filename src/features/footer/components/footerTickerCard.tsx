@@ -1,6 +1,6 @@
 import React, { memo } from 'react';
 import styled from '@emotion/styled'
-import { _PriceSingleDataPoint } from '../../../models/prices'
+import { PriceSingleDataPoint } from '../../../models/prices'
 import { TickerPrice } from './tickerPrice'
 
 const Ticker = styled.div`
@@ -21,7 +21,7 @@ const PriceCard = styled.div`
     font-size: 14px;
 `
 
-const FooterTickerCard: React.FC<_PriceSingleDataPoint> = ({ ticker, latestPrice, change, changePercent, error }) => {
+const FooterTickerCard: React.FC<PriceSingleDataPoint> = ({ ticker, latestPrice, change, changePercent, error }) => {
 
     return (
         <PriceCard>

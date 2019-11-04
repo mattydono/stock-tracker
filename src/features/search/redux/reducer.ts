@@ -1,14 +1,13 @@
-import { UpdateTickerAction, UPDATE_TICKER } from '../actions'
+import { UpdateTickerAction, UPDATE_TICKER } from './actions';
 import { Reducer } from 'redux';
 
 export const search: Reducer<string, UpdateTickerAction> = (
     state = 'aapl', 
     action
 ) => {
-    switch(action.type) {
+    const { type, payload } = action
+    switch(type) {
         case UPDATE_TICKER: {
-            const updateTickerAction = action as UpdateTickerAction
-            const { payload } = updateTickerAction;
             return payload;
         }
         default: {

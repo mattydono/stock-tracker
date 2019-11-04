@@ -1,5 +1,5 @@
 import React, { memo } from 'react';
-import { _Article } from './models/news';
+import { Article } from './models/news';
 import moment from 'moment';
 import styled from '@emotion/styled'
 
@@ -27,7 +27,7 @@ const Time = styled.div`
     font-weight: 300;
 `
 
-const Article: React.FC<_Article> = ({ url, headline, datetime, source }) => {
+const ArticleComponent: React.FC<Article> = ({ url, headline, datetime, source }) => {
     return (
         <ArticleItemContainer>
             <Link href={url} target='_blank'>
@@ -38,4 +38,4 @@ const Article: React.FC<_Article> = ({ url, headline, datetime, source }) => {
     )
 }
 
-export default memo(Article);
+export default memo(ArticleComponent);

@@ -1,6 +1,6 @@
 import React from 'react';
 import { MapDispatchToProps, MapStateToProps } from 'react-redux'
-import { _StateProps, _DispatchProps } from '../models/props'
+import { StateProps, DispatchProps } from '../models/props'
 import Search from './search/Search';
 import CompanyOverview from './companyOverview/Company_Overview';
 import KeyStats from './keystats/Key_Stats';
@@ -14,11 +14,7 @@ import { resetState } from '../redux/actions/resetApp'
 import { updateChartRange, updateChartData } from './charts/redux/actions'
 import { updateTicker } from './search/redux/actions'
 
-import { _CompanyOverview } from './companyOverview/models/companyOverview'
-import { _KeyStats } from './keystats/models/keyStats'
-import { _Charts } from './charts/models/charts'
-import { _News } from './news/models/news'
-import { _Prices } from '../models/prices'
+import { AppState } from '../models/appState';
 
 import { connect } from 'react-redux';
 
@@ -115,18 +111,7 @@ const StatsCompanyLayout = styled.div`
     };
 `
 
-interface _AppState {
-    search: string,
-    companyOverview: _CompanyOverview,
-    keyStats: _KeyStats,
-    charts: _Charts,
-    news: _News,
-    peers: string[],
-    favorites: string[],
-    prices: _Prices,
-}
-
-const Root: React.FC<_StateProps & _DispatchProps> = ({ 
+const Root: React.FC<StateProps & DispatchProps> = ({ 
     peers, 
     companyOverview, 
     keyStats,
@@ -167,7 +152,7 @@ const Root: React.FC<_StateProps & _DispatchProps> = ({
     )
 }
 
-const mapStateToProps: MapStateToProps<_StateProps, {}, _AppState> = state => {
+const mapStateToProps: MapStateToProps<StateProps, {}, AppState> = state => {
     const { companyOverview, search, keyStats, news, peers, favorites, prices, charts } = state;
     const { isUSMarketOpen, primaryExchange, latestTime } = keyStats;
     const { tags } = companyOverview;
@@ -198,7 +183,7 @@ const mapStateToProps: MapStateToProps<_StateProps, {}, _AppState> = state => {
     })
 }
 
-const mapDispatchToProps: MapDispatchToProps<_DispatchProps, {}> = dispatch => ({
+const mapDispatchToProps: MapDispatchToProps<DispatchProps, {}> = dispatch => ({
     search: query => dispatch(updateTicker(query)),
     updateChartRange: range => dispatch(updateChartRange(range)),
     updateChartPrices: prices => dispatch(updateChartData(prices)),

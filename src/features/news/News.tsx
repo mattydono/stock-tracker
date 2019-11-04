@@ -1,5 +1,5 @@
 import React, { memo } from 'react';
-import { _News } from './models/news'
+import { News } from './models/news'
 import styled from '@emotion/styled'
 import { Title } from '../Root'
 import Article from './article';
@@ -32,7 +32,7 @@ const ArticleLayoutContainer = styled.div`
 `
 
 type NewsProps = {
-    news: _News,
+    news: News,
     isFetchingNews: boolean,
 }
 
@@ -42,7 +42,7 @@ type ErrorLoading = {
     },
 }
 
-const News: React.FC<NewsProps & ErrorLoading> = ({ errorNews, news }) => {
+const NewsComponent: React.FC<NewsProps & ErrorLoading> = ({ errorNews, news }) => {
 
     const Loading = <Loader className='margin-top: 200px; @media(max-width: 750px) {margin-top: 50px; margin-bottom: 50px;};' size={50} seperation={2} speed={1.4} />
 
@@ -66,4 +66,4 @@ const News: React.FC<NewsProps & ErrorLoading> = ({ errorNews, news }) => {
 }
 
 
-export default memo(News);
+export default memo(NewsComponent);

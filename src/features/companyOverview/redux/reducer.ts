@@ -1,8 +1,8 @@
-import { UpdateCompanyAction, UPDATE_COMPANY } from '../actions'
-import { _CompanyOverview } from '../../models/companyOverview'
-import { RESET_APP_STATE } from '../../../../redux/actions/resetApp'
+import { UpdateCompanyAction, UPDATE_COMPANY } from './actions'
+import { CompanyOverview } from '../models/companyOverview'
+import { RESET_APP_STATE } from '../../../redux/actions/resetApp'
 
-const companyOverviewInitialState: _CompanyOverview = {
+const companyOverviewInitialState: CompanyOverview = {
     symbol: null,
     companyName: null,
     website: null,
@@ -14,10 +14,9 @@ export const companyOverview = (
     state = companyOverviewInitialState, 
     action: UpdateCompanyAction
     ) => {
+    const { type, payload } = action 
     switch (action.type) {
         case UPDATE_COMPANY: {
-            const updateCompanyAction = action as UpdateCompanyAction
-            const { payload } = updateCompanyAction;
             return payload;
         }
         case RESET_APP_STATE: {

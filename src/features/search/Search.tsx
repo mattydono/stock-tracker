@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef, memo } from 'react';
-import { _PriceSingleDataPoint } from '../../models/prices';
+import { PriceSingleDataPoint } from '../../models/prices';
 import TickerCard from './components/tickerCard';
 import styled from '@emotion/styled'
 import { socketService } from '../../services/socket-service'
@@ -50,7 +50,7 @@ type SearchProps = {
     tags: string[],
     latestTime: string | null,
     isUSMarketOpen: boolean | null,
-    price: _PriceSingleDataPoint,
+    price: PriceSingleDataPoint,
     favorites?: string[],
 }
 

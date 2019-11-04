@@ -1,5 +1,5 @@
 import React, { memo } from 'react';
-import { _PriceSingleDataPoint } from '../../models/prices';
+import { PriceSingleDataPoint } from '../../models/prices';
 import USMarketsMockData from './USMarketsMockData.json';
 
 import FooterTickerCard from './components/footerTickerCard';
@@ -76,7 +76,7 @@ const Seperator = styled.div`
 `
 
 type FooterProps = {
-    prices: _PriceSingleDataPoint[],
+    prices: PriceSingleDataPoint[],
     favorites: string[],
 }
 

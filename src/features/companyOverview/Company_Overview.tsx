@@ -1,5 +1,5 @@
 import React, { memo } from 'react';
-import { _CompanyOverview } from './models/companyOverview'
+import { CompanyOverview } from './models/companyOverview'
 import styled from '@emotion/styled'
 import { Title } from '../Root'
 import { Loader } from '../loader/Loader'
@@ -52,7 +52,7 @@ type ErrorLoading = {
     isFetchingCompany: boolean,
 }
 
-const Company: React.FC<_CompanyOverview> = ({ companyName, symbol, website, description }) => {
+const Company: React.FC<CompanyOverview> = ({ companyName, symbol, website, description }) => {
     return (
         <>
             <Name>{companyName} ({symbol})</Name>
@@ -70,7 +70,7 @@ const Company: React.FC<_CompanyOverview> = ({ companyName, symbol, website, des
     )
 }
 
-const CompanyOverview: React.FC<_CompanyOverview & ErrorLoading> = ({ errorCompany, isFetchingCompany, ...companyProps }) => {
+const CompanyOverviewComponent: React.FC<CompanyOverview & ErrorLoading> = ({ errorCompany, isFetchingCompany, ...companyProps }) => {
     return (
         <CompanyOverviewContainer>
             <Title>COMPANY OVERVIEW</Title>
@@ -82,4 +82,4 @@ const CompanyOverview: React.FC<_CompanyOverview & ErrorLoading> = ({ errorCompa
     );
 }
 
-export default memo(CompanyOverview);
+export default memo(CompanyOverviewComponent);

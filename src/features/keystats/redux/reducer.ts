@@ -1,8 +1,8 @@
-import { UpdateKeyStatsAction, UPDATE_KEY_STATS } from '../actions'
-import { _KeyStats } from '../../models/keyStats'
-import { RESET_APP_STATE } from '../../../../redux/actions/resetApp'
+import { UpdateKeyStatsAction, UPDATE_KEY_STATS } from './actions'
+import { KeyStats } from '../models/keyStats'
+import { RESET_APP_STATE } from '../../../redux/actions/resetApp'
 
-const keyStatsInitialState: _KeyStats = {
+const keyStatsInitialState: KeyStats = {
     marketCap: null,
     peRatio: null,
     week52High: null,
@@ -25,10 +25,9 @@ export const keyStats = (
     state = keyStatsInitialState, 
     action: UpdateKeyStatsAction
     ) => {
-    switch (action.type) {
+    const { type, payload } = action
+    switch (type) {
         case UPDATE_KEY_STATS: {
-            const updateKeyStatsAction = action as UpdateKeyStatsAction 
-            const { payload } = updateKeyStatsAction;
             return ({ ...state, ...payload });
         }
         case RESET_APP_STATE: {

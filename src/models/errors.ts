@@ -1,4 +1,4 @@
-export interface _Error { 
+export interface Error { 
     quote: boolean,
     news: boolean,
     company: boolean,

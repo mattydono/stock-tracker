@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from '@emotion/styled'
-import { _KeyStats } from '../models/keyStats'
+import { KeyStats } from '../models/keyStats'
 
 const TableLayoutContainer = styled.div`
     width: 100%;
@@ -66,7 +66,7 @@ const TableRow = (key: string, value: number | string) => {
     )
 }
 
-export const StatsTable: React.FC<_KeyStats> = (keystatsProps) => {
+export const StatsTable: React.FC<KeyStats> = (keystatsProps) => {
 
     const {
         marketCap, 

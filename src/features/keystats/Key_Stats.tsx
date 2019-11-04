@@ -1,5 +1,5 @@
 import React, { memo } from 'react';
-import { _KeyStats } from './models/keyStats'
+import { KeyStats } from './models/keyStats'
 import styled from '@emotion/styled'
 import { Title } from '../Root'
 import { StatsTable } from './components/table'
@@ -15,7 +15,7 @@ type Error = {
     }
 }
 
-const KeyStats: React.FC<_KeyStats & Error> = ({
+const KeyStatsComponent: React.FC<KeyStats & Error> = ({
     isFetchingQuote,
     errorQuote,
     ...keystatsProps
@@ -35,4 +35,4 @@ const KeyStats: React.FC<_KeyStats & Error> = ({
     )
 }
 
-export default memo(KeyStats);
+export default memo(KeyStatsComponent);
