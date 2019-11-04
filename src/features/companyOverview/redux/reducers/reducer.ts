@@ -1,6 +1,6 @@
-import { UpdateCompanyAction, UPDATE_COMPANY } from '../actions/actions'
+import { UpdateCompanyAction, UPDATE_COMPANY } from '../actions'
 import { _CompanyOverview } from '../../models/companyOverview'
-import { RESET_APP_STATE } from '../../../../redux/actions/reset_app'
+import { RESET_APP_STATE } from '../../../../redux/actions/resetApp'
 
 const companyOverviewInitialState: _CompanyOverview = {
     symbol: null,

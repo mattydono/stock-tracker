@@ -1,6 +1,6 @@
-import { UpdateKeyStatsAction, UPDATE_KEY_STATS } from '../actions/actions'
+import { UpdateKeyStatsAction, UPDATE_KEY_STATS } from '../actions'
 import { _KeyStats } from '../../models/keyStats'
-import { RESET_APP_STATE } from '../../../../redux/actions/reset_app'
+import { RESET_APP_STATE } from '../../../../redux/actions/resetApp'
 
 const keyStatsInitialState: _KeyStats = {
     marketCap: null,

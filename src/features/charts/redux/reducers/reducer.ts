@@ -2,8 +2,8 @@ import { _Charts } from '../../models'
 import {
     UpdateChartDataAction, UPDATE_CHART_DATA, 
     UpdateChartRangeAction, UPDATE_CHART_RANGE,
-} from '../actions/actions'
-import { RESET_APP_STATE } from '../../../../redux/actions/reset_app'
+} from '../actions'
+import { RESET_APP_STATE } from '../../../../redux/actions/resetApp'
 
 const chartsIntitialState: _Charts = {
     range: '1m',
@@ -26,7 +26,7 @@ export const charts = (
             return ({ ...state, prices: payload });
         }
         case RESET_APP_STATE: {
-            return chartsIntitialState
+            return { ...state, prices: [] }
         }
         default: {
             return state;

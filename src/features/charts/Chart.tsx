@@ -1,8 +1,6 @@
-import React, { useEffect, memo } from 'react';
+import React, { memo } from 'react';
 import styled from '@emotion/styled';
 import { Loader } from '../loader/Loader';
-import { socketService } from '../../services/socket-service'
-import { chartFormatDates } from './chart_formatter';
 import { RangeButtons } from './components/range_buttons'
 import { Graph } from './components/graph'
 import { _ChartSingleDataPoint, Range } from './models';
@@ -25,28 +23,11 @@ type ChartProps = {
     prices: _ChartSingleDataPoint[],
     range: Range,
     updateChartRange: (range: Range) => void,
-    updateChartPrices: (chartRange: _ChartSingleDataPoint[]) => void,
-    open: boolean,
-    ticker: string,
     latest: number,
 }
 
-const Chart: React.FC<ChartProps> = ({ prices, ticker, latest, range, updateChartRange, updateChartPrices }) => {
+const Chart: React.FC<ChartProps> = ({ prices, latest, range, updateChartRange }) => {
 
-    const renderChart = (chart: _ChartSingleDataPoint[]) => {
-        const formattedChart = chartFormatDates(chart, range);
-        updateChartPrices(formattedChart);
-    }
-
-    useEffect(() => {
-        const socket = socketService.get();
-
-        socket.emit('chart', [ticker, range]);
-        socket.on('chart', renderChart);
-        return () => {
-            socket.emit('unsubscribeChart', [ticker, range])
-        }
-    }, [ticker, range])
 
     return (     
             <ChartLayoutContainer>

@@ -18,12 +18,10 @@ const errorsInitialState: ErrorState = {
 }
 
 export const errors = (state = errorsInitialState, action: ErrorAction) => {
-    const { type } = action;
+    const { type, payload } = action;
     switch (type) {
         case ERROR: {
-            const errorAction = action as ErrorAction;
-            const { payload } = errorAction;
-            return {...state, payload: true}
+            return {...state, [payload]: true}
         }
         default: {
             return state;
