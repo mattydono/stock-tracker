@@ -6,7 +6,7 @@ import { _KeyStats } from '../../features/keystats/models/keyStats'
 import { _Error } from '../../models/errors'
 
 
-const socketMiddleware = (socket: SocketIOClient.Socket): Middleware => {
+const socketMiddleware = (socket: SocketIOClient.Socket, defaultTicker: string = 'aapl'): Middleware => {
 
     return ({ dispatch, getState }) => {
 
@@ -16,8 +16,9 @@ const socketMiddleware = (socket: SocketIOClient.Socket): Middleware => {
         socket.on('keystats', (keystats: _KeyStats) => dispatch({ type: 'UPDATE_KEY_STATS', payload: keystats }));
         socket.on('error', (error: string) => dispatch({type: 'ERROR', payload: error})) 
         
-        socket.emit('ticker', 'aapl')
-        socket.emit('prices', ['aapl', 'amzn', 'msft', 'fb'])
+        const { favorites } = getState();
+        socket.emit('ticker', defaultTicker);
+        socket.emit('prices', [...favorites, defaultTicker]);
         
         return (next) => (action: AnyAction) => {
 
