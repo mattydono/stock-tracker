@@ -1,5 +1,4 @@
 import { AnyAction, Middleware } from 'redux'
-import { socketService } from '../../services/socket-service'
 import { _PriceSingleDataPoint } from '../../models/prices'
 import { _CompanyOverview } from '../../features/companyOverview/models/companyOverview'
 import { _News } from '../../features/news/models/news'
