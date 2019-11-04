@@ -3,9 +3,12 @@ import { _PriceSingleDataPoint } from '../../models/prices'
 import { _CompanyOverview } from '../../features/companyOverview/models/companyOverview'
 import { _News } from '../../features/news/models/news'
 import { _KeyStats } from '../../features/keystats/models/keyStats'
+import { _ChartSingleDataPoint } from '../../features/charts/models'
 import { _Error } from '../../models/errors'
 import { 
     updatePricesData,
+    updateChartData,
+    updateChartRange, UPDATE_CHART_RANGE,
     resetState,
     updateCompany,
     updateKeyStats,
@@ -24,10 +27,12 @@ const socketMiddleware = (socket: SocketIOClient.Socket, defaultTicker: string =
         socket.on('news', (news: _News) => dispatch(updateNews(news)));
         socket.on('keystats', (keystats: _KeyStats) => dispatch(updateKeyStats(keystats)));
         socket.on('error', (error: string) => dispatch(errorAction(error)));
+        socket.on('chart', (chartData: _ChartSingleDataPoint[]) => dispatch(updateChartData(chartData)))
         
         const { favorites } = getState();
         socket.emit('ticker', defaultTicker);
         socket.emit('prices', [...favorites, defaultTicker]);
+        socket.emit('chart', [defaultTicker, '1m']);
         
         return (next) => (action: AnyAction) => {
             const { type, payload } = action;
@@ -38,6 +43,12 @@ const socketMiddleware = (socket: SocketIOClient.Socket, defaultTicker: string =
                 dispatch(resetState(undefined))
                 socket.emit('prices', tickerPlusFavorites);
                 socket.emit('ticker', payload);
+                socket.emit('chart', [payload, '1m'])
+            }
+
+            if (type === UPDATE_CHART_RANGE) {
+                const { search: ticker } = getState();
+                socket.emit('chart', [ticker, payload])
             }
 
             return next(action)
