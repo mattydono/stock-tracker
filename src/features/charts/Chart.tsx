@@ -29,7 +29,7 @@ type ChartProps = {
     latest: number,
 }
 
-const Chart: React.FC<ChartProps> = ({ prices, ticker, latest, range, updateChartRange, updateChartPrices }) => {
+const Chart: React.FC<ChartProps> = ({ prices, latest, range, updateChartRange }) => {
 
 
     return (     
