@@ -2,7 +2,7 @@ import React from 'react'
 import styled from '@emotion/styled'
 import { _KeyStats } from '../models/keyStats'
 
-const TableContainer = styled.div`
+const TableLayoutContainer = styled.div`
     width: 100%;
     display flex;
     justify-content: space-between;
@@ -39,7 +39,7 @@ const Table =styled.table`
     margin-top: -10px;
 `
 
-const TableDivide = styled.div`
+const TableDivider = styled.div`
     width: 90px;
     @media(max-width: 1099px) {
         width: 68px;
@@ -100,18 +100,18 @@ export const StatsTable: React.FC<_KeyStats> = (keystatsProps) => {
     }
 
     return (
-        <TableContainer>
+        <TableLayoutContainer>
             <Table>
                 <Tbody>
                     {Object.entries(LeftColumn).map(([key, value]) => TableRow(key, value))}
                 </Tbody>
             </Table>
-            <TableDivide />
+            <TableDivider />
             <Table>
                 <Tbody>
                 {Object.entries(RightColumn).map(([key, value]) => TableRow(key, value))}
                 </Tbody>
             </Table>
-        </TableContainer>
+        </TableLayoutContainer>
     )
 }

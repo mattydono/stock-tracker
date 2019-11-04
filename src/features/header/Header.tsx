@@ -2,7 +2,7 @@ import React from 'react'
 import logo from './logo.png'
 import styled from '@emotion/styled'
 
-const HeaderContainer = styled.div`
+const HeaderLayoutContainer = styled.div`
     flex: 1 0 auto;
     display: flex;
     justify-content: space-between;
@@ -10,7 +10,7 @@ const HeaderContainer = styled.div`
     margin-bottom: -12px;
 `
 
-const Nav = styled.div`
+const NavLayoutContainer = styled.div`
     display: flex;
     justify-content: space-evenly;
     flex: 0 0 400px;
@@ -59,14 +59,14 @@ const Button = styled.button<ButtonProps>`
 
 const Header: React.FC = () => {
     return (
-        <HeaderContainer>
+        <HeaderLayoutContainer>
             <Logo src={logo} />
-            <Nav>
+            <NavLayoutContainer>
                 <Button color='white' backgroundColor='rgba(0, 104, 255, 0.5)' >QUOTES</Button>
                 <Button color='gray' backgroundColor='rgba(0,0,0,0)'>MARKETS</Button>
                 <Button color='gray' backgroundColor='rgba(0,0,0,0)'>WATCHLISTS</Button>
-            </Nav>
-        </HeaderContainer>
+            </NavLayoutContainer>
+        </HeaderLayoutContainer>
     )
 }
 

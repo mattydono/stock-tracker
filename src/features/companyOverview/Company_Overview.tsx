@@ -76,11 +76,7 @@ const CompanyOverview: React.FC<_CompanyOverview & ErrorLoading> = ({ errorCompa
             <Title>COMPANY OVERVIEW</Title>
             {companyProps.symbol
                 ? <Company {...companyProps} />
-                : ( <Loader className='margin-top: 50px; margin-bottom: 50px;' size={50} seperation={2} speed={1.4} />
-                    // <LoadingContainer>
-                    //     <AdaptiveLoader size={50} seperation={2} speed={1.4} className={css`margin-top: 50px`} />
-                    // </LoadingContainer>
-                )
+                : <Loader className='margin-top: 50px; margin-bottom: 50px;' size={50} seperation={2} speed={1.4} />
             }
         </CompanyOverviewContainer>
     );

@@ -1,7 +1,7 @@
 import React, { RefObject, Dispatch, SetStateAction } from 'react'
 import styled from '@emotion/styled'
 
-const PriceGroup = styled.div`
+const SearchBarLayoutContainer = styled.div`
     display: flex;
     flex: 1 0 0;
     align-items: center;
@@ -9,7 +9,7 @@ const PriceGroup = styled.div`
     position: relative;
 `
 
-const Label = styled.label`
+const InputLabelOverlay = styled.label`
     position: absolute;
     top: 1px;
     left: 52px;
@@ -115,15 +115,15 @@ export const SearchBar: React.FC<SearchBarProps> = ({isOpen, toggleIsOpen, input
     }
 
     return (
-        <PriceGroup>
+        <SearchBarLayoutContainer>
             <SearchIcon>⚲</SearchIcon>
             <Input id='search' ref={inputSelect} value={query} onChange={(event: any) => { setQuery(event.target.value); toggleIsOpen(query.length > 0) }} onKeyPress={onKeyPress} onBlur={handleBlur} />
             {query && (
-            <Label htmlFor='search'>
+            <InputLabelOverlay htmlFor='search'>
                 <LabelName>{selectedStock[0]}</LabelName>
                 <LabelSymbol>{selectedStock[1]}</LabelSymbol>
-            </Label>
+            </InputLabelOverlay>
             )}
-        </PriceGroup>
+        </SearchBarLayoutContainer>
     )
 }

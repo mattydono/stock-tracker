@@ -1,7 +1,7 @@
 import React, { Dispatch, SetStateAction, RefObject, FC } from 'react'
 import styled from '@emotion/styled'
 
-const StockListContainer = styled.div`
+const StockListLayoutContainer = styled.div`
     position: absolute;
     margin: 0 2.5% 0 2.5%;
     width: 100%;
@@ -95,12 +95,12 @@ export const StockList: FC<StockListProps> = ({setQuery, inputSelect, search, se
     }
 
     return (
-        <StockListContainer ref={dropSelect} tabIndex={-1}>
+        <StockListLayoutContainer ref={dropSelect} tabIndex={-1}>
             <table style={{width: '100%'}}>
                 <tbody style={{fontSize: '18px'}}>
                     {stockList.map( stock => renderSymbols(stock))}
                 </tbody> 
             </table>               
-        </StockListContainer>
+        </StockListLayoutContainer>
     )
 }
