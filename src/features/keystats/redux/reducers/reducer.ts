@@ -1,4 +1,4 @@
-import { UpdateKeyStatsAction, UPDATE_KEY_STATS } from '../actions/actions'
+import { UpdateKeyStatsAction, UPDATE_KEY_STATS } from '../actions'
 import { _KeyStats } from '../../models/keyStats'
 import { RESET_APP_STATE } from '../../../../redux/actions/resetApp'
 

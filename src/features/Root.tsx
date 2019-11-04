@@ -11,8 +11,8 @@ import Header from './header/Header';
 import Footer from './footer/Footer';
 
 import { resetState } from '../redux/actions/resetApp'
-import { updateChartRange, updateChartData } from './charts/redux/actions/actions'
-import { updateTicker } from './search/redux/actions/actions'
+import { updateChartRange, updateChartData } from './charts/redux/actions'
+import { updateTicker } from './search/redux/actions'
 
 import { _CompanyOverview } from './companyOverview/models/companyOverview'
 import { _KeyStats } from './keystats/models/keyStats'

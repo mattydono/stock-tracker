@@ -2,7 +2,7 @@ import { _Charts } from '../../models'
 import {
     UpdateChartDataAction, UPDATE_CHART_DATA, 
     UpdateChartRangeAction, UPDATE_CHART_RANGE,
-} from '../actions/actions'
+} from '../actions'
 import { RESET_APP_STATE } from '../../../../redux/actions/resetApp'
 
 const chartsIntitialState: _Charts = {

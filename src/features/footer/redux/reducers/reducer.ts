@@ -1,7 +1,7 @@
 import { 
     UpdateFavoritesAddTickerAction, FAVORITES_ADD_TICKER,
     UpdateFavoritesRemoveTickerAction, FAVORITES_REMOVE_TICKER
-} from '../actions/actions'
+} from '../actions'
 
 const favoritesInitialState: string[] = ['amzn', 'msft', 'fb']
 

@@ -1,4 +1,4 @@
-import { UpdateNewsAction, UPDATE_NEWS } from '../actions/actions'
+import { UpdateNewsAction, UPDATE_NEWS } from '../actions'
 import { _News } from '../../models/news'
 import { RESET_APP_STATE } from '../../../../redux/actions/resetApp'
 
