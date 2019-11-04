@@ -26,7 +26,7 @@ export const charts = (
             return ({ ...state, prices: payload });
         }
         case RESET_APP_STATE: {
-            return chartsIntitialState
+            return { ...state, prices: [] }
         }
         default: {
             return state;

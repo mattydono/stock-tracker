@@ -29,21 +29,21 @@ const socketMiddleware = (socket: SocketIOClient.Socket, defaultTicker: string =
         socket.on('error', (error: string) => dispatch(errorAction(error)));
         socket.on('chart', (chartData: _ChartSingleDataPoint[]) => dispatch(updateChartData(chartData)))
         
-        const { favorites } = getState();
+        const { favorites, charts: { range } } = getState();
         socket.emit('ticker', defaultTicker);
         socket.emit('prices', [...favorites, defaultTicker]);
-        socket.emit('chart', [defaultTicker, '1m']);
+        socket.emit('chart', [defaultTicker, range]);
         
         return (next) => (action: AnyAction) => {
             const { type, payload } = action;
 
             if (type === UPDATE_TICKER) {
-                const { favorites } = getState();
+                const { favorites, charts: { range } } = getState();
                 const tickerPlusFavorites = Array.from(new Set([...favorites, payload]));
                 dispatch(resetState(undefined))
                 socket.emit('prices', tickerPlusFavorites);
                 socket.emit('ticker', payload);
-                socket.emit('chart', [payload, '1m'])
+                socket.emit('chart', [payload, range])
             }
 
             if (type === UPDATE_CHART_RANGE) {

@@ -135,7 +135,6 @@ const Root: React.FC<_StateProps & _DispatchProps> = ({
     chartProps,
     footerProps,
     updateChartRange,
-    updateChartPrices,
     searchProps,
 }) => {
 
