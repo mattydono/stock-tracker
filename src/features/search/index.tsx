@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, memo, useCallback } from 'react';
+import React, { useState, useEffect, useRef, FC, useCallback } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { PriceSingleDataPoint } from '../../models/prices';
 import { AppState } from '../../models/appState';
@@ -46,16 +46,6 @@ const DateRowLayoutContainer = styled.div`
     }
 `
 
-type SearchProps = {
-    search: (query: string) => void,
-    latestPrice?: number,
-    primaryExchange: string | null,
-    tags: string[],
-    latestTime: string | null,
-    isUSMarketOpen: boolean | null,
-    price: PriceSingleDataPoint,
-    favorites?: string[],
-}
 
 type Search = (query: string) => void;
 
@@ -64,19 +54,12 @@ type StockListItem = {
     name: string
 }
 
-type Error = {
-    errorQuote: {
-        message: string
-    }
-}
 
 const socket = socketService.get();
 
-export const Search = memo<SearchProps & Error>(({ 
-    errorQuote,
-    search,
-    latestTime,
-}) => {
+export const Search: FC<{}> = () => {
+
+    const dispatch = useDispatch();
 
     const [query, setQuery] = useState<string>('Apple Inc (AAPL)');
     const [stockList, setStockList] = useState<StockListItem[]>([])
@@ -92,10 +75,13 @@ export const Search = memo<SearchProps & Error>(({
         const { search, prices } = store;
         return prices.find(({ ticker }) => ticker === search) || prices[0];
     });
+    const latestTime: string | null = useSelector(({ keyStats: { latestTime } }: AppState) => latestTime)
+    const search: Search = useCallback((query: string) => dispatch(updateTicker(query)), [query, dispatch]);
+    const errorQuote = ''
 
     useEffect(() => {
-        if(errorQuote.message.length > 0) {
-            setStockList([{name: errorQuote.message, symbol:'⊗'}])
+        if(errorQuote.length > 0) {
+            setStockList([{name: errorQuote, symbol:'⊗'}])
         }
     }, [errorQuote])
 
@@ -131,4 +117,4 @@ export const Search = memo<SearchProps & Error>(({
         </SearchLayoutContainer>
     )
 
-})
+}
