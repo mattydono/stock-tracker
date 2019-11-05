@@ -1,4 +1,4 @@
-import React, { memo } from 'react';
+import React, { FC } from 'react';
 import { Title } from '../../Root'
 import styled from '@emotion/styled'
 import { Loader } from '../loader/Loader'
@@ -44,7 +44,7 @@ const HARD_PEERS = [
     'MSFT',' NOK', 'IBM'
 ]
 
-export const Peers = memo<PeersProps & ErrorLoading>(({ errorPeers, isFetchingPeers, peers }) => {
+export const Peers: FC<{}> = () => {
 
     const renderPeer = (peer: string) => {
         return <Peer key={peer} >{peer}</Peer>
@@ -54,10 +54,10 @@ export const Peers = memo<PeersProps & ErrorLoading>(({ errorPeers, isFetchingPe
             <PeersLayoutContainer>
                 <Title>TOP PEERS</Title>
                 {
-                    !isFetchingPeers 
+                    !false
                     ? <ContentContainer>{HARD_PEERS.map( peer => renderPeer(peer))}</ContentContainer>
                     : <Loader className='flex-direction: column; margin-top: 30px; @media(max-width: 750px) { margin-top: 50px; margin-bottom: 50px;}' size={50} seperation={2} speed={1.4} /> 
                 }
             </PeersLayoutContainer>
     );
-})
+}

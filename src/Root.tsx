@@ -1,6 +1,4 @@
-import React from 'react';
-import { MapDispatchToProps, MapStateToProps } from 'react-redux'
-import { StateProps, DispatchProps } from './models/props'
+import React, { FC } from 'react';
 import { 
     Search,
     CompanyOverviewComponent as CompanyOverview,
@@ -11,13 +9,6 @@ import {
     Header,
     Footer
 } from './features';
-
-
-import { AppState } from './models/appState';
-
-import { updateTicker } from './features/search/redux';
-
-import { connect } from 'react-redux';
 
 import styled from '@emotion/styled'
 
@@ -112,25 +103,13 @@ const StatsCompanyLayout = styled.div`
     };
 `
 
-const Root: React.FC<StateProps & DispatchProps> = ({ 
-    peers, 
-    companyOverview, 
-    keyStats,
-    search, 
-    news,
-    footerProps,
-    searchProps,
-}) => {
+const Root: FC<{}> = () => {
 
     return (
         <RootContainer>
             <AppContainer>
                 <Header />
-                <Search 
-                search={search} 
-                errorQuote={{message: ''}}
-                {...searchProps}
-                />
+                <Search />
                 <ChartNewsLayout>
                     <Chart />
                     <News />
@@ -139,7 +118,7 @@ const Root: React.FC<StateProps & DispatchProps> = ({
                     <KeyStats />
                     <CompanyContainer>
                         <CompanyOverview />
-                        <Peers errorPeers={{message: ''}} isFetchingPeers={false} peers={peers} />
+                        <Peers />
                     </CompanyContainer>
                 </StatsCompanyLayout>
             </AppContainer>
@@ -148,42 +127,4 @@ const Root: React.FC<StateProps & DispatchProps> = ({
     )
 }
 
-const mapStateToProps: MapStateToProps<StateProps, {}, AppState> = state => {
-    const { companyOverview, search, keyStats, news, peers, favorites, prices, charts } = state;
-    const { isUSMarketOpen, primaryExchange, latestTime } = keyStats;
-    const { tags } = companyOverview;
-    const { range, prices: chartPrices } = charts;
-    const price = prices.filter(({ ticker }: any) => ticker === search)[0] || prices[0];
-
-    const { ticker, latestPrice: latest } = price;
-
-    const footerProps = { prices, favorites };
-    const searchProps = { primaryExchange, latestTime, isUSMarketOpen, tags, favorites, price };
-    const chartProps = {
-        range,
-        prices: chartPrices,
-        ticker,
-        latest,
-        open: isUSMarketOpen
-    };
-
-    return ({
-        companyOverview,
-        ticker: search,
-        keyStats,
-        news,
-        peers,
-        footerProps,
-        searchProps,
-        chartProps
-    })
-}
-
-const mapDispatchToProps: MapDispatchToProps<DispatchProps, {}> = dispatch => ({
-    search: query => dispatch(updateTicker(query)),
-})
-
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps,
-)(Root);
+export default Root
