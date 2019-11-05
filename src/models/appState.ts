@@ -3,6 +3,7 @@ import { KeyStats } from '../features/keystats/models/keyStats'
 import { Charts } from '../features/charts/models/charts'
 import { News } from '../features/news/models/news'
 import { Prices } from './prices'
+import { Error } from './errors';
 
 export interface AppState {
     search: string,
@@ -13,4 +14,5 @@ export interface AppState {
     peers: string[],
     favorites: string[],
     prices: Prices,
+    errors: Error
 }

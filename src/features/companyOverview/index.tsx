@@ -1,5 +1,7 @@
-import React, { memo } from 'react';
+import React, { memo, FC } from 'react';
+import { useSelector } from 'react-redux';
 import { CompanyOverview } from './models/companyOverview'
+import { AppState } from '../../models/appState';
 import styled from '@emotion/styled'
 import { Title } from '../Root'
 import { Loader } from '../loader/Loader'
@@ -45,12 +47,6 @@ const OverflowContainer = styled.div`
     max-height: 200px;
 `
 
-type ErrorLoading = {
-    errorCompany: {
-        message: string,
-    },
-    isFetchingCompany: boolean,
-}
 
 const Company: React.FC<CompanyOverview> = ({ companyName, symbol, website, description }) => {
     return (
@@ -70,7 +66,10 @@ const Company: React.FC<CompanyOverview> = ({ companyName, symbol, website, desc
     )
 }
 
-const CompanyOverviewComponent: React.FC<CompanyOverview & ErrorLoading> = ({ errorCompany, isFetchingCompany, ...companyProps }) => {
+const CompanyOverviewComponent: FC<{}> = () => {
+
+    const { ...companyProps }: CompanyOverview = useSelector((store: AppState) => store.companyOverview)
+
     return (
         <CompanyOverviewContainer>
             <Title>COMPANY OVERVIEW</Title>

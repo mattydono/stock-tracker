@@ -1,5 +1,7 @@
-import React, { memo } from 'react';
-import { KeyStats } from './models/keyStats'
+import React, { memo, FC } from 'react';
+import { useSelector } from 'react-redux';
+import { KeyStats } from './models/keyStats';
+import { AppState } from '../../models/appState';
 import styled from '@emotion/styled'
 import { Title } from '../Root'
 import { StatsTable } from './components/table'
@@ -9,17 +11,10 @@ const KeyStatsLayoutContainer = styled.div`
     flex: 0 1 63%;
 `
 
-type Error = {
-    errorQuote: {
-        message: string
-    }
-}
 
-const KeyStatsComponent: React.FC<KeyStats & Error> = ({
-    isFetchingQuote,
-    errorQuote,
-    ...keystatsProps
-    }) => {
+const KeyStatsComponent: FC<{}> = () => {
+
+    const { ...keystatsProps }: KeyStats = useSelector(({ keyStats }: AppState) => keyStats)
 
     const nullValues = Object.values(keystatsProps).every((item: number) => !item);
     
@@ -28,7 +23,7 @@ const KeyStatsComponent: React.FC<KeyStats & Error> = ({
             <Title>KEY STATS</Title>
             {
                 !nullValues 
-                ? <StatsTable {...keystatsProps} isFetchingQuote={isFetchingQuote} />
+                ? <StatsTable {...keystatsProps} />
                 : <Loader className='flex-direction: column; margin-top: 100px; @media(max-width: 750px) {margin-top: 50px; margin-bottom: 50px}' size={50} seperation={2} speed={1.4} /> 
             } 
         </KeyStatsLayoutContainer>

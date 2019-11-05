@@ -2,13 +2,13 @@ import React from 'react';
 import { MapDispatchToProps, MapStateToProps } from 'react-redux'
 import { StateProps, DispatchProps } from '../models/props'
 import Search from './search/Search';
-import CompanyOverview from './companyOverview/Company_Overview';
-import KeyStats from './keystats/Key_Stats';
-import News from './news/News';
+import CompanyOverview from './companyOverview';
+import KeyStats from './keystats';
+import News from './news';
 import Peers from './peers/Peers';
-import Chart from './charts/Chart';
+import Chart from './charts';
 import Header from './header/Header';
-import Footer from './footer/Footer';
+import Footer from './footer';
 
 import { resetState } from '../redux/actions/resetApp'
 import { updateChartRange, updateChartData } from './charts/redux/actions'
@@ -132,17 +132,17 @@ const Root: React.FC<StateProps & DispatchProps> = ({
                 />
                 <ChartNewsLayout>
                     <Chart />
-                    <News errorNews={{message: ''}} isFetchingNews={false} news={news}/>
+                    <News />
                 </ChartNewsLayout>
                 <StatsCompanyLayout>
-                    <KeyStats errorQuote={{message: ''}} isFetchingQuote={false} {...keyStats}/>
+                    <KeyStats />
                     <CompanyContainer>
-                        <CompanyOverview errorCompany={{message: ''}} isFetchingCompany={false} {...companyOverview} />
+                        <CompanyOverview />
                         <Peers errorPeers={{message: ''}} isFetchingPeers={false} peers={peers} />
                     </CompanyContainer>
                 </StatsCompanyLayout>
             </AppContainer>
-            <Footer {...footerProps} />
+            <Footer />
         </RootContainer>
     )
 }

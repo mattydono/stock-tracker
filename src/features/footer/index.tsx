@@ -1,10 +1,12 @@
-import React, { memo } from 'react';
+import React, { memo, FC } from 'react';
 import { PriceSingleDataPoint } from '../../models/prices';
+import { AppState } from '../../models/appState';
 import USMarketsMockData from './USMarketsMockData.json';
 
 import FooterTickerCard from './components/footerTickerCard';
 
 import styled from '@emotion/styled'
+import { useSelector } from 'react-redux';
 
 const FooterLayoutContainer = styled.div`
     position: fixed;
@@ -75,12 +77,11 @@ const Seperator = styled.div`
     }
 `
 
-type FooterProps = {
-    prices: PriceSingleDataPoint[],
-    favorites: string[],
-}
 
-const Footer: React.FC<FooterProps> = ({ prices, favorites }) => {
+const Footer: FC<{}> = () => {
+
+    const prices: PriceSingleDataPoint[] = useSelector((store: AppState) => store.prices);
+    const favorites: string[] = useSelector((store: AppState) => store.favorites);
     
     const favoritesArray = prices[0] && prices.filter(({ ticker }) => ticker && favorites.includes(ticker)).map(item => <FooterTickerCard key={item.ticker} {...item} /> );
     const usMarketsArray = USMarketsMockData.map(item => <FooterTickerCard key={item.ticker} {...item}/>)

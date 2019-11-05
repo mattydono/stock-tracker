@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { FC } from 'react'
 import styled from '@emotion/styled'
 import { KeyStats } from '../models/keyStats'
 
@@ -66,22 +66,20 @@ const TableRow = (key: string, value: number | string) => {
     )
 }
 
-export const StatsTable: React.FC<KeyStats> = (keystatsProps) => {
-
-    const {
-        marketCap, 
-        peRatio, 
-        week52High, 
-        week52Low, 
-        avgTotalVolume,
-        previousClose,
-        low,
-        high,
-        volume,
-        open,
-        dividendYield,
-        actualEPS,
-    } = keystatsProps;
+export const StatsTable: FC<KeyStats> = ({
+    marketCap, 
+    peRatio, 
+    week52High, 
+    week52Low, 
+    avgTotalVolume,
+    previousClose,
+    low,
+    high,
+    volume,
+    open,
+    dividendYield,
+    actualEPS,
+}) => {
 
     const LeftColumn = {
         'Previous Close': previousClose ? previousClose : 'N/A',

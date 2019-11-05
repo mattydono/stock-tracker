@@ -1,9 +1,13 @@
-import React, { memo } from 'react';
-import { News } from './models/news'
+import React, { memo, FC } from 'react';
+import { useSelector } from 'react-redux';
+import { News, Article } from './models/news'
+import { AppState } from '../../models/appState';
+import { Error } from '../../models/errors';
 import styled from '@emotion/styled'
 import { Title } from '../Root'
-import Article from './article';
+import ArticleComponent from './article';
 import { Loader } from '../loader/Loader'
+
 
 const NewsLayoutContainer =styled.div`
     flex: 0 1 34%;
@@ -31,22 +35,15 @@ const ArticleLayoutContainer = styled.div`
     overflow: auto;
 `
 
-type NewsProps = {
-    news: News,
-    isFetchingNews: boolean,
-}
+const NewsComponent: FC<{}> = () => {
 
-type ErrorLoading = {
-    errorNews: {
-        message: string,
-    },
-}
-
-const NewsComponent: React.FC<NewsProps & ErrorLoading> = ({ errorNews, news }) => {
+    const news: News = useSelector(({ news }: AppState) => news)
+    
+    const error: Error = useSelector(({ errors }: AppState) => errors);
 
     const Loading = <Loader className='margin-top: 200px; @media(max-width: 750px) {margin-top: 50px; margin-bottom: 50px;};' size={50} seperation={2} speed={1.4} />
 
-    const News = news.length > 0 ? news.map(article => <Article key={article.headline} {...article}/>) : Loading;
+    const News = news.length > 0 ? news.map((article: Article) => <ArticleComponent key={article.headline} {...article}/>) : Loading;
 
     const NewsError = news.length > 0 ? (
         <div style={{color: 'red', marginBottom: '1rem'}}>Connection to server lost.</div>
@@ -57,7 +54,7 @@ const NewsComponent: React.FC<NewsProps & ErrorLoading> = ({ errorNews, news }) 
         <NewsLayoutContainer>
             <Title>LATEST NEWS</Title>
             {
-                errorNews.message.length > 0 
+                error && error.news
                 ? NewsError 
                 : <ArticleLayoutContainer>{News}</ArticleLayoutContainer>}
         </NewsLayoutContainer>
