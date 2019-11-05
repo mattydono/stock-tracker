@@ -1,10 +1,10 @@
 import { AnyAction, Middleware } from 'redux'
-import { _PriceSingleDataPoint } from '../../models/prices'
-import { _CompanyOverview } from '../../features/companyOverview/models/companyOverview'
-import { _News } from '../../features/news/models/news'
-import { _KeyStats } from '../../features/keystats/models/keyStats'
-import { _ChartSingleDataPoint } from '../../features/charts/models'
-import { _Error } from '../../models/errors'
+import { PriceSingleDataPoint } from '../../models/prices'
+import { CompanyOverview } from '../../features/companyOverview/models/companyOverview'
+import { News } from '../../features/news/models/news'
+import { KeyStats } from '../../features/keystats/models/keyStats'
+import { ChartSingleDataPoint } from '../../features/charts/models'
+import { Error } from '../../models/errors'
 import { 
     updatePricesData,
     updateChartData,
@@ -22,12 +22,12 @@ const socketMiddleware = (socket: SocketIOClient.Socket, defaultTicker: string =
 
     return ({ dispatch, getState }) => {
 
-        socket.on('prices', (prices: _PriceSingleDataPoint[]) => dispatch(updatePricesData(prices)));
-        socket.on('company', (company: _CompanyOverview) => dispatch(updateCompany(company)));
-        socket.on('news', (news: _News) => dispatch(updateNews(news)));
-        socket.on('keystats', (keystats: _KeyStats) => dispatch(updateKeyStats(keystats)));
+        socket.on('prices', (prices: PriceSingleDataPoint[]) => dispatch(updatePricesData(prices)));
+        socket.on('company', (company: CompanyOverview) => dispatch(updateCompany(company)));
+        socket.on('news', (news: News) => dispatch(updateNews(news)));
+        socket.on('keystats', (keystats: KeyStats) => dispatch(updateKeyStats(keystats)));
         socket.on('error', (error: string) => dispatch(errorAction(error)));
-        socket.on('chart', (chartData: _ChartSingleDataPoint[]) => dispatch(updateChartData(chartData)))
+        socket.on('chart', (chartData: ChartSingleDataPoint[]) => dispatch(updateChartData(chartData)))
         
         const { favorites, charts: { range } } = getState();
         socket.emit('ticker', defaultTicker);

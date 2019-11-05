@@ -1,11 +1,11 @@
 import { Range } from './range'
-export interface _ChartSingleDataPoint {
+export interface ChartSingleDataPoint {
     open: number,
     close: number,
     date: string,
 }
 
-export interface _Charts {
+export interface Charts {
     range: Range,
-    prices: _ChartSingleDataPoint[]
+    prices: ChartSingleDataPoint[]
 }

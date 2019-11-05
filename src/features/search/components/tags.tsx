@@ -1,4 +1,4 @@
-import React, { FC } from 'react'
+import React, { memo } from 'react'
 import styled from '@emotion/styled'
 
 const TagsLayoutContainer = styled.div`
@@ -24,7 +24,7 @@ type TagsProps = {
     tags: string[], 
 }
 
-export const Tags: FC<TagsProps> = ({primaryExchange, tags}) => {
+export const Tags = memo<TagsProps>(({primaryExchange, tags}) => {
     return (
         <TagsLayoutContainer>
             <Tag>{primaryExchange}</Tag>
@@ -32,4 +32,4 @@ export const Tags: FC<TagsProps> = ({primaryExchange, tags}) => {
             <Tag>{tags[1]}</Tag>
         </TagsLayoutContainer>
     )
-}
+})

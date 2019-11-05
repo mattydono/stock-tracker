@@ -1,4 +1,4 @@
-import React, { FC } from 'react'
+import React, { memo } from 'react'
 import styled from '@emotion/styled'
 import moment from 'moment'
 
@@ -45,11 +45,11 @@ const formatDate = (date: any) => new Date(date);
       });
     const formattedEST = moment(EST).format("lll");
 
-export const DateTime: FC<DateProps> = ({latestTime, isUSMarketOpen, tags}) => {
+export const DateTime = memo<DateProps>(({latestTime, isUSMarketOpen, tags}) => {
     return (
         <DateLayoutContainer>
             {latestTime ? <Time>Real-Time Price as of {formattedEST} EST</Time> : null}
             {tags.length < 1 ? null : isUSMarketOpen ? <MarketStatus><MarketIcon color='yellow'>☀</MarketIcon>Market Open</MarketStatus> : <MarketStatus><MarketIcon>☽</MarketIcon> Market Closed</MarketStatus>}
         </DateLayoutContainer>
     )
-}
+})

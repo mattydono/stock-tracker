@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { memo } from 'react'
 import styled from '@emotion/styled'
 
 const PriceLayoutContainer = styled.div`
@@ -57,7 +57,7 @@ type TickerCardPropTypes = {
     error: boolean,
 }
 
-export const TickerPrice: React.FC<TickerCardPropTypes> = ({ latestPrice, change, changePercent, error }) => {
+export const TickerPrice = memo<TickerCardPropTypes>(({ latestPrice, change, changePercent, error }) => {
 
     return (
         <PriceLayoutContainer>
@@ -103,4 +103,4 @@ export const TickerPrice: React.FC<TickerCardPropTypes> = ({ latestPrice, change
             </ChangeLayoutContainer>
         </PriceLayoutContainer>
     )
-}
+})

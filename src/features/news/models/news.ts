@@ -1,8 +1,8 @@
-export interface _Article {
+export interface Article {
     url: string,
     headline: string,
     datetime: number,
     source: string
 }
 
-export type _News = _Article[]
+export type News = Article[]

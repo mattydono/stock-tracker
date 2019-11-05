@@ -1,4 +1,4 @@
-import React, { RefObject, Dispatch, SetStateAction } from 'react'
+import React, { RefObject, Dispatch, SetStateAction, memo, KeyboardEvent } from 'react'
 import styled from '@emotion/styled'
 
 const SearchBarLayoutContainer = styled.div`
@@ -85,7 +85,7 @@ type SearchBarProps = {
     socket: SocketIOClient.Socket,
 }
 
-export const SearchBar: React.FC<SearchBarProps> = ({isOpen, toggleIsOpen, inputSelect, dropSelect, search, query, setQuery, stockList, setSelectedStock, selectedStock, socket}) => {
+export const SearchBar = memo<SearchBarProps>(({isOpen, toggleIsOpen, inputSelect, dropSelect, search, query, setQuery, stockList, setSelectedStock, selectedStock, socket}) => {
 
     const handleBlur = () => {
         if(!isOpen) return
@@ -99,7 +99,7 @@ export const SearchBar: React.FC<SearchBarProps> = ({isOpen, toggleIsOpen, input
         })
     }
 
-    const onKeyPress = (event: React.KeyboardEvent) => {
+    const onKeyPress = (event: KeyboardEvent) => {
         if(event.key === 'Enter') {
             socket.emit('isValid', query);
             socket.on('isValid', (bool: boolean) => {
@@ -117,7 +117,7 @@ export const SearchBar: React.FC<SearchBarProps> = ({isOpen, toggleIsOpen, input
     return (
         <SearchBarLayoutContainer>
             <SearchIcon>⚲</SearchIcon>
-            <Input id='search' ref={inputSelect} value={query} onChange={(event: any) => { setQuery(event.target.value); toggleIsOpen(query.length > 0) }} onKeyPress={onKeyPress} onBlur={handleBlur} />
+            <Input id='search' ref={inputSelect} value={query} onChange={({ target: { value }}: any) => { setQuery(value); toggleIsOpen(query.length > 0) }} onKeyPress={onKeyPress} onBlur={handleBlur} />
             {query && (
             <InputLabelOverlay htmlFor='search'>
                 <LabelName>{selectedStock[0]}</LabelName>
@@ -126,4 +126,4 @@ export const SearchBar: React.FC<SearchBarProps> = ({isOpen, toggleIsOpen, input
             )}
         </SearchBarLayoutContainer>
     )
-}
+})

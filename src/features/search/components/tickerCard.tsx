@@ -63,7 +63,7 @@ type TickerCardPropTypes = {
     error: boolean,
 }
 
-const TickerCard: React.FC<TickerCardPropTypes> = ({ latestPrice, change, changePercent, error }) => {
+export const TickerCard = memo<TickerCardPropTypes>(({ latestPrice, change, changePercent, error }) => {
 
     return (
         <PriceStats>
@@ -108,6 +108,4 @@ const TickerCard: React.FC<TickerCardPropTypes> = ({ latestPrice, change, change
             </ChangeContainer>
         </PriceStats>
     )
-}
-
-export default memo(TickerCard);
+})

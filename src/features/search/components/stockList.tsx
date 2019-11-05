@@ -1,4 +1,4 @@
-import React, { Dispatch, SetStateAction, RefObject, FC } from 'react'
+import React, { Dispatch, SetStateAction, RefObject, memo } from 'react'
 import styled from '@emotion/styled'
 
 const StockListLayoutContainer = styled.div`
@@ -73,7 +73,7 @@ type StockListProps = {
     stockList: StockListItem[],
 }
 
-export const StockList: FC<StockListProps> = ({setQuery, inputSelect, search, setStockList, setSelectedStock, dropSelect, stockList}) => {
+export const StockList = memo<StockListProps>(({setQuery, inputSelect, search, setStockList, setSelectedStock, dropSelect, stockList}) => {
 
     const onStockClick = (stock: _Stock) => {
         const stockSymbol = stock.symbol
@@ -103,4 +103,4 @@ export const StockList: FC<StockListProps> = ({setQuery, inputSelect, search, se
             </table>               
         </StockListLayoutContainer>
     )
-}
+})

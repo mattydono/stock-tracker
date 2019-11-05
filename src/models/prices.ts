@@ -1,4 +1,4 @@
-export interface _PriceSingleDataPoint {
+export interface PriceSingleDataPoint {
     ticker: string,
     latestPrice: number,
     change: number | null,
@@ -6,4 +6,4 @@ export interface _PriceSingleDataPoint {
     error: boolean,
 }
 
-export type _Prices = _PriceSingleDataPoint[];
+export type Prices = PriceSingleDataPoint[];

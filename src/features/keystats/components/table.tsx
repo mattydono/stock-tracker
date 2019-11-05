@@ -1,6 +1,6 @@
-import React from 'react'
+import React, { memo } from 'react'
 import styled from '@emotion/styled'
-import { _KeyStats } from '../models/keyStats'
+import { KeyStats } from '../models'
 
 const TableLayoutContainer = styled.div`
     width: 100%;
@@ -66,22 +66,20 @@ const TableRow = (key: string, value: number | string) => {
     )
 }
 
-export const StatsTable: React.FC<_KeyStats> = (keystatsProps) => {
-
-    const {
-        marketCap, 
-        peRatio, 
-        week52High, 
-        week52Low, 
-        avgTotalVolume,
-        previousClose,
-        low,
-        high,
-        volume,
-        open,
-        dividendYield,
-        actualEPS,
-    } = keystatsProps;
+export const StatsTable = memo<KeyStats>(({
+    marketCap, 
+    peRatio, 
+    week52High, 
+    week52Low, 
+    avgTotalVolume,
+    previousClose,
+    low,
+    high,
+    volume,
+    open,
+    dividendYield,
+    actualEPS,
+}) => {
 
     const LeftColumn = {
         'Previous Close': previousClose ? previousClose : 'N/A',
@@ -114,4 +112,4 @@ export const StatsTable: React.FC<_KeyStats> = (keystatsProps) => {
             </Table>
         </TableLayoutContainer>
     )
-}
+})

@@ -1,22 +1,22 @@
-import { _ChartSingleDataPoint } from '../features/charts/models/charts'
-import { _CompanyOverview } from '../features/companyOverview/models/companyOverview'
-import { _KeyStats } from '../features/keystats/models/keyStats'
-import { _News } from '../features/news/models/news'
+import { ChartSingleDataPoint } from '../features/charts/models/charts'
+import { CompanyOverview } from '../features/companyOverview/models/companyOverview'
+import { KeyStats } from '../features/keystats/models/keyStats'
+import { News } from '../features/news/models/news'
 import { Range } from '../features/charts/models/range'
-import { _Prices, _PriceSingleDataPoint } from './prices';
+import { Prices, PriceSingleDataPoint } from './prices';
 
-export interface _StateProps {
-    companyOverview: _CompanyOverview,
+export interface StateProps {
+    companyOverview: CompanyOverview,
     ticker: string,
-    keyStats: _KeyStats,
-    news: _News,
+    keyStats: KeyStats,
+    news: News,
     peers: string[],
     footerProps: {
         favorites: string[],
-        prices: _Prices
+        prices: Prices
     }
     searchProps: {
-        price: _PriceSingleDataPoint,
+        price: PriceSingleDataPoint,
         primaryExchange: string | null,
         isUSMarketOpen: boolean,
         tags: string[],
@@ -24,15 +24,12 @@ export interface _StateProps {
     },
     chartProps: {
         range: Range,
-        prices: _ChartSingleDataPoint[],
+        prices: ChartSingleDataPoint[],
         ticker: string,
         latest: number,
         open: boolean,
     }
 }
-export interface _DispatchProps {
+export interface DispatchProps {
     search: (query: string) => void,
-    updateChartRange: (range: Range) => void,
-    updateChartPrices: (prices: _ChartSingleDataPoint[]) => void,
-    resetState: () => void,
 };
