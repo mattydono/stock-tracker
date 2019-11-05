@@ -1,16 +1,18 @@
 import React from 'react';
 import { MapDispatchToProps, MapStateToProps } from 'react-redux'
-import { StateProps, DispatchProps } from '../models/props'
-import Search from './search/Search';
-import CompanyOverview from './companyOverview';
-import KeyStats from './keystats';
-import News from './news';
-import Peers from './peers/Peers';
-import Chart from './charts';
-import Header from './header/Header';
-import Footer from './footer';
+import { StateProps, DispatchProps } from './models/props'
+import { 
+    Search,
+    CompanyOverviewComponent as CompanyOverview,
+    KeyStatsComponent as KeyStats,
+    NewsComponent as News,
+    Peers,
+    Chart,
+    Header,
+    Footer
+} from './features';
 
-import { resetState } from '../redux/actions/resetApp'
+import { resetState } from './redux/actions/resetApp'
 import { updateChartRange, updateChartData } from './charts/redux/actions'
 import { updateTicker } from './search/redux/actions'
 

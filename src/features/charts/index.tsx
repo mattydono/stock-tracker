@@ -1,11 +1,10 @@
-import React, { memo, useCallback, FC } from 'react';
+import React, { memo, useCallback } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import styled from '@emotion/styled';
 import { Loader } from '../loader/Loader';
-import { RangeButtons } from './components/rangeButtons'
-import { Graph } from './components/graph'
+import { Graph, RangeButtons } from'./components'
 import { ChartSingleDataPoint, Range } from './models';
-import { updateChartRange } from './redux/actions';
+import { updateChartRange } from './redux';
 import { AppState } from '../../models/appState';
 
 const ChartLayoutContainer = styled.div`    
@@ -24,7 +23,7 @@ const ChartLayoutContainer = styled.div`
 
 type UpdateChartRange = (range: Range) => void;
 
-const Chart: FC<{}> = () => {
+export const Chart = memo(() => {
 
     const prices: ChartSingleDataPoint[] = useSelector((store: AppState) => store.charts.prices);
     const range: Range = useSelector((store: AppState) => store.charts.range);
@@ -45,6 +44,4 @@ const Chart: FC<{}> = () => {
                 }                         
             </ChartLayoutContainer>
     );
-}
-
-export default memo(Chart);
+})

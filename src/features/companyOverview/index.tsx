@@ -1,9 +1,9 @@
-import React, { memo, FC } from 'react';
+import React, { FC } from 'react';
 import { useSelector } from 'react-redux';
-import { CompanyOverview } from './models/companyOverview'
+import { CompanyOverview } from './models'
 import { AppState } from '../../models/appState';
 import styled from '@emotion/styled'
-import { Title } from '../Root'
+import { Title } from '../../Root'
 import { Loader } from '../loader/Loader'
 
 const CompanyOverviewContainer = styled.div`
@@ -48,7 +48,7 @@ const OverflowContainer = styled.div`
 `
 
 
-const Company: React.FC<CompanyOverview> = ({ companyName, symbol, website, description }) => {
+const Company: FC<CompanyOverview> = ({ companyName, symbol, website, description }) => {
     return (
         <>
             <Name>{companyName} ({symbol})</Name>
@@ -66,7 +66,7 @@ const Company: React.FC<CompanyOverview> = ({ companyName, symbol, website, desc
     )
 }
 
-const CompanyOverviewComponent: FC<{}> = () => {
+export const CompanyOverviewComponent: FC<{}> = () => {
 
     const { ...companyProps }: CompanyOverview = useSelector((store: AppState) => store.companyOverview)
 
@@ -79,6 +79,4 @@ const CompanyOverviewComponent: FC<{}> = () => {
             }
         </CompanyOverviewContainer>
     );
-}
-
-export default memo(CompanyOverviewComponent);
+})

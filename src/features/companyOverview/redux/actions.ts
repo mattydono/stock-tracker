@@ -1,5 +1,5 @@
 import { createAction } from 'redux-actions'
-import { CompanyOverview } from '../models/companyOverview'
+import { CompanyOverview } from '../models'
 
 export const UPDATE_COMPANY = 'UPDATE_COMPANY';
 export const updateCompany = createAction<CompanyOverview>(UPDATE_COMPANY)

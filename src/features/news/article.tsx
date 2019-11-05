@@ -1,4 +1,4 @@
-import React, { memo, FC } from 'react';
+import React, { memo } from 'react';
 import { Article } from './models/news';
 import moment from 'moment';
 import styled from '@emotion/styled'
@@ -27,7 +27,7 @@ const Time = styled.div`
     font-weight: 300;
 `
 
-const ArticleComponent: FC<Article> = ({ url, headline, datetime, source }) => {
+export const ArticleComponent = memo<Article>(({ url, headline, datetime, source }) => {
     return (
         <ArticleItemContainer>
             <Link href={url} target='_blank'>
@@ -36,6 +36,4 @@ const ArticleComponent: FC<Article> = ({ url, headline, datetime, source }) => {
             <Time>{moment(datetime).fromNow()} - {source}</Time>
         </ArticleItemContainer>
     )
-}
-
-export default memo(ArticleComponent);
+}))

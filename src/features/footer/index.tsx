@@ -1,9 +1,9 @@
-import React, { memo, FC } from 'react';
+import React, { FC } from 'react';
 import { PriceSingleDataPoint } from '../../models/prices';
 import { AppState } from '../../models/appState';
 import USMarketsMockData from './USMarketsMockData.json';
 
-import FooterTickerCard from './components/footerTickerCard';
+import { FooterTickerCard } from './components';
 
 import styled from '@emotion/styled'
 import { useSelector } from 'react-redux';
@@ -77,8 +77,7 @@ const Seperator = styled.div`
     }
 `
 
-
-const Footer: FC<{}> = () => {
+export const Footer: FC<{}> = () => {
 
     const prices: PriceSingleDataPoint[] = useSelector((store: AppState) => store.prices);
     const favorites: string[] = useSelector((store: AppState) => store.favorites);
@@ -103,6 +102,4 @@ const Footer: FC<{}> = () => {
             </FavouritesLayoutContainer>
         </FooterLayoutContainer>
     )
-}
-
-export default memo(Footer);
+})

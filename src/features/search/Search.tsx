@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef, memo, FC, useCallback } from 'react
 import { useSelector, useDispatch } from 'react-redux';
 import { PriceSingleDataPoint } from '../../models/prices';
 import { AppState } from '../../models/appState';
-import TickerCard from './components/tickerCard';
+import { TickerCard } from './components/tickerCard';
 import styled from '@emotion/styled'
 import { socketService } from '../../services/socket-service'
 import { SearchBar } from'./components/search-bar'
@@ -72,7 +72,7 @@ type Error = {
 
 const socket = socketService.get();
 
-const Search: FC<SearchProps & Error> = ({ 
+export const Search = memo<SearchProps & Error>(({ 
     errorQuote,
     search,
     latestTime,
@@ -131,6 +131,4 @@ const Search: FC<SearchProps & Error> = ({
         </SearchLayoutContainer>
     )
 
-}
-
-export default memo(Search);
+}))

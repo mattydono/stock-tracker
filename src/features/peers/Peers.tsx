@@ -44,7 +44,7 @@ const HARD_PEERS = [
     'MSFT',' NOK', 'IBM'
 ]
 
-const Peers: React.FC<PeersProps & ErrorLoading> = ({ errorPeers, isFetchingPeers, peers }) => {
+export const Peers = memo<PeersProps & ErrorLoading>(({ errorPeers, isFetchingPeers, peers }) => {
 
     const renderPeer = (peer: string) => {
         return <Peer key={peer} >{peer}</Peer>
@@ -60,6 +60,4 @@ const Peers: React.FC<PeersProps & ErrorLoading> = ({ errorPeers, isFetchingPeer
                 }
             </PeersLayoutContainer>
     );
-}
-
-export default memo(Peers);
+})

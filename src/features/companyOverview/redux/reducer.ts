@@ -1,5 +1,5 @@
 import { UpdateCompanyAction, UPDATE_COMPANY } from './actions'
-import { CompanyOverview } from '../models/companyOverview'
+import { CompanyOverview } from '../models'
 import { RESET_APP_STATE } from '../../../redux/actions/resetApp'
 
 const companyOverviewInitialState: CompanyOverview = {

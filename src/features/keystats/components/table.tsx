@@ -1,6 +1,6 @@
-import React, { FC } from 'react'
+import React, { memo } from 'react'
 import styled from '@emotion/styled'
-import { KeyStats } from '../models/keyStats'
+import { KeyStats } from '../models'
 
 const TableLayoutContainer = styled.div`
     width: 100%;
@@ -66,7 +66,7 @@ const TableRow = (key: string, value: number | string) => {
     )
 }
 
-export const StatsTable: FC<KeyStats> = ({
+export const StatsTable = memo<KeyStats>(({
     marketCap, 
     peRatio, 
     week52High, 
@@ -112,4 +112,4 @@ export const StatsTable: FC<KeyStats> = ({
             </Table>
         </TableLayoutContainer>
     )
-}
+}))

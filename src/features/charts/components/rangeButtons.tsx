@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { memo, FC } from 'react'
 import styled from '@emotion/styled'
 import { Range } from '../models/range'
 
@@ -31,7 +31,7 @@ type RangeButtonProps = {
     current: boolean;
 }
 
-const RangeButton: React.FC<RangeButtonProps> = ({ range, update, current }) => {
+const RangeButton: FC<RangeButtonProps> = ({ range, update, current }) => {
     const opacity = current ? 1.0 : 0.5;
     return (
         <LabelRange>
@@ -52,7 +52,7 @@ type TestProps = {
     update: (range: Range) => void
 }
 
-export const RangeButtons: React.FC<TestProps> = ({range, update}) => {
+export const RangeButtons = memo<TestProps>(({range, update}) => {
 
     const buttons = ranges.map(rangeItem => <RangeButton key={rangeItem} current={rangeItem === range} range={rangeItem} update={update} />);
 
@@ -61,4 +61,4 @@ export const RangeButtons: React.FC<TestProps> = ({range, update}) => {
             {buttons}
         </ButtonsContainer>
     )
-}
+})

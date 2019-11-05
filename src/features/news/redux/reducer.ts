@@ -1,5 +1,5 @@
 import { UpdateNewsAction, UPDATE_NEWS } from './actions'
-import { News } from '../models/news'
+import { News } from '../models'
 import { RESET_APP_STATE } from '../../../redux/actions/resetApp'
 
 const newsInitialState: News = []

@@ -1,11 +1,11 @@
 import React, { memo, FC } from 'react';
 import { useSelector } from 'react-redux';
-import { News, Article } from './models/news'
+import { News, Article } from './models'
 import { AppState } from '../../models/appState';
 import { Error } from '../../models/errors';
 import styled from '@emotion/styled'
-import { Title } from '../Root'
-import ArticleComponent from './article';
+import { Title } from '../../Root'
+import { ArticleComponent } from './article';
 import { Loader } from '../loader/Loader'
 
 
@@ -35,7 +35,7 @@ const ArticleLayoutContainer = styled.div`
     overflow: auto;
 `
 
-const NewsComponent: FC<{}> = () => {
+export const NewsComponent: FC<{}> = () => {
 
     const news: News = useSelector(({ news }: AppState) => news)
     
@@ -60,7 +60,4 @@ const NewsComponent: FC<{}> = () => {
         </NewsLayoutContainer>
 
     )
-}
-
-
-export default memo(NewsComponent);
+})

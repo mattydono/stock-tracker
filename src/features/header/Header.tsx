@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { FC } from 'react'
 import logo from './logo.png'
 import styled from '@emotion/styled'
 
@@ -57,7 +57,7 @@ const Button = styled.button<ButtonProps>`
     };
 `
 
-const Header: React.FC = () => {
+export const Header: FC = () => {
     return (
         <HeaderLayoutContainer>
             <Logo src={logo} />
@@ -69,5 +69,3 @@ const Header: React.FC = () => {
         </HeaderLayoutContainer>
     )
 }
-
-export default Header

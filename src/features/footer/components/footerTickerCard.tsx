@@ -21,7 +21,7 @@ const PriceCard = styled.div`
     font-size: 14px;
 `
 
-const FooterTickerCard: React.FC<PriceSingleDataPoint> = ({ ticker, latestPrice, change, changePercent, error }) => {
+export const FooterTickerCard = memo<PriceSingleDataPoint>(({ ticker, latestPrice, change, changePercent, error }) => {
 
     return (
         <PriceCard>
@@ -29,6 +29,4 @@ const FooterTickerCard: React.FC<PriceSingleDataPoint> = ({ ticker, latestPrice,
             <TickerPrice error={error} latestPrice={latestPrice} change={change} changePercent={changePercent} />
         </PriceCard>
     )
-}
-
-export default memo(FooterTickerCard)
+})

@@ -1,4 +1,4 @@
-import React, { RefObject, Dispatch, SetStateAction, FormEvent, KeyboardEvent } from 'react'
+import React, { RefObject, Dispatch, SetStateAction, memo, KeyboardEvent } from 'react'
 import styled from '@emotion/styled'
 
 const SearchBarLayoutContainer = styled.div`
@@ -85,7 +85,7 @@ type SearchBarProps = {
     socket: SocketIOClient.Socket,
 }
 
-export const SearchBar: React.FC<SearchBarProps> = ({isOpen, toggleIsOpen, inputSelect, dropSelect, search, query, setQuery, stockList, setSelectedStock, selectedStock, socket}) => {
+export const SearchBar = memo<SearchBarProps>(({isOpen, toggleIsOpen, inputSelect, dropSelect, search, query, setQuery, stockList, setSelectedStock, selectedStock, socket}) => {
 
     const handleBlur = () => {
         if(!isOpen) return
@@ -126,4 +126,4 @@ export const SearchBar: React.FC<SearchBarProps> = ({isOpen, toggleIsOpen, input
             )}
         </SearchBarLayoutContainer>
     )
-}
+})

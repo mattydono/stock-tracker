@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { memo } from 'react'
 import { Range } from '../models/range'
 import { ChartSingleDataPoint } from '../models/charts'
 import { 
@@ -19,7 +19,7 @@ type GraphProps = {
     latest: number,
 }
 
-export const Graph: React.FC<GraphProps> = ({range, latest, prices}) => {
+export const Graph = memo<GraphProps>(({range, latest, prices}) => {
 
     const interval = range === '5d' ? 39 : range === '1m' ? 12 : range === '1d' ? 59 : range === '1y' ? 23 : 253;
 
@@ -43,4 +43,4 @@ export const Graph: React.FC<GraphProps> = ({range, latest, prices}) => {
             </AreaChart>
         </ResponsiveContainer>
     )
-}
+})

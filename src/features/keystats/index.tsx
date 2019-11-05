@@ -1,10 +1,10 @@
-import React, { memo, FC } from 'react';
+import React, { FC } from 'react';
 import { useSelector } from 'react-redux';
-import { KeyStats } from './models/keyStats';
+import { KeyStats } from './models';
 import { AppState } from '../../models/appState';
 import styled from '@emotion/styled'
-import { Title } from '../Root'
-import { StatsTable } from './components/table'
+import { Title } from '../../Root'
+import { StatsTable } from './components'
 import { Loader } from '../loader/Loader'
 
 const KeyStatsLayoutContainer = styled.div`
@@ -12,7 +12,7 @@ const KeyStatsLayoutContainer = styled.div`
 `
 
 
-const KeyStatsComponent: FC<{}> = () => {
+export const KeyStatsComponent: FC<{}> = () => {
 
     const { ...keystatsProps }: KeyStats = useSelector(({ keyStats }: AppState) => keyStats)
 
@@ -28,6 +28,4 @@ const KeyStatsComponent: FC<{}> = () => {
             } 
         </KeyStatsLayoutContainer>
     )
-}
-
-export default memo(KeyStatsComponent);
+})
