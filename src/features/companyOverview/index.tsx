@@ -48,7 +48,7 @@ const OverflowContainer = styled.div`
 `
 
 
-const Company: FC<CompanyOverview> = ({ companyName, symbol, website, description }) => {
+export const Company: FC<CompanyOverview> = ({ companyName, symbol, website, description }) => {
     return (
         <>
             <Name>{companyName} ({symbol})</Name>
@@ -79,4 +79,4 @@ export const CompanyOverviewComponent: FC<{}> = () => {
             }
         </CompanyOverviewContainer>
     );
-})
+}

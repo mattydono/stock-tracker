@@ -15,7 +15,7 @@ export const companyOverview = (
     action: UpdateCompanyAction
     ) => {
     const { type, payload } = action 
-    switch (action.type) {
+    switch (type) {
         case UPDATE_COMPANY: {
             return payload;
         }

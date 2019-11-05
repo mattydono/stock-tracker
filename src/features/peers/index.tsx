@@ -1,5 +1,5 @@
 import React, { memo } from 'react';
-import { Title } from '../Root'
+import { Title } from '../../Root'
 import styled from '@emotion/styled'
 import { Loader } from '../loader/Loader'
 

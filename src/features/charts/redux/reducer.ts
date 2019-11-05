@@ -14,7 +14,7 @@ export const charts = (
     state = chartsIntitialState, 
     action: UpdateChartDataAction | UpdateChartRangeAction
     ) => {
-    const { type, payload } = action;
+    const { type } = action;
     switch (type) {
         case UPDATE_CHART_RANGE: {
             const updateChartRangeAction = action as UpdateChartRangeAction

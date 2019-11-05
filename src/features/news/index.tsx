@@ -1,6 +1,6 @@
-import React, { memo, FC } from 'react';
+import React, { FC } from 'react';
 import { useSelector } from 'react-redux';
-import { News, Article } from './models'
+import { Article, News } from './models'
 import { AppState } from '../../models/appState';
 import { Error } from '../../models/errors';
 import styled from '@emotion/styled'
@@ -60,4 +60,4 @@ export const NewsComponent: FC<{}> = () => {
         </NewsLayoutContainer>
 
     )
-})
+}

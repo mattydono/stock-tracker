@@ -32,7 +32,4 @@ export interface StateProps {
 }
 export interface DispatchProps {
     search: (query: string) => void,
-    updateChartRange: (range: Range) => void,
-    updateChartPrices: (prices: ChartSingleDataPoint[]) => void,
-    resetState: () => void,
 };

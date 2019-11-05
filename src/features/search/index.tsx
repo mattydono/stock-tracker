@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, memo, FC, useCallback } from 'react';
+import React, { useState, useEffect, useRef, memo, useCallback } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { PriceSingleDataPoint } from '../../models/prices';
 import { AppState } from '../../models/appState';
@@ -131,4 +131,4 @@ export const Search = memo<SearchProps & Error>(({
         </SearchLayoutContainer>
     )
 
-}))
+})

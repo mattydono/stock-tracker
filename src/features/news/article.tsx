@@ -36,4 +36,4 @@ export const ArticleComponent = memo<Article>(({ url, headline, datetime, source
             <Time>{moment(datetime).fromNow()} - {source}</Time>
         </ArticleItemContainer>
     )
-}))
+})

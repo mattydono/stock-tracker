@@ -52,7 +52,7 @@ type TestProps = {
     update: (range: Range) => void
 }
 
-export const RangeButtons = memo<TestProps>(({range, update}) => {
+export const RangeButtons = memo<TestProps>(({ range, update }) => {
 
     const buttons = ranges.map(rangeItem => <RangeButton key={rangeItem} current={rangeItem === range} range={rangeItem} update={update} />);
 

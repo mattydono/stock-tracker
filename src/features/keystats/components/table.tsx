@@ -112,4 +112,4 @@ export const StatsTable = memo<KeyStats>(({
             </Table>
         </TableLayoutContainer>
     )
-}))
+})

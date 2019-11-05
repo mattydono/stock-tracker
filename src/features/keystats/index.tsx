@@ -28,4 +28,4 @@ export const KeyStatsComponent: FC<{}> = () => {
             } 
         </KeyStatsLayoutContainer>
     )
-})
+}

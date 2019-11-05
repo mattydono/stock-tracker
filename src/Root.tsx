@@ -12,11 +12,10 @@ import {
     Footer
 } from './features';
 
-import { resetState } from './redux/actions/resetApp'
-import { updateChartRange, updateChartData } from './charts/redux/actions'
-import { updateTicker } from './search/redux/actions'
 
-import { AppState } from '../models/appState';
+import { AppState } from './models/appState';
+
+import { updateTicker } from './features/search/redux';
 
 import { connect } from 'react-redux';
 
@@ -154,7 +153,7 @@ const mapStateToProps: MapStateToProps<StateProps, {}, AppState> = state => {
     const { isUSMarketOpen, primaryExchange, latestTime } = keyStats;
     const { tags } = companyOverview;
     const { range, prices: chartPrices } = charts;
-    const price = prices.filter(({ ticker }) => ticker === search)[0] || prices[0];
+    const price = prices.filter(({ ticker }: any) => ticker === search)[0] || prices[0];
 
     const { ticker, latestPrice: latest } = price;
 
@@ -182,9 +181,6 @@ const mapStateToProps: MapStateToProps<StateProps, {}, AppState> = state => {
 
 const mapDispatchToProps: MapDispatchToProps<DispatchProps, {}> = dispatch => ({
     search: query => dispatch(updateTicker(query)),
-    updateChartRange: range => dispatch(updateChartRange(range)),
-    updateChartPrices: prices => dispatch(updateChartData(prices)),
-    resetState: () => dispatch(resetState(undefined)),
 })
 
 export default connect(

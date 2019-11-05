@@ -102,4 +102,4 @@ export const Footer: FC<{}> = () => {
             </FavouritesLayoutContainer>
         </FooterLayoutContainer>
     )
-})
+}
