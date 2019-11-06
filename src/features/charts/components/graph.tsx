@@ -10,8 +10,7 @@ import {
     ReferenceLine,
     Label,
 } from 'recharts';
-import { Range } from '../models/range'
-import { ChartSingleDataPoint } from '../models/charts'
+import { ChartSingleDataPoint, Range } from '../models'
 
 type GraphProps = {
     prices: ChartSingleDataPoint[],

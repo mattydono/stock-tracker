@@ -1,11 +1,11 @@
 import React, { memo, useCallback } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import styled from '@emotion/styled';
-import { Loader } from '../loader/Loader';
+import { Loader } from '../loader';
 import { Graph, RangeButtons } from'./components'
 import { ChartSingleDataPoint, Range } from './models';
 import { updateChartRange } from './redux';
-import { AppState } from '../../models/appState';
+import { AppState } from '../../models';
 
 const ChartLayoutContainer = styled.div`    
     flex: 0 1 66%;

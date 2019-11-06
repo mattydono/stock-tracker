@@ -2,11 +2,10 @@ import React, { FC } from 'react';
 import { useSelector } from 'react-redux';
 import styled from '@emotion/styled'
 import { Article, News } from './models'
-import { AppState } from '../../models/appState';
-import { Error } from '../../models/errors';
+import { AppState, Error } from '../../models';
 import { Title } from '../../Root'
 import { ArticleComponent } from './article';
-import { Loader } from '../loader/Loader'
+import { Loader } from '../loader'
 
 
 const NewsLayoutContainer = styled.div`

@@ -1,6 +1,6 @@
 import React, { memo, FC } from 'react'
 import styled from '@emotion/styled'
-import { Range } from '../models/range'
+import { Range } from '../models'
 
 const LabelRange = styled.div`
     margin: 0rem 0rem 1rem 0.5rem;

@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import styled from '@emotion/styled'
 import { Title } from '../../Root'
-import { Loader } from '../loader/Loader'
+import { Loader } from '../loader'
 
 const PeersLayoutContainer = styled.div`
     max-height: 30%;
