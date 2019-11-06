@@ -47,12 +47,12 @@ const RangeButton: FC<RangeButtonProps> = ({ range, update, current }) => {
 
 const ranges: Range[] = ['MAX', '5y', '1y', '1m', '5d', '1d'];
 
-type TestProps = {
+type RangeProps = {
     range: Range,
     update: (range: Range) => void
 }
 
-export const RangeButtons = memo<TestProps>(({ range, update }) => {
+export const RangeButtons = memo<RangeProps>(({ range, update }) => {
 
     const buttons = ranges.map(rangeItem => <RangeButton key={rangeItem} current={rangeItem === range} range={rangeItem} update={update} />);
 
