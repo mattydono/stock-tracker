@@ -1,9 +1,9 @@
 import React, { useState, useEffect, useRef, FC, useCallback } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import styled from '@emotion/styled'
 import { PriceSingleDataPoint } from '../../models/prices';
 import { AppState } from '../../models/appState';
 import { TickerCard } from './components/tickerCard';
-import styled from '@emotion/styled'
 import { socketService } from '../../services/socket-service'
 import { SearchBar } from'./components/search-bar'
 import { StockList } from './components/stockList'

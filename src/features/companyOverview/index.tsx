@@ -1,8 +1,8 @@
 import React, { FC } from 'react';
 import { useSelector } from 'react-redux';
+import styled from '@emotion/styled'
 import { CompanyOverview } from './models'
 import { AppState } from '../../models/appState';
-import styled from '@emotion/styled'
 import { Title } from '../../Root'
 import { Loader } from '../loader/Loader'
 

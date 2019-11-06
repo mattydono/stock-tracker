@@ -1,12 +1,10 @@
 import React, { FC } from 'react';
+import styled from '@emotion/styled'
+import { useSelector } from 'react-redux';
 import { PriceSingleDataPoint } from '../../models/prices';
 import { AppState } from '../../models/appState';
 import USMarketsMockData from './USMarketsMockData.json';
-
 import { FooterTickerCard } from './components';
-
-import styled from '@emotion/styled'
-import { useSelector } from 'react-redux';
 
 const FooterLayoutContainer = styled.div`
     position: fixed;
