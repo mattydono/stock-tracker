@@ -1,15 +1,14 @@
 import React, { FC } from 'react';
 import { useSelector } from 'react-redux';
-import { Article, News } from './models'
-import { AppState } from '../../models/appState';
-import { Error } from '../../models/errors';
 import styled from '@emotion/styled'
+import { Article, News } from './models'
+import { AppState, Error } from '../../models';
 import { Title } from '../../Root'
 import { ArticleComponent } from './article';
-import { Loader } from '../loader/Loader'
+import { Loader } from '../loader'
 
 
-const NewsLayoutContainer =styled.div`
+const NewsLayoutContainer = styled.div`
     flex: 0 1 34%;
     margin-top: 40px;
     margin-left: 26px;
@@ -35,7 +34,7 @@ const ArticleLayoutContainer = styled.div`
     overflow: auto;
 `
 
-export const NewsComponent: FC<{}> = () => {
+export const NewsComponent: FC = () => {
 
     const news: News = useSelector(({ news }: AppState) => news)
     

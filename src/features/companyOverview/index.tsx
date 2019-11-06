@@ -1,10 +1,10 @@
 import React, { FC } from 'react';
 import { useSelector } from 'react-redux';
-import { CompanyOverview } from './models'
-import { AppState } from '../../models/appState';
 import styled from '@emotion/styled'
+import { CompanyOverview } from './models'
+import { AppState } from '../../models';
 import { Title } from '../../Root'
-import { Loader } from '../loader/Loader'
+import { Loader } from '../loader'
 
 const CompanyOverviewContainer = styled.div`
     max-height: 400px;

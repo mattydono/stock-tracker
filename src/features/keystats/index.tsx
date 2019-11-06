@@ -1,18 +1,18 @@
 import React, { FC } from 'react';
 import { useSelector } from 'react-redux';
-import { KeyStats } from './models';
-import { AppState } from '../../models/appState';
 import styled from '@emotion/styled'
+import { KeyStats } from './models';
+import { AppState } from '../../models';
 import { Title } from '../../Root'
 import { StatsTable } from './components'
-import { Loader } from '../loader/Loader'
+import { Loader } from '../loader'
 
 const KeyStatsLayoutContainer = styled.div`
     flex: 0 1 63%;
 `
 
 
-export const KeyStatsComponent: FC<{}> = () => {
+export const KeyStatsComponent: FC = () => {
 
     const { ...keystatsProps }: KeyStats = useSelector(({ keyStats }: AppState) => keyStats)
 
