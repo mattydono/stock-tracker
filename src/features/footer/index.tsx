@@ -77,7 +77,7 @@ const Seperator = styled.div`
     }
 `
 
-export const Footer: FC<{}> = () => {
+export const Footer: FC = () => {
 
     const prices: PriceSingleDataPoint[] = useSelector((store: AppState) => store.prices);
     const favorites: string[] = useSelector((store: AppState) => store.favorites);

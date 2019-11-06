@@ -57,7 +57,7 @@ type StockListItem = {
 
 const socket = socketService.get();
 
-export const Search: FC<{}> = () => {
+export const Search: FC = () => {
 
     const dispatch = useDispatch();
 

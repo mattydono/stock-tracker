@@ -12,7 +12,7 @@ const KeyStatsLayoutContainer = styled.div`
 `
 
 
-export const KeyStatsComponent: FC<{}> = () => {
+export const KeyStatsComponent: FC = () => {
 
     const { ...keystatsProps }: KeyStats = useSelector(({ keyStats }: AppState) => keyStats)
 

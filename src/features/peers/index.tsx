@@ -44,7 +44,7 @@ const HARD_PEERS = [
     'MSFT',' NOK', 'IBM'
 ]
 
-export const Peers: FC<{}> = () => {
+export const Peers: FC = () => {
 
     const renderPeer = (peer: string) => {
         return <Peer key={peer} >{peer}</Peer>

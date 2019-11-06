@@ -103,7 +103,7 @@ const StatsCompanyLayout = styled.div`
     };
 `
 
-const Root: FC<{}> = () => {
+const Root: FC = () => {
 
     return (
         <RootContainer>

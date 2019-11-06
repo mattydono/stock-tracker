@@ -35,7 +35,7 @@ const ArticleLayoutContainer = styled.div`
     overflow: auto;
 `
 
-export const NewsComponent: FC<{}> = () => {
+export const NewsComponent: FC = () => {
 
     const news: News = useSelector(({ news }: AppState) => news)
     
