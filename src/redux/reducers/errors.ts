@@ -1,3 +1,4 @@
+import { Reducer } from 'redux'
 import { Error } from 'models/errors'
 import { ERROR, ErrorAction } from '../actions/error'
 
@@ -17,7 +18,7 @@ const errorsInitialState: ErrorState = {
     favorites: false,
 }
 
-export const errors = (state = errorsInitialState, action: ErrorAction) => {
+export const errors: Reducer<ErrorState, ErrorAction> = (state = errorsInitialState, action) => {
     const { type, payload } = action;
     switch (type) {
         case ERROR: {

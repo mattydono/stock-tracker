@@ -1,3 +1,4 @@
+import { Reducer } from 'redux'
 import { Charts } from '../models'
 import {
     UpdateChartDataAction, UPDATE_CHART_DATA, 
@@ -10,9 +11,11 @@ const chartsIntitialState: Charts = {
     prices: [],
 }
 
-export const charts = (
+type ChartsActionTypes = UpdateChartDataAction | UpdateChartRangeAction
+
+export const charts: Reducer<Charts, ChartsActionTypes> = (
     state = chartsIntitialState, 
-    action: UpdateChartDataAction | UpdateChartRangeAction
+    action
     ) => {
     const { type } = action;
     switch (type) {
