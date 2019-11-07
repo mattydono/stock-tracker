@@ -40,42 +40,31 @@ const Link = styled.a`
 const Description = styled.div`
     font-size: 16px;
     max-height: 140px;
-`
-
-const OverflowContainer = styled.div`
     overflow: auto;
-    max-height: 200px;
+    max-height: 100px;
 `
-
-
-export const Company: FC<CompanyOverview> = ({ companyName, symbol, website, description }) => {
-    return (
-        <>
-            <Name>{companyName} ({symbol})</Name>
-            <Website>
-                {website ?
-                <Link href={website}><i>{website}</i></Link>
-                :
-                <span><i>{website}</i></span>
-            }
-            </Website>
-            <OverflowContainer>
-                <Description>{description}</Description>
-            </OverflowContainer>
-        </>
-    )
-}
 
 export const CompanyOverviewComponent: FC<{}> = () => {
 
-    const { ...companyProps }: CompanyOverview = useSelector((store: AppState) => store.companyOverview)
+    const { companyName, symbol, website, description }: CompanyOverview = useSelector((store: AppState) => store.companyOverview)
 
     return (
         <CompanyOverviewContainer>
             <Title>COMPANY OVERVIEW</Title>
-            {companyProps.symbol
-                ? <Company {...companyProps} />
-                : <Loader className='margin-top: 50px; margin-bottom: 50px;' size={50} seperation={2} speed={1.4} />
+            {
+                !symbol
+                ? <Loader className='margin-top: 50px; margin-bottom: 50px;' size={50} seperation={2} speed={1.4} />
+                : <>
+                    <Name>{companyName} ({symbol})</Name>
+                    <Website>
+                        {
+                            website 
+                            ? <Link href={website}><i>{website}</i></Link>
+                            : <span><i>{website}</i></span>
+                        }
+                    </Website>
+                    <Description>{description}</Description>
+                </>
             }
         </CompanyOverviewContainer>
     );
