@@ -11,7 +11,6 @@ const KeyStatsLayoutContainer = styled.div`
     flex: 0 1 63%;
 `
 
-
 export const KeyStatsComponent: FC = () => {
 
     const { ...keystatsProps }: KeyStats = useSelector(({ keyStats }: AppState) => keyStats)
