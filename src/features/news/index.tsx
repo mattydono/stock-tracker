@@ -4,7 +4,7 @@ import styled from '@emotion/styled'
 import { Article, News } from './models'
 import { AppState, Error } from 'models';
 import { Title } from 'Root'
-import { ArticleComponent } from './article';
+import { ArticleComponent } from './components';
 import { Loader } from '../loader'
 
 
