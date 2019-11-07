@@ -1,4 +1,4 @@
-import { Error } from '../../models/errors'
+import { Error } from 'models/errors'
 import { ERROR, ErrorAction } from '../actions/error'
 
 export interface ErrorState {

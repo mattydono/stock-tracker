@@ -2,8 +2,8 @@ import React, { FC } from 'react';
 import { useSelector } from 'react-redux';
 import styled from '@emotion/styled'
 import { Article, News } from './models'
-import { AppState, Error } from '../../models';
-import { Title } from '../../Root'
+import { AppState, Error } from 'models';
+import { Title } from 'Root'
 import { ArticleComponent } from './article';
 import { Loader } from '../loader'
 
