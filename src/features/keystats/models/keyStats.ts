@@ -1,4 +1,4 @@
-export interface KeyStats {
+export type KeyStats = {
     marketCap: number | null,
     peRatio: number | null,
     week52High: number | null,
