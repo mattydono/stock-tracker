@@ -37,7 +37,6 @@ const ArticleLayoutContainer = styled.div`
 export const NewsComponent: FC = () => {
 
     const news: News = useSelector(({ news }: AppState) => news)
-    
     const error: Error = useSelector(({ errors }: AppState) => errors);
 
     const Loading = <Loader className='margin-top: 200px; @media(max-width: 750px) {margin-top: 50px; margin-bottom: 50px;};' size={50} seperation={2} speed={1.4} />

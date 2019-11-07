@@ -1,7 +1,7 @@
-import { CompanyOverview } from '../features/companyOverview/models/companyOverview'
-import { KeyStats } from '../features/keystats/models/keyStats'
-import { Charts } from '../features/charts/models/charts'
-import { News } from '../features/news/models/news'
+import { CompanyOverview } from 'features/companyOverview/models/companyOverview'
+import { KeyStats } from 'features/keystats/models/keyStats'
+import { Charts } from 'features/charts/models/charts'
+import { News } from 'features/news/models/news'
 import { Prices } from './prices'
 import { Error } from './errors';
 
