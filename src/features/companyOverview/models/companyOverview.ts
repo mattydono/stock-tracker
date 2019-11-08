@@ -1,4 +1,4 @@
-export interface CompanyOverview {
+export type CompanyOverview = {
     symbol: string | null,
     companyName: string | null,
     website: string | null,

@@ -24,7 +24,7 @@ const getBounce = memoizeOne(
 `,
 )
 
-interface BarProps {
+type BarProps = {
   order: number
   moveDistance: number
   speed: number
@@ -40,7 +40,8 @@ const Bar = styled('rect')<BarProps>`
 `
 
 type LoaderType = 'primary' | 'secondary'
-interface Props {
+
+type Props = {
   size: number | string
   type?: LoaderType
   seperation?: number

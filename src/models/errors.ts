@@ -1,4 +1,4 @@
-export interface Error { 
+export type Error = { 
     quote: boolean,
     news: boolean,
     company: boolean,
