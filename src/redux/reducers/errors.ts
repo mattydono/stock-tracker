@@ -1,8 +1,7 @@
-import { Reducer } from 'redux'
-import { Error } from 'models/errors'
+import { Error } from '../../models/errors'
 import { ERROR, ErrorAction } from '../actions/error'
 
-export type ErrorState = {
+export interface ErrorState {
     quote: boolean,
     news: boolean,
     company: boolean,
@@ -18,7 +17,7 @@ const errorsInitialState: ErrorState = {
     favorites: false,
 }
 
-export const errors: Reducer<ErrorState, ErrorAction> = (state = errorsInitialState, action) => {
+export const errors = (state = errorsInitialState, action: ErrorAction) => {
     const { type, payload } = action;
     switch (type) {
         case ERROR: {

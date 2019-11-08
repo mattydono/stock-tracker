@@ -1,2 +1,2 @@
-export * from './Graph'
-export * from './ChartRange'
+export * from './graph'
+export * from './rangeButtons'

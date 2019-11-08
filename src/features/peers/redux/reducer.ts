@@ -1,10 +1,9 @@
-import { Reducer } from 'redux'
 import { UpdatePeersAction, UPDATE_PEERS } from './actions'
-import { RESET_APP_STATE } from 'redux/actions/resetApp'
+import { RESET_APP_STATE } from '../../../redux/actions/resetApp'
 
-export const peers: Reducer<string[], UpdatePeersAction> = (
+export const peers = (
     state = [''],
-    action
+    action: UpdatePeersAction
     ) => {
     const { type, payload } = action
     switch (type) {

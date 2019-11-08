@@ -1,4 +1,4 @@
-export type Article = {
+export interface Article {
     url: string,
     headline: string,
     datetime: number,
