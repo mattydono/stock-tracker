@@ -1,6 +1,6 @@
 import { createStore, combineReducers, compose, applyMiddleware } from 'redux';
 import socketMiddleware from '../redux/middleware/socketMiddleware';
-import { socketService } from '../services/socket-service';
+import { socketService } from '../services/socketService';
 
 import { prices } from '../redux/reducers';
 import { charts } from '../features/charts/redux';

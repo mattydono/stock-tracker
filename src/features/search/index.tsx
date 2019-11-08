@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import styled from '@emotion/styled'
 import { PriceSingleDataPoint, AppState } from '../../models';
 import { TickerCard, SearchBar, StockList, DateTime, Tags } from './components'
-import { socketService } from '../../services/socket-service'
+import { socketService } from '../../services/socketService'
 import { updateTicker } from './redux/actions';
 
 const SearchLayoutContainer = styled.div`

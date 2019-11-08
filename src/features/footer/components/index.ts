@@ -1,2 +1,2 @@
-export * from './footerTickerCard'
-export * from './tickerPrice'
+export * from './FooterTickerCard'
+export * from './TickerPrice'
