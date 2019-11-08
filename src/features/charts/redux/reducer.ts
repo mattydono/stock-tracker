@@ -1,18 +1,21 @@
+import { Reducer } from 'redux'
 import { Charts } from '../models'
 import {
     UpdateChartDataAction, UPDATE_CHART_DATA, 
     UpdateChartRangeAction, UPDATE_CHART_RANGE,
 } from './actions'
-import { RESET_APP_STATE } from '../../../redux/actions/resetApp'
+import { RESET_APP_STATE } from 'redux/actions/resetApp'
 
 const chartsIntitialState: Charts = {
     range: '1m',
     prices: [],
 }
 
-export const charts = (
+type ChartsActionTypes = UpdateChartDataAction | UpdateChartRangeAction
+
+export const charts: Reducer<Charts, ChartsActionTypes> = (
     state = chartsIntitialState, 
-    action: UpdateChartDataAction | UpdateChartRangeAction
+    action
     ) => {
     const { type } = action;
     switch (type) {

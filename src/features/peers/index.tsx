@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import styled from '@emotion/styled'
-import { Title } from '../../Root'
+import { Title } from 'Root'
 import { Loader } from '../loader'
 
 const PeersLayoutContainer = styled.div`

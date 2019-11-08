@@ -1,6 +1,7 @@
+import { Reducer } from 'redux'
 import { UpdateKeyStatsAction, UPDATE_KEY_STATS } from './actions'
 import { KeyStats } from '../models'
-import { RESET_APP_STATE } from '../../../redux/actions/resetApp'
+import { RESET_APP_STATE } from 'redux/actions/resetApp'
 
 const keyStatsInitialState: KeyStats = {
     marketCap: null,
@@ -21,9 +22,9 @@ const keyStatsInitialState: KeyStats = {
     isFetchingQuote: false,
 }
 
-export const keyStats = (
+export const keyStats: Reducer<KeyStats, UpdateKeyStatsAction> = (
     state = keyStatsInitialState, 
-    action: UpdateKeyStatsAction
+    action
     ) => {
     const { type, payload } = action
     switch (type) {

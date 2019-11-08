@@ -1,4 +1,4 @@
-import React, { memo, FC } from 'react'
+import React, { FC } from 'react'
 import styled from '@emotion/styled'
 import { Range } from '../models'
 
@@ -16,22 +16,13 @@ const Input = styled.input`
     display: none;
 `
 
-const ButtonsContainer = styled.div`
-    display: flex;
-    flex-direction: row-reverse;
-    margin-right: 60px;
-    font-family: 300;
-    font-size: 12px;
-    color: #beccdc;
-`
-
 type RangeButtonProps = {
     range: Range;
     update: (range: Range) => void;
     current: boolean;
 }
 
-const RangeButton: FC<RangeButtonProps> = ({ range, update, current }) => {
+export const RangeButton: FC<RangeButtonProps> = ({ range, update, current }) => {
     const opacity = current ? 1.0 : 0.5;
     return (
         <LabelRange>
@@ -44,21 +35,3 @@ const RangeButton: FC<RangeButtonProps> = ({ range, update, current }) => {
         </LabelRange>
     )
 }
-
-const ranges: Range[] = ['MAX', '5y', '1y', '1m', '5d', '1d'];
-
-type RangeProps = {
-    range: Range,
-    update: (range: Range) => void
-}
-
-export const RangeButtons = memo<RangeProps>(({ range, update }) => {
-
-    const buttons = ranges.map(rangeItem => <RangeButton key={rangeItem} current={rangeItem === range} range={rangeItem} update={update} />);
-
-    return (
-        <ButtonsContainer>
-            {buttons}
-        </ButtonsContainer>
-    )
-})
