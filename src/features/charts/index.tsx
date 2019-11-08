@@ -2,10 +2,10 @@ import React, { memo, useCallback } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import styled from '@emotion/styled';
 import { Loader } from '../loader';
-import { Graph, ChartRange } from'./components'
+import { Graph, RangeButtons } from'./components'
 import { ChartSingleDataPoint, Range } from './models';
 import { updateChartRange } from './redux';
-import { AppState } from 'models';
+import { AppState } from '../../models';
 
 const ChartLayoutContainer = styled.div`    
     flex: 0 1 66%;
@@ -39,8 +39,8 @@ export const Chart = memo(() => {
             <ChartLayoutContainer>
                 {
                     prices.length !== 0 
-                    ? <><ChartRange range={range} update={updateRange}/><Graph prices={prices} range={range} latest={latest}/></>
-                    : <Loader className={`min-height: 1000px; margin-top: 250px; @media(max-width: 750px) { margin-top: 10px; margin-bottom: 50px; }`} size={50} seperation={2} speed={1.4} />
+                    ? <><RangeButtons range={range} update={updateRange}/><Graph prices={prices} range={range} latest={latest}/></>
+                    : <Loader className='margin-top: 250px; @media(max-width: 750px) { margin-top: 10px; margin-bottom: 50px; }' size={50} seperation={2} speed={1.4} />
                 }                         
             </ChartLayoutContainer>
     );

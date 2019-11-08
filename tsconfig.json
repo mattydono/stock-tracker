@@ -19,6 +19,9 @@
     "noEmit": true,
     "jsx": "react",
     "baseUrl": "./src",
+    "paths": {
+      "features/*": ["features/*"]
+    }
   },
   "include": [
     "src"

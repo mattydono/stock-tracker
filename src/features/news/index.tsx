@@ -2,9 +2,9 @@ import React, { FC } from 'react';
 import { useSelector } from 'react-redux';
 import styled from '@emotion/styled'
 import { Article, News } from './models'
-import { AppState, Error } from 'models';
-import { Title } from 'Root'
-import { ArticleComponent } from './components';
+import { AppState, Error } from '../../models';
+import { Title } from '../../Root'
+import { ArticleComponent } from './article';
 import { Loader } from '../loader'
 
 
@@ -37,6 +37,7 @@ const ArticleLayoutContainer = styled.div`
 export const NewsComponent: FC = () => {
 
     const news: News = useSelector(({ news }: AppState) => news)
+    
     const error: Error = useSelector(({ errors }: AppState) => errors);
 
     const Loading = <Loader className='margin-top: 200px; @media(max-width: 750px) {margin-top: 50px; margin-bottom: 50px;};' size={50} seperation={2} speed={1.4} />

@@ -1,10 +1,10 @@
 import { AnyAction, Middleware } from 'redux'
-import { PriceSingleDataPoint } from 'models/prices'
-import { CompanyOverview } from 'features/companyOverview/models/companyOverview'
-import { News } from 'features/news/models/news'
-import { KeyStats } from 'features/keystats/models/keyStats'
-import { ChartSingleDataPoint } from 'features/charts/models'
-import { Error } from 'models/errors'
+import { PriceSingleDataPoint } from '../../models/prices'
+import { CompanyOverview } from '../../features/companyOverview/models/companyOverview'
+import { News } from '../../features/news/models/news'
+import { KeyStats } from '../../features/keystats/models/keyStats'
+import { ChartSingleDataPoint } from '../../features/charts/models'
+import { Error } from '../../models/errors'
 import { 
     updatePricesData,
     updateChartData,
@@ -18,7 +18,7 @@ import {
 } from '../actions';
 
 
-export const socketMiddleware = (socket: SocketIOClient.Socket, defaultTicker: string = 'aapl'): Middleware => {
+const socketMiddleware = (socket: SocketIOClient.Socket, defaultTicker: string = 'aapl'): Middleware => {
 
     return ({ dispatch, getState }) => {
 
@@ -55,3 +55,5 @@ export const socketMiddleware = (socket: SocketIOClient.Socket, defaultTicker: s
         }
     }
 }
+
+export default socketMiddleware;

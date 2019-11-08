@@ -1,4 +1,4 @@
-export type PriceSingleDataPoint = {
+export interface PriceSingleDataPoint {
     ticker: string,
     latestPrice: number,
     change: number | null,

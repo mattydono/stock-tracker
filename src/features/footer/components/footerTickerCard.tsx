@@ -1,7 +1,7 @@
 import React, { memo } from 'react';
 import styled from '@emotion/styled'
-import { PriceSingleDataPoint } from 'models'
-import { TickerPrice } from './TickerPrice'
+import { PriceSingleDataPoint } from '../../../models'
+import { TickerPrice } from './tickerPrice'
 
 const Ticker = styled.div`
     margin-right: 10px;

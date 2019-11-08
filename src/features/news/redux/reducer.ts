@@ -1,13 +1,12 @@
-import { Reducer } from 'redux'
 import { UpdateNewsAction, UPDATE_NEWS } from './actions'
 import { News } from '../models'
-import { RESET_APP_STATE } from 'redux/actions/resetApp'
+import { RESET_APP_STATE } from '../../../redux/actions/resetApp'
 
 const newsInitialState: News = []
 
-export const news: Reducer<News, UpdateNewsAction> = (
+export const news = (
     state = newsInitialState,
-    action
+    action: UpdateNewsAction
     ) => {
     const { type, payload } = action
     switch (type) {
