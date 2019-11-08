@@ -1,7 +1,7 @@
 import { Error } from '../../models/errors'
 import { ERROR, ErrorAction } from '../actions/error'
 
-export interface ErrorState {
+export type ErrorState = {
     quote: boolean,
     news: boolean,
     company: boolean,

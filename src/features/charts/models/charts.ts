@@ -1,11 +1,12 @@
 import { Range } from './range'
-export interface ChartSingleDataPoint {
+
+export type ChartSingleDataPoint = {
     open: number,
     close: number,
     date: string,
 }
 
-export interface Charts {
+export type  Charts = {
     range: Range,
     prices: ChartSingleDataPoint[]
 }
