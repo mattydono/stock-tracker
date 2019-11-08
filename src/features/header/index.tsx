@@ -36,13 +36,13 @@ const Logo = styled.img`
 `
 
 type ButtonProps = {
-    color: string,
-    backgroundColor: string
+    color?: string,
+    backgroundColor?: string
 }
 
 const Button = styled.button<ButtonProps>`
-    background-color: ${(props: ButtonProps) => props.backgroundColor};
-    color: ${(props: ButtonProps) => props.color};
+    background-color: ${(props: ButtonProps) => props.backgroundColor ? props.backgroundColor : 'rgba(0,0,0,0)'};
+    color: ${(props: ButtonProps) => props.color ? props.color : 'gray'};
     height: 31px;
     min-width: 98px;
     font-size: 18px;
@@ -63,8 +63,8 @@ export const Header: FC = () => {
             <Logo src={logo} />
             <NavLayoutContainer>
                 <Button color='white' backgroundColor='rgba(0, 104, 255, 0.5)' >QUOTES</Button>
-                <Button color='gray' backgroundColor='rgba(0,0,0,0)'>MARKETS</Button>
-                <Button color='gray' backgroundColor='rgba(0,0,0,0)'>WATCHLISTS</Button>
+                <Button>MARKETS</Button>
+                <Button>WATCHLISTS</Button>
             </NavLayoutContainer>
         </HeaderLayoutContainer>
     )
