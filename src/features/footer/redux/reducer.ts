@@ -2,12 +2,15 @@ import {
     UpdateFavoritesAddTickerAction, FAVORITES_ADD_TICKER,
     UpdateFavoritesRemoveTickerAction, FAVORITES_REMOVE_TICKER
 } from './actions'
+import { Reducer } from 'redux'
 
 const favoritesInitialState: string[] = ['amzn', 'msft', 'fb']
 
-export const favorites = (
+type FavouritesActionTypes = UpdateFavoritesAddTickerAction | UpdateFavoritesRemoveTickerAction
+
+export const favorites: Reducer<string[], FavouritesActionTypes> = (
     state = favoritesInitialState,
-    action: UpdateFavoritesAddTickerAction | UpdateFavoritesRemoveTickerAction
+    action
     ) => {
     const { type, payload } = action;
     switch (type) {
