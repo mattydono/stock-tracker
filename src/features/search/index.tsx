@@ -41,14 +41,12 @@ const DateRowLayoutContainer = styled.div`
     }
 `
 
-
 type Search = (query: string) => void;
 
 type StockListItem = {
     symbol: string,
     name: string
 }
-
 
 const socket = socketService.get();
 
@@ -63,15 +61,15 @@ export const Search: FC = () => {
     const inputSelect = useRef<HTMLInputElement>(null)
     const [selectedStock, setSelectedStock] = useState<string[]>(['Apple Inc', '(AAPL)'])
 
-    const tags: string[] = useSelector(({ companyOverview: { tags }}: AppState) => tags);
-    const primaryExchange: string | null = useSelector(({ keyStats: { primaryExchange } }: AppState) => primaryExchange);
-    const isUSMarketOpen: boolean = useSelector(({ keyStats: { isUSMarketOpen } }: AppState) => isUSMarketOpen)
-    const price: PriceSingleDataPoint = useSelector((store: AppState) => {
+    const tags = useSelector(({ companyOverview: { tags }}: AppState) => tags);
+    const primaryExchange = useSelector(({ keyStats: { primaryExchange } }: AppState) => primaryExchange);
+    const isUSMarketOpen = useSelector(({ keyStats: { isUSMarketOpen } }: AppState) => isUSMarketOpen)
+    const price = useSelector((store: AppState) => {
         const { search, prices } = store;
         return prices.find(({ ticker }) => ticker === search) || prices[0];
     });
-    const latestTime: string | null = useSelector(({ keyStats: { latestTime } }: AppState) => latestTime)
-    const search: Search = useCallback((query: string) => dispatch(updateTicker(query)), [query, dispatch]);
+    const latestTime = useSelector(({ keyStats: { latestTime } }: AppState) => latestTime)
+    const search = useCallback((query: string) => dispatch(updateTicker(query)), [query, dispatch]);
     const errorQuote = ''
 
     useEffect(() => {
