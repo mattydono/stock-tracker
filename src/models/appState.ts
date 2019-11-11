@@ -4,6 +4,7 @@ import { Charts } from '../features/charts/models/charts'
 import { News } from '../features/news/models/news'
 import { Prices } from './prices'
 import { Error } from './errors';
+import { StockListItem } from 'features/search/models'
 
 export type AppState = {
     search: string,
@@ -14,5 +15,6 @@ export type AppState = {
     peers: string[],
     favorites: string[],
     prices: Prices,
-    errors: Error
+    errors: Error,
+    stockList: StockListItem[],
 }

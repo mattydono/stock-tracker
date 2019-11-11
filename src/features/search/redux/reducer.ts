@@ -1,5 +1,6 @@
 import { Reducer } from 'redux';
-import { UpdateTickerAction, UPDATE_TICKER } from './actions';
+import { UpdateTickerAction, UPDATE_TICKER, UpdateStockListAction, SET_STOCKLIST } from './actions';
+import { StockListItem } from '../models';
 
 export const search: Reducer<string, UpdateTickerAction> = (
     state = 'aapl', 
@@ -15,3 +16,14 @@ export const search: Reducer<string, UpdateTickerAction> = (
         }
     }
 };
+
+export const stockList: Reducer<StockListItem[], UpdateStockListAction> = (state = [], action) => {
+    switch(action.type) {
+        case SET_STOCKLIST: {
+            return action.payload
+        }
+        default: {
+            return state
+        }
+    }
+}

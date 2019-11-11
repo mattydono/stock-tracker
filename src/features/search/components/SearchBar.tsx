@@ -1,5 +1,7 @@
 import React, { RefObject, Dispatch, SetStateAction, memo, KeyboardEvent } from 'react'
 import styled from '@emotion/styled'
+import { useSelector } from 'react-redux'
+import { AppState }  from '../../../models'
 
 const SearchBarLayoutContainer = styled.div`
     display: flex;
@@ -79,13 +81,14 @@ type SearchBarProps = {
     search: (query: string) => void,
     query: string,
     setQuery: Dispatch<SetStateAction<string>>,
-    stockList: StockListItem[],
     setSelectedStock: Dispatch<SetStateAction<string[]>>,
     selectedStock: string[],
     socket: SocketIOClient.Socket,
 }
 
-export const SearchBar = memo<SearchBarProps>(({isOpen, toggleIsOpen, inputSelect, dropSelect, search, query, setQuery, stockList, setSelectedStock, selectedStock, socket}) => {
+export const SearchBar = memo<SearchBarProps>(({isOpen, toggleIsOpen, inputSelect, dropSelect, search, query, setQuery, setSelectedStock, selectedStock, socket}) => {
+
+    const stockList = useSelector((state: AppState) => state.stockList)
 
     const handleBlur = () => {
         if(!isOpen) return
