@@ -52,7 +52,6 @@ export const Search: FC = () => {
     const dispatch = useDispatch();
 
     const [query, setQuery] = useState<string>('Apple Inc (AAPL)');
-    // const [stockList, setStockList] = useState<StockListItem[]>([])
     const [isOpen, toggleIsOpen] = useState<boolean>(false)
     const dropSelect = useRef<HTMLDivElement>(null)
     const inputSelect = useRef<HTMLInputElement>(null)
@@ -97,7 +96,6 @@ export const Search: FC = () => {
             <SearchRowLayoutContainer>
                 <SearchBar inputSelect={inputSelect} dropSelect={dropSelect} setQuery={setQuery} isOpen={isOpen} toggleIsOpen={toggleIsOpen} search={search} query={query} setSelectedStock={setSelectedStock} selectedStock={selectedStock} socket={socket} />
                 <TickerCard {...price} />
-                {/* {isOpen && <StockList setQuery={setQuery} inputSelect={inputSelect} search={search} setStockList={setStockList} setSelectedStock={setSelectedStock} dropSelect={dropSelect} stockList={stockList} /> } */}
                 {isOpen && <StockList setQuery={setQuery} inputSelect={inputSelect} search={search} setSelectedStock={setSelectedStock} dropSelect={dropSelect} /> }
             </SearchRowLayoutContainer>
             <DateRowLayoutContainer>
