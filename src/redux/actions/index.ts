@@ -10,3 +10,4 @@ export { updateFavoritesAddTicker, updateFavoritesRemoveTicker } from '../../fea
 export { updateKeyStats } from '../../features/keystats/redux/actions';
 export { updateNews } from '../../features/news/redux/actions';
 export { updateTicker, UPDATE_TICKER } from '../../features/search/redux/actions';
+export * from './bootstrap'

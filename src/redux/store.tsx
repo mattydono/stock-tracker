@@ -1,5 +1,4 @@
 import { createStore, combineReducers, compose, applyMiddleware } from 'redux';
-import socketMiddleware from '../redux/middleware/socketMiddleware';
 import { socketService } from '../services/socketService';
 
 import { prices } from '../redux/reducers';
@@ -10,7 +9,9 @@ import { news } from '../features/news/redux';
 import { peers } from '../features/peers/redux';
 import { favorites } from '../features/footer/redux';
 import { search } from '../features/search/redux';
-
+import { chartMiddleware } from '../features/charts/redux/middleware'
+import { searchMiddleware } from 'features/search/redux/middleware';
+import { initialStartUpMiddleware } from '../redux/middleware/intialStartUpMiddleware'
 
 const rootReducer = combineReducers({
     search,
@@ -34,7 +35,7 @@ const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 export const store = createStore(
     rootReducer,
     compose(
-        applyMiddleware(socketMiddleware(socketService.get())),
+        applyMiddleware(initialStartUpMiddleware(socketService.get()), chartMiddleware(socketService.get()), searchMiddleware(socketService.get())),
         composeEnhancers()
     )
 );

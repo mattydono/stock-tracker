@@ -1,0 +1,21 @@
+import { Middleware, AnyAction } from 'redux'
+import { UPDATE_TICKER } from '../redux'
+import { resetState } from 'redux/actions'
+
+export const searchMiddleware = (socket: SocketIOClient.Socket): Middleware => {
+    return ({dispatch, getState}) => {
+        return (next) => (action: AnyAction) => {
+            const { payload, type } = action
+            if (type === UPDATE_TICKER) {
+                const { favorites, charts: { range } } = getState();
+                const tickerPlusFavorites = Array.from(new Set([...favorites, payload]));
+                dispatch(resetState(undefined))
+                socket.emit('prices', tickerPlusFavorites);
+                socket.emit('ticker', payload);
+                socket.emit('chart', [payload, range])
+            }
+
+            return next(action)
+        }
+    }
+}
