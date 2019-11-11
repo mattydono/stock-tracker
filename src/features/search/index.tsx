@@ -41,7 +41,6 @@ const DateRowLayoutContainer = styled.div`
     }
 `
 
-
 type Search = (query: string) => void;
 
 type StockListItem = {
@@ -49,29 +48,28 @@ type StockListItem = {
     name: string
 }
 
-
 const socket = socketService.get();
 
 export const Search: FC = () => {
 
     const dispatch = useDispatch();
 
-    const [query, setQuery] = useState<string>('Apple Inc (AAPL)');
+    const [query, setQuery] = useState('Apple Inc (AAPL)');
     const [stockList, setStockList] = useState<StockListItem[]>([])
-    const [isOpen, toggleIsOpen] = useState<boolean>(false)
+    const [isOpen, toggleIsOpen] = useState(false)
     const dropSelect = useRef<HTMLDivElement>(null)
     const inputSelect = useRef<HTMLInputElement>(null)
-    const [selectedStock, setSelectedStock] = useState<string[]>(['Apple Inc', '(AAPL)'])
+    const [selectedStock, setSelectedStock] = useState(['Apple Inc', '(AAPL)'])
 
-    const tags: string[] = useSelector(({ companyOverview: { tags }}: AppState) => tags);
-    const primaryExchange: string | null = useSelector(({ keyStats: { primaryExchange } }: AppState) => primaryExchange);
-    const isUSMarketOpen: boolean = useSelector(({ keyStats: { isUSMarketOpen } }: AppState) => isUSMarketOpen)
-    const price: PriceSingleDataPoint = useSelector((store: AppState) => {
+    const tags = useSelector((state: AppState) => state.companyOverview.tags);
+    const primaryExchange = useSelector((state: AppState) => state.keyStats.primaryExchange);
+    const isUSMarketOpen = useSelector((state: AppState) => state.keyStats.isUSMarketOpen)
+    const price = useSelector((store: AppState) => {
         const { search, prices } = store;
         return prices.find(({ ticker }) => ticker === search) || prices[0];
     });
-    const latestTime: string | null = useSelector(({ keyStats: { latestTime } }: AppState) => latestTime)
-    const search: Search = useCallback((query: string) => dispatch(updateTicker(query)), [query, dispatch]);
+    const latestTime = useSelector((state: AppState) => state.keyStats.latestTime)
+    const search = useCallback((query: string) => dispatch(updateTicker(query)), [query, dispatch]);
     const errorQuote = ''
 
     useEffect(() => {
