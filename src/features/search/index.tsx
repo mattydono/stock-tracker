@@ -89,8 +89,6 @@ export const Search: FC = () => {
         socket.emit('search', query);
     }, [query]);
 
-    console.log(stockList)
-
     return (
         <SearchLayoutContainer>
             <SearchRowLayoutContainer>
