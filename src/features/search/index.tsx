@@ -4,7 +4,7 @@ import styled from '@emotion/styled'
 import { PriceSingleDataPoint, AppState } from '../../models';
 import { TickerCard, SearchBar, StockList, DateTime, Tags } from './components'
 import { socketService } from '../../services/socketService'
-import { updateTicker } from './redux/actions';
+import { updateStockList } from './redux/actions';
 
 const SearchLayoutContainer = styled.div`
     flex: 1 0 auto;
@@ -43,20 +43,14 @@ const DateRowLayoutContainer = styled.div`
 
 type Search = (query: string) => void;
 
-type StockListItem = {
-    symbol: string,
-    name: string
-}
-
 const socket = socketService.get();
 
 export const Search: FC = () => {
 
     const dispatch = useDispatch();
 
-    const [query, setQuery] = useState('Apple Inc (AAPL)');
-    const [stockList, setStockList] = useState<StockListItem[]>([])
-    const [isOpen, toggleIsOpen] = useState(false)
+    const [query, setQuery] = useState<string>('Apple Inc (AAPL)');
+    const [isOpen, toggleIsOpen] = useState<boolean>(false)
     const dropSelect = useRef<HTMLDivElement>(null)
     const inputSelect = useRef<HTMLInputElement>(null)
     const [selectedStock, setSelectedStock] = useState(['Apple Inc', '(AAPL)'])
@@ -65,16 +59,16 @@ export const Search: FC = () => {
     const primaryExchange = useSelector((state: AppState) => state.keyStats.primaryExchange);
     const isUSMarketOpen = useSelector((state: AppState) => state.keyStats.isUSMarketOpen)
     const price = useSelector((store: AppState) => {
-        const { search, prices } = store;
-        return prices.find(({ ticker }) => ticker === search) || prices[0];
+        return store.prices.find(({ ticker }) => ticker === store.search.ticker) || store.prices[0];
     });
     const latestTime = useSelector((state: AppState) => state.keyStats.latestTime)
-    const search = useCallback((query: string) => dispatch(updateTicker(query)), [query, dispatch]);
     const errorQuote = ''
+
+    const stockList = useSelector((state: AppState) => state.search.stockList)
 
     useEffect(() => {
         if(errorQuote.length > 0) {
-            setStockList([{name: errorQuote, symbol:'⊗'}])
+            dispatch(updateStockList([{name: errorQuote, symbol:'⊗'}]))
         }
     }, [errorQuote])
 
@@ -83,13 +77,8 @@ export const Search: FC = () => {
     },[ stockList.length])
 
     useEffect(() => {
-        socket.on('search', setStockList)
-        return () => void socket.off('search', setStockList);
-    }, []);
-
-    useEffect(() => {
         if(query === '') {
-            setStockList([]);
+            dispatch(updateStockList([]))
             return;
         }
 
@@ -99,9 +88,9 @@ export const Search: FC = () => {
     return (
         <SearchLayoutContainer>
             <SearchRowLayoutContainer>
-                <SearchBar inputSelect={inputSelect} dropSelect={dropSelect} setQuery={setQuery} isOpen={isOpen} toggleIsOpen={toggleIsOpen} search={search} query={query} stockList={stockList} setSelectedStock={setSelectedStock} selectedStock={selectedStock} socket={socket} />
+                <SearchBar inputSelect={inputSelect} dropSelect={dropSelect} setQuery={setQuery} isOpen={isOpen} toggleIsOpen={toggleIsOpen} query={query} setSelectedStock={setSelectedStock} selectedStock={selectedStock} socket={socket} />
                 <TickerCard {...price} />
-                {isOpen && <StockList setQuery={setQuery} inputSelect={inputSelect} search={search} setStockList={setStockList} setSelectedStock={setSelectedStock} dropSelect={dropSelect} stockList={stockList} /> }
+                {isOpen && <StockList setQuery={setQuery} inputSelect={inputSelect} setSelectedStock={setSelectedStock} dropSelect={dropSelect} /> }
             </SearchRowLayoutContainer>
             <DateRowLayoutContainer>
                 {primaryExchange && <Tags primaryExchange={primaryExchange} tags={tags} />}

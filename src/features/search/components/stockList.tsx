@@ -1,5 +1,9 @@
 import React, { Dispatch, SetStateAction, RefObject, memo } from 'react'
 import styled from '@emotion/styled'
+import { useDispatch, useSelector } from 'react-redux'
+import { AppState } from 'models'
+import { updateStockList, updateTicker } from '../redux'
+import { StockListItem } from '../models'
 
 const StockListLayoutContainer = styled.div`
     position: absolute;
@@ -58,30 +62,25 @@ type _Stock = {
     exchange?: string
 }
 
-type StockListItem = {
-    symbol: string,
-    name: string
-}
-
 type StockListProps = {
     setQuery: Dispatch<SetStateAction<string>>,
     inputSelect: RefObject<HTMLInputElement>,
-    search: (query: string) => void,
     setSelectedStock: Dispatch<SetStateAction<string[]>>,
-    setStockList: Dispatch<SetStateAction<StockListItem[]>>,
     dropSelect: RefObject<HTMLDivElement>,
-    stockList: StockListItem[],
 }
 
-export const StockList = memo<StockListProps>(({setQuery, inputSelect, search, setStockList, setSelectedStock, dropSelect, stockList}) => {
+export const StockList = memo<StockListProps>(({setQuery, inputSelect, setSelectedStock, dropSelect}) => {
+
+    const dispatch = useDispatch()
+    const stockList = useSelector((state: AppState) => state.search.stockList)
 
     const onStockClick = (stock: _Stock) => {
         const stockSymbol = stock.symbol
         const stockName = stock.name
         setQuery(`${stockName} (${stockSymbol})`)
         inputSelect.current!.blur()
-        search(stockSymbol)
-        setStockList([])
+        dispatch(updateTicker(stockSymbol))
+        dispatch(updateStockList([]))
         setSelectedStock([`${stock.name}`, `(${stock.symbol})`])
     }
 
@@ -98,7 +97,7 @@ export const StockList = memo<StockListProps>(({setQuery, inputSelect, search, s
         <StockListLayoutContainer ref={dropSelect} tabIndex={-1}>
             <table style={{width: '100%'}}>
                 <tbody style={{fontSize: '18px'}}>
-                    {stockList.map( stock => renderSymbols(stock))}
+                    {stockList.map( (stock: StockListItem) => renderSymbols(stock))}
                 </tbody> 
             </table>               
         </StockListLayoutContainer>

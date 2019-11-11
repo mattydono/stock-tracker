@@ -20,7 +20,7 @@ const rootReducer = combineReducers({
     peers,
     charts,
     favorites,
-    prices
+    prices,
 })
 
 declare global {

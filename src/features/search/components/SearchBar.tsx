@@ -1,5 +1,8 @@
 import React, { RefObject, Dispatch, SetStateAction, memo, KeyboardEvent } from 'react'
 import styled from '@emotion/styled'
+import { useSelector, useDispatch } from 'react-redux'
+import { AppState }  from '../../../models'
+import { updateTicker } from '../redux'
 
 const SearchBarLayoutContainer = styled.div`
     display: flex;
@@ -66,26 +69,22 @@ const Input = styled.input`
     };
 `
 
-type StockListItem = {
-    symbol: string,
-    name: string
-}
-
 type SearchBarProps = {
     isOpen: boolean,
     toggleIsOpen: Dispatch<SetStateAction<boolean>>,
     inputSelect: RefObject<HTMLInputElement>,
     dropSelect: RefObject<HTMLDivElement>,
-    search: (query: string) => void,
     query: string,
     setQuery: Dispatch<SetStateAction<string>>,
-    stockList: StockListItem[],
     setSelectedStock: Dispatch<SetStateAction<string[]>>,
     selectedStock: string[],
     socket: SocketIOClient.Socket,
 }
 
-export const SearchBar = memo<SearchBarProps>(({isOpen, toggleIsOpen, inputSelect, dropSelect, search, query, setQuery, stockList, setSelectedStock, selectedStock, socket}) => {
+export const SearchBar = memo<SearchBarProps>(({isOpen, toggleIsOpen, inputSelect, dropSelect, query, setQuery, setSelectedStock, selectedStock, socket}) => {
+
+    const dispatch = useDispatch()
+    const stockList = useSelector((state: AppState) => state.search.stockList)
 
     const handleBlur = () => {
         if(!isOpen) return
@@ -104,7 +103,7 @@ export const SearchBar = memo<SearchBarProps>(({isOpen, toggleIsOpen, inputSelec
             socket.emit('isValid', query);
             socket.on('isValid', (bool: boolean) => {
                 if(bool) {
-                    search(query)
+                    dispatch(updateTicker(query))
                     setQuery(`${stockList[0].name} (${stockList[0].symbol})`)
                     setSelectedStock([`${stockList[0].name}`, `(${stockList[0].symbol})`])
                 }
