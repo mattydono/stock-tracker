@@ -68,11 +68,6 @@ const Input = styled.input`
     };
 `
 
-type StockListItem = {
-    symbol: string,
-    name: string
-}
-
 type SearchBarProps = {
     isOpen: boolean,
     toggleIsOpen: Dispatch<SetStateAction<boolean>>,
