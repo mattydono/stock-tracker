@@ -1,4 +1,4 @@
-import React, { RefObject, Dispatch, SetStateAction, memo, KeyboardEvent } from 'react'
+import React, { RefObject, Dispatch, SetStateAction, memo, KeyboardEvent, ChangeEventHandler } from 'react'
 import styled from '@emotion/styled'
 import { useSelector, useDispatch } from 'react-redux'
 import { AppState }  from '../../../models'
@@ -113,10 +113,15 @@ export const SearchBar = memo<SearchBarProps>(({isOpen, toggleIsOpen, inputSelec
         }
     }
 
+    const onInputChange: ChangeEventHandler<HTMLInputElement> = event => {
+        setQuery(event.currentTarget.value);
+        toggleIsOpen(query.length > 0)
+    }
+
     return (
         <SearchBarLayoutContainer>
             <SearchIcon>⚲</SearchIcon>
-            <Input id='search' ref={inputSelect} value={query} onChange={({ target: { value }}: any) => { setQuery(value); toggleIsOpen(query.length > 0) }} onKeyPress={onKeyPress} onBlur={handleBlur} />
+            <Input id='search' ref={inputSelect} value={query} onChange={onInputChange} onKeyPress={onKeyPress} onBlur={handleBlur} />
             {query && (
             <InputLabelOverlay htmlFor='search'>
                 <LabelName>{selectedStock[0]}</LabelName>

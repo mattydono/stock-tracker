@@ -43,6 +43,7 @@ const formatDate = (date: any) => new Date(date);
     const EST = formatDate(moment()).toLocaleString("en-US", {
         timeZone: "America/New_York"
       });
+      console.log(EST)
     const formattedEST = moment(EST).format("lll");
 
 export const DateTime = memo<DateProps>(({latestTime, isUSMarketOpen, tags}) => {
