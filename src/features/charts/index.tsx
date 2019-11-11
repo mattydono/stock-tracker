@@ -28,8 +28,7 @@ export const Chart = memo(() => {
     const prices: ChartSingleDataPoint[] = useSelector((store: AppState) => store.charts.prices);
     const range: Range = useSelector((store: AppState) => store.charts.range);
     const latest: number = useSelector((store: AppState) => {
-        const { search, prices } = store;
-        const { latestPrice } = prices.find(({ ticker }) => ticker === search) || prices[0];
+        const { latestPrice } = store.prices.find(({ ticker }) => ticker === store.search.ticker) || store.prices[0];
         return latestPrice;
     });
     const dispatch = useDispatch();

@@ -4,8 +4,7 @@ import styled from '@emotion/styled'
 import { PriceSingleDataPoint, AppState } from '../../models';
 import { TickerCard, SearchBar, StockList, DateTime, Tags } from './components'
 import { socketService } from '../../services/socketService'
-import { updateTicker, updateStockList } from './redux/actions';
-import { StockListItem } from './models'
+import { updateStockList } from './redux/actions';
 
 const SearchLayoutContainer = styled.div`
     flex: 1 0 auto;
@@ -61,14 +60,12 @@ export const Search: FC = () => {
     const primaryExchange: string | null = useSelector(({ keyStats: { primaryExchange } }: AppState) => primaryExchange);
     const isUSMarketOpen: boolean = useSelector(({ keyStats: { isUSMarketOpen } }: AppState) => isUSMarketOpen)
     const price: PriceSingleDataPoint = useSelector((store: AppState) => {
-        const { search, prices } = store;
-        return prices.find(({ ticker }) => ticker === search) || prices[0];
+        return store.prices.find(({ ticker }) => ticker === store.search.ticker) || store.prices[0];
     });
     const latestTime: string | null = useSelector(({ keyStats: { latestTime } }: AppState) => latestTime)
-    const search: Search = useCallback((query: string) => dispatch(updateTicker(query)), [query, dispatch]);
     const errorQuote = ''
 
-    const stockList = useSelector((state: AppState) => state.stockList)
+    const stockList = useSelector((state: AppState) => state.search.stockList)
 
     useEffect(() => {
         if(errorQuote.length > 0) {
@@ -92,9 +89,9 @@ export const Search: FC = () => {
     return (
         <SearchLayoutContainer>
             <SearchRowLayoutContainer>
-                <SearchBar inputSelect={inputSelect} dropSelect={dropSelect} setQuery={setQuery} isOpen={isOpen} toggleIsOpen={toggleIsOpen} search={search} query={query} setSelectedStock={setSelectedStock} selectedStock={selectedStock} socket={socket} />
+                <SearchBar inputSelect={inputSelect} dropSelect={dropSelect} setQuery={setQuery} isOpen={isOpen} toggleIsOpen={toggleIsOpen} query={query} setSelectedStock={setSelectedStock} selectedStock={selectedStock} socket={socket} />
                 <TickerCard {...price} />
-                {isOpen && <StockList setQuery={setQuery} inputSelect={inputSelect} search={search} setSelectedStock={setSelectedStock} dropSelect={dropSelect} /> }
+                {isOpen && <StockList setQuery={setQuery} inputSelect={inputSelect} setSelectedStock={setSelectedStock} dropSelect={dropSelect} /> }
             </SearchRowLayoutContainer>
             <DateRowLayoutContainer>
                 {primaryExchange && <Tags primaryExchange={primaryExchange} tags={tags} />}

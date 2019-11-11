@@ -1,29 +1,31 @@
 import { Reducer } from 'redux';
-import { UpdateTickerAction, UPDATE_TICKER, UpdateStockListAction, SET_STOCKLIST } from './actions';
-import { StockListItem } from '../models';
+import { UpdateTickerAction, UPDATE_TICKER, UpdateStockListAction, SET_STOCKLIST, updateTicker } from './actions';
+import { Search } from '../models';
 
-export const search: Reducer<string, UpdateTickerAction> = (
-    state = 'aapl', 
+const searchInitialState: Search = {
+    ticker: 'aapl',
+    stockList: [],
+}
+
+type SearchActionTypes = UpdateTickerAction | UpdateStockListAction
+
+export const search: Reducer<Search, SearchActionTypes> = (
+    state = searchInitialState, 
     action
 ) => {
-    const { type, payload } = action
-    switch(type) {
+    switch(action.type) {
         case UPDATE_TICKER: {
-            return payload;
+            const updateTickerAction = action as UpdateTickerAction
+            const { payload } = updateTickerAction
+            return {...state, ticker: payload};
+        }
+        case SET_STOCKLIST: {
+            const updateStockListAction = action as UpdateStockListAction
+            const { payload } = updateStockListAction 
+            return {...state, stockList: payload}
         }
         default: {
             return state;
         }
     }
 };
-
-export const stockList: Reducer<StockListItem[], UpdateStockListAction> = (state = [], action) => {
-    switch(action.type) {
-        case SET_STOCKLIST: {
-            return action.payload
-        }
-        default: {
-            return state
-        }
-    }
-}
