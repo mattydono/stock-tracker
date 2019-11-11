@@ -82,11 +82,6 @@ export const Search: FC = () => {
     },[ stockList.length])
 
     useEffect(() => {
-        socket.on('search', (results: StockListItem[]) => dispatch(updateStockList(results)))
-        // return () => void socket.off('search', setStockList);
-    }, []);
-
-    useEffect(() => {
         if(query === '') {
             dispatch(updateStockList([]))
             return;

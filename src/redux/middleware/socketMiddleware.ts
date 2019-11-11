@@ -16,6 +16,8 @@ import {
     errorAction,
     UPDATE_TICKER
 } from '../actions';
+import { StockListItem } from 'features/search/models'
+import { updateStockList } from 'features/search/redux'
 
 
 const socketMiddleware = (socket: SocketIOClient.Socket, defaultTicker: string = 'aapl'): Middleware => {
@@ -28,6 +30,7 @@ const socketMiddleware = (socket: SocketIOClient.Socket, defaultTicker: string =
         socket.on('keystats', (keystats: KeyStats) => dispatch(updateKeyStats(keystats)));
         socket.on('error', (error: string) => dispatch(errorAction(error)));
         socket.on('chart', (chartData: ChartSingleDataPoint[]) => dispatch(updateChartData(chartData)))
+        socket.on('search', (stockListItems: StockListItem[]) => dispatch(updateStockList(stockListItems)))
         
         const { favorites, charts: { range } } = getState();
         socket.emit('ticker', defaultTicker);
