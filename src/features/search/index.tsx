@@ -41,7 +41,6 @@ const DateRowLayoutContainer = styled.div`
     }
 `
 
-
 type Search = (query: string) => void;
 
 const socket = socketService.get();
@@ -54,15 +53,15 @@ export const Search: FC = () => {
     const [isOpen, toggleIsOpen] = useState<boolean>(false)
     const dropSelect = useRef<HTMLDivElement>(null)
     const inputSelect = useRef<HTMLInputElement>(null)
-    const [selectedStock, setSelectedStock] = useState<string[]>(['Apple Inc', '(AAPL)'])
+    const [selectedStock, setSelectedStock] = useState(['Apple Inc', '(AAPL)'])
 
-    const tags: string[] = useSelector(({ companyOverview: { tags }}: AppState) => tags);
-    const primaryExchange: string | null = useSelector(({ keyStats: { primaryExchange } }: AppState) => primaryExchange);
-    const isUSMarketOpen: boolean = useSelector(({ keyStats: { isUSMarketOpen } }: AppState) => isUSMarketOpen)
-    const price: PriceSingleDataPoint = useSelector((store: AppState) => {
+    const tags = useSelector((state: AppState) => state.companyOverview.tags);
+    const primaryExchange = useSelector((state: AppState) => state.keyStats.primaryExchange);
+    const isUSMarketOpen = useSelector((state: AppState) => state.keyStats.isUSMarketOpen)
+    const price = useSelector((store: AppState) => {
         return store.prices.find(({ ticker }) => ticker === store.search.ticker) || store.prices[0];
     });
-    const latestTime: string | null = useSelector(({ keyStats: { latestTime } }: AppState) => latestTime)
+    const latestTime = useSelector((state: AppState) => state.keyStats.latestTime)
     const errorQuote = ''
 
     const stockList = useSelector((state: AppState) => state.search.stockList)
