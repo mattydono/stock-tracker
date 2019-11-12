@@ -1,6 +1,6 @@
 export { updatePricesData } from './price';
 export { errorAction } from './error';
-export { resetState } from './resetApp';
+export { stockChange } from './stockChange';
 export { updateCompany } from '../../features/companyOverview/redux/actions';
 export { 
     updateChartData, UPDATE_CHART_DATA,
@@ -10,3 +10,4 @@ export { updateFavoritesAddTicker, updateFavoritesRemoveTicker } from '../../fea
 export { updateKeyStats } from '../../features/keystats/redux/actions';
 export { updateNews } from '../../features/news/redux/actions';
 export { updateTicker, UPDATE_TICKER } from '../../features/search/redux/actions';
+export * from './bootstrap'

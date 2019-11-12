@@ -1,6 +1,6 @@
 import { UpdateKeyStatsAction, UPDATE_KEY_STATS } from './actions'
 import { KeyStats } from '../models'
-import { RESET_APP_STATE } from '../../../redux/actions/resetApp'
+import { STOCK_CHANGE } from '../../../redux/actions/stockChange'
 import { Reducer } from 'redux'
 
 const keyStatsInitialState: KeyStats = {
@@ -31,7 +31,7 @@ export const keyStats: Reducer<KeyStats, UpdateKeyStatsAction> = (
         case UPDATE_KEY_STATS: {
             return ({ ...state, ...payload });
         }
-        case RESET_APP_STATE: {
+        case STOCK_CHANGE: {
             return keyStatsInitialState
         }
         default: {

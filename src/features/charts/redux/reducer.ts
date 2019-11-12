@@ -3,7 +3,7 @@ import {
     UpdateChartDataAction, UPDATE_CHART_DATA, 
     UpdateChartRangeAction, UPDATE_CHART_RANGE,
 } from './actions'
-import { RESET_APP_STATE } from '../../../redux/actions/resetApp'
+import { STOCK_CHANGE } from '../../../redux/actions/stockChange'
 import { Reducer } from 'redux'
 
 const chartsIntitialState: Charts = {
@@ -29,7 +29,7 @@ export const charts: Reducer<Charts, ChartsActionTypes> = (
             const { payload } = updateChartDataAction
             return { ...state, prices: payload };
         }
-        case RESET_APP_STATE: {
+        case STOCK_CHANGE: {
             return { ...state, prices: [] };
         }
         default: {

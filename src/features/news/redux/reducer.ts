@@ -1,6 +1,6 @@
 import { UpdateNewsAction, UPDATE_NEWS } from './actions'
 import { News } from '../models'
-import { RESET_APP_STATE } from '../../../redux/actions/resetApp'
+import { STOCK_CHANGE } from '../../../redux/actions/stockChange'
 import { Reducer } from 'redux'
 
 const newsInitialState: News = []
@@ -14,7 +14,7 @@ export const news: Reducer<News, UpdateNewsAction> = (
         case UPDATE_NEWS: {
             return payload;
         }
-        case RESET_APP_STATE: {
+        case STOCK_CHANGE: {
             return newsInitialState
         }
         default: {
