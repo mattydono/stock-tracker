@@ -28,7 +28,7 @@ export const initialStartUpMiddleware = (socket: SocketIOClient.Socket, defaultT
         socket.on('chart', (chartData: ChartSingleDataPoint[]) => dispatch(updateChartData(chartData)))
         socket.on('search', (stockListItems: StockListItem[]) => dispatch(updateStockList(stockListItems)))
 
-        return (next) => (action: AnyAction) => {
+        return (next) => (action) => {
             if (action.type === BOOTSTRAP) {
                 const { favorites, charts: { range } } = getState();
                 socket.emit('ticker', defaultTicker);

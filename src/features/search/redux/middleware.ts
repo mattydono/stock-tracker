@@ -5,7 +5,7 @@ import { AppState } from 'models'
 
 export const searchMiddleware = (socket: SocketIOClient.Socket): Middleware<AppState> => {
     return ({dispatch, getState}) => {
-        return (next) => (action: AnyAction) => {
+        return (next) => (action) => {
             const { payload, type } = action
             if (type === UPDATE_TICKER) {
                 const { favorites, charts: { range } } = getState();
