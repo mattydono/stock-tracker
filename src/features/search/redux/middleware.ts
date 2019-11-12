@@ -10,7 +10,7 @@ export const searchMiddleware = (socket: SocketIOClient.Socket): Middleware<AppS
             if (type === UPDATE_TICKER) {
                 const { favorites, charts: { range } } = getState();
                 const tickerPlusFavorites = Array.from(new Set([...favorites, payload]));
-                dispatch(resetState(undefined))
+                dispatch(resetState())
                 socket.emit('prices', tickerPlusFavorites);
                 socket.emit('ticker', payload);
                 socket.emit('chart', [payload, range])
