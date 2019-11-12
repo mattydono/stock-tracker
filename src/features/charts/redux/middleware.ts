@@ -6,7 +6,7 @@ export const chartMiddleware = ({socket}: MiddlewareDependencies): Middleware<Ap
     return ({getState}) => {
         return (next) => (action) => {
             if (action.type === UPDATE_CHART_RANGE) {
-                const { search: ticker } = getState();
+                const ticker = getState().search
                 socket.get().emit('chart', [ticker, action.payload])
             }
 
