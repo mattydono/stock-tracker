@@ -1,6 +1,4 @@
-import { createAction } from 'redux-actions'
+import { createAction } from 'typesafe-actions'
 import { CompanyOverview } from '../models'
 
-export const UPDATE_COMPANY = 'UPDATE_COMPANY';
-export const updateCompany = createAction<CompanyOverview>(UPDATE_COMPANY)
-export type UpdateCompanyAction = ReturnType<typeof updateCompany>
+export const updateCompany = createAction('UPDATE_COMPANY')<CompanyOverview>()

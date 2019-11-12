@@ -1,6 +1,4 @@
-import { createAction } from 'redux-actions'
+import { createAction } from 'typesafe-actions'
 import { KeyStats } from '../models'
 
-export const UPDATE_KEY_STATS = 'UPDATE_KEY_STATS';
-export const updateKeyStats = createAction<KeyStats>(UPDATE_KEY_STATS)
-export type UpdateKeyStatsAction = ReturnType<typeof updateKeyStats>
+export const updateKeyStats = createAction('UPDATE_KEY_STATS')<KeyStats>()

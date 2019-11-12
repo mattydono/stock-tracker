@@ -1,5 +1,3 @@
-import { createAction } from 'redux-actions'
+import { createAction } from 'typesafe-actions'
 
-export const UPDATE_PEERS = 'UPDATE_PEERS';
-export const updatePeers = createAction<string[]>(UPDATE_PEERS)
-export type UpdatePeersAction = ReturnType<typeof updatePeers>
+export const updatePeers = createAction('UPDATE_PEERS')<string[]>()
