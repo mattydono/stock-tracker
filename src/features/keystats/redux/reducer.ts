@@ -1,7 +1,8 @@
-import { UpdateKeyStatsAction, UPDATE_KEY_STATS } from './actions'
+import { isActionOf } from 'typesafe-actions'
 import { KeyStats } from '../models'
-import { STOCK_CHANGE } from '../../../redux/actions/stockChange'
+import { stockChange } from 'redux/actions/stockChange'
 import { Reducer } from 'redux'
+import { updateKeyStats } from './actions'
 
 const keyStatsInitialState: KeyStats = {
     marketCap: null,
@@ -22,20 +23,17 @@ const keyStatsInitialState: KeyStats = {
     isFetchingQuote: false,
 }
 
-export const keyStats: Reducer<KeyStats, UpdateKeyStatsAction> = (
+export const keyStats: Reducer<KeyStats> = (
     state = keyStatsInitialState, 
     action
     ) => {
-    const { type, payload } = action
-    switch (type) {
-        case UPDATE_KEY_STATS: {
-            return ({ ...state, ...payload });
+        if (isActionOf(updateKeyStats, action)) {
+            return ({ ...state, ...action.payload });
         }
-        case STOCK_CHANGE: {
+
+        if (isActionOf(stockChange, action)) {
             return keyStatsInitialState
         }
-        default: {
-            return state;
-        }
-    }
+
+        return state
 }
