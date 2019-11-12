@@ -3,7 +3,7 @@ import { STOCK_CHANGE } from '../../../redux/actions/stockChange'
 import { Reducer } from 'redux'
 
 export const peers: Reducer<string[], UpdatePeersAction> = (
-    state = [''],
+    state = [],
     action
     ) => {
     const { type, payload } = action
@@ -12,7 +12,7 @@ export const peers: Reducer<string[], UpdatePeersAction> = (
             return payload
         }
         case STOCK_CHANGE: {
-            return ['']
+            return []
         }
         default: {
             return state;
