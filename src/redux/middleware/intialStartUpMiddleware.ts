@@ -18,7 +18,7 @@ import {
 import { MiddlewareDependencies, AppState } from 'models'
 
 
-export const initialStartUpMiddleware = ({socketService, defaultTicker = 'aapl'}: MiddlewareDependencies): Middleware<{}, AppState> => {
+export const initialStartUpMiddleware = ({socketService}: MiddlewareDependencies): Middleware<{}, AppState> => {
     return ({dispatch, getState}) => {
 
         const socket = socketService.get()
@@ -33,10 +33,10 @@ export const initialStartUpMiddleware = ({socketService, defaultTicker = 'aapl'}
 
         return (next) => (action) => {
             if (action.type === BOOTSTRAP) {
-                const { favorites, charts: { range } } = getState();
-                socket.emit('ticker', defaultTicker);
-                socket.emit('prices', [...favorites, defaultTicker]);
-                socket.emit('chart', [defaultTicker, range]);
+                const { favorites, charts: { range }, search: { ticker }} = getState();
+                socket.emit('ticker', ticker);
+                socket.emit('prices', [...favorites, ticker]);
+                socket.emit('chart', [ticker, range]);
             }
 
             return next(action)
