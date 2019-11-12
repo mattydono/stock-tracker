@@ -7,13 +7,14 @@ export const searchMiddleware = ({socket}: MiddlewareDependencies): Middleware<A
     return ({dispatch, getState}) => {
         return (next) => (action) => {
             const { payload, type } = action
+            const Socket = socket.get()
             if (type === UPDATE_TICKER) {
                 const { favorites, charts: { range } } = getState();
                 const tickerPlusFavorites = Array.from(new Set([...favorites, payload]));
                 dispatch(resetState())
-                socket.emit('prices', tickerPlusFavorites);
-                socket.emit('ticker', payload);
-                socket.emit('chart', [payload, range])
+                Socket.emit('prices', tickerPlusFavorites);
+                Socket.emit('ticker', payload);
+                Socket.emit('chart', [payload, range])
             }
 
             return next(action)

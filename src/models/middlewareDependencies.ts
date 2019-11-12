@@ -1,4 +1,6 @@
+import { SocketService } from "services/socketService";
+
 export type MiddlewareDependencies = {
-    socket: SocketIOClient.Socket,
+    socket: SocketService,
     defaultTicker?: string,
 }

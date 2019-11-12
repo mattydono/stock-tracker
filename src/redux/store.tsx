@@ -32,10 +32,16 @@ declare global {
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
+const middleware = [
+    initialStartUpMiddleware({socket: socketService}),
+    chartMiddleware({socket: socketService}),
+    searchMiddleware({socket: socketService})
+]
+
 export const store = createStore(
     rootReducer,
     compose(
-        applyMiddleware(initialStartUpMiddleware(socketService.get()), chartMiddleware(socketService.get()), searchMiddleware(socketService.get())),
+        applyMiddleware(...middleware),
         composeEnhancers()
     )
 );
