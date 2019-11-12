@@ -4,11 +4,12 @@ import { KeyStats } from '../models'
 
 const TableLayoutContainer = styled.div`
     width: 100%;
-    display flex;
-    justify-content: space-between;
+    column-count: 2;
+    column-gap: 47px;
     @media(max-width: 750px) {
         flex-direction: column;
         align-items: center;
+        column-count: 1;
     };
 `
 
@@ -35,22 +36,16 @@ const TR = styled.tr`
 `
 
 const Table =styled.table`
-    width: 90%;
+    width: 100%;
     margin-top: -10px;
-`
-
-const TableDivider = styled.div`
-    width: 90px;
-    @media(max-width: 1099px) {
-        width: 68px;
-    };
-    @media(max-width: 588px) {
-        display: none;
-    };
 `
 
 const Tbody = styled.tbody`
     width: 100%;
+`
+
+const Col = styled.div`
+    display: flex;
 `
 
 const numberWithCommas = (number: number): string => {
@@ -81,15 +76,12 @@ export const StatsTable = memo<KeyStats>(({
     actualEPS,
 }) => {
 
-    const LeftColumn = {
+    const statsData = {
         'Previous Close': previousClose ? previousClose : 'N/A',
         'Day Range': `${low ? low : 'N/A'} - ${high ? high : 'N/A'}`,
         'Volume': volume ? numberWithCommas(volume) : 'N/A',
         'Market Cap': marketCap ? numberWithCommas(marketCap) : 'N/A',
         'P/E Ratio': peRatio ? peRatio : 'N/A',
-    }
-    
-    const RightColumn = {
         'Open': open ? open : 'N/A',
         '52 Week Range': `${week52Low ? week52Low : 'N/A'} - ${week52High ? week52High : 'N/A'}`,
         'Total Avg Volume': avgTotalVolume ? numberWithCommas(avgTotalVolume) : 'N/A',
@@ -99,17 +91,13 @@ export const StatsTable = memo<KeyStats>(({
 
     return (
         <TableLayoutContainer>
-            <Table>
-                <Tbody>
-                    {Object.entries(LeftColumn).map(([key, value]) => TableRow(key, value))}
-                </Tbody>
-            </Table>
-            <TableDivider />
-            <Table>
-                <Tbody>
-                {Object.entries(RightColumn).map(([key, value]) => TableRow(key, value))}
-                </Tbody>
-            </Table>
+            <Col>
+                <Table>
+                    <Tbody>
+                        {Object.entries(statsData).map(([key, value]) => TableRow(key, value))}
+                    </Tbody>
+                </Table>
+            </Col>
         </TableLayoutContainer>
     )
 })
