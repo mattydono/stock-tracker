@@ -52,6 +52,7 @@ const LoadingContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  ${props => props.className}
 `
 
 const AdaptiveLoader: FC<Props> = React.memo(
