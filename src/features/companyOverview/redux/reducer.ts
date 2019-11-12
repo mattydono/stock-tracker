@@ -1,6 +1,6 @@
 import { UpdateCompanyAction, UPDATE_COMPANY } from './actions'
 import { CompanyOverview } from '../models'
-import { RESET_APP_STATE } from '../../../redux/actions/resetApp'
+import { STOCK_CHANGE } from '../../../redux/actions/stockChange'
 import { Reducer } from 'redux'
 
 const companyOverviewInitialState: CompanyOverview = {
@@ -20,7 +20,7 @@ export const companyOverview: Reducer<CompanyOverview, UpdateCompanyAction> = (
         case UPDATE_COMPANY: {
             return payload;
         }
-        case RESET_APP_STATE: {
+        case STOCK_CHANGE: {
             return companyOverviewInitialState
         }
         default: {

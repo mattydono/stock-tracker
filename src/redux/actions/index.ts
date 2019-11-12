@@ -1,6 +1,6 @@
 export { updatePricesData } from './price';
 export { errorAction } from './error';
-export { resetState } from './resetApp';
+export { stockChange } from './stockChange';
 export { updateCompany } from '../../features/companyOverview/redux/actions';
 export { 
     updateChartData, UPDATE_CHART_DATA,

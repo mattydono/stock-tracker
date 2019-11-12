@@ -1,7 +1,8 @@
 import { Middleware } from 'redux'
 import { UPDATE_TICKER } from '../redux'
-import { resetState } from 'redux/actions'
+import {  } from 'redux/actions'
 import { AppState, MiddlewareDependencies } from 'models'
+import { stockChange } from 'redux/actions/stockChange'
 
 export const searchMiddleware = ({socket}: MiddlewareDependencies): Middleware<AppState> => {
     return ({dispatch, getState}) => {
@@ -11,7 +12,7 @@ export const searchMiddleware = ({socket}: MiddlewareDependencies): Middleware<A
             if (type === UPDATE_TICKER) {
                 const { favorites, charts: { range } } = getState();
                 const tickerPlusFavorites = Array.from(new Set([...favorites, payload]));
-                dispatch(resetState())
+                dispatch(stockChange())
                 Socket.emit('prices', tickerPlusFavorites);
                 Socket.emit('ticker', payload);
                 Socket.emit('chart', [payload, range])
