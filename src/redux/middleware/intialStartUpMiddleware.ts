@@ -1,4 +1,4 @@
-import { Middleware, AnyAction } from 'redux'
+import { Middleware } from 'redux'
 import { BOOTSTRAP } from '../actions'
 import { PriceSingleDataPoint } from '../../models/prices'
 import { CompanyOverview } from '../../features/companyOverview/models/companyOverview'
@@ -15,9 +15,10 @@ import {
     updateNews,
     errorAction,
 } from '../actions';
+import { MiddlewareDependencies } from 'models'
 
 
-export const initialStartUpMiddleware = (socket: SocketIOClient.Socket, defaultTicker: string = 'aapl'): Middleware => {
+export const initialStartUpMiddleware = ({socket, defaultTicker = 'aapl'}: MiddlewareDependencies): Middleware => {
     return ({dispatch, getState}) => {
 
         socket.on('prices', (prices: PriceSingleDataPoint[]) => dispatch(updatePricesData(prices)));

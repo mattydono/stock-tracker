@@ -1,9 +1,9 @@
-import { Middleware, AnyAction } from 'redux'
+import { Middleware } from 'redux'
 import { UPDATE_TICKER } from '../redux'
 import { resetState } from 'redux/actions'
-import { AppState } from 'models'
+import { AppState, MiddlewareDependencies } from 'models'
 
-export const searchMiddleware = (socket: SocketIOClient.Socket): Middleware<AppState> => {
+export const searchMiddleware = ({socket}: MiddlewareDependencies): Middleware<AppState> => {
     return ({dispatch, getState}) => {
         return (next) => (action) => {
             const { payload, type } = action

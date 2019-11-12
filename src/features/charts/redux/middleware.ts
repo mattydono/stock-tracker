@@ -1,8 +1,8 @@
-import { Middleware, AnyAction } from 'redux'
+import { Middleware } from 'redux'
 import { UPDATE_CHART_RANGE } from '../redux'
-import { AppState } from 'models'
+import { AppState, MiddlewareDependencies } from 'models'
 
-export const chartMiddleware = (socket: SocketIOClient.Socket): Middleware<AppState> => {
+export const chartMiddleware = ({socket}: MiddlewareDependencies): Middleware<AppState> => {
     return ({getState}) => {
         return (next) => (action) => {
             if (action.type === UPDATE_CHART_RANGE) {
