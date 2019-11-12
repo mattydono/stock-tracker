@@ -15,10 +15,10 @@ import {
     updateNews,
     errorAction,
 } from '../actions';
-import { MiddlewareDependencies } from 'models'
+import { MiddlewareDependencies, AppState } from 'models'
 
 
-export const initialStartUpMiddleware = ({socket, defaultTicker = 'aapl'}: MiddlewareDependencies): Middleware => {
+export const initialStartUpMiddleware = ({socket, defaultTicker = 'aapl'}: MiddlewareDependencies): Middleware<{}, AppState> => {
     return ({dispatch, getState}) => {
 
         const Socket = socket.get()
