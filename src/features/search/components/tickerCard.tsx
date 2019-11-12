@@ -1,5 +1,6 @@
 import React, { memo } from 'react';
 import styled from '@emotion/styled'
+import { getColour, getChangeArrowDirection } from 'utils'
 
 const PriceStats = styled.div`
     font-size: inherit;
@@ -78,32 +79,21 @@ export const TickerCard = memo<TickerCardPropTypes>(({ latestPrice, change, chan
             <ChangeContainer>
                 {
                     !change ? null 
-                    : change > 0 ? 
-                        <ChangeItem color='#91e4a5'>
-                            <PriceIcon>&#129121;</PriceIcon>
+                    : <ChangeItem color={getColour(change)}>
+                            <PriceIcon>{getChangeArrowDirection(change)}</PriceIcon>
                             {Math.abs(change).toFixed(2)}
-                        </ChangeItem> 
-                    : <ChangeItem color='#e95656'><PriceIcon>&#129123;</PriceIcon>{Math.abs(change).toFixed(2)}</ChangeItem>
+                      </ChangeItem> 
                 } 
                 {
                     !change ? null 
-                    : change > 0 ? 
-                        <ChangeItem color='#91e4a5'>|</ChangeItem> 
-                    : 
-                        <ChangeItem color='#e95656'>|</ChangeItem> 
+                    : <ChangeItem color={getColour(change)}>|</ChangeItem> 
                 }
                 {
                     !changePercent ? null 
-                    : changePercent > 0 ? 
-                        <ChangeItem color='#91e4a5'>
-                            {Math.abs(Math.round((changePercent * 100) * 100) / 100).toFixed(2)}
-                            <PriceIcon>%</PriceIcon>
-                        </ChangeItem> 
-                    : 
-                        <ChangeItem color='#e95656'>
-                            {Math.abs(Math.round((changePercent * 100) * 100) / 100).toFixed(2)}
-                            <PriceIcon>%</PriceIcon>
-                        </ChangeItem>
+                    : <ChangeItem color={getColour(changePercent)}>
+                        {Math.abs(Math.round((changePercent * 100) * 100) / 100).toFixed(2)}
+                        <PriceIcon>%</PriceIcon>
+                      </ChangeItem> 
                 }
             </ChangeContainer>
         </PriceStats>

@@ -1,5 +1,6 @@
 import React, { memo } from 'react'
 import styled from '@emotion/styled'
+import { getColour, getChangeArrowDirection } from 'utils'
 
 const PriceLayoutContainer = styled.div`
     font-size: inherit;
@@ -72,30 +73,18 @@ export const TickerPrice = memo<TickerCardPropTypes>(({ latestPrice, change, cha
             <ChangeLayoutContainer>
                 {
                     !change ? null 
-                    : change > 0 
-                    ? <PriceChange color='#91e4a5'>
-                        <PriceIcon>&#129121;</PriceIcon>
-                        {Math.abs(change).toFixed(2)}
-                      </PriceChange> 
-                    : <PriceChange color='#e95656'>
-                        <PriceIcon>&#129123;</PriceIcon>
+                    : <PriceChange color={getColour(change)}>
+                        <PriceIcon>{getChangeArrowDirection(change)}</PriceIcon>
                         {Math.abs(change).toFixed(2)}
                       </PriceChange>
                 } 
                 {
                     !change ? null 
-                    : change > 0 
-                    ? <PriceChange color='#91e4a5'>|</PriceChange> 
-                    : <PriceChange color='#e95656'>|</PriceChange> 
+                    : <PriceChange color={getColour(change)}>|</PriceChange> 
                 }
                 {
                     !changePercent ? null 
-                    : changePercent > 0 
-                    ? <PriceChange color='#91e4a5'>
-                        {Math.abs(Math.round((changePercent * 100) * 100) / 100).toFixed(2)}
-                        <PriceIcon>%</PriceIcon>
-                      </PriceChange> 
-                    : <PriceChange color='#e95656'>
+                    : <PriceChange color={getColour(changePercent)}>
                         {Math.abs(Math.round((changePercent * 100) * 100) / 100).toFixed(2)}
                         <PriceIcon>%</PriceIcon>
                       </PriceChange>
