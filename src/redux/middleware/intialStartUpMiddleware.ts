@@ -18,25 +18,25 @@ import {
 import { MiddlewareDependencies, AppState } from 'models'
 
 
-export const initialStartUpMiddleware = ({socket, defaultTicker = 'aapl'}: MiddlewareDependencies): Middleware<{}, AppState> => {
+export const initialStartUpMiddleware = ({socketService, defaultTicker = 'aapl'}: MiddlewareDependencies): Middleware<{}, AppState> => {
     return ({dispatch, getState}) => {
 
-        const Socket = socket.get()
+        const socket = socketService.get()
 
-        Socket.on('prices', (prices: PriceSingleDataPoint[]) => dispatch(updatePricesData(prices)));
-        Socket.on('company', (company: CompanyOverview) => dispatch(updateCompany(company)));
-        Socket.on('news', (news: News) => dispatch(updateNews(news)));
-        Socket.on('keystats', (keystats: KeyStats) => dispatch(updateKeyStats(keystats)));
-        Socket.on('error', (error: string) => dispatch(errorAction(error)));
-        Socket.on('chart', (chartData: ChartSingleDataPoint[]) => dispatch(updateChartData(chartData)))
-        Socket.on('search', (stockListItems: StockListItem[]) => dispatch(updateStockList(stockListItems)))
+        socket.on('prices', (prices: PriceSingleDataPoint[]) => dispatch(updatePricesData(prices)));
+        socket.on('company', (company: CompanyOverview) => dispatch(updateCompany(company)));
+        socket.on('news', (news: News) => dispatch(updateNews(news)));
+        socket.on('keystats', (keystats: KeyStats) => dispatch(updateKeyStats(keystats)));
+        socket.on('error', (error: string) => dispatch(errorAction(error)));
+        socket.on('chart', (chartData: ChartSingleDataPoint[]) => dispatch(updateChartData(chartData)))
+        socket.on('search', (stockListItems: StockListItem[]) => dispatch(updateStockList(stockListItems)))
 
         return (next) => (action) => {
             if (action.type === BOOTSTRAP) {
                 const { favorites, charts: { range } } = getState();
-                Socket.emit('ticker', defaultTicker);
-                Socket.emit('prices', [...favorites, defaultTicker]);
-                Socket.emit('chart', [defaultTicker, range]);
+                socket.emit('ticker', defaultTicker);
+                socket.emit('prices', [...favorites, defaultTicker]);
+                socket.emit('chart', [defaultTicker, range]);
             }
 
             return next(action)

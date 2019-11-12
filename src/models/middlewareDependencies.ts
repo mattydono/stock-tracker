@@ -1,6 +1,6 @@
 import { SocketService } from "services/socketService";
 
 export type MiddlewareDependencies = {
-    socket: SocketService,
+    socketService: SocketService,
     defaultTicker?: string,
 }
