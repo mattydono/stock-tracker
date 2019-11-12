@@ -33,9 +33,9 @@ declare global {
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 const middleware = [
-    initialStartUpMiddleware({socket: socketService}),
-    chartMiddleware({socket: socketService}),
-    searchMiddleware({socket: socketService})
+    initialStartUpMiddleware({socketService}),
+    chartMiddleware({socketService}),
+    searchMiddleware({socketService})
 ]
 
 export const store = createStore(
