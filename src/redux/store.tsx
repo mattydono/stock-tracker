@@ -1,17 +1,17 @@
 import { createStore, combineReducers, compose, applyMiddleware } from 'redux';
-import { socketService } from '../services/socketService';
+import { socketService } from 'services/socketService';
 
-import { prices } from '../redux/reducers';
-import { charts } from '../features/charts/redux';
-import { companyOverview } from '../features/companyOverview/redux';
-import { keyStats } from '../features/keystats/redux';
-import { news } from '../features/news/redux';
-import { peers } from '../features/peers/redux';
-import { favorites } from '../features/footer/redux';
-import { search } from '../features/search/redux';
-import { chartMiddleware } from '../features/charts/redux/middleware'
+import { prices } from './reducers';
+import { charts } from 'features/charts/redux';
+import { companyOverview } from 'features/companyOverview/redux';
+import { keyStats } from 'features/keystats/redux';
+import { news } from 'features/news/redux';
+import { peers } from 'features/peers/redux';
+import { favorites } from 'features/footer/redux';
+import { search } from 'features/search/redux';
+import { chartMiddleware } from 'features/charts/redux/middleware'
 import { searchMiddleware } from 'features/search/redux/middleware';
-import { initialStartUpMiddleware } from '../redux/middleware/intialStartUpMiddleware'
+import { initialStartUpMiddleware } from './middleware/intialStartUpMiddleware'
 
 const rootReducer = combineReducers({
     search,
