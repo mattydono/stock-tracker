@@ -1,17 +1,17 @@
-import { UpdatePricesDataAction, UPDATE_PRICES_DATA } from '../actions/price'
-import { Prices } from '../../models/prices'
+import { isActionOf } from 'typesafe-actions'
 import { Reducer } from 'redux'
+import { Prices } from 'models/prices'
+import { updatePricesData } from 'redux/actions'
 
 const pricesInitialState: Prices = [{ ticker: 'aapl', change: 0, changePercent: 0, latestPrice: 0, error: false }]
 
-export const prices: Reducer<Prices, UpdatePricesDataAction> = (state = pricesInitialState, action) => {
-    const { type, payload } = action;
-    switch (type) {
-        case UPDATE_PRICES_DATA: {
-            return payload;
+export const prices: Reducer<Prices> = (
+    state = pricesInitialState,
+    action
+    ) => {
+        if (isActionOf(updatePricesData, action)) {
+            return action.payload
         }
-        default: {
-            return state;
-        }
-    }
+
+        return state
 }

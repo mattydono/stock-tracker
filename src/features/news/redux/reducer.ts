@@ -1,24 +1,22 @@
-import { UpdateNewsAction, UPDATE_NEWS } from './actions'
+import { isActionOf } from 'typesafe-actions'
 import { News } from '../models'
-import { STOCK_CHANGE } from '../../../redux/actions/stockChange'
+import { stockChange } from 'redux/actions/stockChange'
 import { Reducer } from 'redux'
+import { updateNews } from './actions'
 
 const newsInitialState: News = []
 
-export const news: Reducer<News, UpdateNewsAction> = (
+export const news: Reducer<News> = (
     state = newsInitialState,
     action
     ) => {
-    const { type, payload } = action
-    switch (type) {
-        case UPDATE_NEWS: {
-            return payload;
+        if (isActionOf(updateNews, action)) {
+            return action.payload
         }
-        case STOCK_CHANGE: {
+
+        if (isActionOf(stockChange, action)) {
             return newsInitialState
         }
-        default: {
-            return state;
-        }
-    }
+
+        return state
 }

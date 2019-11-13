@@ -1,30 +1,23 @@
-import { 
-    UpdateFavoritesAddTickerAction, FAVORITES_ADD_TICKER,
-    UpdateFavoritesRemoveTickerAction, FAVORITES_REMOVE_TICKER
-} from './actions'
+import { isActionOf } from 'typesafe-actions'
 import { Reducer } from 'redux'
+import { updateFavoritesAddTicker, updateFavoritesRemoveTicker } from './actions';
 
 const favoritesInitialState: string[] = ['amzn', 'msft', 'fb']
 
-type FavouritesActionTypes = UpdateFavoritesAddTickerAction | UpdateFavoritesRemoveTickerAction
-
-export const favorites: Reducer<string[], FavouritesActionTypes> = (
+export const favorites: Reducer<string[]> = (
     state = favoritesInitialState,
     action
     ) => {
-    const { type, payload } = action;
-    switch (type) {
-        case FAVORITES_ADD_TICKER: {
+        if (isActionOf(updateFavoritesAddTicker, action)) {
             return ([
                 ...state,
-                payload
+                action.payload
             ])
         }
-        case FAVORITES_REMOVE_TICKER: {
-            return state.filter(ticker => ticker !== payload)
+
+        if (isActionOf(updateFavoritesRemoveTicker, action)) {
+            return state.filter(ticker => ticker !== action.payload)
         }
-        default: {
-            return state;
-        }
-    }
+
+        return state
 }

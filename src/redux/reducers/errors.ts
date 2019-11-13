@@ -1,6 +1,6 @@
-import { Error } from '../../models/errors'
-import { ERROR, ErrorAction } from '../actions/error'
 import { Reducer } from 'redux'
+import { isActionOf } from 'typesafe-actions'
+import { errorAction } from 'redux/actions'
 
 export type ErrorState = {
     quote: boolean,
@@ -18,14 +18,13 @@ const errorsInitialState: ErrorState = {
     favorites: false,
 }
 
-export const errors: Reducer<ErrorState, ErrorAction> = (state = errorsInitialState, action) => {
-    const { type, payload } = action;
-    switch (type) {
-        case ERROR: {
-            return {...state, [payload]: true}
+export const errors: Reducer<ErrorState> = (
+    state = errorsInitialState, 
+    action
+    ) => {
+        if (isActionOf(errorAction, action)) {
+            return {...state, [action.payload]: true}
         }
-        default: {
-            return state;
-        }
-    }
+
+        return state
 }

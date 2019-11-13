@@ -1,21 +1,19 @@
-import { UpdatePeersAction, UPDATE_PEERS } from './actions'
-import { STOCK_CHANGE } from '../../../redux/actions/stockChange'
+import { isActionOf } from 'typesafe-actions'
+import { stockChange } from 'redux/actions/stockChange'
 import { Reducer } from 'redux'
+import { updatePeers } from './actions'
 
-export const peers: Reducer<string[], UpdatePeersAction> = (
+export const peers: Reducer<string[]> = (
     state = [],
     action
     ) => {
-    const { type, payload } = action
-    switch (type) {
-        case UPDATE_PEERS: {
-            return payload
+        if( isActionOf(updatePeers, action)) {
+            return action.payload
         }
-        case STOCK_CHANGE: {
+
+        if (isActionOf(stockChange, action)) {
             return []
         }
-        default: {
-            return state;
-        }
-    }
+
+        return state
 }

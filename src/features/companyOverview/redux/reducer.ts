@@ -1,7 +1,8 @@
-import { UpdateCompanyAction, UPDATE_COMPANY } from './actions'
-import { CompanyOverview } from '../models'
-import { STOCK_CHANGE } from '../../../redux/actions/stockChange'
 import { Reducer } from 'redux'
+import { isActionOf } from 'typesafe-actions'
+import { CompanyOverview } from '../models'
+import { stockChange } from 'redux/actions/stockChange'
+import { updateCompany } from './actions'
 
 const companyOverviewInitialState: CompanyOverview = {
     symbol: null,
@@ -11,20 +12,17 @@ const companyOverviewInitialState: CompanyOverview = {
     tags: [],
 }
 
-export const companyOverview: Reducer<CompanyOverview, UpdateCompanyAction> = (
+export const companyOverview: Reducer<CompanyOverview> = (
     state = companyOverviewInitialState, 
     action
     ) => {
-    const { type, payload } = action 
-    switch (type) {
-        case UPDATE_COMPANY: {
-            return payload;
+        if (isActionOf(updateCompany, action)) {
+            return action.payload
         }
-        case STOCK_CHANGE: {
+
+        if (isActionOf(stockChange, action)) {
             return companyOverviewInitialState
         }
-        default: {
-            return state;
-        }
-    }
+
+        return state
 }
