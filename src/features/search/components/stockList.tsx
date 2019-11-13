@@ -2,7 +2,7 @@ import React, { Dispatch, SetStateAction, RefObject, memo } from 'react'
 import styled from '@emotion/styled'
 import { useDispatch, useSelector } from 'react-redux'
 import { AppState } from 'models'
-import { updateStockList, updateTicker } from '../redux'
+import { updateStockList, updateTicker, updateQuery } from '../redux'
 import { StockListItem } from '../models'
 
 const StockListLayoutContainer = styled.div`
@@ -63,13 +63,12 @@ type _Stock = {
 }
 
 type StockListProps = {
-    setQuery: Dispatch<SetStateAction<string>>,
     inputSelect: RefObject<HTMLInputElement>,
     setSelectedStock: Dispatch<SetStateAction<string[]>>,
     dropSelect: RefObject<HTMLDivElement>,
 }
 
-export const StockList = memo<StockListProps>(({setQuery, inputSelect, setSelectedStock, dropSelect}) => {
+export const StockList = memo<StockListProps>(({inputSelect, setSelectedStock, dropSelect}) => {
 
     const dispatch = useDispatch()
     const stockList = useSelector((state: AppState) => state.search.stockList)
@@ -77,7 +76,7 @@ export const StockList = memo<StockListProps>(({setQuery, inputSelect, setSelect
     const onStockClick = (stock: _Stock) => {
         const stockSymbol = stock.symbol
         const stockName = stock.name
-        setQuery(`${stockName} (${stockSymbol})`)
+        dispatch(updateQuery(`${stockName} (${stockSymbol})`))
         inputSelect.current!.blur()
         dispatch(updateTicker(stockSymbol))
         dispatch(updateStockList([]))

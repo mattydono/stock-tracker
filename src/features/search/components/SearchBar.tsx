@@ -2,7 +2,7 @@ import React, { RefObject, Dispatch, SetStateAction, memo, KeyboardEvent, Change
 import styled from '@emotion/styled'
 import { useSelector, useDispatch } from 'react-redux'
 import { AppState }  from '../../../models'
-import { updateTicker } from '../redux'
+import { updateTicker, updateQuery } from '../redux'
 
 const SearchBarLayoutContainer = styled.div`
     display: flex;
@@ -74,17 +74,16 @@ type SearchBarProps = {
     toggleIsOpen: Dispatch<SetStateAction<boolean>>,
     inputSelect: RefObject<HTMLInputElement>,
     dropSelect: RefObject<HTMLDivElement>,
-    query: string,
-    setQuery: Dispatch<SetStateAction<string>>,
     setSelectedStock: Dispatch<SetStateAction<string[]>>,
     selectedStock: string[],
     socket: SocketIOClient.Socket,
 }
 
-export const SearchBar = memo<SearchBarProps>(({isOpen, toggleIsOpen, inputSelect, dropSelect, query, setQuery, setSelectedStock, selectedStock, socket}) => {
+export const SearchBar = memo<SearchBarProps>(({isOpen, toggleIsOpen, inputSelect, dropSelect, setSelectedStock, selectedStock, socket}) => {
 
     const dispatch = useDispatch()
     const stockList = useSelector((state: AppState) => state.search.stockList)
+    const query = useSelector((state: AppState) => state.search.query)
 
     const handleBlur = () => {
         if(!isOpen) return
@@ -104,7 +103,7 @@ export const SearchBar = memo<SearchBarProps>(({isOpen, toggleIsOpen, inputSelec
             socket.on('isValid', (bool: boolean) => {
                 if(bool) {
                     dispatch(updateTicker(query))
-                    setQuery(`${stockList[0].name} (${stockList[0].symbol})`)
+                    dispatch(updateQuery(`${stockList[0].name} (${stockList[0].symbol})`))
                     setSelectedStock([`${stockList[0].name}`, `(${stockList[0].symbol})`])
                 }
             });
@@ -114,7 +113,7 @@ export const SearchBar = memo<SearchBarProps>(({isOpen, toggleIsOpen, inputSelec
     }
 
     const onInputChange: ChangeEventHandler<HTMLInputElement> = event => {
-        setQuery(event.currentTarget.value);
+        dispatch(updateQuery(event.currentTarget.value));
         toggleIsOpen(query.length > 0)
     }
 
