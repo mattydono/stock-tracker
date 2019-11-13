@@ -3,7 +3,7 @@ import { stockChange } from 'redux/actions/stockChange'
 import { Reducer } from 'redux'
 import { updatePeers } from './actions'
 
-export const peers: Reducer<string[]> = (
+export const peers: Reducer<Readonly<string[]>> = (
     state = [],
     action
     ) => {

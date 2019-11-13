@@ -9,7 +9,7 @@ const chartsIntitialState: Charts = {
     prices: [],
 }
 
-export const charts: Reducer<Charts> = (
+export const charts: Reducer<Readonly<Charts>> = (
     state = chartsIntitialState, 
     action
     ) => {

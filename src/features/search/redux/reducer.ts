@@ -9,7 +9,7 @@ const searchInitialState: Search = {
     query: 'Apple Inc (AAPL)',
 }
 
-export const search: Reducer<Search> = (
+export const search: Reducer<Readonly<Search>> = (
     state = searchInitialState,
     action
 ) => {
