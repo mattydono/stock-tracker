@@ -25,9 +25,9 @@ type UpdateChartRange = (range: Range) => void;
 
 export const Chart = memo(() => {
 
-    const prices: ChartSingleDataPoint[] = useSelector((store: AppState) => store.charts.prices);
-    const range: Range = useSelector((store: AppState) => store.charts.range);
-    const latest: number = useSelector((store: AppState) => {
+    const prices = useSelector((store: AppState) => store.charts.prices);
+    const range = useSelector((store: AppState) => store.charts.range);
+    const latest = useSelector((store: AppState) => {
         const { latestPrice } = store.prices.find(({ ticker }) => ticker === store.search.ticker) || store.prices[0];
         return latestPrice;
     });

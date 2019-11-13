@@ -46,7 +46,7 @@ const Description = styled.div`
 
 export const CompanyOverviewComponent: FC<{}> = () => {
 
-    const { symbol, companyName, website, description }: CompanyOverview = useSelector((store: AppState) => store.companyOverview)
+    const { symbol, companyName, website, description } = useSelector((store: AppState) => store.companyOverview)
 
     return (
         <CompanyOverviewContainer>
