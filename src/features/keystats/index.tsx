@@ -14,7 +14,7 @@ const KeyStatsLayoutContainer = styled.div`
 
 export const KeyStatsComponent: FC = () => {
 
-    const { ...keystatsProps }: KeyStats = useSelector((state: AppState) => state.keyStats)
+    const { ...keystatsProps } = useSelector((state: AppState) => state.keyStats)
 
     const nullValues = Object.values(keystatsProps).every((item: number) => !item);
     

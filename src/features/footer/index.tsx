@@ -76,8 +76,8 @@ const Seperator = styled.div`
 
 export const Footer: FC = () => {
 
-    const prices: PriceSingleDataPoint[] = useSelector((store: AppState) => store.prices);
-    const favorites: string[] = useSelector((store: AppState) => store.favorites);
+    const prices = useSelector((store: AppState) => store.prices);
+    const favorites = useSelector((store: AppState) => store.favorites);
     
     const favoritesArray = prices[0] && prices.filter(({ ticker }) => ticker && favorites.includes(ticker)).map(item => <FooterTickerCard key={item.ticker} {...item} /> );
     const usMarketsArray = USMarketsMockData.map(item => <FooterTickerCard key={item.ticker} {...item}/>)
