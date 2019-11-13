@@ -1,11 +1,12 @@
 import { Reducer } from 'redux';
 import { isActionOf } from 'typesafe-actions';
 import { Search } from '../models';
-import { updateStockList, updateTicker } from './actions';
+import { updateStockList, updateTicker, updateQuery } from './actions';
 
 const searchInitialState: Search = {
     ticker: 'aapl',
     stockList: [],
+    query: 'Apple Inc (AAPL)',
 }
 
 export const search: Reducer<Search> = (
@@ -18,6 +19,10 @@ export const search: Reducer<Search> = (
 
     if (isActionOf(updateStockList, action)) {
         return { ...state, stockList: action.payload }
+    }
+
+    if (isActionOf(updateQuery, action)) {
+        return {...state, query: action.payload}
     }
 
     return state;

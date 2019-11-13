@@ -49,7 +49,6 @@ export const Search: FC = () => {
 
     const dispatch = useDispatch();
 
-    const [query, setQuery] = useState<string>('Apple Inc (AAPL)');
     const [isOpen, toggleIsOpen] = useState<boolean>(false)
     const dropSelect = useRef<HTMLDivElement>(null)
     const inputSelect = useRef<HTMLInputElement>(null)
@@ -76,21 +75,12 @@ export const Search: FC = () => {
         toggleIsOpen(stockList.length !== 0)
     },[ stockList.length])
 
-    useEffect(() => {
-        if(query === '') {
-            dispatch(updateStockList([]))
-            return;
-        }
-
-        socket.emit('search', query);
-    }, [query]);
-
     return (
         <SearchLayoutContainer>
             <SearchRowLayoutContainer>
-                <SearchBar inputSelect={inputSelect} dropSelect={dropSelect} setQuery={setQuery} isOpen={isOpen} toggleIsOpen={toggleIsOpen} query={query} setSelectedStock={setSelectedStock} selectedStock={selectedStock} socket={socket} />
+                <SearchBar inputSelect={inputSelect} dropSelect={dropSelect} isOpen={isOpen} toggleIsOpen={toggleIsOpen} setSelectedStock={setSelectedStock} selectedStock={selectedStock} socket={socket} />
                 <TickerCard {...price} />
-                {isOpen && <StockList setQuery={setQuery} inputSelect={inputSelect} setSelectedStock={setSelectedStock} dropSelect={dropSelect} /> }
+                {isOpen && <StockList inputSelect={inputSelect} setSelectedStock={setSelectedStock} dropSelect={dropSelect} /> }
             </SearchRowLayoutContainer>
             <DateRowLayoutContainer>
                 {primaryExchange && <Tags primaryExchange={primaryExchange} tags={tags} />}

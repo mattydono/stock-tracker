@@ -2,7 +2,7 @@ import { AppState, MiddlewareDependencies } from 'models'
 import { Middleware } from 'redux'
 import { stockChange } from 'redux/actions/stockChange'
 import { isActionOf } from 'typesafe-actions'
-import { updateTicker } from './actions'
+import { updateTicker, updateQuery, updateStockList } from './actions'
 
 export const searchMiddleware = ({ socketService }: MiddlewareDependencies): Middleware<{}, AppState> => {
     return ({ dispatch, getState }) => {
@@ -15,6 +15,11 @@ export const searchMiddleware = ({ socketService }: MiddlewareDependencies): Mid
                 socket.emit('prices', tickerPlusFavorites);
                 socket.emit('ticker', action.payload);
                 socket.emit('chart', [action.payload, range])
+            }
+
+            if (isActionOf(updateQuery, action)) {
+                if (action.payload === '') dispatch(updateStockList([]))
+                socket.emit('search', action.payload)
             }
 
             return next(action)
