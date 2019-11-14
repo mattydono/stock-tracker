@@ -55,7 +55,7 @@ export const Peers: FC = () => {
                 <Title>TOP PEERS</Title>
                 {
                     !false
-                    ? <ContentContainer>{HARD_PEERS.map( peer => renderPeer(peer))}</ContentContainer>
+                    ? <ContentContainer>{HARD_PEERS.map(renderPeer)}</ContentContainer>
                     : <Loader className='flex-direction: column; margin-top: 30px; @media(max-width: 750px) { margin-top: 50px; margin-bottom: 50px;}' size={50} seperation={2} speed={1.4} /> 
                 }
             </PeersLayoutContainer>
