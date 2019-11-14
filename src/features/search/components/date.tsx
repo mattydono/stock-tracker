@@ -39,17 +39,11 @@ type DateProps = {
     tags: string[],
 }
 
-const formatDate = (date: any) => new Date(date);
-    const EST = formatDate(moment()).toLocaleString("en-US", {
-        timeZone: "America/New_York"
-      });
-      console.log(EST)
-    const formattedEST = moment(EST).format("lll");
-
 export const DateTime = memo<DateProps>(({latestTime, isUSMarketOpen, tags}) => {
+    const lastUpdated  = latestTime && moment(latestTime).locale('en-US').format('111')
     return (
         <DateLayoutContainer>
-            {latestTime ? <Time>Real-Time Price as of {formattedEST} EST</Time> : null}
+            {lastUpdated ? <Time>Real-Time Price as of {lastUpdated} EST</Time> : null}
             {tags.length < 1 ? null : isUSMarketOpen ? <MarketStatus><MarketIcon color='yellow'>☀</MarketIcon>Market Open</MarketStatus> : <MarketStatus><MarketIcon>☽</MarketIcon> Market Closed</MarketStatus>}
         </DateLayoutContainer>
     )
