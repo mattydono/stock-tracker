@@ -97,7 +97,7 @@ export const StockList = memo<StockListProps>(({inputSelect, setSelectedStock, d
         <StockListLayoutContainer ref={dropSelect} tabIndex={-1}>
             <table style={{width: '100%'}}>
                 <tbody style={{fontSize: '18px'}}>
-                    {stockList.length > 0 ? stockList.map( (stock: StockListItem) => renderSymbols(stock)) : <tr style={{color: '#e95656'}}>Symbol Not Found</tr>}
+                    {stockList.length > 0 ? stockList.map(renderSymbols) : <tr style={{color: '#e95656'}}>Symbol Not Found</tr>}
                 </tbody> 
             </table>               
         </StockListLayoutContainer>
