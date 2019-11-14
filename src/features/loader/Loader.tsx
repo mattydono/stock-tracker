@@ -1,5 +1,5 @@
 import memoizeOne from 'memoize-one';
-import React, { memo, FC } from 'react'
+import React, { memo } from 'react'
 import { keyframes } from '@emotion/core'
 import styled from '@emotion/styled'
 
@@ -55,7 +55,7 @@ const LoadingContainer = styled.div`
   ${props => props.className}
 `
 
-const AdaptiveLoader: FC<Props> = React.memo(
+const AdaptiveLoader = memo<Props>(
   ({ size, type, seperation, speed, children }) => {
     const sizeNum = Number(size)
     const barHeight = sizeNum * 0.75
