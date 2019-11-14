@@ -1,7 +1,7 @@
 import React, { RefObject, Dispatch, SetStateAction, memo, KeyboardEvent, ChangeEventHandler } from 'react'
 import styled from '@emotion/styled'
 import { useSelector, useDispatch } from 'react-redux'
-import { AppState }  from '../../../models'
+import { AppState }  from 'models'
 import { updateTicker, updateQuery } from '../redux'
 
 const SearchBarLayoutContainer = styled.div`
@@ -76,10 +76,9 @@ type SearchBarProps = {
     dropSelect: RefObject<HTMLDivElement>,
     setSelectedStock: Dispatch<SetStateAction<string[]>>,
     selectedStock: string[],
-    socket: SocketIOClient.Socket,
 }
 
-export const SearchBar = memo<SearchBarProps>(({isOpen, toggleIsOpen, inputSelect, dropSelect, setSelectedStock, selectedStock, socket}) => {
+export const SearchBar = memo<SearchBarProps>(({isOpen, toggleIsOpen, inputSelect, dropSelect, setSelectedStock, selectedStock}) => {
 
     const dispatch = useDispatch()
     const stockList = useSelector((state: AppState) => state.search.stockList)
@@ -99,15 +98,16 @@ export const SearchBar = memo<SearchBarProps>(({isOpen, toggleIsOpen, inputSelec
 
     const onKeyPress = (event: KeyboardEvent) => {
         if(event.key === 'Enter') {
-            socket.emit('isValid', query);
-            socket.on('isValid', (bool: boolean) => {
-                if(bool) {
-                    dispatch(updateTicker(query))
-                    dispatch(updateQuery(`${stockList[0].name} (${stockList[0].symbol})`))
-                    setSelectedStock([`${stockList[0].name}`, `(${stockList[0].symbol})`])
-                }
-            });
-            toggleIsOpen(false)
+            if (stockList.length > 0) {
+                dispatch(updateTicker(`${stockList[0].symbol}`))
+                dispatch(updateQuery(`${stockList[0].name} (${stockList[0].symbol})`))
+                setSelectedStock([`${stockList[0].name}`, `(${stockList[0].symbol})`])
+                toggleIsOpen(false)
+            } else {
+                dispatch(updateQuery(query))
+                setSelectedStock([query])
+                toggleIsOpen(true)
+            }
             event.preventDefault();
         }
     }

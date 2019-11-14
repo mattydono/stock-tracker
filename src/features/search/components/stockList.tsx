@@ -66,9 +66,10 @@ type StockListProps = {
     inputSelect: RefObject<HTMLInputElement>,
     setSelectedStock: Dispatch<SetStateAction<string[]>>,
     dropSelect: RefObject<HTMLDivElement>,
+    isOpen: boolean,
 }
 
-export const StockList = memo<StockListProps>(({inputSelect, setSelectedStock, dropSelect}) => {
+export const StockList = memo<StockListProps>(({inputSelect, setSelectedStock, dropSelect, isOpen}) => {
 
     const dispatch = useDispatch()
     const stockList = useSelector((state: AppState) => state.search.stockList)
@@ -96,7 +97,7 @@ export const StockList = memo<StockListProps>(({inputSelect, setSelectedStock, d
         <StockListLayoutContainer ref={dropSelect} tabIndex={-1}>
             <table style={{width: '100%'}}>
                 <tbody style={{fontSize: '18px'}}>
-                    {stockList.map( (stock: StockListItem) => renderSymbols(stock))}
+                    {stockList.length > 0 ? stockList.map(renderSymbols) : <tr style={{color: '#e95656'}}>Symbol Not Found</tr>}
                 </tbody> 
             </table>               
         </StockListLayoutContainer>

@@ -1,9 +1,8 @@
-import React, { useState, useEffect, useRef, FC, useCallback } from 'react';
+import React, { useState, useEffect, useRef, FC } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import styled from '@emotion/styled'
-import { PriceSingleDataPoint, AppState } from '../../models';
+import { AppState } from 'models';
 import { TickerCard, SearchBar, StockList, DateTime, Tags } from './components'
-import { socketService } from '../../services/socketService'
 import { updateStockList } from './redux/actions';
 
 const SearchLayoutContainer = styled.div`
@@ -43,8 +42,6 @@ const DateRowLayoutContainer = styled.div`
 
 type Search = (query: string) => void;
 
-const socket = socketService.get();
-
 export const Search: FC = () => {
 
     const dispatch = useDispatch();
@@ -63,24 +60,18 @@ export const Search: FC = () => {
     const latestTime = useSelector((state: AppState) => state.keyStats.latestTime)
     const errorQuote = ''
 
-    const stockList = useSelector((state: AppState) => state.search.stockList)
-
     useEffect(() => {
         if(errorQuote.length > 0) {
             dispatch(updateStockList([{name: errorQuote, symbol:'⊗'}]))
         }
     }, [errorQuote])
 
-    useEffect(() => {
-        toggleIsOpen(stockList.length !== 0)
-    },[ stockList.length])
-
     return (
         <SearchLayoutContainer>
             <SearchRowLayoutContainer>
-                <SearchBar inputSelect={inputSelect} dropSelect={dropSelect} isOpen={isOpen} toggleIsOpen={toggleIsOpen} setSelectedStock={setSelectedStock} selectedStock={selectedStock} socket={socket} />
+                <SearchBar inputSelect={inputSelect} dropSelect={dropSelect} isOpen={isOpen} toggleIsOpen={toggleIsOpen} setSelectedStock={setSelectedStock} selectedStock={selectedStock} />
                 <TickerCard {...price} />
-                {isOpen && <StockList inputSelect={inputSelect} setSelectedStock={setSelectedStock} dropSelect={dropSelect} /> }
+                {isOpen && <StockList inputSelect={inputSelect} setSelectedStock={setSelectedStock} dropSelect={dropSelect} isOpen={isOpen} /> }
             </SearchRowLayoutContainer>
             <DateRowLayoutContainer>
                 {primaryExchange && <Tags primaryExchange={primaryExchange} tags={tags} />}
