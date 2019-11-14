@@ -18,7 +18,7 @@ const errorsInitialState: ErrorState = {
     favorites: false,
 }
 
-export const errors: Reducer<ErrorState> = (
+export const errors: Reducer<Readonly<ErrorState>> = (
     state = errorsInitialState, 
     action
     ) => {

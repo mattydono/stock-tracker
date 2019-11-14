@@ -23,7 +23,7 @@ const keyStatsInitialState: KeyStats = {
     isFetchingQuote: false,
 }
 
-export const keyStats: Reducer<KeyStats> = (
+export const keyStats: Reducer<Readonly<KeyStats>> = (
     state = keyStatsInitialState, 
     action
     ) => {

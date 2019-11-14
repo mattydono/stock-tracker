@@ -12,7 +12,7 @@ const companyOverviewInitialState: CompanyOverview = {
     tags: [],
 }
 
-export const companyOverview: Reducer<CompanyOverview> = (
+export const companyOverview: Reducer<Readonly<CompanyOverview>> = (
     state = companyOverviewInitialState, 
     action
     ) => {

@@ -6,7 +6,7 @@ import { updateNews } from './actions'
 
 const newsInitialState: News = []
 
-export const news: Reducer<News> = (
+export const news: Reducer<Readonly<News>> = (
     state = newsInitialState,
     action
     ) => {

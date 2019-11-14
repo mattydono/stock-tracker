@@ -4,7 +4,7 @@ import { updateFavoritesAddTicker, updateFavoritesRemoveTicker } from './actions
 
 const favoritesInitialState: string[] = ['amzn', 'msft', 'fb']
 
-export const favorites: Reducer<string[]> = (
+export const favorites: Reducer<Readonly<string[]>> = (
     state = favoritesInitialState,
     action
     ) => {
