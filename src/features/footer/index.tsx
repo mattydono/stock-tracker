@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import styled from '@emotion/styled'
 import { useSelector } from 'react-redux';
-import { PriceSingleDataPoint, AppState } from '../../models';
+import { AppState } from 'models';
 import USMarketsMockData from './USMarketsMockData.json';
 import { FooterTickerCard } from './components';
 

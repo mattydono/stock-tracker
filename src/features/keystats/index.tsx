@@ -1,7 +1,6 @@
 import React, { FC } from 'react';
 import { useSelector } from 'react-redux';
 import styled from '@emotion/styled'
-import { KeyStats } from './models';
 import { AppState } from '../../models';
 import { Title } from '../../Root'
 import { StatsTable } from './components'

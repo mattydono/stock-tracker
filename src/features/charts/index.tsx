@@ -3,9 +3,9 @@ import { useSelector, useDispatch } from 'react-redux';
 import styled from '@emotion/styled';
 import { Loader } from '../loader';
 import { Graph, RangeComponent } from'./components'
-import { ChartSingleDataPoint, Range } from './models';
+import { Range } from './models';
 import { updateChartRange } from './redux';
-import { AppState } from '../../models';
+import { AppState } from 'models';
 
 const ChartLayoutContainer = styled.div`    
     flex: 0 1 66%;

@@ -33,13 +33,6 @@ type PeersProps = {
     peers: string[],
 }
 
-type ErrorLoading = {
-    errorPeers: {
-        message: string
-    },
-    isFetchingPeers: boolean,
-}
-
 const HARD_PEERS = [
     'MSFT',' NOK', 'IBM'
 ]
