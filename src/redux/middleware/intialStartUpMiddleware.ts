@@ -20,7 +20,10 @@ export const initialStartUpMiddleware = ({socketService}: MiddlewareDependencies
         socket.on('company', (company: CompanyOverview) => dispatch(updateCompany(company)));
         socket.on('news', (news: News) => dispatch(updateNews(news)));
         socket.on('keystats', (keystats: KeyStats) => dispatch(updateKeyStats(keystats)));
-        socket.on('error', (error: string) => dispatch(errorAction(error)));
+        socket.on('error', (error: string) => {
+            console.log(error)
+            dispatch(errorAction(error))
+        });
         socket.on('chart', (chartData: ChartSingleDataPoint[]) => dispatch(updateChartData(chartData)))
         socket.on('search', (stockListItems: StockListItem[]) => dispatch(updateStockList(stockListItems)))
 
