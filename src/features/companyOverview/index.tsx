@@ -4,6 +4,7 @@ import styled from '@emotion/styled'
 import { AppState } from '../../models';
 import { Title } from '../../Root'
 import { Loader } from '../loader'
+import { ErrorComponent } from 'features/error';
 
 const CompanyOverviewContainer = styled.div`
     max-height: 400px;
@@ -46,6 +47,7 @@ const Description = styled.div`
 export const CompanyOverviewComponent: FC<{}> = () => {
 
     const { symbol, companyName, website, description } = useSelector((store: AppState) => store.companyOverview)
+    const error = useSelector((store: AppState) => store.errors.company)
 
     return (
         <CompanyOverviewContainer>
@@ -63,6 +65,7 @@ export const CompanyOverviewComponent: FC<{}> = () => {
                     }
                     </Website>
                     <Description>{description}</Description>
+                    {error && <ErrorComponent component='Company' />}
                  </>
             }
         </CompanyOverviewContainer>

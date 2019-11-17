@@ -2,6 +2,9 @@ import React, { FC } from 'react';
 import styled from '@emotion/styled'
 import { Title } from '../../Root'
 import { Loader } from '../loader'
+import { ErrorComponent } from 'features/error';
+import { useSelector } from 'react-redux';
+import { AppState } from 'models'
 
 const PeersLayoutContainer = styled.div`
     max-height: 30%;
@@ -39,6 +42,8 @@ const HARD_PEERS = [
 
 export const Peers: FC = () => {
 
+    const error = useSelector((state: AppState) => state.errors.peers)
+
     const renderPeer = (peer: string) => {
         return <Peer key={peer} >{peer}</Peer>
     }
@@ -51,6 +56,7 @@ export const Peers: FC = () => {
                     ? <ContentContainer>{HARD_PEERS.map(renderPeer)}</ContentContainer>
                     : <Loader className='flex-direction: column; margin-top: 30px; @media(max-width: 750px) { margin-top: 50px; margin-bottom: 50px;}' size={50} seperation={2} speed={1.4} /> 
                 }
+                {error && <ErrorComponent component='Peers' />}
             </PeersLayoutContainer>
     );
 }
