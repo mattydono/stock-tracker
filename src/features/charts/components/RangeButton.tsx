@@ -1,6 +1,8 @@
 import React, { FC } from 'react'
 import styled from '@emotion/styled'
 import { Range } from '../models'
+import { useDispatch } from 'react-redux'
+import { updateChartRange } from '../redux/actions'
 
 const LabelRange = styled.div`
     margin: 0rem 0rem 1rem 0.5rem;
@@ -18,11 +20,13 @@ const Input = styled.input`
 
 type RangeButtonProps = {
     range: Range;
-    update: (range: Range) => void;
     current: boolean;
 }
 
-export const RangeButton: FC<RangeButtonProps> = ({ range, update, current }) => {
+export const RangeButton: FC<RangeButtonProps> = ({ range, current }) => {
+
+    const dispatch = useDispatch()
+
     const opacity = current ? 1.0 : 0.5;
     return (
         <LabelRange>
@@ -31,7 +35,7 @@ export const RangeButton: FC<RangeButtonProps> = ({ range, update, current }) =>
                 name="chart" 
                 defaultChecked={current}
             />
-            <span onClick={() => update(range)} style={{opacity}}>{range}</span>
+            <span onClick={() => dispatch(updateChartRange(range))} style={{opacity}}>{range}</span>
         </LabelRange>
     )
 }

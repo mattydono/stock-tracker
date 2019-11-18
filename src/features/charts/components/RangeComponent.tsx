@@ -16,12 +16,11 @@ const ranges: Range[] = ['MAX', '5y', '1y', '1m', '5d', '1d'];
 
 type RangeComponentProps = {
     range: Range,
-    update: (range: Range) => void
 }
 
-export const RangeComponent = memo<RangeComponentProps>(({ range, update }) => {
+export const RangeComponent = memo<RangeComponentProps>(({ range }) => {
 
-    const buttons = ranges.map(rangeItem => <RangeButton key={rangeItem} current={rangeItem === range} range={rangeItem} update={update} />);
+    const buttons = ranges.map(rangeItem => <RangeButton key={rangeItem} current={rangeItem === range} range={rangeItem} />);
 
     return (
         <ButtonsContainer>

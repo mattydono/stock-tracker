@@ -1,9 +1,8 @@
-import React, { useState, useEffect, useRef, FC } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import React, { useState, useRef, FC } from 'react';
+import { useSelector } from 'react-redux';
 import styled from '@emotion/styled'
 import { AppState } from 'models';
 import { TickerCard, SearchBar, StockList, DateTime, Tags } from './components'
-import { updateStockList } from './redux/actions';
 
 const SearchLayoutContainer = styled.div`
     flex: 1 0 auto;
@@ -44,8 +43,6 @@ type Search = (query: string) => void;
 
 export const Search: FC = () => {
 
-    const dispatch = useDispatch();
-
     const [isOpen, toggleIsOpen] = useState<boolean>(false)
     const dropSelect = useRef<HTMLDivElement>(null)
     const inputSelect = useRef<HTMLInputElement>(null)
@@ -58,13 +55,6 @@ export const Search: FC = () => {
         return store.prices.find(({ ticker }) => ticker === store.search.ticker) || store.prices[0];
     });
     const latestTime = useSelector((state: AppState) => state.keyStats.latestTime)
-    const errorQuote = ''
-
-    useEffect(() => {
-        if(errorQuote.length > 0) {
-            dispatch(updateStockList([{name: errorQuote, symbol:'⊗'}]))
-        }
-    }, [errorQuote])
 
     return (
         <SearchLayoutContainer>
