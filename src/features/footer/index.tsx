@@ -1,9 +1,10 @@
 import React, { FC } from 'react';
 import styled from '@emotion/styled'
 import { useSelector } from 'react-redux';
-import { PriceSingleDataPoint, AppState } from '../../models';
+import { AppState } from 'models';
 import USMarketsMockData from './USMarketsMockData.json';
 import { FooterTickerCard } from './components';
+import { ErrorComponent } from 'features/error';
 
 const FooterLayoutContainer = styled.div`
     position: fixed;
@@ -78,6 +79,7 @@ export const Footer: FC = () => {
 
     const prices = useSelector((store: AppState) => store.prices);
     const favorites = useSelector((store: AppState) => store.favorites);
+    const error = useSelector((store: AppState) => store.errors.prices)
     
     const favoritesArray = prices[0] && prices.filter(({ ticker }) => ticker && favorites.includes(ticker)).map(item => <FooterTickerCard key={item.ticker} {...item} /> );
     const usMarketsArray = USMarketsMockData.map(item => <FooterTickerCard key={item.ticker} {...item}/>)
@@ -95,6 +97,7 @@ export const Footer: FC = () => {
                 <Header>FAVORITES</Header>
                 <FooterSection>
                     {favoritesArray}
+                    {error && <ErrorComponent component='Favorites' />}
                 </FooterSection>
             </FavouritesLayoutContainer>
         </FooterLayoutContainer>

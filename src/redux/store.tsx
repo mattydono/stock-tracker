@@ -12,6 +12,7 @@ import { search } from 'features/search/redux';
 import { chartMiddleware } from 'features/charts/redux/middleware'
 import { searchMiddleware } from 'features/search/redux/middleware';
 import { initialStartUpMiddleware } from './middleware/intialStartUpMiddleware'
+import { errors } from './reducers/errors'
 
 const rootReducer = combineReducers({
     search,
@@ -22,6 +23,7 @@ const rootReducer = combineReducers({
     charts,
     favorites,
     prices,
+    errors,
 })
 
 declare global {
