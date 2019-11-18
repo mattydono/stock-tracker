@@ -22,8 +22,6 @@ export const Graph = memo<GraphProps>(({range, latest, prices}) => {
 
     const interval = range === '5d' ? 39 : range === '1m' ? 1 : range === '1d' ? 59 : range === '1y' ? 23 : 253;
 
-    console.log(prices)
-
     return (
         <ResponsiveContainer aspect={0.1} width='99%' maxHeight={425}>
             <AreaChart data={prices} margin={{ left: 35 }} >
