@@ -1,10 +1,8 @@
-import React, { memo, useCallback } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import React, { memo } from 'react';
+import { useSelector } from 'react-redux';
 import styled from '@emotion/styled';
 import { Loader } from '../loader';
 import { Graph, RangeComponent } from'./components'
-import { Range } from './models';
-import { updateChartRange } from './redux';
 import { AppState } from 'models';
 import { ErrorComponent } from 'features/error'
 
@@ -22,8 +20,6 @@ const ChartLayoutContainer = styled.div`
     }
 `
 
-type UpdateChartRange = (range: Range) => void;
-
 export const Chart = memo(() => {
 
     const prices = useSelector((store: AppState) => store.charts.prices);
@@ -33,14 +29,12 @@ export const Chart = memo(() => {
         return latestPrice;
     });
     const error = useSelector((store: AppState) => store.errors.chart)
-    const dispatch = useDispatch();
-    const updateRange: UpdateChartRange = useCallback((range: Range) => dispatch(updateChartRange(range)), [range, dispatch])
 
     return (
             <ChartLayoutContainer>
                 {
                     prices.length !== 0 
-                    ? <><RangeComponent range={range} update={updateRange}/><Graph prices={prices} range={range} latest={latest}/></>
+                    ? <><RangeComponent range={range} /><Graph prices={prices} range={range} latest={latest}/></>
                     : <Loader className='margin-top: 250px; @media(max-width: 750px) { margin-top: 10px; margin-bottom: 50px; }' size={50} seperation={2} speed={1.4} />
                 }  
                 {error && <ErrorComponent component='Chart' />}                      

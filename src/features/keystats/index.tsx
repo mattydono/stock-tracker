@@ -6,12 +6,10 @@ import { Title } from '../../Root'
 import { StatsTable } from './components'
 import { Loader } from '../loader'
 import { ErrorComponent } from 'features/error';
-import { statement } from '@babel/template';
 
 const KeyStatsLayoutContainer = styled.div`
     flex: 0 1 63%;
 `
-
 
 export const KeyStatsComponent: FC = () => {
 
