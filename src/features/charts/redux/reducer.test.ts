@@ -11,7 +11,7 @@ describe('Charts reducer', () => {
     it('should return the initial state', () => {
         expect(charts(
             initalState, 
-            {type: 'UPDATE_CHART_RANGE', payload: '1m'} || {type: 'UPDATE_CHART_DATA', payload: []} || {type: 'STOCK_CHANGE'}))
+            undefined as any))
             .toEqual({
                 range: '1m',
                 prices: [],
@@ -19,7 +19,8 @@ describe('Charts reducer', () => {
     })
 
     it('should handle an UPDATE_CHART_RANGE action', () => {
-        expect(charts(initalState, {type: 'UPDATE_CHART_RANGE', payload: '5d'}))
+        const action = {type: 'UPDATE_CHART_RANGE', payload: '5d'}
+        expect(charts(initalState, action))
         .toEqual({
             range: '5d',
             prices: [],
@@ -27,7 +28,8 @@ describe('Charts reducer', () => {
     })
 
     it('should handle an UPDATE_CHART_DATA action', () => {
-        expect(charts(initalState, {type: 'UPDATE_CHART_DATA', payload: [{open: 1, close: 2, date: 'today'}]}))
+        const action = {type: 'UPDATE_CHART_DATA', payload: [{open: 1, close: 2, date: 'today'}]}
+        expect(charts(initalState, action))
         .toEqual({
             range: '1m',
             prices: [{open: 1, close: 2, date: 'today'}]
@@ -35,7 +37,8 @@ describe('Charts reducer', () => {
     })
 
     it('should handle a STOCK_CHANGE action', () => {
-        expect(charts(initalState, {type: 'STOCK_CHANGE'}))
+        const action = {type: 'STOCK_CHANGE'}
+        expect(charts(initalState, action))
         .toEqual({
             range: '1m',
             prices: [],
