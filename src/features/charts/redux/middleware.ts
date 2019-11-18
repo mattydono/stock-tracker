@@ -8,8 +8,8 @@ export const chartMiddleware = ({socketService}: MiddlewareDependencies): Middle
         return (next) => (action) => {
             const socket = socketService.get()
             if (isActionOf(updateChartRange, action)) {
-                const ticker = getState().search
-                socket.emit('chart', [ticker, action.payload])
+                const stock = getState().search.ticker
+                socket.emit('chart', [stock, action.payload])
             }
 
             return next(action)
