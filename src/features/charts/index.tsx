@@ -3,9 +3,10 @@ import { useSelector, useDispatch } from 'react-redux';
 import styled from '@emotion/styled';
 import { Loader } from '../loader';
 import { Graph, RangeComponent } from'./components'
-import { ChartSingleDataPoint, Range } from './models';
+import { Range } from './models';
 import { updateChartRange } from './redux';
-import { AppState } from '../../models';
+import { AppState } from 'models';
+import { ErrorComponent } from 'features/error'
 
 const ChartLayoutContainer = styled.div`    
     flex: 0 1 66%;
@@ -31,6 +32,7 @@ export const Chart = memo(() => {
         const { latestPrice } = store.prices.find(({ ticker }) => ticker === store.search.ticker) || store.prices[0];
         return latestPrice;
     });
+    const error = useSelector((store: AppState) => store.errors.chart)
     const dispatch = useDispatch();
     const updateRange: UpdateChartRange = useCallback((range: Range) => dispatch(updateChartRange(range)), [range, dispatch])
 
@@ -40,7 +42,8 @@ export const Chart = memo(() => {
                     prices.length !== 0 
                     ? <><RangeComponent range={range} update={updateRange}/><Graph prices={prices} range={range} latest={latest}/></>
                     : <Loader className='margin-top: 250px; @media(max-width: 750px) { margin-top: 10px; margin-bottom: 50px; }' size={50} seperation={2} speed={1.4} />
-                }                         
+                }  
+                {error && <ErrorComponent component='Chart' />}                      
             </ChartLayoutContainer>
     );
 })

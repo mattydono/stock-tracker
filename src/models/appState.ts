@@ -3,7 +3,7 @@ import { KeyStats } from '../features/keystats/models/keyStats'
 import { Charts } from '../features/charts/models/charts'
 import { News } from '../features/news/models/news'
 import { Prices } from './prices'
-import { Error } from './errors';
+import { Errors } from './errors';
 import { Search } from 'features/search/models'
 
 export type AppState = {
@@ -15,5 +15,5 @@ export type AppState = {
     peers: string[],
     favorites: string[],
     prices: Prices,
-    errors: Error,
+    errors: Errors,
 }

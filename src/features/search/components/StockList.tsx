@@ -3,7 +3,6 @@ import styled from '@emotion/styled'
 import { useDispatch, useSelector } from 'react-redux'
 import { AppState } from 'models'
 import { updateStockList, updateTicker, updateQuery } from '../redux'
-import { StockListItem } from '../models'
 
 const StockListLayoutContainer = styled.div`
     position: absolute;
