@@ -3,7 +3,7 @@ import { AppState, MiddlewareDependencies } from 'models'
 import { isActionOf } from 'typesafe-actions'
 import { updateChartRange } from './actions'
 
-export const chartMiddleware = ({socketService}: MiddlewareDependencies): Middleware<{}, AppState> => {
+export const chartMiddleware = ({socketService}: MiddlewareDependencies): Middleware<{}, Pick<AppState, 'search'>> => {
     return ({getState}) => {
         return (next) => (action) => {
             const socket = socketService.get()
