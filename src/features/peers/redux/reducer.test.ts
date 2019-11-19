@@ -2,7 +2,7 @@ import { peers } from './reducer'
 
 const initialState: string[] = []
 
-describe('KeyStats reducer', () => {
+describe('Peers reducer', () => {
 
     it('should return the initial state', () => {
         expect(peers(
