@@ -3,7 +3,7 @@ import { News } from '../models'
 
 const initialState: News = []
 
-describe('KeyStats reducer', () => {
+describe('News reducer', () => {
 
     it('should return the initial state', () => {
         expect(news(
