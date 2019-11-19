@@ -3,7 +3,7 @@ import { Prices } from 'models'
 
 const initialState: Prices = [{ ticker: 'aapl', change: 0, changePercent: 0, latestPrice: 0, error: false }]
 
-describe('Search reducer', () => {
+describe('Price reducer', () => {
 
     it('should return the initial state', () => {
         expect(prices(
