@@ -1,8 +1,6 @@
 import { searchMiddleware } from './middleware'
 import {  updateTicker, updateQuery } from './actions'
 
-jest.mock('services/socketService');
-
 describe('Testing Chart middleware', () => {
     let mockSocket: any;
     let socketService: any;
